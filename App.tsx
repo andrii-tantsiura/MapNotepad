@@ -19,6 +19,8 @@ import { headerStyle } from "./constants/styles";
 import LoginScreen from "./pages/LoginScreen";
 import { iconSizes } from "./constants/sizes";
 
+import LEFT_BLUE from "./assets/icons/ic_left_blue.png";
+
 const AuthStack = createStackNavigator();
 
 const THEME = {
@@ -61,7 +63,7 @@ export default function App() {
                 <IconButton
                   marginLeft={8}
                   {...iconSizes.i24}
-                  source={require("./assets/icons/ic_left_blue.png")}
+                  source={LEFT_BLUE}
                   onPress={navigation.goBack}
                 />
               ),

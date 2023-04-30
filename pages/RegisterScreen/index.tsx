@@ -5,6 +5,8 @@ import styles from "./styles";
 import { iconSizes } from "../../constants/sizes";
 import { InputText } from "../../components/common/InputText";
 
+import GOOGLE_ICON from "../../assets/icons/ic_google.png";
+
 const RegisterScreen: React.FC = () => {
   return (
     <View style={styles.container}>
@@ -17,7 +19,7 @@ const RegisterScreen: React.FC = () => {
         <Separator>or</Separator>
         <IconButton
           {...iconSizes.i24}
-          source={require("../../assets/icons/ic_google.png")}
+          source={GOOGLE_ICON}
           style={styles.googleButton}
         />
       </View>

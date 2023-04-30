@@ -5,6 +5,8 @@ import { Typography, Button } from "../../components/common";
 import { Icon } from "../../components/common/Icon";
 import { outlineButton } from "../../constants/styles";
 
+import ENTER_PAGE_ICON from "../../assets/icons/pic_enter_page.png";
+
 const StartScreen: React.FC<{ route; navigation }> = ({ navigation }) => {
   const loginHandler = () => {
     navigation.navigate("Login");
@@ -17,10 +19,7 @@ const StartScreen: React.FC<{ route; navigation }> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Icon
-          height={150}
-          source={require("../../assets/icons/pic_enter_page.png")}
-        />
+        <Icon height={150} source={ENTER_PAGE_ICON} />
         <Typography size="i18" weight="bold" color="lightPrimary">
           MapNotepad
         </Typography>
