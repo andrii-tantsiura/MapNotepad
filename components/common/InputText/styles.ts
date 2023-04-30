@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     color: colors.systemBlack,
   },
   inputError: {
+    marginTop: 4,
     marginLeft: 12,
     marginBottom: 10,
     ...fontSizes.i10,

@@ -1,8 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import styles from "./styles";
-import { Typography, Button } from "../../components/common";
-import { Icon } from "../../components/common/Icon";
+import { Typography, Button, Icon } from "../../components/common";
 import { outlineButton } from "../../constants/styles";
 
 const ENTER_PAGE_ICON = require("../../assets/icons/pic_enter_page.png");

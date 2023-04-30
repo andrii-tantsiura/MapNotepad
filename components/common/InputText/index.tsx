@@ -4,8 +4,10 @@ import {
   KeyboardTypeOptions,
   NativeSyntheticEvent,
   TextInputSubmitEditingEventData,
+  TextInputFocusEventData,
+  TextInput,
+  TextInputProps,
 } from "react-native";
-import { TextInput } from "react-native-gesture-handler";
 import { Typography } from "../Typography";
 import styles from "./styles";
 import colors from "../../../constants/colors";
@@ -17,7 +19,9 @@ interface IInputTextProps {
   error?: string;
   editable?: boolean;
   secureTextEntry?: boolean;
+  autoCapitalize?: TextInputProps["autoCapitalize"];
   keyboardType?: KeyboardTypeOptions;
+  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onChangeText?: (text: string) => void;
   onSubmitEditing?: (
     e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
@@ -29,11 +33,13 @@ export const InputText: React.FC<IInputTextProps> = ({
   value,
   placeholder,
   error,
-  keyboardType = "numeric",
+  keyboardType = "default",
+  autoCapitalize,
   editable = true,
   secureTextEntry = false,
   onChangeText,
   onSubmitEditing,
+  onBlur,
 }) => (
   <View>
     <Typography textAlign="left" textStyle={styles.inputTitle}>
@@ -44,12 +50,14 @@ export const InputText: React.FC<IInputTextProps> = ({
       editable={editable}
       secureTextEntry={secureTextEntry}
       keyboardType={keyboardType}
+      autoCapitalize={autoCapitalize}
       placeholderTextColor={colors.systemGray}
       placeholder={placeholder}
       value={value}
       onChangeText={onChangeText}
       onSubmitEditing={onSubmitEditing}
-    ></TextInput>
+      onBlur={onBlur}
+    />
     <Typography textStyle={styles.inputError}>{error}</Typography>
   </View>
 );

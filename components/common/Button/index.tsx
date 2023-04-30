@@ -1,12 +1,14 @@
 import React from "react";
-import { Pressable, ViewStyle } from "react-native";
+import { Pressable, PressableStateCallbackType, ViewStyle } from "react-native";
 import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
 interface IButtonProps extends ITypographyProps {
   onPress?: () => void;
+  disabled?: boolean;
   style?: ViewStyle;
   pressedStyle?: ViewStyle;
+  disabledStyle?: ViewStyle;
 }
 
 export const Button: React.FC<IButtonProps> = ({
@@ -15,23 +17,30 @@ export const Button: React.FC<IButtonProps> = ({
   weight = "semiBold",
   color = "systemWhite",
   textAlign = "center",
+  disabled,
   textStyle,
   style,
   pressedStyle = styles.pressed,
+  disabledStyle = styles.disabled,
   onPress,
-}) => (
-  <Pressable
-    onPress={onPress}
-    style={({ pressed }) => [styles.button, style, pressed && pressedStyle]}
-  >
-    <Typography
-      size={size}
-      weight={weight}
-      color={color}
-      textAlign={textAlign}
-      textStyle={textStyle}
-    >
-      {children}
-    </Typography>
-  </Pressable>
-);
+}) => {
+  const getStyle = ({ pressed }: PressableStateCallbackType) => [
+    styles.button,
+    style,
+    disabled ? disabledStyle : pressed && pressedStyle,
+  ];
+
+  return (
+    <Pressable disabled={disabled} onPress={onPress} style={getStyle}>
+      <Typography
+        size={size}
+        weight={weight}
+        color={color}
+        textAlign={textAlign}
+        textStyle={textStyle}
+      >
+        {children}
+      </Typography>
+    </Pressable>
+  );
+};

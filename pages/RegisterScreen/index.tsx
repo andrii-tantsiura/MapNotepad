@@ -1,29 +1,88 @@
 import React from "react";
 import { View } from "react-native";
-import { Button, IconButton, Separator } from "../../components/common";
+import { Formik } from "formik";
+import * as Yup from "yup";
 import styles from "./styles";
+import {
+  Button,
+  IconButton,
+  Separator,
+  InputText,
+} from "../../components/common";
 import { iconSizes } from "../../constants/sizes";
-import { InputText } from "../../components/common/InputText";
+import {
+  emailValidationSchema,
+  nameValidationSchema,
+} from "../../utils/validationSchemas";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
+const RegisterSchema = Yup.object().shape({
+  name: nameValidationSchema,
+  email: emailValidationSchema,
+});
+
 const RegisterScreen: React.FC = () => {
   return (
-    <View style={styles.container}>
-      <View style={styles.inputsContainer}>
-        <InputText title="Name" placeholder="Enter your name" />
-        <InputText title="Email" placeholder="Enter email" />
-      </View>
-      <View style={styles.buttonsContainer}>
-        <Button>Log in</Button>
-        <Separator>or</Separator>
-        <IconButton
-          {...iconSizes.i24}
-          source={GOOGLE_ICON}
-          style={styles.googleButton}
-        />
-      </View>
-    </View>
+    <Formik
+      initialValues={{
+        name: "",
+        email: "",
+      }}
+      onSubmit={(values) => {
+        console.log(values);
+      }}
+      validationSchema={RegisterSchema}
+    >
+      {({
+        values,
+        errors,
+        isValid,
+        touched,
+        handleChange,
+        setFieldTouched,
+        handleSubmit,
+      }) => (
+        <View style={styles.container}>
+          <View style={styles.inputsContainer}>
+            <InputText
+              title="Name"
+              placeholder="Enter name"
+              value={values.name}
+              onBlur={() => setFieldTouched("name")}
+              onChangeText={handleChange("name")}
+              error={touched.name ? errors.name : undefined}
+            />
+            <InputText
+              title="Email"
+              autoCapitalize="none"
+              placeholder="Enter email"
+              keyboardType="email-address"
+              value={values.email}
+              onBlur={() => setFieldTouched("email")}
+              onChangeText={handleChange("email")}
+              error={touched.email ? errors.email : undefined}
+            />
+          </View>
+          <View style={styles.buttonsContainer}>
+            <Button
+              onPress={handleSubmit}
+              disabled={
+                !isValid || values.name.length == 0 || values.email.length == 0
+              }
+            >
+              Log in
+            </Button>
+            <Separator>or</Separator>
+            <IconButton
+              {...iconSizes.i24}
+              style={styles.googleButton}
+              source={GOOGLE_ICON}
+            />
+          </View>
+        </View>
+      )}
+    </Formik>
   );
 };
 
