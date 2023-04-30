@@ -5,9 +5,11 @@ import { Typography, Button } from "../../components/common";
 import { Icon } from "../../components/common/Icon";
 import { outlineButton } from "../../constants/styles";
 
-import ENTER_PAGE_ICON from "../../assets/icons/pic_enter_page.png";
+const ENTER_PAGE_ICON = require("../../assets/icons/pic_enter_page.png");
 
-const StartScreen: React.FC<{ route; navigation }> = ({ navigation }) => {
+const StartScreen: React.FC<{ route: any; navigation: any }> = ({
+  navigation,
+}) => {
   const loginHandler = () => {
     navigation.navigate("Login");
   };

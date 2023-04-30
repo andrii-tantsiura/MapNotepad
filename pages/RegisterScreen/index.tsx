@@ -5,7 +5,7 @@ import styles from "./styles";
 import { iconSizes } from "../../constants/sizes";
 import { InputText } from "../../components/common/InputText";
 
-import GOOGLE_ICON from "../../assets/icons/ic_google.png";
+const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
 const RegisterScreen: React.FC = () => {
   return (

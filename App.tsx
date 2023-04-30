@@ -19,7 +19,7 @@ import { headerStyle } from "./constants/styles";
 import LoginScreen from "./pages/LoginScreen";
 import { iconSizes } from "./constants/sizes";
 
-import LEFT_BLUE from "./assets/icons/ic_left_blue.png";
+const LEFT_BLUE = require("./assets/icons/ic_left_blue.png");
 
 const AuthStack = createStackNavigator();
 
