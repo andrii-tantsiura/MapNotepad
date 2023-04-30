@@ -1,19 +1,33 @@
 import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 
-import StartScreen from "./pages/StartScreen";
 import {
   BOLD_FONT_FAMILY,
   MEDIUM_FONT_FAMILY,
   REGULAR_FONT_FAMILY,
   SEMI_BOLD_FONT_FAMILY,
 } from "./constants/fontWeights";
+import colors from "./constants/colors";
+import StartScreen from "./pages/StartScreen";
+import RegisterScreen from "./pages/RegisterScreen";
+import { Typography, IconButton } from "./components/common";
+import { headerStyle } from "./constants/styles";
+import LoginScreen from "./pages/LoginScreen";
+import { iconSizes } from "./constants/sizes";
 
 const AuthStack = createStackNavigator();
+
+const THEME = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: colors.systemWhite,
+  },
+};
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -23,6 +37,7 @@ export default function App() {
     [REGULAR_FONT_FAMILY]: require("./assets/fonts/Montserrat-Regular.ttf"),
   });
 
+  // TODO: add loader or splash screen
   if (!fontsLoaded) {
     return null;
   }
@@ -30,13 +45,46 @@ export default function App() {
   return (
     <>
       <StatusBar style="auto" />
-      <NavigationContainer>
-        <AuthStack.Navigator>
+      <NavigationContainer theme={THEME}>
+        <AuthStack.Navigator
+          screenOptions={({ navigation }) => ({
+            headerTitleAlign: "center",
+            headerShadowVisible: false,
+            headerStyle: {
+              backgroundColor: colors.systemWhite,
+            },
+            headerTitle: ({ children }) => (
+              <Typography {...headerStyle}>{children}</Typography>
+            ),
+            headerLeft: () => (
+              <IconButton
+                marginLeft={8}
+                {...iconSizes.i24}
+                source={require("./assets/icons/ic_left_blue.png")}
+                onPress={navigation.goBack}
+              />
+            ),
+          })}
+        >
           <AuthStack.Screen
-            name="Login"
+            name="Start"
             component={StartScreen}
             options={{
               headerShown: false,
+            }}
+          />
+          <AuthStack.Screen
+            name="Register"
+            component={RegisterScreen}
+            options={{
+              title: "Create an account",
+            }}
+          />
+          <AuthStack.Screen
+            name="Login"
+            component={LoginScreen}
+            options={{
+              title: "Log in",
             }}
           />
         </AuthStack.Navigator>

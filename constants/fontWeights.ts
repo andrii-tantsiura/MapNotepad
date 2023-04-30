@@ -3,6 +3,13 @@ export const SEMI_BOLD_FONT_FAMILY: string = "Montserrat-SemiBold";
 export const MEDIUM_FONT_FAMILY: string = "Montserrat-Medium";
 export const REGULAR_FONT_FAMILY: string = "Montserrat-Regular";
 
+export interface IFontWeights {
+  bold: string;
+  semiBold: string;
+  regular: string;
+  medium: string;
+}
+
 export const fontWeights = {
   bold: {
     fontFamily: BOLD_FONT_FAMILY,
@@ -17,10 +24,3 @@ export const fontWeights = {
     fontFamily: REGULAR_FONT_FAMILY,
   },
 };
-
-export interface IFontWeights {
-  bold: string;
-  semiBold: string;
-  regular: string;
-  medium: string;
-}

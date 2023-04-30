@@ -47,35 +47,3 @@ const colors = {
 };
 
 export default colors;
-
-// const colors = {
-//   light: {
-//     primary: "#596EFB",
-//     disabled: "#C7CDF5",
-//     hoveredFocused: "#273BC6",
-//     pressed: "#192680",
-//     variant: "#F1F3FD",
-//   },
-//   dark: {
-//     primary: "#7485FB",
-//     disabled: "#3D4475",
-//     hoveredFocused: "#5F73FA",
-//     pressed: "#3953FE",
-//     variant: "#33374E",
-//   },
-//   system: {
-//     white: "#FEFEFD",
-//     lightGray: "#D7DDE8",
-//     gray: "#858E9E",
-//     darkGray: "#3D4E61",
-//     black: "#1E242B",
-//   },
-//   indications: {
-//     lightError: "#F24545",
-//     darkError: "#FA545F",
-//     lightConfirm: "#F6EA62",
-//     darkConfirm: "#F8FD4D",
-//     lightSuccess: "#32D27F",
-//     darkSuccess: "#00FFB1",
-//   },
-// };

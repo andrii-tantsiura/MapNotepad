@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, ImageStyle } from "react-native";
 
-interface IImageProps extends ImageStyle {
+export interface IImageProps extends ImageStyle {
   source: any;
 }
 
