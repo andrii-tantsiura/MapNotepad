@@ -46,47 +46,51 @@ export default function App() {
     <>
       <StatusBar style="auto" />
       <NavigationContainer theme={THEME}>
-        <AuthStack.Navigator
-          screenOptions={({ navigation }) => ({
-            headerTitleAlign: "center",
-            headerShadowVisible: false,
-            headerStyle: {
-              backgroundColor: colors.systemWhite,
-            },
-            headerTitle: ({ children }) => (
-              <Typography {...headerStyle}>{children}</Typography>
-            ),
-            headerLeft: () => (
-              <IconButton
-                marginLeft={8}
-                {...iconSizes.i24}
-                source={require("./assets/icons/ic_left_blue.png")}
-                onPress={navigation.goBack}
-              />
-            ),
-          })}
-        >
-          <AuthStack.Screen
-            name="Start"
-            component={StartScreen}
-            options={{
-              headerShown: false,
-            }}
-          />
-          <AuthStack.Screen
-            name="Register"
-            component={RegisterScreen}
-            options={{
-              title: "Create an account",
-            }}
-          />
-          <AuthStack.Screen
-            name="Login"
-            component={LoginScreen}
-            options={{
-              title: "Log in",
-            }}
-          />
+        <AuthStack.Navigator initialRouteName="StartScreen">
+          <AuthStack.Group
+            screenOptions={({ navigation }) => ({
+              headerTitleAlign: "center",
+              headerShadowVisible: false,
+              headerStyle: {
+                backgroundColor: colors.systemWhite,
+              },
+              headerTitle: ({ children }) => (
+                <Typography {...headerStyle}>{children}</Typography>
+              ),
+              headerLeft: () => (
+                <IconButton
+                  marginLeft={8}
+                  {...iconSizes.i24}
+                  source={require("./assets/icons/ic_left_blue.png")}
+                  onPress={navigation.goBack}
+                />
+              ),
+            })}
+          >
+            <AuthStack.Screen
+              name="Start"
+              component={StartScreen}
+              options={{
+                headerShown: false,
+              }}
+            />
+
+            <AuthStack.Screen
+              name="Register"
+              component={RegisterScreen}
+              options={{
+                title: "Create an account",
+              }}
+            />
+
+            <AuthStack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                title: "Log in",
+              }}
+            />
+          </AuthStack.Group>
         </AuthStack.Navigator>
       </NavigationContainer>
     </>

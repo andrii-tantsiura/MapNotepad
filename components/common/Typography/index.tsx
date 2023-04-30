@@ -18,20 +18,20 @@ export const Typography: React.FC<ITypographyProps> = ({
   size = "i14",
   weight = "medium",
   color = "systemWhite",
-  textAlign = "center",
+  textAlign = "left",
   numberOfLines = 1,
   textStyle,
   ...props
 }) => (
   <Text
     style={[
-      textStyle,
       {
         textAlign,
         ...fontWeights[weight],
         ...fontSizes[size],
         color: colors[color],
       },
+      textStyle,
     ]}
     {...props}
   >

@@ -9,7 +9,7 @@ export const Icon: React.FC<IImageProps> = ({
   source,
   height,
   width = "100%",
-  resizeMode = "center",
+  resizeMode = "contain",
   ...props
 }) => (
   <Image

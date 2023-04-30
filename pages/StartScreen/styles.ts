@@ -12,7 +12,8 @@ const styles = StyleSheet.create({
   },
   buttonsContainer: {
     rowGap: 16,
-    margin: 16,
+    marginHorizontal: 16,
+    marginVertical: 32,
   },
 });
 

@@ -14,7 +14,7 @@ export const Button: React.FC<IButtonProps> = ({
   size = "i14",
   weight = "semiBold",
   color = "systemWhite",
-  textAlign,
+  textAlign = "center",
   textStyle,
   style,
   pressedStyle = styles.pressed,
