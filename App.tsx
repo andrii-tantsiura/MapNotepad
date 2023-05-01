@@ -18,6 +18,7 @@ import { Typography, IconButton } from "./components/common";
 import { headerStyle } from "./constants/styles";
 import LoginScreen from "./pages/LoginScreen";
 import { iconSizes } from "./constants/sizes";
+import RegisterPasswordScreen from "./pages/RegisterPasswordScreen";
 
 const LEFT_BLUE = require("./assets/icons/ic_left_blue.png");
 
@@ -80,6 +81,14 @@ export default function App() {
             <AuthStack.Screen
               name="Register"
               component={RegisterScreen}
+              options={{
+                title: "Create an account",
+              }}
+            />
+
+            <AuthStack.Screen
+              name="RegisterPassword"
+              component={RegisterPasswordScreen}
               options={{
                 title: "Create an account",
               }}
