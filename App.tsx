@@ -12,13 +12,13 @@ import {
   SEMI_BOLD_FONT_FAMILY,
 } from "./constants/fontWeights";
 import colors from "./constants/colors";
-import StartScreen from "./pages/StartScreen";
-import RegisterScreen from "./pages/RegisterScreen";
+import Welcome from "./pages/Welcome";
+import Register from "./pages/Register";
 import { Typography, IconButton } from "./components/common";
 import { headerStyle } from "./constants/styles";
-import LoginScreen from "./pages/LoginScreen";
+import Login from "./pages/Login";
 import { iconSizes } from "./constants/sizes";
-import RegisterPasswordScreen from "./pages/RegisterPasswordScreen";
+import RegisterPassword from "./pages/RegisterPassword";
 
 const LEFT_BLUE = require("./assets/icons/ic_left_blue.png");
 
@@ -72,7 +72,7 @@ export default function App() {
           >
             <AuthStack.Screen
               name="Start"
-              component={StartScreen}
+              component={Welcome}
               options={{
                 headerShown: false,
               }}
@@ -80,7 +80,7 @@ export default function App() {
 
             <AuthStack.Screen
               name="Register"
-              component={RegisterScreen}
+              component={Register}
               options={{
                 title: "Create an account",
               }}
@@ -88,7 +88,7 @@ export default function App() {
 
             <AuthStack.Screen
               name="RegisterPassword"
-              component={RegisterPasswordScreen}
+              component={RegisterPassword}
               options={{
                 title: "Create an account",
               }}
@@ -96,7 +96,7 @@ export default function App() {
 
             <AuthStack.Screen
               name="Login"
-              component={LoginScreen}
+              component={Login}
               options={{
                 title: "Log in",
               }}

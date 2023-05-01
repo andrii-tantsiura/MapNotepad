@@ -12,26 +12,30 @@ import {
 import { iconSizes } from "../../constants/sizes";
 import {
   emailValidationSchema,
-  nameValidationSchema,
+  passwordValidationSchema,
 } from "../../utils/validationSchemas";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
 const RegisterSchema = Yup.object().shape({
-  name: nameValidationSchema,
+  password: passwordValidationSchema,
   email: emailValidationSchema,
 });
 
-const RegisterScreen: React.FC = ({ navigation }: any) => {
+// TODO: добавить типизацию
+const Login: React.FC = ({ navigation, route }: any) => {
   const submitHandler = (values: any) => {
-    navigation.navigate("RegisterPassword");
+    navigation.navigate("RegisterPassword", {
+      password: values.password,
+      email: values.email,
+    });
   };
 
   return (
     <Formik
       initialValues={{
-        name: "",
-        email: "",
+        password: "",
+        email: route.params?.email ?? "",
       }}
       onSubmit={submitHandler}
       validationSchema={RegisterSchema}
@@ -48,14 +52,6 @@ const RegisterScreen: React.FC = ({ navigation }: any) => {
         <View style={styles.container}>
           <View style={styles.inputsContainer}>
             <InputText
-              title="Name"
-              placeholder="Enter name"
-              value={values.name}
-              onBlur={() => setFieldTouched("name")}
-              onChangeText={handleChange("name")}
-              error={touched.name ? errors.name : undefined}
-            />
-            <InputText
               title="Email"
               autoCapitalize="none"
               placeholder="Enter email"
@@ -65,12 +61,22 @@ const RegisterScreen: React.FC = ({ navigation }: any) => {
               onChangeText={handleChange("email")}
               error={touched.email ? errors.email : undefined}
             />
+            <InputText
+              title="Password"
+              placeholder="Enter password"
+              value={values.password}
+              onBlur={() => setFieldTouched("password")}
+              onChangeText={handleChange("password")}
+              error={touched.password ? errors.password : undefined}
+            />
           </View>
           <View style={styles.buttonsContainer}>
             <Button
               onPress={handleSubmit}
               disabled={
-                !isValid || values.name.length == 0 || values.email.length == 0
+                !isValid ||
+                values.password.length == 0 ||
+                values.email.length == 0
               }
             >
               Next
@@ -88,4 +94,4 @@ const RegisterScreen: React.FC = ({ navigation }: any) => {
   );
 };
 
-export default RegisterScreen;
+export default Login;

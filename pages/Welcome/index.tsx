@@ -3,12 +3,11 @@ import { View } from "react-native";
 import styles from "./styles";
 import { Typography, Button, Icon } from "../../components/common";
 import { outlineButton } from "../../constants/styles";
+import { Route } from "@react-navigation/native";
 
 const ENTER_PAGE_ICON = require("../../assets/icons/pic_enter_page.png");
 
-const StartScreen: React.FC<{ route: any; navigation: any }> = ({
-  navigation,
-}) => {
+const Welcome: React.FC<{ route: any; navigation: any }> = ({ navigation }) => {
   const loginHandler = () => {
     navigation.navigate("Login");
   };
@@ -35,4 +34,4 @@ const StartScreen: React.FC<{ route: any; navigation: any }> = ({
   );
 };
 
-export default StartScreen;
+export default Welcome;

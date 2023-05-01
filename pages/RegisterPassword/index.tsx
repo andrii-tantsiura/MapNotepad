@@ -14,6 +14,7 @@ import {
   passwordValidationSchema,
   confirmPasswordValidationSchema,
 } from "../../utils/validationSchemas";
+import { StackScreenProps } from "@react-navigation/stack";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -22,9 +23,13 @@ const RegisterSchema = Yup.object().shape({
   confirmPassword: confirmPasswordValidationSchema,
 });
 
-const RegisterPasswordScreen: React.FC = ({ navigation }: any) => {
+type Props = StackScreenProps<RootStackParamList, "Profile">;
+
+const RegisterPassword: React.FC = ({ navigation, route }: any) => {
+  console.log(route.params);
+
   const submitHandler = (values: any) => {
-    // navigation.navigate("Login");
+    navigation.navigate("Login", { email: route.params.email });
   };
 
   return (
@@ -93,4 +98,4 @@ const RegisterPasswordScreen: React.FC = ({ navigation }: any) => {
   );
 };
 
-export default RegisterPasswordScreen;
+export default RegisterPassword;
