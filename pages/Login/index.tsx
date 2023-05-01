@@ -9,7 +9,6 @@ import {
   Separator,
   InputText,
 } from "../../components/common";
-import { iconSizes } from "../../constants/sizes";
 import {
   emailValidationSchema,
   passwordValidationSchema,
@@ -18,6 +17,7 @@ import { Props } from "../../navigation/AuthStack/types";
 import { globalStyles } from "../../constants/styles";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
+const LEFT_BLUE = require("../../assets/icons/ic_left_blue.png");
 
 const RegisterSchema = Yup.object().shape({
   password: passwordValidationSchema,
@@ -25,12 +25,7 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const Login: React.FC<Props> = ({ navigation, route }) => {
-  const submitHandler = (values: any) => {
-    navigation.navigate("RegisterPassword", {
-      password: values.password,
-      email: values.email,
-    });
-  };
+  const submitHandler = (values: any) => {};
 
   return (
     <Formik
@@ -84,8 +79,7 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
             </Button>
             <Separator>or</Separator>
             <IconButton
-              {...iconSizes.i24}
-              style={globalStyles.buttonOutline_i1}
+              style={globalStyles.iconButtonOutline_i1}
               source={GOOGLE_ICON}
             />
           </View>

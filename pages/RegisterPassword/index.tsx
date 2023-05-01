@@ -9,7 +9,6 @@ import {
   Separator,
   InputText,
 } from "../../components/common";
-import { iconSizes } from "../../constants/sizes";
 import {
   passwordValidationSchema,
   confirmPasswordValidationSchema,
@@ -84,8 +83,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
             </Button>
             <Separator>or</Separator>
             <IconButton
-              {...iconSizes.i24}
-              style={globalStyles.buttonOutline_i1}
+              style={globalStyles.iconButtonOutline_i1}
               source={GOOGLE_ICON}
             />
           </View>

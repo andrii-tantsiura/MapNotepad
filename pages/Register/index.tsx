@@ -9,7 +9,6 @@ import {
   Separator,
   InputText,
 } from "../../components/common";
-import { iconSizes } from "../../constants/sizes";
 import {
   emailValidationSchema,
   nameValidationSchema,
@@ -82,7 +81,6 @@ const Register: React.FC<Props> = ({ navigation }) => {
             </Button>
             <Separator>or</Separator>
             <IconButton
-              {...iconSizes.i24}
               style={globalStyles.iconButtonOutline_i1}
               source={GOOGLE_ICON}
             />

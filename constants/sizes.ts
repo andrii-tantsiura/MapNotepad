@@ -6,11 +6,6 @@ export interface IFontSizes {
   i18: number;
 }
 
-export interface IIconSizes {
-  i20: number;
-  i24: number;
-}
-
 const scaleCoefficient: number = 1.2;
 
 export const fontSizes = {
@@ -28,16 +23,5 @@ export const fontSizes = {
   },
   i18: {
     fontSize: 18 * scaleCoefficient,
-  },
-};
-
-export const iconSizes = {
-  i20: {
-    height: 20 * scaleCoefficient,
-    width: 20 * scaleCoefficient,
-  },
-  i24: {
-    height: 24 * scaleCoefficient,
-    width: 24 * scaleCoefficient,
   },
 };

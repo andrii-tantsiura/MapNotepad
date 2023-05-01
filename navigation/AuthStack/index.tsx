@@ -1,12 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { IconButton, Typography } from "../../components/common";
-import { iconSizes } from "../../constants/sizes";
 import RegisterPassword from "../../pages/RegisterPassword";
 import Register from "../../pages/Register";
 import Login from "../../pages/Login";
 import Welcome from "../../pages/Welcome";
-import { headerStyle } from "../../constants/styles";
 import colors from "../../constants/colors";
 import { RootStackParamList } from "./types";
 
@@ -24,12 +22,13 @@ export const AuthStack: React.FC = () => (
         backgroundColor: colors.systemWhite,
       },
       headerTitle: ({ children }) => (
-        <Typography {...headerStyle}>{children}</Typography>
+        <Typography size="i16" weight="semiBold" color="systemBlack">
+          {children}
+        </Typography>
       ),
       headerLeft: () => (
         <IconButton
-          marginLeft={8}
-          {...iconSizes.i24}
+          style={{ marginLeft: 8 }}
           source={LEFT_BLUE}
           onPress={navigation.goBack}
         />

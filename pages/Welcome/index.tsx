@@ -1,8 +1,8 @@
 import React from "react";
-import { View } from "react-native";
+import { Image, View } from "react-native";
 import styles from "./styles";
-import { Typography, Button, Icon } from "../../components/common";
-import { globalStyles, outlineButton } from "../../constants/styles";
+import { Typography, Button } from "../../components/common";
+import { globalStyles } from "../../constants/styles";
 import { Props } from "../../navigation/AuthStack/types";
 
 const ENTER_PAGE_ICON = require("../../assets/icons/pic_enter_page.png");
@@ -19,7 +19,11 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.logoContainer}>
-        <Icon height={150} source={ENTER_PAGE_ICON} />
+        <Image
+          style={{ height: 150, width: "100%" }}
+          resizeMode="center"
+          source={ENTER_PAGE_ICON}
+        />
         <Typography size="i18" weight="bold" color="lightPrimary">
           MapNotepad
         </Typography>

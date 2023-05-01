@@ -8,9 +8,9 @@ import {
   TextInput,
   TextInputProps,
 } from "react-native";
-import { Typography } from "../Typography";
 import styles from "./styles";
 import colors from "../../../constants/colors";
+import { Typography } from "../Typography";
 
 interface IInputTextProps {
   title: string;
@@ -18,8 +18,8 @@ interface IInputTextProps {
   value?: string;
   error?: string;
   editable?: boolean;
-  secureTextEntry?: boolean;
   autoCapitalize?: TextInputProps["autoCapitalize"];
+  secureTextEntry?: boolean;
   keyboardType?: KeyboardTypeOptions;
   onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
   onChangeText?: (text: string) => void;
@@ -30,13 +30,13 @@ interface IInputTextProps {
 
 export const InputText: React.FC<IInputTextProps> = ({
   title,
-  value,
   placeholder,
+  value,
   error,
-  keyboardType = "default",
-  autoCapitalize,
   editable = true,
+  autoCapitalize,
   secureTextEntry = false,
+  keyboardType = "default",
   onChangeText,
   onSubmitEditing,
   onBlur,

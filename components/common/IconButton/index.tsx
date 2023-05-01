@@ -1,24 +1,37 @@
 import React from "react";
-import { Pressable, ViewStyle, PressableStateCallbackType } from "react-native";
+import {
+  Pressable,
+  ViewStyle,
+  PressableStateCallbackType,
+  Image,
+  ImageStyle,
+} from "react-native";
 import styles from "./styles";
-import { IImageProps, Icon } from "../Icon";
 
-interface IIconButtonProps extends IImageProps {
-  onPress?: () => void;
+interface IIconButtonProps {
+  source: any;
+  iconHeight?: ImageStyle["height"];
+  iconWidth?: ImageStyle["width"];
+  resizeMode?: ImageStyle["resizeMode"];
   disabled?: boolean;
+  imageStyle?: ImageStyle;
   style?: ViewStyle;
   pressedStyle?: ViewStyle;
   disabledStyle?: ViewStyle;
+  onPress?: () => void;
 }
 
 export const IconButton: React.FC<IIconButtonProps> = ({
   source,
-  style,
+  iconHeight = 24,
+  iconWidth = 24,
+  resizeMode = "center",
   disabled,
+  imageStyle,
+  style,
   pressedStyle = styles.pressed,
   disabledStyle = styles.disabled,
   onPress,
-  ...props
 }) => {
   const getStyle = ({ pressed }: PressableStateCallbackType) => [
     style,
@@ -27,7 +40,11 @@ export const IconButton: React.FC<IIconButtonProps> = ({
 
   return (
     <Pressable disabled={disabled} onPress={onPress} style={getStyle}>
-      <Icon source={source} {...props} />
+      <Image
+        style={[imageStyle, { height: iconHeight, width: iconWidth }]}
+        resizeMode={resizeMode}
+        source={source}
+      />
     </Pressable>
   );
 };
