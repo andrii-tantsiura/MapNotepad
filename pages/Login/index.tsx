@@ -14,6 +14,8 @@ import {
   emailValidationSchema,
   passwordValidationSchema,
 } from "../../utils/validationSchemas";
+import { Props } from "../../navigation/AuthStack/types";
+import { globalStyles } from "../../constants/styles";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -22,8 +24,7 @@ const RegisterSchema = Yup.object().shape({
   email: emailValidationSchema,
 });
 
-// TODO: добавить типизацию
-const Login: React.FC = ({ navigation, route }: any) => {
+const Login: React.FC<Props> = ({ navigation, route }) => {
   const submitHandler = (values: any) => {
     navigation.navigate("RegisterPassword", {
       password: values.password,
@@ -84,7 +85,7 @@ const Login: React.FC = ({ navigation, route }: any) => {
             <Separator>or</Separator>
             <IconButton
               {...iconSizes.i24}
-              style={styles.googleButton}
+              style={globalStyles.buttonOutline_i1}
               source={GOOGLE_ICON}
             />
           </View>

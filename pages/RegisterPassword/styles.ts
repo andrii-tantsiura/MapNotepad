@@ -14,12 +14,6 @@ const styles = StyleSheet.create({
     marginTop: 24,
     rowGap: 16,
   },
-  googleButton: {
-    alignItems: "center",
-    paddingVertical: 8,
-    borderWidth: 1,
-    borderColor: colors.systemLightGray,
-  },
 });
 
 export default styles;

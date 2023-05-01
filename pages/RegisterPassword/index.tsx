@@ -14,7 +14,8 @@ import {
   passwordValidationSchema,
   confirmPasswordValidationSchema,
 } from "../../utils/validationSchemas";
-import { StackScreenProps } from "@react-navigation/stack";
+import { Props } from "../../navigation/AuthStack/types";
+import { globalStyles } from "../../constants/styles";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -23,13 +24,9 @@ const RegisterSchema = Yup.object().shape({
   confirmPassword: confirmPasswordValidationSchema,
 });
 
-type Props = StackScreenProps<RootStackParamList, "Profile">;
-
-const RegisterPassword: React.FC = ({ navigation, route }: any) => {
-  console.log(route.params);
-
+const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
   const submitHandler = (values: any) => {
-    navigation.navigate("Login", { email: route.params.email });
+    navigation.navigate("Login", { email: route.params?.email });
   };
 
   return (
@@ -88,7 +85,7 @@ const RegisterPassword: React.FC = ({ navigation, route }: any) => {
             <Separator>or</Separator>
             <IconButton
               {...iconSizes.i24}
-              style={styles.googleButton}
+              style={globalStyles.buttonOutline_i1}
               source={GOOGLE_ICON}
             />
           </View>

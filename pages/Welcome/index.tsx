@@ -2,12 +2,12 @@ import React from "react";
 import { View } from "react-native";
 import styles from "./styles";
 import { Typography, Button, Icon } from "../../components/common";
-import { outlineButton } from "../../constants/styles";
-import { Route } from "@react-navigation/native";
+import { globalStyles, outlineButton } from "../../constants/styles";
+import { Props } from "../../navigation/AuthStack/types";
 
 const ENTER_PAGE_ICON = require("../../assets/icons/pic_enter_page.png");
 
-const Welcome: React.FC<{ route: any; navigation: any }> = ({ navigation }) => {
+const Welcome: React.FC<Props> = ({ navigation }) => {
   const loginHandler = () => {
     navigation.navigate("Login");
   };
@@ -26,7 +26,11 @@ const Welcome: React.FC<{ route: any; navigation: any }> = ({ navigation }) => {
       </View>
       <View style={styles.buttonsContainer}>
         <Button onPress={loginHandler}>Log in</Button>
-        <Button {...outlineButton} onPress={registerHandler}>
+        <Button
+          color="lightPrimary"
+          style={globalStyles.buttonOutline_i1}
+          onPress={registerHandler}
+        >
           Create account
         </Button>
       </View>

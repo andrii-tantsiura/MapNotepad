@@ -14,6 +14,8 @@ import {
   emailValidationSchema,
   nameValidationSchema,
 } from "../../utils/validationSchemas";
+import { Props } from "../../navigation/AuthStack/types";
+import { globalStyles } from "../../constants/styles";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -22,7 +24,7 @@ const RegisterSchema = Yup.object().shape({
   email: emailValidationSchema,
 });
 
-const Register: React.FC = ({ navigation }: any) => {
+const Register: React.FC<Props> = ({ navigation }) => {
   const submitHandler = (values: any) => {
     navigation.navigate("RegisterPassword", {
       name: values.name,
@@ -81,7 +83,7 @@ const Register: React.FC = ({ navigation }: any) => {
             <Separator>or</Separator>
             <IconButton
               {...iconSizes.i24}
-              style={styles.googleButton}
+              style={globalStyles.iconButtonOutline_i1}
               source={GOOGLE_ICON}
             />
           </View>
