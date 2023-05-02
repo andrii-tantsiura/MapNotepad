@@ -48,6 +48,7 @@ const Register: React.FC<Props> = ({ navigation }) => {
         handleChange,
         setFieldTouched,
         handleSubmit,
+        setFieldValue,
       }) => (
         <View style={styles.container}>
           <View style={styles.inputsContainer}>
@@ -57,6 +58,7 @@ const Register: React.FC<Props> = ({ navigation }) => {
               value={values.name}
               onBlur={() => setFieldTouched("name")}
               onChangeText={handleChange("name")}
+              onClear={() => setFieldValue("name", "")}
               error={touched.name ? errors.name : undefined}
             />
             <InputText
@@ -67,6 +69,7 @@ const Register: React.FC<Props> = ({ navigation }) => {
               value={values.email}
               onBlur={() => setFieldTouched("email")}
               onChangeText={handleChange("email")}
+              onClear={() => setFieldValue("email", "")}
               error={touched.email ? errors.email : undefined}
             />
           </View>

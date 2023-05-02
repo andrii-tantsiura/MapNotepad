@@ -11,11 +11,16 @@ const styles = StyleSheet.create({
     ...fontWeights.medium,
     color: colors.systemDarkGray,
   },
-  input: {
+  inputContainer: {
+    flexDirection: "row",
     paddingHorizontal: 12,
     height: 48,
     borderWidth: 1,
     borderColor: colors.systemLightGray,
+  },
+  input: {
+    flex: 1,
+    height: 48,
     ...fontSizes.i14,
     ...fontWeights.medium,
     color: colors.systemBlack,
@@ -27,6 +32,14 @@ const styles = StyleSheet.create({
     ...fontSizes.i10,
     ...fontWeights.medium,
     color: colors.lightError,
+  },
+  clear: {
+    justifyContent: "center",
+  },
+  buttonsContainer: {
+    marginLeft: 8,
+    flexDirection: "row",
+    columnGap: 4,
   },
 });
 

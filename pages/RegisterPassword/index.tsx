@@ -2,6 +2,8 @@ import React from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { CommonActions } from "@react-navigation/native";
+
 import styles from "./styles";
 import {
   Button,
@@ -24,8 +26,19 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
-  const submitHandler = (values: any) => {
-    navigation.navigate("Login", { email: route.params?.email });
+  const submitHandler = () => {
+    navigation.dispatch(
+      CommonActions.reset({
+        index: 1,
+        routes: [
+          { name: "Welcome" },
+          {
+            name: "Login",
+            params: { email: route.params?.email },
+          },
+        ],
+      })
+    );
   };
 
   return (
@@ -45,26 +58,30 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
         handleChange,
         setFieldTouched,
         handleSubmit,
+        setFieldValue,
       }) => (
         <View style={styles.container}>
           <View style={styles.inputsContainer}>
             <InputText
-              keyboardType="numeric"
+              secureTextEntry
+              autoCapitalize="none"
               title="Password"
               placeholder="Create password"
               value={values.password}
               onBlur={() => setFieldTouched("password")}
               onChangeText={handleChange("password")}
               error={touched.password ? errors.password : undefined}
+              onClear={() => setFieldValue("password", "")}
             />
             <InputText
+              secureTextEntry
               autoCapitalize="none"
-              keyboardType="numeric"
               title="Confirm password"
               placeholder="Repeat password"
               value={values.confirmPassword}
               onBlur={() => setFieldTouched("confirmPassword")}
               onChangeText={handleChange("confirmPassword")}
+              onClear={() => setFieldValue("confirmPassword", "")}
               error={
                 touched.confirmPassword ? errors.confirmPassword : undefined
               }
