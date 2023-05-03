@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  logo: { height: 150, width: "100%" },
   logoContainer: {
     flex: 1,
     justifyContent: "center",

@@ -26,7 +26,7 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
-  const submitHandler = () => {
+  const createAccountHandler = () =>
     navigation.dispatch(
       CommonActions.reset({
         index: 1,
@@ -39,7 +39,6 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
         ],
       })
     );
-  };
 
   return (
     <Formik
@@ -47,7 +46,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
         password: "",
         confirmPassword: "",
       }}
-      onSubmit={submitHandler}
+      onSubmit={createAccountHandler}
       validationSchema={RegisterSchema}
     >
       {({
@@ -59,53 +58,62 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
         setFieldTouched,
         handleSubmit,
         setFieldValue,
-      }) => (
-        <View style={styles.container}>
-          <View style={styles.inputsContainer}>
-            <InputText
-              secureTextEntry
-              autoCapitalize="none"
-              title="Password"
-              placeholder="Create password"
-              value={values.password}
-              onBlur={() => setFieldTouched("password")}
-              onChangeText={handleChange("password")}
-              error={touched.password ? errors.password : undefined}
-              onClear={() => setFieldValue("password", "")}
-            />
-            <InputText
-              secureTextEntry
-              autoCapitalize="none"
-              title="Confirm password"
-              placeholder="Repeat password"
-              value={values.confirmPassword}
-              onBlur={() => setFieldTouched("confirmPassword")}
-              onChangeText={handleChange("confirmPassword")}
-              onClear={() => setFieldValue("confirmPassword", "")}
-              error={
-                touched.confirmPassword ? errors.confirmPassword : undefined
-              }
-            />
+      }) => {
+        const isAccountCreationDisabled =
+          !isValid ||
+          values.password.length == 0 ||
+          values.confirmPassword.length == 0;
+
+        const passwordErrorText = touched.password
+          ? errors.password
+          : undefined;
+
+        const confirmPasswordErrorText = touched.confirmPassword
+          ? errors.confirmPassword
+          : undefined;
+
+        return (
+          <View style={styles.container}>
+            <View style={styles.inputsContainer}>
+              <InputText
+                secureTextEntry
+                autoCapitalize="none"
+                title="Password"
+                placeholder="Create password"
+                value={values.password}
+                onBlur={() => setFieldTouched("password")}
+                onChangeText={handleChange("password")}
+                error={passwordErrorText}
+                onClear={() => setFieldValue("password", "")}
+              />
+              <InputText
+                secureTextEntry
+                autoCapitalize="none"
+                title="Confirm password"
+                placeholder="Repeat password"
+                value={values.confirmPassword}
+                onBlur={() => setFieldTouched("confirmPassword")}
+                onChangeText={handleChange("confirmPassword")}
+                onClear={() => setFieldValue("confirmPassword", "")}
+                error={confirmPasswordErrorText}
+              />
+            </View>
+            <View style={styles.buttonsContainer}>
+              <Button
+                onPress={handleSubmit}
+                disabled={isAccountCreationDisabled}
+              >
+                Create account
+              </Button>
+              <Separator>or</Separator>
+              <IconButton
+                style={globalStyles.iconButtonOutline_i1}
+                source={GOOGLE_ICON}
+              />
+            </View>
           </View>
-          <View style={styles.buttonsContainer}>
-            <Button
-              onPress={handleSubmit}
-              disabled={
-                !isValid ||
-                values.password.length == 0 ||
-                values.confirmPassword.length == 0
-              }
-            >
-              Create account
-            </Button>
-            <Separator>or</Separator>
-            <IconButton
-              style={globalStyles.iconButtonOutline_i1}
-              source={GOOGLE_ICON}
-            />
-          </View>
-        </View>
-      )}
+        );
+      }}
     </Formik>
   );
 };

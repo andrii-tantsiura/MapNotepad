@@ -33,18 +33,19 @@ export const IconButton: React.FC<IIconButtonProps> = ({
   disabledStyle = styles.disabled,
   onPress,
 }) => {
-  const getStyle = ({ pressed }: PressableStateCallbackType) => [
+  const getContainerStyle = ({ pressed }: PressableStateCallbackType) => [
     style,
     disabled ? disabledStyle : pressed && pressedStyle,
   ];
 
+  const mergedImageStyle = [
+    imageStyle,
+    { height: iconHeight, width: iconWidth },
+  ];
+
   return (
-    <Pressable disabled={disabled} onPress={onPress} style={getStyle}>
-      <Image
-        style={[imageStyle, { height: iconHeight, width: iconWidth }]}
-        resizeMode={resizeMode}
-        source={source}
-      />
+    <Pressable disabled={disabled} onPress={onPress} style={getContainerStyle}>
+      <Image style={mergedImageStyle} resizeMode={resizeMode} source={source} />
     </Pressable>
   );
 };

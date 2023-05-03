@@ -1,13 +1,5 @@
 import React, { useRef, useState } from "react";
-import {
-  View,
-  KeyboardTypeOptions,
-  NativeSyntheticEvent,
-  TextInputSubmitEditingEventData,
-  TextInputFocusEventData,
-  TextInput,
-  TextInputProps,
-} from "react-native";
+import { View, TextInput, TextInputProps } from "react-native";
 import styles from "./styles";
 import colors from "../../../constants/colors";
 import { Typography } from "../Typography";
@@ -17,20 +9,9 @@ const CLEAR_ICON = require("../../../assets/icons/ic_clear.png");
 const EYE_ICON = require("../../../assets/icons/ic_eye.png");
 const EYE_ICON_OFF = require("../../../assets/icons/ic_eye_off.png");
 
-interface IInputTextProps {
+interface IInputTextProps extends TextInputProps {
   title: string;
-  placeholder?: string;
-  value?: string;
   error?: string;
-  editable?: boolean;
-  autoCapitalize?: TextInputProps["autoCapitalize"];
-  secureTextEntry?: boolean;
-  keyboardType?: KeyboardTypeOptions;
-  onBlur?: (e: NativeSyntheticEvent<TextInputFocusEventData>) => void;
-  onChangeText?: (text: string) => void;
-  onSubmitEditing?: (
-    e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
-  ) => void;
   onClear?: () => void;
 }
 
@@ -48,9 +29,8 @@ export const InputText: React.FC<IInputTextProps> = ({
   onBlur,
   onClear,
 }) => {
-  const inputRef = useRef<TextInput>(null);
   const [isSecureText, setIsSecureText] = useState(secureTextEntry);
-
+  const ref = useRef<TextInput>(null);
   const toggleIsSecureText = () => setIsSecureText(!isSecureText);
 
   const passwordIcon = isSecureText ? EYE_ICON : EYE_ICON_OFF;
@@ -62,7 +42,7 @@ export const InputText: React.FC<IInputTextProps> = ({
       </Typography>
       <View style={styles.inputContainer}>
         <TextInput
-          ref={inputRef}
+          ref={ref}
           style={styles.input}
           editable={editable}
           secureTextEntry={secureTextEntry && isSecureText}
@@ -75,7 +55,7 @@ export const InputText: React.FC<IInputTextProps> = ({
           onSubmitEditing={onSubmitEditing}
           onBlur={onBlur}
         />
-        {value && inputRef.current?.isFocused() && (
+        {value && ref.current?.isFocused() && (
           <View style={styles.buttonsContainer}>
             {secureTextEntry && (
               <IconButton

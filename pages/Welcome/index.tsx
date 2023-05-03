@@ -20,7 +20,7 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image
-          style={{ height: 150, width: "100%" }}
+          style={styles.logo}
           resizeMode="center"
           source={ENTER_PAGE_ICON}
         />

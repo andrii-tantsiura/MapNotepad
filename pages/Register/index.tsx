@@ -24,7 +24,7 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const Register: React.FC<Props> = ({ navigation }) => {
-  const submitHandler = (values: any) => {
+  const goToNextRegistrationStepHandler = (values: any) => {
     navigation.navigate("RegisterPassword", {
       name: values.name,
       email: values.email,
@@ -37,7 +37,7 @@ const Register: React.FC<Props> = ({ navigation }) => {
         name: "",
         email: "",
       }}
-      onSubmit={submitHandler}
+      onSubmit={goToNextRegistrationStepHandler}
       validationSchema={RegisterSchema}
     >
       {({
@@ -49,47 +49,53 @@ const Register: React.FC<Props> = ({ navigation }) => {
         setFieldTouched,
         handleSubmit,
         setFieldValue,
-      }) => (
-        <View style={styles.container}>
-          <View style={styles.inputsContainer}>
-            <InputText
-              title="Name"
-              placeholder="Enter name"
-              value={values.name}
-              onBlur={() => setFieldTouched("name")}
-              onChangeText={handleChange("name")}
-              onClear={() => setFieldValue("name", "")}
-              error={touched.name ? errors.name : undefined}
-            />
-            <InputText
-              title="Email"
-              autoCapitalize="none"
-              placeholder="Enter email"
-              keyboardType="email-address"
-              value={values.email}
-              onBlur={() => setFieldTouched("email")}
-              onChangeText={handleChange("email")}
-              onClear={() => setFieldValue("email", "")}
-              error={touched.email ? errors.email : undefined}
-            />
+      }) => {
+        const isNextRegistrationStepDisabled =
+          !isValid || values.name.length == 0 || values.email.length == 0;
+
+        const nameErrorText = touched.name ? errors.name : undefined;
+        const emailErrorText = touched.email ? errors.email : undefined;
+
+        return (
+          <View style={styles.container}>
+            <View style={styles.inputsContainer}>
+              <InputText
+                title="Name"
+                placeholder="Enter name"
+                value={values.name}
+                onBlur={() => setFieldTouched("name")}
+                onChangeText={handleChange("name")}
+                onClear={() => setFieldValue("name", "")}
+                error={nameErrorText}
+              />
+              <InputText
+                title="Email"
+                autoCapitalize="none"
+                placeholder="Enter email"
+                keyboardType="email-address"
+                value={values.email}
+                onBlur={() => setFieldTouched("email")}
+                onChangeText={handleChange("email")}
+                onClear={() => setFieldValue("email", "")}
+                error={emailErrorText}
+              />
+            </View>
+            <View style={styles.buttonsContainer}>
+              <Button
+                onPress={handleSubmit}
+                disabled={isNextRegistrationStepDisabled}
+              >
+                Next
+              </Button>
+              <Separator>or</Separator>
+              <IconButton
+                style={globalStyles.iconButtonOutline_i1}
+                source={GOOGLE_ICON}
+              />
+            </View>
           </View>
-          <View style={styles.buttonsContainer}>
-            <Button
-              onPress={handleSubmit}
-              disabled={
-                !isValid || values.name.length == 0 || values.email.length == 0
-              }
-            >
-              Next
-            </Button>
-            <Separator>or</Separator>
-            <IconButton
-              style={globalStyles.iconButtonOutline_i1}
-              source={GOOGLE_ICON}
-            />
-          </View>
-        </View>
-      )}
+        );
+      }}
     </Formik>
   );
 };
