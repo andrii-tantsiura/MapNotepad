@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
+import NetInfo from "@react-native-community/netinfo";
 
 import {
   BOLD_FONT_FAMILY,
@@ -12,6 +13,8 @@ import {
 } from "./constants/fontWeights";
 import colors from "./constants/colors";
 import { AuthStack } from "./navigation/AuthStack";
+import { NetworkInfoContext } from "./store/NetworkInfoContext";
+import FlashMessage from "react-native-flash-message";
 
 const THEME = {
   ...DefaultTheme,
@@ -29,17 +32,26 @@ export default function App() {
     [REGULAR_FONT_FAMILY]: require("./assets/fonts/Montserrat-Regular.ttf"),
   });
 
-  // TODO: add loader or splash screen
-  if (!fontsLoaded) {
-    return null;
-  }
+  const [isConnected, setIsConnected] = useState<boolean | null>(true);
 
-  return (
+  useEffect(() => {
+    const unsubscribe = NetInfo.addEventListener((state) => {
+      setIsConnected(state.isConnected);
+    });
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  return !fontsLoaded ? null : (
     <>
       <StatusBar style="auto" />
-      <NavigationContainer theme={THEME}>
-        <AuthStack />
-      </NavigationContainer>
+      <NetworkInfoContext.Provider value={isConnected}>
+        <NavigationContainer theme={THEME}>
+          <AuthStack />
+        </NavigationContainer>
+      </NetworkInfoContext.Provider>
+      <FlashMessage position={"bottom"} />
     </>
   );
 }

@@ -20,6 +20,17 @@ export interface IColors {
   darkConfirm: string;
   lightSuccess: string;
   darkSuccess: string;
+  warning: string;
+  info: string;
+}
+
+interface IFlashMessageColors {
+  info: string;
+  success: string;
+  warning: string;
+  danger: string;
+  none: string;
+  default: string;
 }
 
 const colors = {
@@ -44,6 +55,17 @@ const colors = {
   darkConfirm: "#F8FD4D",
   lightSuccess: "#32D27F",
   darkSuccess: "#00FFB1",
+  warning: "#F0AD4E",
+  info: "#4ea2e1",
+};
+
+export const flashMessageColors: IFlashMessageColors = {
+  info: colors.info,
+  success: colors.lightSuccess,
+  warning: colors.warning,
+  danger: colors.lightError,
+  none: colors.darkDisabled,
+  default: colors.darkDisabled,
 };
 
 export default colors;
