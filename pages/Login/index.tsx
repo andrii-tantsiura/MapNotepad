@@ -29,10 +29,15 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const Login: React.FC<Props> = ({ navigation, route }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const isConnected = useNetInfo();
+  const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState(route.params?.email ?? "");
+  const [password, setPassword] = useState("");
 
   const submitHandler = async (values: any) => {
+    setEmail(values.email);
+    setPassword(values.password);
+
     if (isConnected) {
       setIsLoading(true);
 
@@ -46,6 +51,7 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
       if (errorCode) {
         AlertService.error(getErrorMessage(errorCode));
       } else {
+        // TODO: add token to AuthContext
         // TODO: navigate to home page
         console.log("success", idToken);
       }
@@ -62,8 +68,8 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
     <Formik
       // TODO: set the data entered by the user instead of empty values
       initialValues={{
-        email: route.params?.email ?? "",
-        password: "",
+        email: email,
+        password: password,
       }}
       onSubmit={submitHandler}
       validationSchema={RegisterSchema}

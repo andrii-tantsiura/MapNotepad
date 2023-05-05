@@ -1,6 +1,7 @@
-export enum ValidationErrorMessages {
+export enum ValidationErrorMessagesEnum {
   REQUIRED = "This field is required",
-  NAME_LENGTH_INVALID = "Names must be between 2 and 50 characters long",
+  USERNAME_INVALID = "The name must start with a letter, contain only uppercase or lowercase letters and numbers, as well as a dash symbol.",
+  USERNAME_LENGTH_INVALID = "Names must be between 2 and 50 characters long",
   EMAIL_INVALID = "Email is invalid",
   SHORT_PASSWORD = "The password must consist of at least 8 characters",
   PASSWORD_MISMATCH = "Password mismatch",

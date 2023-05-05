@@ -1,4 +1,4 @@
-export enum ApiErrorMessages {
+export enum ApiErrorMessagesEnum {
   OPERATION_NOT_ALLOWED = "Operation not allowed",
   TOO_MANY_ATTEMPTS_TRY_LATER = "Too many attempts, try later",
   CREDENTIAL_TOO_OLD_LOGIN_AGAIN = "The user's credential is no longer valid. The user must sign in again",

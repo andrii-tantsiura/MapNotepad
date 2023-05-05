@@ -21,7 +21,7 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
       <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
-          resizeMode="center"
+          resizeMode="contain"
           source={ENTER_PAGE_ICON}
         />
         <Typography size="i18" weight="bold" color="lightPrimary">
