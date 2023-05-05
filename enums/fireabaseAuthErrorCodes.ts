@@ -1,0 +1,22 @@
+import { FirebaseAuthErrorMessages as ErrorMessages } from "./firebaseAuthErrorMessages";
+
+export enum FirebaseAuthErrorCodes {
+  OPERATION_NOT_ALLOWED = ErrorMessages.OPERATION_NOT_ALLOWED,
+  TOO_MANY_ATTEMPTS_TRY_LATER = ErrorMessages.TOO_MANY_ATTEMPTS_TRY_LATER,
+
+  TOKEN_EXPIRED = ErrorMessages.TOKEN_EXPIRED,
+  CREDENTIAL_TOO_OLD_LOGIN_AGAIN = ErrorMessages.CREDENTIAL_TOO_OLD_LOGIN_AGAIN,
+  INVALID_REFRESH_TOKEN = ErrorMessages.INVALID_REFRESH_TOKEN,
+
+  USER_DISABLED = ErrorMessages.USER_DISABLED,
+  USER_NOT_FOUND = ErrorMessages.USER_NOT_FOUND,
+
+  MISSING_EMAIL = ErrorMessages.MISSING_EMAIL,
+  INVALID_EMAIL = ErrorMessages.INVALID_EMAIL,
+  EMAIL_NOT_FOUND = ErrorMessages.EMAIL_NOT_FOUND,
+  EMAIL_EXISTS = ErrorMessages.EMAIL_EXISTS,
+
+  INVALID_PASSWORD = ErrorMessages.INVALID_PASSWORD,
+  WEAK_PASSWORD = ErrorMessages.WEAK_PASSWORD,
+  EXPIRED_OOB_CODE = ErrorMessages.EXPIRED_OOB_CODE,
+}

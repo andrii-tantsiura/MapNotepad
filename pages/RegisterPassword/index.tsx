@@ -21,7 +21,7 @@ import { globalStyles } from "../../constants/styles";
 import { useNetInfo } from "@react-native-community/netinfo";
 import AlertService from "../../services/AlertService";
 import { createUserWithEmail } from "../../utils/auth";
-import { getErrorMessage } from "../../utils/getErrorMessage";
+import { FirebaseAuthErrorCodes } from "../../enums/fireabaseAuthErrorCodes";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -38,15 +38,20 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
     if (isConnected) {
       setIsLoading(true);
 
-      const { idToken, errorCode } = await createUserWithEmail(
+      const { errorCode, errorMessage } = await createUserWithEmail(
         route.params?.email ?? "",
         values.password
       );
 
       setIsLoading(false);
 
-      if (errorCode) {
-        AlertService.error(getErrorMessage(errorCode));
+      if (errorMessage) {
+        if (errorCode === FirebaseAuthErrorCodes.EMAIL_EXISTS) {
+          console.log("goback");
+          navigation.goBack();
+        }
+
+        AlertService.error(errorMessage);
       } else {
         navigation.dispatch(
           CommonActions.reset({

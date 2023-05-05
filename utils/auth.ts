@@ -6,6 +6,8 @@ import {
   ISignInWithEmailResponse,
   AuthErrorResponse,
 } from "../types/auth";
+import { getEnumValue } from "./getEnumValue";
+import { FirebaseAuthErrorCodes } from "../enums/fireabaseAuthErrorCodes";
 
 const FIREBASE_API_KEY = "AIzaSyDNrzSTY0ZRPpfmSzqgMWl95weevrmh-cw";
 const AUTH_BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:";
@@ -41,9 +43,9 @@ export const createUserWithEmail = async (email: string, password: string) => {
     ISignUpWithEmailResponse
   >(url, payload);
 
-  errorCode && console.log("createUserWithEmail", errorCode);
+  const errorMessage = getEnumValue(FirebaseAuthErrorCodes, errorCode);
 
-  return { idToken: data?.idToken, errorCode };
+  return { idToken: data?.idToken, errorCode, errorMessage };
 };
 
 export const loginWithEmail = async (email: string, password: string) => {
@@ -60,7 +62,7 @@ export const loginWithEmail = async (email: string, password: string) => {
     ISignInWithEmailResponse
   >(url, payload);
 
-  errorCode && console.log("loginWithEmail", errorCode);
+  const errorMessage = getEnumValue(FirebaseAuthErrorCodes, errorCode);
 
-  return { idToken: data?.idToken, errorCode };
+  return { idToken: data?.idToken, errorCode, errorMessage };
 };

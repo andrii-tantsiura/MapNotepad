@@ -18,7 +18,6 @@ import { Props } from "../../navigation/AuthStack/types";
 import { globalStyles } from "../../constants/styles";
 import { loginWithEmail } from "../../utils/auth";
 import { useNetInfo } from "@react-native-community/netinfo";
-import { getErrorMessage } from "../../utils/getErrorMessage";
 import AlertService from "../../services/AlertService";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
@@ -41,15 +40,15 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
     if (isConnected) {
       setIsLoading(true);
 
-      const { idToken, errorCode } = await loginWithEmail(
+      const { idToken, errorMessage } = await loginWithEmail(
         values.email,
         values.password
       );
 
       setIsLoading(false);
 
-      if (errorCode) {
-        AlertService.error(getErrorMessage(errorCode));
+      if (errorMessage) {
+        AlertService.error(errorMessage);
       } else {
         // TODO: add token to AuthContext
         // TODO: navigate to home page

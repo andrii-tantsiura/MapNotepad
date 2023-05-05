@@ -1,4 +1,4 @@
-export enum ApiErrorMessagesEnum {
+export enum FirebaseAuthErrorMessages {
   OPERATION_NOT_ALLOWED = "Operation not allowed",
   TOO_MANY_ATTEMPTS_TRY_LATER = "Too many attempts, try later",
   CREDENTIAL_TOO_OLD_LOGIN_AGAIN = "The user's credential is no longer valid. The user must sign in again",
@@ -12,7 +12,7 @@ export enum ApiErrorMessagesEnum {
   MISSING_EMAIL = "Missing email",
   INVALID_EMAIL = "Invalid email",
   EMAIL_NOT_FOUND = "Email not found",
-  EMAIL_EXISTS = "Email exists",
+  EMAIL_EXISTS = "Email already registered",
 
   INVALID_PASSWORD = "Invalid password",
   WEAK_PASSWORD = "Weak password",
