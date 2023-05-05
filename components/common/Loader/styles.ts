@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import colors from "../../../constants/colors";
-import { fontSizes } from "../../../constants/sizes";
+import { FontSizes } from "../../../constants/fontSizes";
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     padding: 32,
   },
   message: {
-    ...fontSizes.i14,
+    ...FontSizes.i14,
     marginBottom: 12,
   },
 });

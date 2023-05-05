@@ -1,14 +1,14 @@
 import { StyleSheet } from "react-native";
-import { fontSizes } from "../../../constants/sizes";
-import { fontWeights } from "../../../constants/fontWeights";
+import { FontSizes } from "../../../constants/fontSizes";
+import { FontWeights } from "../../../constants/fontWeights";
 import colors from "../../../constants/colors";
 
 const styles = StyleSheet.create({
   inputTitle: {
     marginLeft: 12,
     marginBottom: 10,
-    ...fontSizes.i12,
-    ...fontWeights.medium,
+    ...FontSizes.i12,
+    ...FontWeights.medium,
     color: colors.systemDarkGray,
   },
   inputContainer: {
@@ -21,16 +21,16 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     height: 48,
-    ...fontSizes.i14,
-    ...fontWeights.medium,
+    ...FontSizes.i14,
+    ...FontWeights.medium,
     color: colors.systemBlack,
   },
   inputError: {
     marginTop: 4,
     marginLeft: 12,
     marginBottom: 10,
-    ...fontSizes.i10,
-    ...fontWeights.medium,
+    ...FontSizes.i10,
+    ...FontWeights.medium,
     color: colors.lightError,
   },
   clear: {

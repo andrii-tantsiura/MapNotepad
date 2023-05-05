@@ -10,7 +10,7 @@ export interface IFontWeights {
   medium: string;
 }
 
-export const fontWeights = {
+export const FontWeights = {
   bold: {
     fontFamily: BOLD_FONT_FAMILY,
   },

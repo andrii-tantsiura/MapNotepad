@@ -1,8 +1,8 @@
 import React from "react";
 import { Text, TextProps, TextStyle } from "react-native";
 import colors, { IColors } from "../../../constants/colors";
-import { IFontWeights, fontWeights } from "../../../constants/fontWeights";
-import { IFontSizes, fontSizes } from "../../../constants/sizes";
+import { FontSizes, IFontSizes } from "../../../constants/fontSizes";
+import { FontWeights, IFontWeights } from "../../../constants/fontWeights";
 
 export interface ITypographyProps extends TextProps {
   size?: keyof IFontSizes;
@@ -27,8 +27,8 @@ export const Typography: React.FC<ITypographyProps> = ({
     style={[
       {
         textAlign,
-        ...fontWeights[weight],
-        ...fontSizes[size],
+        ...FontWeights[weight],
+        ...FontSizes[size],
         color: colors[color],
       },
       textStyle,
