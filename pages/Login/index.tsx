@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -17,8 +17,10 @@ import {
 import { Props } from "../../navigation/AuthStack/types";
 import { globalStyles } from "../../constants/styles";
 import { loginWithEmail } from "../../utils/auth";
-import { useNetInfo } from "@react-native-community/netinfo";
 import AlertService from "../../services/AlertService";
+import { ErrorMessages } from "../../enums/errorMessages";
+import { AuthContext } from "../../store/AuthContextProvider";
+import { NetworkInfoContext } from "../../store/NetworkInfoContext";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -27,11 +29,13 @@ const RegisterSchema = Yup.object().shape({
   email: emailValidationSchema,
 });
 
-const Login: React.FC<Props> = ({ navigation, route }) => {
-  const isConnected = useNetInfo();
+const Login: React.FC<Props> = ({ route }) => {
+  const isConnected = useContext(NetworkInfoContext);
+  const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [email, setEmail] = useState(route.params?.email ?? "");
-  const [password, setPassword] = useState("");
+
+  const [email, setEmail] = useState(route.params?.email ?? "test@mail.com");
+  const [password, setPassword] = useState("Test123@");
 
   const submitHandler = async (values: any) => {
     setEmail(values.email);
@@ -47,15 +51,13 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
 
       setIsLoading(false);
 
-      if (errorMessage) {
+      if (idToken) {
+        authContext.authenticate(idToken);
+      } else if (errorMessage) {
         AlertService.error(errorMessage);
-      } else {
-        // TODO: add token to AuthContext
-        // TODO: navigate to home page
-        console.log("success", idToken);
       }
     } else {
-      AlertService.error("No internet connection");
+      AlertService.error(ErrorMessages.NO_INTERNET_CONNECTION);
     }
   };
 
@@ -65,7 +67,6 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
 
   return (
     <Formik
-      // TODO: set the data entered by the user instead of empty values
       initialValues={{
         email: email,
         password: password,

@@ -29,3 +29,9 @@ export interface ISignUpWithEmailResponse {
 export interface ISignInWithEmailResponse extends ISignUpWithEmailResponse {
   registered: boolean;
 }
+
+export interface LoginResult {
+  idToken?: string;
+  errorCode?: string;
+  errorMessage?: string;
+}

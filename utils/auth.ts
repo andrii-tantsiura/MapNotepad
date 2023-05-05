@@ -1,39 +1,22 @@
-import axios, { AxiosError, AxiosResponse } from "axios";
 import {
   ISignUpWithEmailPayload,
   ISignInWithEmailPayload,
   ISignUpWithEmailResponse,
   ISignInWithEmailResponse,
-  AuthErrorResponse,
+  LoginResult,
 } from "../types/auth";
 import { getEnumValue } from "./getEnumValue";
 import { FirebaseAuthErrorMessages } from "../enums/firebaseAuthErrorMessages";
+import { FIREBASE_API_KEY, post } from "../api/post";
 
-const FIREBASE_API_KEY = "AIzaSyDNrzSTY0ZRPpfmSzqgMWl95weevrmh-cw";
 const AUTH_BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:";
 const SIGN_UP_MODE = "signUp";
 const SING_IN_MODE = "signInWithPassword";
 
-const post = async <TPayload, TResponse>(url: string, payload: TPayload) => {
-  let errorCode: string | unknown;
-  let data: TResponse | unknown;
-
-  try {
-    const response = await axios.post<TPayload, AxiosResponse<TResponse>>(
-      url,
-      payload
-    );
-
-    data = response.data;
-    // @ts-ignore
-  } catch (error: AxiosError<AuthErrorResponse>) {
-    errorCode = error.response?.data.error.message;
-  }
-
-  return { data: data as TResponse, errorCode: errorCode as string };
-};
-
-export const createUserWithEmail = async (email: string, password: string) => {
+export const createUserWithEmail = async (
+  email: string,
+  password: string
+): Promise<LoginResult> => {
   const url = `${AUTH_BASE_URL}${SIGN_UP_MODE}?key=` + FIREBASE_API_KEY;
 
   const payload: ISignUpWithEmailPayload = {
@@ -52,7 +35,10 @@ export const createUserWithEmail = async (email: string, password: string) => {
   return { idToken: data?.idToken, errorCode, errorMessage };
 };
 
-export const loginWithEmail = async (email: string, password: string) => {
+export const loginWithEmail = async (
+  email: string,
+  password: string
+): Promise<LoginResult> => {
   const url = `${AUTH_BASE_URL}${SING_IN_MODE}?key=` + FIREBASE_API_KEY;
 
   const payload: ISignInWithEmailPayload = {

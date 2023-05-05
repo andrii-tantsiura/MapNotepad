@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import "react-native-gesture-handler";
 import { useFonts } from "expo-font";
 import NetInfo from "@react-native-community/netinfo";
+import FlashMessage from "react-native-flash-message";
 
 import {
   BOLD_FONT_FAMILY,
@@ -11,21 +10,13 @@ import {
   REGULAR_FONT_FAMILY,
   SEMI_BOLD_FONT_FAMILY,
 } from "./constants/fontWeights";
-import colors from "./constants/colors";
-import { AuthStack } from "./navigation/AuthStack";
 import { NetworkInfoContext } from "./store/NetworkInfoContext";
-import FlashMessage from "react-native-flash-message";
-
-const THEME = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: colors.systemWhite,
-  },
-};
+import { AuthContextProvider } from "./store/AuthContextProvider";
+import { Loader } from "./components/common";
+import AppRoutes from "./navigation/App.routes";
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
+  const [isFontsLoaded] = useFonts({
     [BOLD_FONT_FAMILY]: require("./assets/fonts/Montserrat-Bold.ttf"),
     [SEMI_BOLD_FONT_FAMILY]: require("./assets/fonts/Montserrat-SemiBold.ttf"),
     [MEDIUM_FONT_FAMILY]: require("./assets/fonts/Montserrat-Medium.ttf"),
@@ -43,15 +34,16 @@ export default function App() {
     };
   }, []);
 
-  return !fontsLoaded ? null : (
+  return !isFontsLoaded ? (
+    <Loader message="Loading..." />
+  ) : (
     <>
-      <StatusBar style="auto" />
-      <NetworkInfoContext.Provider value={isConnected}>
-        <NavigationContainer theme={THEME}>
-          <AuthStack />
-        </NavigationContainer>
-      </NetworkInfoContext.Provider>
-      <FlashMessage position={"bottom"} />
+      <AuthContextProvider>
+        <NetworkInfoContext.Provider value={isConnected}>
+          <AppRoutes />
+        </NetworkInfoContext.Provider>
+        <FlashMessage position={"bottom"} />
+      </AuthContextProvider>
     </>
   );
 }

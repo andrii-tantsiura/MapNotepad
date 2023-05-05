@@ -34,8 +34,8 @@ const Register: React.FC<Props> = ({ navigation }) => {
   return (
     <Formik
       initialValues={{
-        name: "",
-        email: "",
+        name: "test",
+        email: "test@mail.com",
       }}
       onSubmit={goToNextRegistrationStepHandler}
       validationSchema={RegisterSchema}

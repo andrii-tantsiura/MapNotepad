@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -18,10 +18,11 @@ import {
 } from "../../utils/validationSchemas";
 import { Props } from "../../navigation/AuthStack/types";
 import { globalStyles } from "../../constants/styles";
-import { useNetInfo } from "@react-native-community/netinfo";
 import AlertService from "../../services/AlertService";
 import { createUserWithEmail } from "../../utils/auth";
 import { FirebaseAuthErrorCodes } from "../../enums/fireabaseAuthErrorCodes";
+import { ErrorMessages } from "../../enums/errorMessages";
+import { NetworkInfoContext } from "../../store/NetworkInfoContext";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -31,7 +32,7 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
-  const isConnected = useNetInfo();
+  const isConnected = useContext(NetworkInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 
   const createAccountHandler = async (values: any) => {
@@ -66,7 +67,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
         );
       }
     } else {
-      AlertService.error("No internet connection");
+      AlertService.error(ErrorMessages.NO_INTERNET_CONNECTION);
     }
   };
 
@@ -76,10 +77,9 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
 
   return (
     <Formik
-      // TODO: set the data entered by the user instead of empty values
       initialValues={{
-        password: "",
-        confirmPassword: "",
+        password: "Test123@",
+        confirmPassword: "Test123@",
       }}
       onSubmit={createAccountHandler}
       validationSchema={RegisterSchema}
