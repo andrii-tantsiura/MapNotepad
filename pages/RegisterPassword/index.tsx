@@ -47,7 +47,6 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
 
       if (errorMessage) {
         if (errorCode === FirebaseAuthErrorCodes.EMAIL_EXISTS) {
-          console.log("goback");
           navigation.goBack();
         }
 
