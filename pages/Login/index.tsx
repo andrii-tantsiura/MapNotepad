@@ -8,6 +8,7 @@ import {
   IconButton,
   Separator,
   InputText,
+  Loader,
 } from "../../components/common";
 import {
   emailValidationSchema,
@@ -53,8 +54,13 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
     }
   };
 
+  if (isLoading) {
+    return <Loader message="Loading..." />;
+  }
+
   return (
     <Formik
+      // TODO: set the data entered by the user instead of empty values
       initialValues={{
         email: route.params?.email ?? "",
         password: "",

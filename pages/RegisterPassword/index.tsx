@@ -10,6 +10,7 @@ import {
   IconButton,
   Separator,
   InputText,
+  Loader,
 } from "../../components/common";
 import {
   passwordValidationSchema,
@@ -19,7 +20,6 @@ import { Props } from "../../navigation/AuthStack/types";
 import { globalStyles } from "../../constants/styles";
 import { useNetInfo } from "@react-native-community/netinfo";
 import AlertService from "../../services/AlertService";
-import { Loader } from "../../components/common/Loader";
 import { createUserWithEmail } from "../../utils/auth";
 import { getErrorMessage } from "../../utils/getErrorMessage";
 
@@ -72,6 +72,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
 
   return (
     <Formik
+      // TODO: set the data entered by the user instead of empty values
       initialValues={{
         password: "",
         confirmPassword: "",

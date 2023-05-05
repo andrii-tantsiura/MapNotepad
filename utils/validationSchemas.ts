@@ -1,23 +1,21 @@
 import * as Yup from "yup";
-import { regexPatterns } from "../constants/contants";
+import { EMAIL_REGEX, PASSWORD_REGEX } from "../constants/regexContants";
+import { ValidationErrorMessages } from "../enums/validationMessages";
 
 export const nameValidationSchema = Yup.string()
-  .required("Please enter your name.")
-  .min(2, "Too Short!")
-  .max(50, "Too Long!");
+  .required(ValidationErrorMessages.REQUIRED)
+  .min(2, ValidationErrorMessages.NAME_LENGTH_INVALID)
+  .max(50, ValidationErrorMessages.NAME_LENGTH_INVALID);
 
 export const emailValidationSchema = Yup.string()
-  .required("Please enter your email address.")
-  .matches(regexPatterns.email, "Invalid email");
+  .required(ValidationErrorMessages.REQUIRED)
+  .matches(EMAIL_REGEX, ValidationErrorMessages.EMAIL_INVALID);
 
 export const passwordValidationSchema = Yup.string()
-  .required("Please enter your password.")
-  .min(8)
-  .matches(
-    /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-    "Must contain minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character"
-  );
+  .required(ValidationErrorMessages.REQUIRED)
+  .min(8, ValidationErrorMessages.SHORT_PASSWORD)
+  .matches(PASSWORD_REGEX, ValidationErrorMessages.PASSWORD_INVALID);
 
 export const confirmPasswordValidationSchema = Yup.string()
-  .required("Please repeat your password.")
-  .oneOf([Yup.ref("password")], "Passwords mismatch");
+  .required(ValidationErrorMessages.REQUIRED)
+  .oneOf([Yup.ref("password")], ValidationErrorMessages.PASSWORD_MISMATCH);
