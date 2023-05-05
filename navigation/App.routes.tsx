@@ -6,6 +6,7 @@ import { AuthStack } from "./AuthStack";
 import { AuthContext } from "../store/AuthContextProvider";
 import colors from "../constants/colors";
 import { Loader } from "../components/common";
+import { Text, View } from "react-native";
 
 const THEME = {
   ...DefaultTheme,
@@ -38,7 +39,11 @@ const AppRoutes: React.FC = () => {
       <NavigationContainer theme={THEME}>
         {authContext.isAuthenticated ? (
           // TODO: replace with HomeStack
-          <Loader message="Authenticated" />
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <Text>Main Tabbed Page</Text>
+          </View>
         ) : (
           <AuthStack />
         )}
