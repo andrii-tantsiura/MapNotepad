@@ -13,7 +13,6 @@ const showMessage = (message: string, type: MessageType) =>
     message,
     icon: type,
     position: "top",
-    hideStatusBar: true,
     backgroundColor: flashMessageColors[type],
   });
 

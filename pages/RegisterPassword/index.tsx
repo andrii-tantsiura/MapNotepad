@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -17,6 +17,11 @@ import {
 } from "../../utils/validationSchemas";
 import { Props } from "../../navigation/AuthStack/types";
 import { globalStyles } from "../../constants/styles";
+import { useNetInfo } from "@react-native-community/netinfo";
+import AlertService from "../../services/AlertService";
+import { Loader } from "../../components/common/Loader";
+import { createUserWithEmail } from "../../utils/auth";
+import { getErrorMessage } from "../../utils/getErrorMessage";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -26,19 +31,44 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
-  const createAccountHandler = () =>
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [
-          { name: "Welcome" },
-          {
-            name: "Login",
-            params: { email: route.params?.email },
-          },
-        ],
-      })
-    );
+  const isConnected = useNetInfo();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const createAccountHandler = async (values: any) => {
+    if (isConnected) {
+      setIsLoading(true);
+
+      const { idToken, errorCode } = await createUserWithEmail(
+        route.params?.email ?? "",
+        values.password
+      );
+
+      setIsLoading(false);
+
+      if (errorCode) {
+        AlertService.error(getErrorMessage(errorCode));
+      } else {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              { name: "Welcome" },
+              {
+                name: "Login",
+                params: { email: route.params?.email },
+              },
+            ],
+          })
+        );
+      }
+    } else {
+      AlertService.error("No internet connection");
+    }
+  };
+
+  if (isLoading) {
+    return <Loader message="Loading..." />;
+  }
 
   return (
     <Formik

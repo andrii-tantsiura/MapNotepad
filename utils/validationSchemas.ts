@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import { regexPatterns } from "../constants/contants";
 
 export const nameValidationSchema = Yup.string()
   .required("Please enter your name.")
@@ -7,7 +8,7 @@ export const nameValidationSchema = Yup.string()
 
 export const emailValidationSchema = Yup.string()
   .required("Please enter your email address.")
-  .email("Invalid email");
+  .matches(regexPatterns.email, "Invalid email");
 
 export const passwordValidationSchema = Yup.string()
   .required("Please enter your password.")

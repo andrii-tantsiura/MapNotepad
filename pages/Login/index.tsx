@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -15,6 +15,10 @@ import {
 } from "../../utils/validationSchemas";
 import { Props } from "../../navigation/AuthStack/types";
 import { globalStyles } from "../../constants/styles";
+import { loginWithEmail } from "../../utils/auth";
+import { useNetInfo } from "@react-native-community/netinfo";
+import { getErrorMessage } from "../../utils/getErrorMessage";
+import AlertService from "../../services/AlertService";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -24,15 +28,36 @@ const RegisterSchema = Yup.object().shape({
 });
 
 const Login: React.FC<Props> = ({ navigation, route }) => {
-  const submitHandler = (values: any) => {
-    // TODO: make authorization
+  const [isLoading, setIsLoading] = useState(false);
+  const isConnected = useNetInfo();
+
+  const submitHandler = async (values: any) => {
+    if (isConnected) {
+      setIsLoading(true);
+
+      const { idToken, errorCode } = await loginWithEmail(
+        values.email,
+        values.password
+      );
+
+      setIsLoading(false);
+
+      if (errorCode) {
+        AlertService.error(getErrorMessage(errorCode));
+      } else {
+        // TODO: navigate to home page
+        console.log("success", idToken);
+      }
+    } else {
+      AlertService.error("No internet connection");
+    }
   };
 
   return (
     <Formik
       initialValues={{
-        password: "",
         email: route.params?.email ?? "",
+        password: "",
       }}
       onSubmit={submitHandler}
       validationSchema={RegisterSchema}
@@ -44,6 +69,7 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
         touched,
         handleChange,
         setFieldTouched,
+        setFieldValue,
         handleSubmit,
       }) => {
         const emailErrorText = touched.email ? errors.email : undefined;
@@ -66,14 +92,18 @@ const Login: React.FC<Props> = ({ navigation, route }) => {
                 value={values.email}
                 onBlur={() => setFieldTouched("email")}
                 onChangeText={handleChange("email")}
+                onClear={() => setFieldValue("email", "")}
                 error={emailErrorText}
               />
               <InputText
+                secureTextEntry
+                autoCapitalize="none"
                 title="Password"
                 placeholder="Enter password"
                 value={values.password}
                 onBlur={() => setFieldTouched("password")}
                 onChangeText={handleChange("password")}
+                onClear={() => setFieldValue("password", "")}
                 error={passwordErrorText}
               />
             </View>
