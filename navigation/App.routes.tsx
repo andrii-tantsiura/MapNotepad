@@ -4,7 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import FlashMessage from "react-native-flash-message";
 import { AuthStack } from "./AuthStack";
 import { AuthContext } from "../store/AuthContextProvider";
-import colors from "../constants/colors";
+import COLORS from "../constants/colors";
 import { Loader } from "../components/common";
 import { Text, View } from "react-native";
 
@@ -12,7 +12,7 @@ const THEME = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: colors.systemWhite,
+    background: COLORS.systemWhite,
   },
 };
 
@@ -31,11 +31,11 @@ const AppRoutes: React.FC = () => {
   }, []);
 
   return isTryingAuthenticate ? (
-    <Loader message="Loading..." />
+    <Loader />
   ) : (
     <>
       <StatusBar style="auto" />
-      <FlashMessage position={"bottom"} />
+      <FlashMessage />
       <NavigationContainer theme={THEME}>
         {authContext.isAuthenticated ? (
           // TODO: replace with HomeStack

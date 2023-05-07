@@ -35,7 +35,7 @@ export default function App() {
   }, []);
 
   return !isFontsLoaded ? (
-    <Loader message="Loading..." />
+    <Loader />
   ) : (
     <>
       <AuthContextProvider>

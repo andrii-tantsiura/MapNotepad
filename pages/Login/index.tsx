@@ -13,9 +13,9 @@ import {
 import {
   emailValidationSchema,
   passwordValidationSchema,
-} from "../../utils/validationSchemas";
+} from "../../utils/stringSchemas";
 import { Props } from "../../navigation/AuthStack/types";
-import { globalStyles } from "../../constants/styles";
+import { GlobalStyles } from "../../constants/styles";
 import { loginWithEmail } from "../../utils/auth";
 import AlertService from "../../services/AlertService";
 import { ErrorMessages } from "../../enums/errorMessages";
@@ -25,8 +25,8 @@ import { NetworkInfoContext } from "../../store/NetworkInfoContext";
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
 const RegisterSchema = Yup.object().shape({
-  password: passwordValidationSchema,
   email: emailValidationSchema,
+  password: passwordValidationSchema,
 });
 
 const Login: React.FC<Props> = ({ route }) => {
@@ -62,7 +62,7 @@ const Login: React.FC<Props> = ({ route }) => {
   };
 
   if (isLoading) {
-    return <Loader message="Loading..." />;
+    return <Loader />;
   }
 
   return (
@@ -125,7 +125,7 @@ const Login: React.FC<Props> = ({ route }) => {
               </Button>
               <Separator>or</Separator>
               <IconButton
-                style={globalStyles.iconButtonOutline_i1}
+                style={GlobalStyles.iconButtonOutline_i1}
                 source={GOOGLE_ICON}
               />
             </View>

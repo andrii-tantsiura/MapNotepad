@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { FontSizes } from "../../../constants/fontSizes";
 import { FontWeights } from "../../../constants/fontWeights";
-import colors from "../../../constants/colors";
+import COLORS from "../../../constants/colors";
 
 const styles = StyleSheet.create({
   inputTitle: {
@@ -9,21 +9,21 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     ...FontSizes.i12,
     ...FontWeights.medium,
-    color: colors.systemDarkGray,
+    color: COLORS.systemDarkGray,
   },
   inputContainer: {
     flexDirection: "row",
     paddingHorizontal: 12,
     height: 48,
     borderWidth: 1,
-    borderColor: colors.systemLightGray,
+    borderColor: COLORS.systemLightGray,
   },
   input: {
     flex: 1,
     height: 48,
     ...FontSizes.i14,
     ...FontWeights.medium,
-    color: colors.systemBlack,
+    color: COLORS.systemBlack,
   },
   inputError: {
     marginTop: 4,
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     ...FontSizes.i10,
     ...FontWeights.medium,
-    color: colors.lightError,
+    color: COLORS.lightError,
   },
   clear: {
     justifyContent: "center",

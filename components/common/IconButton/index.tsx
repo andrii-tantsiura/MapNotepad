@@ -9,7 +9,6 @@ import {
 import styles from "./styles";
 
 interface IIconButtonProps {
-  source: any;
   iconHeight?: ImageStyle["height"];
   iconWidth?: ImageStyle["width"];
   resizeMode?: ImageStyle["resizeMode"];
@@ -18,11 +17,11 @@ interface IIconButtonProps {
   style?: ViewStyle;
   pressedStyle?: ViewStyle;
   disabledStyle?: ViewStyle;
+  source: any;
   onPress?: () => void;
 }
 
 export const IconButton: React.FC<IIconButtonProps> = ({
-  source,
   iconHeight = 24,
   iconWidth = 24,
   resizeMode = "center",
@@ -31,6 +30,7 @@ export const IconButton: React.FC<IIconButtonProps> = ({
   style,
   pressedStyle = styles.pressed,
   disabledStyle = styles.disabled,
+  source,
   onPress,
 }) => {
   const getContainerStyle = ({ pressed }: PressableStateCallbackType) => [

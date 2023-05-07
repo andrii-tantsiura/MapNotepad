@@ -12,9 +12,9 @@ import {
 import {
   emailValidationSchema,
   nameValidationSchema,
-} from "../../utils/validationSchemas";
+} from "../../utils/stringSchemas";
 import { Props } from "../../navigation/AuthStack/types";
-import { globalStyles } from "../../constants/styles";
+import { GlobalStyles } from "../../constants/styles";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -89,7 +89,7 @@ const Register: React.FC<Props> = ({ navigation }) => {
               </Button>
               <Separator>or</Separator>
               <IconButton
-                style={globalStyles.iconButtonOutline_i1}
+                style={GlobalStyles.iconButtonOutline_i1}
                 source={GOOGLE_ICON}
               />
             </View>

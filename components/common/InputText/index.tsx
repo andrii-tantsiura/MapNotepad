@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { View, TextInput, TextInputProps } from "react-native";
 import styles from "./styles";
-import colors from "../../../constants/colors";
+import COLORS from "../../../constants/colors";
 import { Typography } from "../Typography";
 import { IconButton } from "../IconButton";
 
@@ -16,14 +16,15 @@ interface IInputTextProps extends TextInputProps {
 }
 
 export const InputText: React.FC<IInputTextProps> = ({
-  title,
-  placeholder,
-  value,
-  error,
   editable = true,
   autoCapitalize,
+  placeholderTextColor = COLORS.systemGray,
   secureTextEntry = false,
   keyboardType = "default",
+  title,
+  error,
+  placeholder,
+  value,
   onChangeText,
   onSubmitEditing,
   onBlur,
@@ -48,7 +49,7 @@ export const InputText: React.FC<IInputTextProps> = ({
           secureTextEntry={secureTextEntry && isSecureText}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
-          placeholderTextColor={colors.systemGray}
+          placeholderTextColor={placeholderTextColor}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
@@ -59,14 +60,14 @@ export const InputText: React.FC<IInputTextProps> = ({
           <View style={styles.buttonsContainer}>
             {secureTextEntry && (
               <IconButton
-                source={passwordIcon}
                 style={styles.clear}
+                source={passwordIcon}
                 onPress={toggleIsSecureText}
               />
             )}
             <IconButton
-              source={CLEAR_ICON}
               style={styles.clear}
+              source={CLEAR_ICON}
               onPress={onClear}
             />
           </View>

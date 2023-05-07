@@ -1,11 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { IconButton, Typography } from "../../components/common";
-import RegisterPassword from "../../pages/RegisterPassword";
-import Register from "../../pages/Register";
-import Login from "../../pages/Login";
 import Welcome from "../../pages/Welcome";
-import colors from "../../constants/colors";
+import Login from "../../pages/Login";
+import Register from "../../pages/Register";
+import RegisterPassword from "../../pages/RegisterPassword";
+import COLORS from "../../constants/colors";
 import { RootStackParamList } from "./types";
 
 const LEFT_BLUE = require("../../assets/icons/ic_left_blue.png");
@@ -19,7 +19,7 @@ export const AuthStack: React.FC = () => (
       headerShadowVisible: false,
       headerTitleAlign: "center",
       headerStyle: {
-        backgroundColor: colors.systemWhite,
+        backgroundColor: COLORS.systemWhite,
       },
       headerTitle: ({ children }) => (
         <Typography size="i16" weight="semiBold" color="systemBlack">

@@ -1,16 +1,16 @@
 import { StyleSheet } from "react-native";
-import colors from "../../../constants/colors";
+import COLORS from "../../../constants/colors";
 
 const styles = StyleSheet.create({
   button: {
     padding: 12,
-    backgroundColor: colors.lightPrimary,
+    backgroundColor: COLORS.lightPrimary,
   },
   pressed: {
     opacity: 0.75,
   },
   disabled: {
-    backgroundColor: colors.lightDisabled,
+    backgroundColor: COLORS.lightDisabled,
   },
 });
 

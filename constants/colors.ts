@@ -33,7 +33,7 @@ interface IFlashMessageColors {
   default: string;
 }
 
-const colors = {
+const COLORS: IColors = {
   lightPrimary: "#596EFB",
   lightDisabled: "#C7CDF5",
   lightHoveredFocused: "#273BC6",
@@ -59,13 +59,13 @@ const colors = {
   info: "#4ea2e1",
 };
 
-export const flashMessageColors: IFlashMessageColors = {
-  info: colors.info,
-  success: colors.lightSuccess,
-  warning: colors.warning,
-  danger: colors.lightError,
-  none: colors.darkDisabled,
-  default: colors.darkDisabled,
+export const FLASH_MESSAGE_COLORS: IFlashMessageColors = {
+  info: COLORS.info,
+  success: COLORS.lightSuccess,
+  warning: COLORS.warning,
+  danger: COLORS.lightError,
+  none: COLORS.darkDisabled,
+  default: COLORS.darkDisabled,
 };
 
-export default colors;
+export default COLORS;

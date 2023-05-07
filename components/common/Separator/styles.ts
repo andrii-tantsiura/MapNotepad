@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import colors from "../../../constants/colors";
+import COLORS from "../../../constants/colors";
 
 const styles = StyleSheet.create({
   separator: {
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     borderTopWidth: 1,
-    borderTopColor: colors.systemLightGray,
+    borderTopColor: COLORS.systemLightGray,
   },
 });
 

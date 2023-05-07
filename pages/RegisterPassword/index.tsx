@@ -15,9 +15,9 @@ import {
 import {
   passwordValidationSchema,
   confirmPasswordValidationSchema,
-} from "../../utils/validationSchemas";
+} from "../../utils/stringSchemas";
 import { Props } from "../../navigation/AuthStack/types";
-import { globalStyles } from "../../constants/styles";
+import { GlobalStyles } from "../../constants/styles";
 import AlertService from "../../services/AlertService";
 import { createUserWithEmail } from "../../utils/auth";
 import { FirebaseAuthErrorCodes } from "../../enums/fireabaseAuthErrorCodes";
@@ -72,7 +72,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
   };
 
   if (isLoading) {
-    return <Loader message="Loading..." />;
+    return <Loader />;
   }
 
   return (
@@ -142,7 +142,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
               </Button>
               <Separator>or</Separator>
               <IconButton
-                style={globalStyles.iconButtonOutline_i1}
+                style={GlobalStyles.iconButtonOutline_i1}
                 source={GOOGLE_ICON}
               />
             </View>

@@ -2,7 +2,7 @@ import React from "react";
 import { Image, View } from "react-native";
 import styles from "./styles";
 import { Typography, Button } from "../../components/common";
-import { globalStyles } from "../../constants/styles";
+import { GlobalStyles } from "../../constants/styles";
 import { Props } from "../../navigation/AuthStack/types";
 
 const ENTER_PAGE_ICON = require("../../assets/icons/pic_enter_page.png");
@@ -32,7 +32,7 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
         <Button onPress={loginHandler}>Log in</Button>
         <Button
           color="lightPrimary"
-          style={globalStyles.buttonOutline_i1}
+          style={GlobalStyles.buttonOutline_i1}
           onPress={registerHandler}
         >
           Create account

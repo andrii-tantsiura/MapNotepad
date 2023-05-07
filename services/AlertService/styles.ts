@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import colors from "../../constants/colors";
+import COLORS from "../../constants/colors";
 import { FontSizes } from "../../constants/fontSizes";
 import { FontWeights } from "../../constants/fontWeights";
 
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     ...FontSizes.i12,
     ...FontWeights.medium,
-    color: colors.systemWhite,
+    color: COLORS.systemWhite,
   },
 });
 

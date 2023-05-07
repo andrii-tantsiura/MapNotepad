@@ -4,15 +4,14 @@ import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
 interface IButtonProps extends ITypographyProps {
-  onPress?: () => void;
   disabled?: boolean;
   style?: ViewStyle;
   pressedStyle?: ViewStyle;
   disabledStyle?: ViewStyle;
+  onPress?: () => void;
 }
 
 export const Button: React.FC<IButtonProps> = ({
-  children,
   size = "i14",
   weight = "semiBold",
   color = "systemWhite",
@@ -22,6 +21,7 @@ export const Button: React.FC<IButtonProps> = ({
   style,
   pressedStyle = styles.pressed,
   disabledStyle = styles.disabled,
+  children,
   onPress,
 }) => {
   const getStyle = ({ pressed }: PressableStateCallbackType) => [

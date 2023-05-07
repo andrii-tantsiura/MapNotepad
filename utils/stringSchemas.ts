@@ -3,8 +3,8 @@ import {
   EMAIL_REGEX,
   USERNAME_REGEX,
   PASSWORD_REGEX,
-} from "../constants/regexContants";
-import { ValidationErrorMessagesEnum as ErrorMessage } from "../enums/validationMessages";
+} from "../constants/regexConstants";
+import { ValidationErrorMessages as ErrorMessage } from "../enums/validationMessages";
 
 export const nameValidationSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
@@ -18,7 +18,7 @@ export const emailValidationSchema = Yup.string()
 
 export const passwordValidationSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
-  .min(8, ErrorMessage.SHORT_PASSWORD)
+  .min(8, ErrorMessage.PASSWORD_SHORTER_THAN_8_CHARS)
   .matches(PASSWORD_REGEX, ErrorMessage.PASSWORD_INVALID);
 
 export const confirmPasswordValidationSchema = Yup.string()
