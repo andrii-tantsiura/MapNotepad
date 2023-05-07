@@ -9,7 +9,7 @@ import {
   Button,
   IconButton,
   Separator,
-  InputText,
+  ValidatedInputText,
   Loader,
 } from "../../components/common";
 import {
@@ -78,59 +78,38 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
   return (
     <Formik
       initialValues={{
-        password: "Test123@",
-        confirmPassword: "Test123@",
+        password: "",
+        confirmPassword: "",
       }}
       onSubmit={createAccountHandler}
       validationSchema={RegisterSchema}
     >
-      {({
-        values,
-        errors,
-        isValid,
-        touched,
-        handleChange,
-        setFieldTouched,
-        handleSubmit,
-        setFieldValue,
-      }) => {
+      {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isAccountCreationDisabled =
           !isValid ||
           values.password.length == 0 ||
           values.confirmPassword.length == 0;
 
-        const passwordErrorText = touched.password
-          ? errors.password
-          : undefined;
-
-        const confirmPasswordErrorText = touched.confirmPassword
-          ? errors.confirmPassword
-          : undefined;
-
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <InputText
+              <ValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Password"
                 placeholder="Create password"
+                valueName="password"
                 value={values.password}
-                onBlur={() => setFieldTouched("password")}
-                onChangeText={handleChange("password")}
-                error={passwordErrorText}
-                onClear={() => setFieldValue("password", "")}
+                {...formikProps}
               />
-              <InputText
+              <ValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Confirm password"
                 placeholder="Repeat password"
+                valueName="confirmPassword"
                 value={values.confirmPassword}
-                onBlur={() => setFieldTouched("confirmPassword")}
-                onChangeText={handleChange("confirmPassword")}
-                onClear={() => setFieldValue("confirmPassword", "")}
-                error={confirmPasswordErrorText}
+                {...formikProps}
               />
             </View>
             <View style={styles.buttonsContainer}>

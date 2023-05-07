@@ -9,7 +9,7 @@ const CLEAR_ICON = require("../../../assets/icons/ic_clear.png");
 const EYE_ICON = require("../../../assets/icons/ic_eye.png");
 const EYE_ICON_OFF = require("../../../assets/icons/ic_eye_off.png");
 
-interface IInputTextProps extends TextInputProps {
+export interface IInputTextProps extends TextInputProps {
   title: string;
   error?: string;
   onClear?: () => void;
@@ -32,16 +32,23 @@ export const InputText: React.FC<IInputTextProps> = ({
 }) => {
   const [isSecureText, setIsSecureText] = useState(secureTextEntry);
   const ref = useRef<TextInput>(null);
-  const toggleIsSecureText = () => setIsSecureText(!isSecureText);
 
   const passwordIcon = isSecureText ? EYE_ICON : EYE_ICON_OFF;
+  const isNeedToShowButtons = value && ref.current?.isFocused();
+
+  const toggleIsSecureText = () => setIsSecureText(!isSecureText);
 
   return (
     <View>
-      <Typography textAlign="left" textStyle={styles.inputTitle}>
+      <Typography textAlign="left" textStyle={styles.titleLabel}>
         {title}
       </Typography>
-      <View style={styles.inputContainer}>
+      <View
+        style={[
+          styles.inputContainer,
+          Boolean(error) && styles.errorInputContainer,
+        ]}
+      >
         <TextInput
           ref={ref}
           style={styles.input}
@@ -56,24 +63,24 @@ export const InputText: React.FC<IInputTextProps> = ({
           onSubmitEditing={onSubmitEditing}
           onBlur={onBlur}
         />
-        {value && ref.current?.isFocused() && (
+        {isNeedToShowButtons && (
           <View style={styles.buttonsContainer}>
             {secureTextEntry && (
               <IconButton
-                style={styles.clear}
+                style={styles.button}
                 source={passwordIcon}
                 onPress={toggleIsSecureText}
               />
             )}
             <IconButton
-              style={styles.clear}
+              style={styles.button}
               source={CLEAR_ICON}
               onPress={onClear}
             />
           </View>
         )}
       </View>
-      <Typography textStyle={styles.inputError}>{error}</Typography>
+      <Typography textStyle={styles.errorLabel}>{error}</Typography>
     </View>
   );
 };

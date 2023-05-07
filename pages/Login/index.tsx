@@ -7,7 +7,7 @@ import {
   Button,
   IconButton,
   Separator,
-  InputText,
+  ValidatedInputText,
   Loader,
 } from "../../components/common";
 import {
@@ -34,8 +34,8 @@ const Login: React.FC<Props> = ({ route }) => {
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [email, setEmail] = useState(route.params?.email ?? "test@mail.com");
-  const [password, setPassword] = useState("Test123@");
+  const [email, setEmail] = useState(route.params?.email ?? "");
+  const [password, setPassword] = useState("");
 
   const submitHandler = async (values: any) => {
     setEmail(values.email);
@@ -74,49 +74,30 @@ const Login: React.FC<Props> = ({ route }) => {
       onSubmit={submitHandler}
       validationSchema={RegisterSchema}
     >
-      {({
-        values,
-        errors,
-        isValid,
-        touched,
-        handleChange,
-        setFieldTouched,
-        setFieldValue,
-        handleSubmit,
-      }) => {
-        const emailErrorText = touched.email ? errors.email : undefined;
-
-        const passwordErrorText = touched.password
-          ? errors.password
-          : undefined;
-
+      {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isLoginDisabled =
           !isValid || values.password.length == 0 || values.email.length == 0;
 
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <InputText
-                title="Email"
+              <ValidatedInputText
                 autoCapitalize="none"
-                placeholder="Enter email"
                 keyboardType="email-address"
+                title="Email"
+                placeholder="Enter email"
+                valueName="email"
                 value={values.email}
-                onBlur={() => setFieldTouched("email")}
-                onChangeText={handleChange("email")}
-                onClear={() => setFieldValue("email", "")}
-                error={emailErrorText}
+                {...formikProps}
               />
-              <InputText
+              <ValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Password"
                 placeholder="Enter password"
+                valueName="password"
                 value={values.password}
-                onBlur={() => setFieldTouched("password")}
-                onChangeText={handleChange("password")}
-                onClear={() => setFieldValue("password", "")}
-                error={passwordErrorText}
+                {...formikProps}
               />
             </View>
             <View style={styles.buttonsContainer}>

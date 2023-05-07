@@ -7,7 +7,7 @@ import {
   Button,
   IconButton,
   Separator,
-  InputText,
+  ValidatedInputText,
 } from "../../components/common";
 import {
   emailValidationSchema,
@@ -34,50 +34,34 @@ const Register: React.FC<Props> = ({ navigation }) => {
   return (
     <Formik
       initialValues={{
-        name: "test",
-        email: "test@mail.com",
+        name: "",
+        email: "",
       }}
       onSubmit={goToNextRegistrationStepHandler}
       validationSchema={RegisterSchema}
     >
-      {({
-        values,
-        errors,
-        isValid,
-        touched,
-        handleChange,
-        setFieldTouched,
-        handleSubmit,
-        setFieldValue,
-      }) => {
+      {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isNextRegistrationStepDisabled =
           !isValid || values.name.length == 0 || values.email.length == 0;
-
-        const nameErrorText = touched.name ? errors.name : undefined;
-        const emailErrorText = touched.email ? errors.email : undefined;
 
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <InputText
+              <ValidatedInputText
                 title="Name"
                 placeholder="Enter name"
+                valueName="name"
                 value={values.name}
-                onBlur={() => setFieldTouched("name")}
-                onChangeText={handleChange("name")}
-                onClear={() => setFieldValue("name", "")}
-                error={nameErrorText}
+                {...formikProps}
               />
-              <InputText
-                title="Email"
+              <ValidatedInputText
                 autoCapitalize="none"
-                placeholder="Enter email"
                 keyboardType="email-address"
+                title="Email"
+                placeholder="Enter email"
+                valueName="email"
                 value={values.email}
-                onBlur={() => setFieldTouched("email")}
-                onChangeText={handleChange("email")}
-                onClear={() => setFieldValue("email", "")}
-                error={emailErrorText}
+                {...formikProps}
               />
             </View>
             <View style={styles.buttonsContainer}>

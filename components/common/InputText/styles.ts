@@ -4,7 +4,7 @@ import { FontWeights } from "../../../constants/fontWeights";
 import COLORS from "../../../constants/colors";
 
 const styles = StyleSheet.create({
-  inputTitle: {
+  titleLabel: {
     marginLeft: 12,
     marginBottom: 10,
     ...FontSizes.i12,
@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.systemLightGray,
   },
+  errorInputContainer: {
+    borderColor: COLORS.lightError,
+  },
   input: {
     flex: 1,
     height: 48,
@@ -25,7 +28,7 @@ const styles = StyleSheet.create({
     ...FontWeights.medium,
     color: COLORS.systemBlack,
   },
-  inputError: {
+  errorLabel: {
     marginTop: 4,
     marginLeft: 12,
     marginBottom: 10,
@@ -33,13 +36,13 @@ const styles = StyleSheet.create({
     ...FontWeights.medium,
     color: COLORS.lightError,
   },
-  clear: {
-    justifyContent: "center",
-  },
   buttonsContainer: {
     marginLeft: 8,
     flexDirection: "row",
     columnGap: 4,
+  },
+  button: {
+    justifyContent: "center",
   },
 });
 
