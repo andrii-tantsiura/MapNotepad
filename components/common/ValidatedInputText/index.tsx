@@ -1,5 +1,5 @@
-import { FormikHandlers, FormikHelpers, FormikTouched } from "formik";
-import { IInputTextProps, InputText } from "..";
+import { FormikHandlers, FormikHelpers } from "formik";
+import { IInputTextProps, InputText } from "../InputText";
 
 interface IValidateInputText extends IInputTextProps {
   valueName: string;

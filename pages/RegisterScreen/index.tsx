@@ -13,7 +13,7 @@ import {
   emailValidationSchema,
   nameValidationSchema,
 } from "../../utils/stringSchemas";
-import { Props } from "../../navigation/AuthStack/types";
+import { ScreenProps } from "../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../constants/styles";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
@@ -23,7 +23,7 @@ const RegisterSchema = Yup.object().shape({
   email: emailValidationSchema,
 });
 
-const Register: React.FC<Props> = ({ navigation }) => {
+const RegisterScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const goToNextRegistrationStepHandler = (values: any) => {
     navigation.navigate("RegisterPassword", {
       name: values.name,
@@ -84,4 +84,4 @@ const Register: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default Register;
+export default RegisterScreen;

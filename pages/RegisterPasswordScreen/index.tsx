@@ -2,6 +2,8 @@ import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { CommonActions } from "@react-navigation/native";
+
 import styles from "./styles";
 import {
   Button,
@@ -11,50 +13,61 @@ import {
   Loader,
 } from "../../components/common";
 import {
-  emailValidationSchema,
   passwordValidationSchema,
+  confirmPasswordValidationSchema,
 } from "../../utils/stringSchemas";
-import { Props } from "../../navigation/AuthStack/types";
+import { ScreenProps } from "../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../constants/styles";
-import { loginWithEmail } from "../../utils/auth";
 import AlertService from "../../services/AlertService";
+import { createUserWithEmail } from "../../utils/auth";
+import { FirebaseAuthErrorCodes } from "../../enums/fireabaseAuthErrorCodes";
 import { ErrorMessages } from "../../enums/errorMessages";
-import { AuthContext } from "../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../store/NetworkInfoContext";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
 const RegisterSchema = Yup.object().shape({
-  email: emailValidationSchema,
   password: passwordValidationSchema,
+  confirmPassword: confirmPasswordValidationSchema,
 });
 
-const Login: React.FC<Props> = ({ route }) => {
+const RegisterPasswordScreen: React.FC<ScreenProps> = ({
+  navigation,
+  route,
+}: ScreenProps) => {
   const isConnected = useContext(NetworkInfoContext);
-  const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [email, setEmail] = useState(route.params?.email ?? "");
-  const [password, setPassword] = useState("");
-
-  const submitHandler = async (values: any) => {
-    setEmail(values.email);
-    setPassword(values.password);
-
+  const createAccountHandler = async (values: any) => {
     if (isConnected) {
       setIsLoading(true);
 
-      const { idToken, errorMessage } = await loginWithEmail(
-        values.email,
+      const { errorCode, errorMessage } = await createUserWithEmail(
+        route.params?.email ?? "",
         values.password
       );
 
       setIsLoading(false);
 
-      if (idToken) {
-        authContext.authenticate(idToken);
-      } else if (errorMessage) {
+      if (errorMessage) {
+        if (errorCode === FirebaseAuthErrorCodes.EMAIL_EXISTS) {
+          navigation.goBack();
+        }
+
         AlertService.error(errorMessage);
+      } else {
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 1,
+            routes: [
+              { name: "Welcome" },
+              {
+                name: "Login",
+                params: { email: route.params?.email },
+              },
+            ],
+          })
+        );
       }
     } else {
       AlertService.error(ErrorMessages.NO_INTERNET_CONNECTION);
@@ -68,41 +81,46 @@ const Login: React.FC<Props> = ({ route }) => {
   return (
     <Formik
       initialValues={{
-        email: email,
-        password: password,
+        password: "",
+        confirmPassword: "",
       }}
-      onSubmit={submitHandler}
+      onSubmit={createAccountHandler}
       validationSchema={RegisterSchema}
     >
       {({ values, isValid, handleSubmit, ...formikProps }) => {
-        const isLoginDisabled =
-          !isValid || values.password.length == 0 || values.email.length == 0;
+        const isAccountCreationDisabled =
+          !isValid ||
+          values.password.length == 0 ||
+          values.confirmPassword.length == 0;
 
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
               <ValidatedInputText
+                secureTextEntry
                 autoCapitalize="none"
-                keyboardType="email-address"
-                title="Email"
-                placeholder="Enter email"
-                valueName="email"
-                value={values.email}
+                title="Password"
+                placeholder="Create password"
+                valueName="password"
+                value={values.password}
                 {...formikProps}
               />
               <ValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
-                title="Password"
-                placeholder="Enter password"
-                valueName="password"
-                value={values.password}
+                title="Confirm password"
+                placeholder="Repeat password"
+                valueName="confirmPassword"
+                value={values.confirmPassword}
                 {...formikProps}
               />
             </View>
             <View style={styles.buttonsContainer}>
-              <Button onPress={handleSubmit} disabled={isLoginDisabled}>
-                Login
+              <Button
+                onPress={handleSubmit}
+                disabled={isAccountCreationDisabled}
+              >
+                Create account
               </Button>
               <Separator>or</Separator>
               <IconButton
@@ -117,4 +135,4 @@ const Login: React.FC<Props> = ({ route }) => {
   );
 };
 
-export default Login;
+export default RegisterPasswordScreen;

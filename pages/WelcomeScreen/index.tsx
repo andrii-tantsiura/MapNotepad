@@ -3,11 +3,11 @@ import { Image, View } from "react-native";
 import styles from "./styles";
 import { Typography, Button } from "../../components/common";
 import { GlobalStyles } from "../../constants/styles";
-import { Props } from "../../navigation/AuthStack/types";
+import { ScreenProps } from "../../navigation/AuthStack/types";
 
 const ENTER_PAGE_ICON = require("../../assets/icons/pic_enter_page.png");
 
-const Welcome: React.FC<Props> = ({ navigation }) => {
+const WelcomeScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const loginHandler = () => {
     navigation.navigate("Login");
   };
@@ -42,4 +42,4 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default Welcome;
+export default WelcomeScreen;
