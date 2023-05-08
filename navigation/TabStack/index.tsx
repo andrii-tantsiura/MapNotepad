@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabStackParamList } from "./types";
 import { FC, useContext, useState } from "react";
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 import styles from "./styles";
 import COLORS from "../../constants/colors";
 import { AuthContext } from "../../store/AuthContextProvider";
@@ -42,6 +42,7 @@ const TabsStack: FC = () => {
           tabBarLabelStyle: styles.tabBarLabel,
           header: () => (
             <SearchBar
+              style={styles.searchBarContainer}
               onRightButtonPress={() => {
                 setIsLogoutDialogOpened(true);
               }}

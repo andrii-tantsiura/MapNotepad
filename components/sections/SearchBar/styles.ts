@@ -8,10 +8,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginTop: 30,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 8,
   },
   input: {
     flex: 1,
+    marginHorizontal: 12,
     paddingLeft: 16,
     ...FontSizes.i12,
     ...FontWeights.regular,
@@ -21,10 +24,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.lightVariant,
     backgroundColor: COLORS.lightVariant,
-  },
-  iconButton: {
-    marginHorizontal: 16,
-    marginVertical: 10,
   },
 });
 export default styles;

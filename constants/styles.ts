@@ -23,9 +23,16 @@ export const GlobalStyles = StyleSheet.create({
   },
   shadow_i1: {
     elevation: 5,
-    shadowColor: "black",
+    shadowColor: COLORS.systemBlack,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
+  shadow_i2: {
+    elevation: 6,
+    shadowColor: COLORS.systemBlack,
+    shadowOffset: { width: 1, height: 3 },
+    shadowOpacity: 0.6,
     shadowRadius: 4,
   },
 });

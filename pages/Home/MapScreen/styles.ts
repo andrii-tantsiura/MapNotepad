@@ -1,12 +1,15 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
+  container: { flex: 1 },
+  map: {
     flex: 1,
   },
-  map: {
-    width: "100%",
-    height: "100%",
+  locationButton: {
+    bottom: 0,
+    right: 0,
+    marginRight: 16,
+    marginBottom: 18,
   },
 });
 

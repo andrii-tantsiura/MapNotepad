@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import styles from "./styles";
 
-interface IIconButtonProps {
+export interface IIconButtonProps {
   iconHeight?: ImageStyle["height"];
   iconWidth?: ImageStyle["width"];
   resizeMode?: ImageStyle["resizeMode"];
