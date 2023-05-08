@@ -5,6 +5,7 @@ import {
   PressableStateCallbackType,
   Image,
   ImageStyle,
+  StyleProp,
 } from "react-native";
 import styles from "./styles";
 
@@ -14,9 +15,9 @@ interface IIconButtonProps {
   resizeMode?: ImageStyle["resizeMode"];
   disabled?: boolean;
   imageStyle?: ImageStyle;
-  style?: ViewStyle;
-  pressedStyle?: ViewStyle;
-  disabledStyle?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
+  pressedStyle?: StyleProp<ViewStyle>;
+  disabledStyle?: StyleProp<ViewStyle>;
   source: any;
   onPress?: () => void;
 }
