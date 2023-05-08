@@ -12,7 +12,7 @@ const LEFT_BLUE = require("../../assets/icons/ic_left_blue.png");
 
 const Stack = createStackNavigator<AuthStackParams>();
 
-export const AuthStack: React.FC = () => (
+const AuthStack: React.FC = () => (
   <Stack.Navigator
     initialRouteName="Welcome"
     screenOptions={({ navigation }) => ({
@@ -65,3 +65,5 @@ export const AuthStack: React.FC = () => (
     />
   </Stack.Navigator>
 );
+
+export default AuthStack;
