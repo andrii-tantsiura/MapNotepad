@@ -6,7 +6,6 @@ import AuthStack from "./AuthStack";
 import { AuthContext } from "../store/AuthContextProvider";
 import COLORS from "../constants/colors";
 import { Loader } from "../components/common";
-import { Text, View } from "react-native";
 import TabsStack from "./TabStack";
 
 const THEME = {

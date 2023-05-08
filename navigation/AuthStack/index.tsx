@@ -1,12 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { IconButton, Typography } from "../../components/common";
-import WelcomeScreen from "../../pages/WelcomeScreen";
-import LoginScreen from "../../pages/LoginScreen";
-import RegisterScreen from "../../pages/RegisterScreen";
-import RegisterPasswordScreen from "../../pages/RegisterPasswordScreen";
 import COLORS from "../../constants/colors";
+import StartupScreen from "../../pages/Auth/StartupScreen";
 import { AuthStackParams } from "./types";
+import LoginScreen from "../../pages/Auth/LoginScreen";
+import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
+import RegistrationCompletionScreen from "../../pages/Auth/RegistrationCompletionScreen";
 
 const LEFT_BLUE = require("../../assets/icons/ic_left_blue.png");
 
@@ -14,7 +14,7 @@ const Stack = createStackNavigator<AuthStackParams>();
 
 const AuthStack: React.FC = () => (
   <Stack.Navigator
-    initialRouteName="Welcome"
+    initialRouteName="Startup"
     screenOptions={({ navigation }) => ({
       headerShadowVisible: false,
       headerTitleAlign: "center",
@@ -36,22 +36,22 @@ const AuthStack: React.FC = () => (
     })}
   >
     <Stack.Screen
-      name="Welcome"
-      component={WelcomeScreen}
+      name="Startup"
+      component={StartupScreen}
       options={{
         headerShown: false,
       }}
     />
     <Stack.Screen
-      name="Register"
-      component={RegisterScreen}
+      name="RegistrationStartup"
+      component={RegistrationStartupScreen}
       options={{
         title: "Create an account",
       }}
     />
     <Stack.Screen
-      name="RegisterPassword"
-      component={RegisterPasswordScreen}
+      name="RegistrationCompletion"
+      component={RegistrationCompletionScreen}
       options={{
         title: "Create an account",
       }}

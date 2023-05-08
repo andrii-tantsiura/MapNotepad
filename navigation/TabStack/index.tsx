@@ -2,12 +2,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabStackParamList } from "./types";
 import { FC, useContext, useState } from "react";
 import { Image } from "react-native";
-import { PinsScreen } from "../../pages/PinsScreen";
-import { MapScreen } from "../../pages/MapScreen";
 import styles from "./styles";
-import { SearchBar } from "../../components/sections";
+import COLORS from "../../constants/colors";
 import { AuthContext } from "../../store/AuthContextProvider";
+import { SearchBar } from "../../components/sections";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
+import { MapScreen } from "../../pages/Home/MapScreen";
+import { PinsScreen } from "../../pages/Home/PinsScreen";
 
 const MAP_ICON = require("../../assets/icons/ic_map.png");
 const PIN_ICON = require("../../assets/icons/ic_pin.png");
@@ -16,7 +17,7 @@ const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 const TabsStack: FC = () => {
   const authContext = useContext(AuthContext);
-  const [isLogoutOpened, setIsLogoutOpened] = useState(false);
+  const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
 
   return (
     <>
@@ -24,24 +25,25 @@ const TabsStack: FC = () => {
         title="Log Out"
         description="Are you sure you want to logout?"
         confirmText="Log Out"
-        visible={isLogoutOpened}
+        visible={isLogoutDialogOpened}
         onConfirm={() => {
-          setIsLogoutOpened(false);
+          setIsLogoutDialogOpened(false);
           authContext.logout();
         }}
         onCancel={() => {
-          setIsLogoutOpened(false);
+          setIsLogoutDialogOpened(false);
         }}
       />
 
       <Tabs.Navigator
         screenOptions={{
+          tabBarActiveBackgroundColor: COLORS.lightVariant,
           tabBarLabelPosition: "beside-icon",
           tabBarLabelStyle: styles.tabBarLabel,
           header: () => (
             <SearchBar
               onRightButtonPress={() => {
-                setIsLogoutOpened(true);
+                setIsLogoutDialogOpened(true);
               }}
             />
           ),

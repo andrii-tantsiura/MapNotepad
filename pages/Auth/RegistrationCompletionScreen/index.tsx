@@ -5,28 +5,33 @@ import * as Yup from "yup";
 import { CommonActions } from "@react-navigation/native";
 
 import styles from "./styles";
-import { Button, IconButton, Separator, Loader } from "../../components/common";
+import {
+  Button,
+  IconButton,
+  Separator,
+  Loader,
+} from "../../../components/common";
 import {
   passwordValidationSchema,
   confirmPasswordValidationSchema,
-} from "../../utils/stringSchemas";
-import { ScreenProps } from "../../navigation/AuthStack/types";
-import { GlobalStyles } from "../../constants/styles";
-import AlertService from "../../services/AlertService";
-import { createUserWithEmail } from "../../utils/auth";
-import { FirebaseAuthErrorCodes } from "../../enums/fireabaseAuthErrorCodes";
-import { ErrorMessages } from "../../enums/errorMessages";
-import { NetworkInfoContext } from "../../store/NetworkInfoContext";
-import { FormikValidatedInputText } from "../../components/sections";
+} from "../../../utils/stringSchemas";
+import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { GlobalStyles } from "../../../constants/styles";
+import AlertService from "../../../services/AlertService";
+import { createUserWithEmail } from "../../../utils/auth";
+import { FirebaseAuthErrorCodes } from "../../../enums/fireabaseAuthErrorCodes";
+import { ErrorMessages } from "../../../enums/errorMessages";
+import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
+import { FormikValidatedInputText } from "../../../components/sections";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
-const RegisterSchema = Yup.object().shape({
+const PasswordSchema = Yup.object().shape({
   password: passwordValidationSchema,
   confirmPassword: confirmPasswordValidationSchema,
 });
 
-const RegisterPasswordScreen: React.FC<ScreenProps> = ({
+const RegistrationCompletionScreen: React.FC<ScreenProps> = ({
   navigation,
   route,
 }: ScreenProps) => {
@@ -55,7 +60,7 @@ const RegisterPasswordScreen: React.FC<ScreenProps> = ({
           CommonActions.reset({
             index: 1,
             routes: [
-              { name: "Welcome" },
+              { name: "Startup" },
               {
                 name: "Login",
                 params: { email: route.params?.email },
@@ -80,7 +85,7 @@ const RegisterPasswordScreen: React.FC<ScreenProps> = ({
         confirmPassword: "",
       }}
       onSubmit={createAccountHandler}
-      validationSchema={RegisterSchema}
+      validationSchema={PasswordSchema}
     >
       {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isAccountCreationDisabled =
@@ -130,4 +135,4 @@ const RegisterPasswordScreen: React.FC<ScreenProps> = ({
   );
 };
 
-export default RegisterPasswordScreen;
+export default RegistrationCompletionScreen;

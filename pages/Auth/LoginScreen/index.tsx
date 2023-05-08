@@ -3,19 +3,24 @@ import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styles from "./styles";
-import { Button, IconButton, Separator, Loader } from "../../components/common";
+import {
+  Button,
+  IconButton,
+  Separator,
+  Loader,
+} from "../../../components/common";
 import {
   emailValidationSchema,
   passwordValidationSchema,
-} from "../../utils/stringSchemas";
-import { ScreenProps } from "../../navigation/AuthStack/types";
-import { GlobalStyles } from "../../constants/styles";
-import { loginWithEmail } from "../../utils/auth";
-import AlertService from "../../services/AlertService";
-import { ErrorMessages } from "../../enums/errorMessages";
-import { AuthContext } from "../../store/AuthContextProvider";
-import { NetworkInfoContext } from "../../store/NetworkInfoContext";
-import { FormikValidatedInputText } from "../../components/sections";
+} from "../../../utils/stringSchemas";
+import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { GlobalStyles } from "../../../constants/styles";
+import { loginWithEmail } from "../../../utils/auth";
+import AlertService from "../../../services/AlertService";
+import { ErrorMessages } from "../../../enums/errorMessages";
+import { AuthContext } from "../../../store/AuthContextProvider";
+import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
+import { FormikValidatedInputText } from "../../../components/sections";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
