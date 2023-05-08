@@ -12,7 +12,7 @@ import { ScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
 import { FormikValidatedInputText } from "../../../components/sections";
 
-const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
+const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
 const UserSchema = Yup.object().shape({
   name: nameValidationSchema,

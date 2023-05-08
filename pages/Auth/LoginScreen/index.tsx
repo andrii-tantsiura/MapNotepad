@@ -22,7 +22,7 @@ import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { FormikValidatedInputText } from "../../../components/sections";
 
-const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
+const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
 const RegisterSchema = Yup.object().shape({
   email: emailValidationSchema,

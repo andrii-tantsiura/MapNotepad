@@ -24,7 +24,7 @@ import { ErrorMessages } from "../../../enums/errorMessages";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { FormikValidatedInputText } from "../../../components/sections";
 
-const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
+const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
 const PasswordSchema = Yup.object().shape({
   password: passwordValidationSchema,
