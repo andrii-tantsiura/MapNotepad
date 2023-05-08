@@ -5,13 +5,7 @@ import * as Yup from "yup";
 import { CommonActions } from "@react-navigation/native";
 
 import styles from "./styles";
-import {
-  Button,
-  IconButton,
-  Separator,
-  ValidatedInputText,
-  Loader,
-} from "../../components/common";
+import { Button, IconButton, Separator, Loader } from "../../components/common";
 import {
   passwordValidationSchema,
   confirmPasswordValidationSchema,
@@ -23,6 +17,7 @@ import { createUserWithEmail } from "../../utils/auth";
 import { FirebaseAuthErrorCodes } from "../../enums/fireabaseAuthErrorCodes";
 import { ErrorMessages } from "../../enums/errorMessages";
 import { NetworkInfoContext } from "../../store/NetworkInfoContext";
+import { FormikValidatedInputText } from "../../components/sections";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -96,7 +91,7 @@ const RegisterPasswordScreen: React.FC<ScreenProps> = ({
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <ValidatedInputText
+              <FormikValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Password"
@@ -105,7 +100,7 @@ const RegisterPasswordScreen: React.FC<ScreenProps> = ({
                 value={values.password}
                 {...formikProps}
               />
-              <ValidatedInputText
+              <FormikValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Confirm password"

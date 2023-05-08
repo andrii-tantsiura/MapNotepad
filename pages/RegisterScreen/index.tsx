@@ -3,18 +3,14 @@ import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styles from "./styles";
-import {
-  Button,
-  IconButton,
-  Separator,
-  ValidatedInputText,
-} from "../../components/common";
+import { Button, IconButton, Separator } from "../../components/common";
 import {
   emailValidationSchema,
   nameValidationSchema,
 } from "../../utils/stringSchemas";
 import { ScreenProps } from "../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../constants/styles";
+import { FormikValidatedInputText } from "../../components/sections";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -47,14 +43,14 @@ const RegisterScreen: React.FC<ScreenProps> = ({ navigation }) => {
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <ValidatedInputText
+              <FormikValidatedInputText
                 title="Name"
                 placeholder="Enter name"
                 valueName="name"
                 value={values.name}
                 {...formikProps}
               />
-              <ValidatedInputText
+              <FormikValidatedInputText
                 autoCapitalize="none"
                 keyboardType="email-address"
                 title="Email"

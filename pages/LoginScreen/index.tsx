@@ -3,13 +3,7 @@ import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styles from "./styles";
-import {
-  Button,
-  IconButton,
-  Separator,
-  ValidatedInputText,
-  Loader,
-} from "../../components/common";
+import { Button, IconButton, Separator, Loader } from "../../components/common";
 import {
   emailValidationSchema,
   passwordValidationSchema,
@@ -21,6 +15,7 @@ import AlertService from "../../services/AlertService";
 import { ErrorMessages } from "../../enums/errorMessages";
 import { AuthContext } from "../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../store/NetworkInfoContext";
+import { FormikValidatedInputText } from "../../components/sections";
 
 const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
 
@@ -81,7 +76,7 @@ const LoginScreen: React.FC<ScreenProps> = ({ route }) => {
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <ValidatedInputText
+              <FormikValidatedInputText
                 autoCapitalize="none"
                 keyboardType="email-address"
                 title="Email"
@@ -90,7 +85,7 @@ const LoginScreen: React.FC<ScreenProps> = ({ route }) => {
                 value={values.email}
                 {...formikProps}
               />
-              <ValidatedInputText
+              <FormikValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Password"
