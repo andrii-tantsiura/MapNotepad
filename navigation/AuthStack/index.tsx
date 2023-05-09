@@ -1,14 +1,12 @@
-import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { IconButton, Typography } from "../../components/common";
+import { createStackNavigator } from "@react-navigation/stack";
 import COLORS from "../../constants/colors";
 import StartupScreen from "../../pages/Auth/StartupScreen";
 import { AuthStackParams } from "./types";
 import LoginScreen from "../../pages/Auth/LoginScreen";
 import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
 import RegistrationCompletionScreen from "../../pages/Auth/RegistrationCompletionScreen";
-
-const LEFT_BLUE = require("../../assets/icons/ic_left_blue.png");
+import { BackButton, HeaderTitle } from "../../components/sections";
 
 const Stack = createStackNavigator<AuthStackParams>();
 
@@ -21,18 +19,8 @@ const AuthStack: React.FC = () => (
       headerStyle: {
         backgroundColor: COLORS.systemWhite,
       },
-      headerTitle: ({ children }) => (
-        <Typography size="i16" weight="semiBold" color="systemBlack">
-          {children}
-        </Typography>
-      ),
-      headerLeft: () => (
-        <IconButton
-          style={{ marginLeft: 8 }}
-          source={LEFT_BLUE}
-          onPress={navigation.goBack}
-        />
-      ),
+      headerTitle: HeaderTitle,
+      headerLeft: () => <BackButton onPress={navigation.goBack} />,
     })}
   >
     <Stack.Screen

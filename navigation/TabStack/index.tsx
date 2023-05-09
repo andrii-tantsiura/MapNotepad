@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { TabStackParamList } from "./types";
-import { FC, useContext, useState } from "react";
-import { Image, View } from "react-native";
+import { useContext, useState } from "react";
+import { Image } from "react-native";
 import styles from "./styles";
 import COLORS from "../../constants/colors";
 import { AuthContext } from "../../store/AuthContextProvider";
@@ -15,7 +15,7 @@ const PIN_ICON = require("../../assets/icons/ic_pin.png");
 
 const Tabs = createBottomTabNavigator<TabStackParamList>();
 
-const TabsStack: FC = () => {
+const TabsStack: React.FC = () => {
   const authContext = useContext(AuthContext);
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
 
@@ -34,8 +34,8 @@ const TabsStack: FC = () => {
           setIsLogoutDialogOpened(false);
         }}
       />
-
       <Tabs.Navigator
+        initialRouteName="Map"
         screenOptions={{
           tabBarActiveBackgroundColor: COLORS.lightVariant,
           tabBarLabelPosition: "beside-icon",

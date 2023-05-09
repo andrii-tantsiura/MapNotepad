@@ -2,9 +2,9 @@ import React, { FC } from "react";
 import { ListRenderItem, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import styles from "./styles";
-import { FloatingActionButton } from "../../../components/sections/FloatingActionButton";
 import { Pin } from "../../../types/map";
 import { PinItem } from "./common/PinItem";
+import { FloatingActionButton } from "../../../components/sections";
 
 const PLUS_ICON = require("../../../assets/icons/ic_plus.png");
 
@@ -37,7 +37,8 @@ const renderPinItem: ListRenderItem<Pin> = ({ item }) => (
   <PinItem data={item} />
 );
 
-export const PinsScreen: FC = () => (
+// TODO: define type
+export const PinsScreen: FC = ({ navigation }) => (
   <View style={styles.container}>
     <FlatList
       data={pins}
@@ -47,7 +48,7 @@ export const PinsScreen: FC = () => (
     <FloatingActionButton
       style={styles.addPinButton}
       source={PLUS_ICON}
-      onPress={() => console.log("tap")}
+      onPress={() => navigation.navigate("AddPin")}
     />
   </View>
 );

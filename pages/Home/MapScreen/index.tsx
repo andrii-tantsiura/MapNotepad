@@ -2,7 +2,7 @@ import { FC } from "react";
 import { View } from "react-native";
 import MapView from "react-native-maps";
 import styles from "./styles";
-import { FloatingActionButton } from "../../../components/sections/FloatingActionButton";
+import { FloatingActionButton } from "../../../components/sections";
 
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 
