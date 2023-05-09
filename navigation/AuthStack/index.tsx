@@ -2,13 +2,13 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import COLORS from "../../constants/colors";
 import StartupScreen from "../../pages/Auth/StartupScreen";
-import { AuthStackParams } from "./types";
+import { AuthStackParamList } from "./types";
 import LoginScreen from "../../pages/Auth/LoginScreen";
 import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
 import RegistrationCompletionScreen from "../../pages/Auth/RegistrationCompletionScreen";
 import { BackButton, HeaderTitle } from "../../components/sections";
 
-const Stack = createStackNavigator<AuthStackParams>();
+const Stack = createStackNavigator<AuthStackParamList>();
 
 const AuthStack: React.FC = () => (
   <Stack.Navigator

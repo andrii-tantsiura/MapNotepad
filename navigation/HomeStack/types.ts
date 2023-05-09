@@ -1,8 +1,8 @@
 import { StackScreenProps } from "@react-navigation/stack";
 
-export type HomeStackParams = {
+export type HomeStackParamList = {
   Tabs: undefined;
   AddPin: undefined;
 };
 
-export type HomeScreenProps = StackScreenProps<HomeStackParams>;
+export type HomeScreenProps = StackScreenProps<HomeStackParamList>;

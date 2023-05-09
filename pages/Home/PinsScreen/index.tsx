@@ -1,10 +1,13 @@
 import React, { FC } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
 import { ListRenderItem, View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import styles from "./styles";
 import { Pin } from "../../../types/map";
 import { PinItem } from "./common/PinItem";
 import { FloatingActionButton } from "../../../components/sections";
+import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 
 const PLUS_ICON = require("../../../assets/icons/ic_plus.png");
 
@@ -37,18 +40,27 @@ const renderPinItem: ListRenderItem<Pin> = ({ item }) => (
   <PinItem data={item} />
 );
 
+type HomeScreenNavigationProp = StackNavigationProp<
+  HomeStackParamList,
+  "AddPin"
+>;
+
 // TODO: define type
-export const PinsScreen: FC = ({ navigation }) => (
-  <View style={styles.container}>
-    <FlatList
-      data={pins}
-      keyExtractor={(item) => item.id.toString()}
-      renderItem={renderPinItem}
-    />
-    <FloatingActionButton
-      style={styles.addPinButton}
-      source={PLUS_ICON}
-      onPress={() => navigation.navigate("AddPin")}
-    />
-  </View>
-);
+export const PinsScreen: FC = () => {
+  const homeNavigation = useNavigation<HomeScreenNavigationProp>();
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={pins}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderPinItem}
+      />
+      <FloatingActionButton
+        style={styles.addPinButton}
+        source={PLUS_ICON}
+        onPress={() => homeNavigation.navigate("AddPin")}
+      />
+    </View>
+  );
+};

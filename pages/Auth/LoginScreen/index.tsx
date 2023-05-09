@@ -13,7 +13,7 @@ import {
   emailValidationSchema,
   passwordValidationSchema,
 } from "../../../utils/stringSchemas";
-import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
 import { loginWithEmail } from "../../../utils/auth";
 import AlertService from "../../../services/AlertService";
@@ -29,7 +29,7 @@ const RegisterSchema = Yup.object().shape({
   password: passwordValidationSchema,
 });
 
-const LoginScreen: React.FC<ScreenProps> = ({ route }) => {
+const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const isConnected = useContext(NetworkInfoContext);
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);

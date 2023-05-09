@@ -8,7 +8,7 @@ import {
   nameValidationSchema,
   emailValidationSchema,
 } from "../../../utils/stringSchemas";
-import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
 import { FormikValidatedInputText } from "../../../components/sections";
 
@@ -19,7 +19,9 @@ const UserSchema = Yup.object().shape({
   email: emailValidationSchema,
 });
 
-const RegistrationStartupScreen: React.FC<ScreenProps> = ({ navigation }) => {
+const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
+  navigation,
+}) => {
   const goToNextRegistrationStepHandler = (values: any) => {
     navigation.navigate("RegistrationCompletion", {
       name: values.name,

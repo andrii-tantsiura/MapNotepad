@@ -15,7 +15,7 @@ import {
   passwordValidationSchema,
   confirmPasswordValidationSchema,
 } from "../../../utils/stringSchemas";
-import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
 import AlertService from "../../../services/AlertService";
 import { createUserWithEmail } from "../../../utils/auth";
@@ -31,10 +31,10 @@ const PasswordSchema = Yup.object().shape({
   confirmPassword: confirmPasswordValidationSchema,
 });
 
-const RegistrationCompletionScreen: React.FC<ScreenProps> = ({
+const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
-}: ScreenProps) => {
+}: AuthScreenProps) => {
   const isConnected = useContext(NetworkInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 

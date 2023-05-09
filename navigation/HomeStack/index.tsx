@@ -1,11 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { HomeStackParams } from "./types";
+import { HomeStackParamList } from "./types";
 import TabsStack from "../TabStack";
 import { AddPinScreen } from "../../pages/Home/AddPinScreen";
 import COLORS from "../../constants/colors";
 import { BackButton, HeaderTitle } from "../../components/sections";
 
-const Stack = createStackNavigator<HomeStackParams>();
+const Stack = createStackNavigator<HomeStackParamList>();
 
 const HomeStack: React.FC = () => (
   <Stack.Navigator

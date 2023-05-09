@@ -3,11 +3,11 @@ import { Image, View } from "react-native";
 import styles from "./styles";
 import { GlobalStyles } from "../../../constants/styles";
 import { Typography, Button } from "../../../components/common";
-import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 
 const ENTER_PAGE_ICON = require("../../../assets/icons/pic_enter_page.png");
 
-const StartupScreen: React.FC<ScreenProps> = ({ navigation }) => {
+const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
   const loginHandler = () => {
     navigation.navigate("Login");
   };
