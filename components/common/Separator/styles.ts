@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import COLORS from "../../../constants/colors";
+import colors from "../../../constants/colors";
 
 const styles = StyleSheet.create({
   separator: {
@@ -10,8 +10,8 @@ const styles = StyleSheet.create({
   line: {
     flex: 1,
     alignItems: "center",
-    borderTopWidth: 1,
-    borderTopColor: COLORS.systemLightGray,
+    borderTopWidth: 0.5,
+    borderTopColor: colors.systemLightGray,
   },
 });
 
