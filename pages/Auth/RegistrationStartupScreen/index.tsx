@@ -3,29 +3,25 @@ import { View } from "react-native";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import styles from "./styles";
+import { Button, IconButton, Separator } from "../../../components/common";
 import {
-  Button,
-  IconButton,
-  Separator,
-  ValidatedInputText,
-} from "../../components/common";
-import {
-  emailValidationSchema,
   nameValidationSchema,
-} from "../../utils/stringSchemas";
-import { Props } from "../../navigation/AuthStack/types";
-import { GlobalStyles } from "../../constants/styles";
+  emailValidationSchema,
+} from "../../../utils/stringSchemas";
+import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { GlobalStyles } from "../../../constants/styles";
+import { FormikValidatedInputText } from "../../../components/sections";
 
-const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
+const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
-const RegisterSchema = Yup.object().shape({
+const UserSchema = Yup.object().shape({
   name: nameValidationSchema,
   email: emailValidationSchema,
 });
 
-const Register: React.FC<Props> = ({ navigation }) => {
+const RegistrationStartupScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const goToNextRegistrationStepHandler = (values: any) => {
-    navigation.navigate("RegisterPassword", {
+    navigation.navigate("RegistrationCompletion", {
       name: values.name,
       email: values.email,
     });
@@ -38,7 +34,7 @@ const Register: React.FC<Props> = ({ navigation }) => {
         email: "",
       }}
       onSubmit={goToNextRegistrationStepHandler}
-      validationSchema={RegisterSchema}
+      validationSchema={UserSchema}
     >
       {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isNextRegistrationStepDisabled =
@@ -47,14 +43,14 @@ const Register: React.FC<Props> = ({ navigation }) => {
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <ValidatedInputText
+              <FormikValidatedInputText
                 title="Name"
                 placeholder="Enter name"
                 valueName="name"
                 value={values.name}
                 {...formikProps}
               />
-              <ValidatedInputText
+              <FormikValidatedInputText
                 autoCapitalize="none"
                 keyboardType="email-address"
                 title="Email"
@@ -84,4 +80,4 @@ const Register: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default Register;
+export default RegistrationStartupScreen;

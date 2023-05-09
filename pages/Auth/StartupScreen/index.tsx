@@ -1,19 +1,19 @@
 import React from "react";
 import { Image, View } from "react-native";
 import styles from "./styles";
-import { Typography, Button } from "../../components/common";
-import { GlobalStyles } from "../../constants/styles";
-import { Props } from "../../navigation/AuthStack/types";
+import { GlobalStyles } from "../../../constants/styles";
+import { Typography, Button } from "../../../components/common";
+import { ScreenProps } from "../../../navigation/AuthStack/types";
 
-const ENTER_PAGE_ICON = require("../../assets/icons/pic_enter_page.png");
+const ENTER_PAGE_ICON = require("../../../assets/icons/pic_enter_page.png");
 
-const Welcome: React.FC<Props> = ({ navigation }) => {
+const StartupScreen: React.FC<ScreenProps> = ({ navigation }) => {
   const loginHandler = () => {
     navigation.navigate("Login");
   };
 
-  const registerHandler = () => {
-    navigation.navigate("Register");
+  const createAccountHandler = () => {
+    navigation.navigate("RegistrationStartup");
   };
 
   return (
@@ -33,7 +33,7 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
         <Button
           color="lightPrimary"
           style={GlobalStyles.buttonOutline_i1}
-          onPress={registerHandler}
+          onPress={createAccountHandler}
         >
           Create account
         </Button>
@@ -42,4 +42,4 @@ const Welcome: React.FC<Props> = ({ navigation }) => {
   );
 };
 
-export default Welcome;
+export default StartupScreen;

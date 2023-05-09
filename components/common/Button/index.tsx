@@ -1,11 +1,17 @@
 import React from "react";
-import { Pressable, PressableStateCallbackType, ViewStyle } from "react-native";
+import {
+  Pressable,
+  PressableStateCallbackType,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
+import { GlobalStyles } from "../../../constants/styles";
 
 interface IButtonProps extends ITypographyProps {
   disabled?: boolean;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   pressedStyle?: ViewStyle;
   disabledStyle?: ViewStyle;
   onPress?: () => void;
@@ -25,7 +31,7 @@ export const Button: React.FC<IButtonProps> = ({
   onPress,
 }) => {
   const getStyle = ({ pressed }: PressableStateCallbackType) => [
-    styles.button,
+    GlobalStyles.button_i1,
     style,
     disabled ? disabledStyle : pressed && pressedStyle,
   ];

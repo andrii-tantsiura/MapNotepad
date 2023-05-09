@@ -11,6 +11,7 @@ export interface IColors {
   darkVariant: string;
   systemWhite: string;
   systemLightGray: string;
+  systemDarkGray80: string;
   systemGray: string;
   systemDarkGray: string;
   systemBlack: string;
@@ -48,6 +49,7 @@ const COLORS: IColors = {
   systemLightGray: "#D7DDE8",
   systemGray: "#858E9E",
   systemDarkGray: "#3D4E61",
+  systemDarkGray80: "#3d4e61CC",
   systemBlack: "#1E242B",
   lightError: "#F24545",
   darkError: "#FA545F",

@@ -1,10 +1,10 @@
 import { StackScreenProps } from "@react-navigation/stack";
 
-export type RootStackParamList = {
-  Welcome: undefined;
-  Register: undefined;
-  RegisterPassword: { name: string; email: string };
+export type AuthStackParams = {
+  Startup: undefined;
+  RegistrationStartup: undefined;
+  RegistrationCompletion: { name: string; email: string };
   Login: { email: string | undefined } | undefined;
 };
 
-export type Props = StackScreenProps<RootStackParamList>;
+export type ScreenProps = StackScreenProps<AuthStackParams>;

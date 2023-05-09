@@ -2,10 +2,10 @@ import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
   pressed: {
-    opacity: 0.65,
+    opacity: 0.85,
   },
   disabled: {
-    opacity: 0.4,
+    opacity: 0.6,
   },
 });
 

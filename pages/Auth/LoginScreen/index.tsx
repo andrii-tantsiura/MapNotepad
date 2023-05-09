@@ -7,29 +7,29 @@ import {
   Button,
   IconButton,
   Separator,
-  ValidatedInputText,
   Loader,
-} from "../../components/common";
+} from "../../../components/common";
 import {
   emailValidationSchema,
   passwordValidationSchema,
-} from "../../utils/stringSchemas";
-import { Props } from "../../navigation/AuthStack/types";
-import { GlobalStyles } from "../../constants/styles";
-import { loginWithEmail } from "../../utils/auth";
-import AlertService from "../../services/AlertService";
-import { ErrorMessages } from "../../enums/errorMessages";
-import { AuthContext } from "../../store/AuthContextProvider";
-import { NetworkInfoContext } from "../../store/NetworkInfoContext";
+} from "../../../utils/stringSchemas";
+import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { GlobalStyles } from "../../../constants/styles";
+import { loginWithEmail } from "../../../utils/auth";
+import AlertService from "../../../services/AlertService";
+import { ErrorMessages } from "../../../enums/errorMessages";
+import { AuthContext } from "../../../store/AuthContextProvider";
+import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
+import { FormikValidatedInputText } from "../../../components/sections";
 
-const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
+const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
 const RegisterSchema = Yup.object().shape({
   email: emailValidationSchema,
   password: passwordValidationSchema,
 });
 
-const Login: React.FC<Props> = ({ route }) => {
+const LoginScreen: React.FC<ScreenProps> = ({ route }) => {
   const isConnected = useContext(NetworkInfoContext);
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +81,7 @@ const Login: React.FC<Props> = ({ route }) => {
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <ValidatedInputText
+              <FormikValidatedInputText
                 autoCapitalize="none"
                 keyboardType="email-address"
                 title="Email"
@@ -90,7 +90,7 @@ const Login: React.FC<Props> = ({ route }) => {
                 value={values.email}
                 {...formikProps}
               />
-              <ValidatedInputText
+              <FormikValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Password"
@@ -117,4 +117,4 @@ const Login: React.FC<Props> = ({ route }) => {
   );
 };
 
-export default Login;
+export default LoginScreen;

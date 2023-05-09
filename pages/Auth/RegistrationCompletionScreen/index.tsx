@@ -9,29 +9,32 @@ import {
   Button,
   IconButton,
   Separator,
-  ValidatedInputText,
   Loader,
-} from "../../components/common";
+} from "../../../components/common";
 import {
   passwordValidationSchema,
   confirmPasswordValidationSchema,
-} from "../../utils/stringSchemas";
-import { Props } from "../../navigation/AuthStack/types";
-import { GlobalStyles } from "../../constants/styles";
-import AlertService from "../../services/AlertService";
-import { createUserWithEmail } from "../../utils/auth";
-import { FirebaseAuthErrorCodes } from "../../enums/fireabaseAuthErrorCodes";
-import { ErrorMessages } from "../../enums/errorMessages";
-import { NetworkInfoContext } from "../../store/NetworkInfoContext";
+} from "../../../utils/stringSchemas";
+import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { GlobalStyles } from "../../../constants/styles";
+import AlertService from "../../../services/AlertService";
+import { createUserWithEmail } from "../../../utils/auth";
+import { FirebaseAuthErrorCodes } from "../../../enums/fireabaseAuthErrorCodes";
+import { ErrorMessages } from "../../../enums/errorMessages";
+import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
+import { FormikValidatedInputText } from "../../../components/sections";
 
-const GOOGLE_ICON = require("../../assets/icons/ic_google.png");
+const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
-const RegisterSchema = Yup.object().shape({
+const PasswordSchema = Yup.object().shape({
   password: passwordValidationSchema,
   confirmPassword: confirmPasswordValidationSchema,
 });
 
-const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
+const RegistrationCompletionScreen: React.FC<ScreenProps> = ({
+  navigation,
+  route,
+}: ScreenProps) => {
   const isConnected = useContext(NetworkInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -57,7 +60,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
           CommonActions.reset({
             index: 1,
             routes: [
-              { name: "Welcome" },
+              { name: "Startup" },
               {
                 name: "Login",
                 params: { email: route.params?.email },
@@ -82,7 +85,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
         confirmPassword: "",
       }}
       onSubmit={createAccountHandler}
-      validationSchema={RegisterSchema}
+      validationSchema={PasswordSchema}
     >
       {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isAccountCreationDisabled =
@@ -93,7 +96,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
         return (
           <View style={styles.container}>
             <View style={styles.inputsContainer}>
-              <ValidatedInputText
+              <FormikValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Password"
@@ -102,7 +105,7 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
                 value={values.password}
                 {...formikProps}
               />
-              <ValidatedInputText
+              <FormikValidatedInputText
                 secureTextEntry
                 autoCapitalize="none"
                 title="Confirm password"
@@ -132,4 +135,4 @@ const RegisterPassword: React.FC<Props> = ({ navigation, route }: Props) => {
   );
 };
 
-export default RegisterPassword;
+export default RegistrationCompletionScreen;

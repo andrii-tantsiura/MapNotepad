@@ -1,0 +1,84 @@
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { TabStackParamList } from "./types";
+import { FC, useContext, useState } from "react";
+import { Image, View } from "react-native";
+import styles from "./styles";
+import COLORS from "../../constants/colors";
+import { AuthContext } from "../../store/AuthContextProvider";
+import { SearchBar } from "../../components/sections";
+import { ConfirmModal } from "../../components/modals/ConfirmModal";
+import { MapScreen } from "../../pages/Home/MapScreen";
+import { PinsScreen } from "../../pages/Home/PinsScreen";
+
+const MAP_ICON = require("../../assets/icons/ic_map.png");
+const PIN_ICON = require("../../assets/icons/ic_pin.png");
+
+const Tabs = createBottomTabNavigator<TabStackParamList>();
+
+const TabsStack: FC = () => {
+  const authContext = useContext(AuthContext);
+  const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
+
+  return (
+    <>
+      <ConfirmModal
+        title="Log Out"
+        description="Are you sure you want to logout?"
+        confirmText="Log Out"
+        visible={isLogoutDialogOpened}
+        onConfirm={() => {
+          setIsLogoutDialogOpened(false);
+          authContext.logout();
+        }}
+        onCancel={() => {
+          setIsLogoutDialogOpened(false);
+        }}
+      />
+
+      <Tabs.Navigator
+        screenOptions={{
+          tabBarActiveBackgroundColor: COLORS.lightVariant,
+          tabBarLabelPosition: "beside-icon",
+          tabBarLabelStyle: styles.tabBarLabel,
+          header: () => (
+            <SearchBar
+              style={styles.searchBarContainer}
+              onRightButtonPress={() => {
+                setIsLogoutDialogOpened(true);
+              }}
+            />
+          ),
+        }}
+      >
+        <Tabs.Screen
+          name="Map"
+          component={MapScreen}
+          options={{
+            tabBarIcon: () => (
+              <Image
+                style={styles.tabBarIcon}
+                resizeMode="center"
+                source={MAP_ICON}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="Pins"
+          component={PinsScreen}
+          options={{
+            tabBarIcon: () => (
+              <Image
+                style={styles.tabBarIcon}
+                resizeMode="center"
+                source={PIN_ICON}
+              />
+            ),
+          }}
+        />
+      </Tabs.Navigator>
+    </>
+  );
+};
+
+export default TabsStack;

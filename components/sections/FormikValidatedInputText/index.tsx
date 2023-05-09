@@ -1,7 +1,7 @@
-import { FormikHandlers, FormikHelpers, FormikTouched } from "formik";
-import { IInputTextProps, InputText } from "..";
+import { FormikHandlers, FormikHelpers } from "formik";
+import { IInputTextProps, InputText } from "../../common/InputText";
 
-interface IValidateInputText extends IInputTextProps {
+interface IFormikValidatedInputText extends IInputTextProps {
   valueName: string;
   errors?: any;
   touched?: any;
@@ -10,7 +10,7 @@ interface IValidateInputText extends IInputTextProps {
   handleChange: FormikHandlers["handleChange"];
 }
 
-export const ValidatedInputText: React.FC<IValidateInputText> = ({
+export const FormikValidatedInputText: React.FC<IFormikValidatedInputText> = ({
   valueName,
   value,
   errors,

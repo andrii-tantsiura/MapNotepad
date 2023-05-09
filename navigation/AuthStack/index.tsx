@@ -1,20 +1,20 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { IconButton, Typography } from "../../components/common";
-import Welcome from "../../pages/Welcome";
-import Login from "../../pages/Login";
-import Register from "../../pages/Register";
-import RegisterPassword from "../../pages/RegisterPassword";
 import COLORS from "../../constants/colors";
-import { RootStackParamList } from "./types";
+import StartupScreen from "../../pages/Auth/StartupScreen";
+import { AuthStackParams } from "./types";
+import LoginScreen from "../../pages/Auth/LoginScreen";
+import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
+import RegistrationCompletionScreen from "../../pages/Auth/RegistrationCompletionScreen";
 
 const LEFT_BLUE = require("../../assets/icons/ic_left_blue.png");
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<AuthStackParams>();
 
-export const AuthStack: React.FC = () => (
+const AuthStack: React.FC = () => (
   <Stack.Navigator
-    initialRouteName="Welcome"
+    initialRouteName="Startup"
     screenOptions={({ navigation }) => ({
       headerShadowVisible: false,
       headerTitleAlign: "center",
@@ -36,32 +36,34 @@ export const AuthStack: React.FC = () => (
     })}
   >
     <Stack.Screen
-      name="Welcome"
-      component={Welcome}
+      name="Startup"
+      component={StartupScreen}
       options={{
         headerShown: false,
       }}
     />
     <Stack.Screen
-      name="Register"
-      component={Register}
+      name="RegistrationStartup"
+      component={RegistrationStartupScreen}
       options={{
         title: "Create an account",
       }}
     />
     <Stack.Screen
-      name="RegisterPassword"
-      component={RegisterPassword}
+      name="RegistrationCompletion"
+      component={RegistrationCompletionScreen}
       options={{
         title: "Create an account",
       }}
     />
     <Stack.Screen
       name="Login"
-      component={Login}
+      component={LoginScreen}
       options={{
         title: "Log in",
       }}
     />
   </Stack.Navigator>
 );
+
+export default AuthStack;
