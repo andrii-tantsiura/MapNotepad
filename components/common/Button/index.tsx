@@ -6,8 +6,8 @@ import {
   ViewStyle,
 } from "react-native";
 import { ITypographyProps, Typography } from "../Typography";
-import styles from "./styles";
 import { GlobalStyles } from "../../../constants/styles";
+import styles from "./styles";
 
 interface IButtonProps extends ITypographyProps {
   disabled?: boolean;

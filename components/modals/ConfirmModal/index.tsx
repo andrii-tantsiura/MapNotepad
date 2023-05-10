@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Modal, Pressable, TextStyle, View } from "react-native";
+import { Modal, View } from "react-native";
 import { Button, Typography } from "../../common";
 import styles from "./styles";
 import { GlobalStyles } from "../../../constants/styles";

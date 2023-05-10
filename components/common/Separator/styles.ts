@@ -1,17 +1,16 @@
 import { StyleSheet } from "react-native";
-import colors from "../../../constants/colors";
+import COLORS from "../../../constants/colors";
 
 const styles = StyleSheet.create({
-  separator: {
+  container: {
     flexDirection: "row",
     alignItems: "center",
     columnGap: 2,
   },
   line: {
     flex: 1,
-    alignItems: "center",
-    borderTopWidth: 0.5,
-    borderTopColor: colors.systemLightGray,
+    height: 1,
+    backgroundColor: COLORS.lightVariant,
   },
 });
 

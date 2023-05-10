@@ -8,7 +8,7 @@ import {
   StyleProp,
 } from "react-native";
 import styles from "./styles";
-import { SCALE_FACTOR } from "../../../constants/fontSizes";
+import { scaleSize } from "../../../utils/dimensions";
 
 export interface IIconButtonProps {
   iconHeight?: ImageStyle["height"];
@@ -24,8 +24,8 @@ export interface IIconButtonProps {
 }
 
 export const IconButton: React.FC<IIconButtonProps> = ({
-  iconHeight = 24 * SCALE_FACTOR,
-  iconWidth = 24 * SCALE_FACTOR,
+  iconHeight = scaleSize(24),
+  iconWidth = scaleSize(24),
   resizeMode = "center",
   disabled,
   imageStyle,

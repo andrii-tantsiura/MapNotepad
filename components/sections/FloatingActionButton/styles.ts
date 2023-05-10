@@ -1,15 +1,15 @@
 import { StyleSheet } from "react-native";
 import { GlobalStyles } from "../../../constants/styles";
 import COLORS from "../../../constants/colors";
-import { SCALE_FACTOR } from "../../../constants/fontSizes";
+import { scaleSize } from "../../../utils/dimensions";
 
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
     alignItems: "center",
     justifyContent: "center",
-    width: 46 * SCALE_FACTOR,
-    height: 46 * SCALE_FACTOR,
+    width: scaleSize(46),
+    height: scaleSize(46),
     borderRadius: 30,
     ...GlobalStyles.shadow_i2,
     backgroundColor: COLORS.systemWhite,

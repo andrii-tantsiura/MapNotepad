@@ -9,7 +9,7 @@ import {
   FloatingActionButton,
   FormikValidatedInputText,
 } from "../../../components/sections";
-import { IconButton } from "../../../components/common";
+import { IconButton, Separator } from "../../../components/common";
 import {
   latitudeValidationSchema,
   longitudeValidationSchema,
@@ -40,63 +40,65 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   });
 
   return (
-    <View style={styles.container}>
-      <Formik
-        initialValues={{
-          label: label,
-          description: description,
-          longitude: longitude,
-          latitude: latitude,
-        }}
-        validationSchema={ValidationSchema}
-        onSubmit={submitHandler}
-      >
-        {({ values, handleSubmit, ...formikProps }) => (
-          <View style={styles.inputsContainer}>
-            <FormikValidatedInputText
-              title="Label"
-              placeholder="Enter the label"
-              valueName="label"
-              value={values.label}
-              {...formikProps}
-            />
-            <FormikValidatedInputText
-              title="Description"
-              placeholder="Write a description"
-              valueName="description"
-              value={values.description}
-              {...formikProps}
-            />
-            <View style={styles.coordinatesContainer}>
-              <View style={styles.coordinateContainer}>
-                <FormikValidatedInputText
-                  keyboardType="numeric"
-                  title="Longitude"
-                  placeholder="Longitude"
-                  valueName="longitude"
-                  value={values.longitude}
-                  {...formikProps}
-                />
-              </View>
-              <View style={styles.coordinateContainer}>
-                <FormikValidatedInputText
-                  keyboardType="numeric"
-                  title="Latitude"
-                  placeholder="Latitude"
-                  valueName="latitude"
-                  value={values.latitude}
-                  {...formikProps}
-                />
+    <>
+      <Separator />
+      <View style={styles.container}>
+        <Formik
+          initialValues={{
+            label: label,
+            description: description,
+            longitude: longitude,
+            latitude: latitude,
+          }}
+          validationSchema={ValidationSchema}
+          onSubmit={submitHandler}
+        >
+          {({ values, handleSubmit, ...formikProps }) => (
+            <View style={styles.inputsContainer}>
+              <FormikValidatedInputText
+                title="Label"
+                placeholder="Enter the label"
+                valueName="label"
+                value={values.label}
+                {...formikProps}
+              />
+              <FormikValidatedInputText
+                title="Description"
+                placeholder="Write a description"
+                valueName="description"
+                value={values.description}
+                {...formikProps}
+              />
+              <View style={styles.coordinatesContainer}>
+                <View style={styles.coordinateContainer}>
+                  <FormikValidatedInputText
+                    keyboardType="numeric"
+                    title="Coordinates"
+                    placeholder="Longitude"
+                    valueName="longitude"
+                    value={values.longitude}
+                    {...formikProps}
+                  />
+                </View>
+                <View style={styles.coordinateContainer}>
+                  <FormikValidatedInputText
+                    keyboardType="numeric"
+                    placeholder="Latitude"
+                    valueName="latitude"
+                    value={values.latitude}
+                    {...formikProps}
+                  />
+                </View>
               </View>
             </View>
-          </View>
-        )}
-      </Formik>
-      <MapView style={styles.map}></MapView>
-      <FloatingActionButton
-        style={styles.locationButton}
-        source={LOCATION_ICON}
-      />
-    </View>
+          )}
+        </Formik>
+        <MapView style={styles.map}></MapView>
+        <FloatingActionButton
+          style={styles.locationButton}
+          source={LOCATION_ICON}
+        />
+      </View>
+    </>
   );
 };

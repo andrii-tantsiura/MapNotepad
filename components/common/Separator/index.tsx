@@ -8,7 +8,7 @@ interface ISeparatorProps {
 }
 
 export const Separator: React.FC<ISeparatorProps> = ({ children }) => (
-  <View style={styles.separator}>
+  <View style={styles.container}>
     <View style={styles.line}></View>
     {children && (
       <Typography size="i12" weight="medium" color="systemLightGray">

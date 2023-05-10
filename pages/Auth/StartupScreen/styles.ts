@@ -1,11 +1,14 @@
 import { StyleSheet } from "react-native";
-import { SCALE_FACTOR } from "../../../constants/fontSizes";
+import { scaleSize } from "../../../utils/dimensions";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  logo: { height: 150 * SCALE_FACTOR, width: "100%" },
+  logo: {
+    height: scaleSize(150),
+    width: "100%",
+  },
   logoContainer: {
     flex: 1,
     justifyContent: "center",

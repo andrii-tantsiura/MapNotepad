@@ -9,6 +9,7 @@ import { SearchBar } from "../../components/sections";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 import { MapScreen } from "../../pages/Home/MapScreen";
 import { PinsScreen } from "../../pages/Home/PinsScreen";
+import { GlobalStyles } from "../../constants/styles";
 
 const MAP_ICON = require("../../assets/icons/ic_map.png");
 const PIN_ICON = require("../../assets/icons/ic_pin.png");
@@ -56,7 +57,7 @@ const TabsStack: React.FC = () => {
           options={{
             tabBarIcon: () => (
               <Image
-                style={styles.tabBarIcon}
+                style={GlobalStyles.image_i1}
                 resizeMode="center"
                 source={MAP_ICON}
               />
@@ -69,7 +70,7 @@ const TabsStack: React.FC = () => {
           options={{
             tabBarIcon: () => (
               <Image
-                style={styles.tabBarIcon}
+                style={GlobalStyles.image_i1}
                 resizeMode="center"
                 source={PIN_ICON}
               />

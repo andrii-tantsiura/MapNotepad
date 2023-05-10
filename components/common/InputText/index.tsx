@@ -4,13 +4,14 @@ import styles from "./styles";
 import COLORS from "../../../constants/colors";
 import { Typography } from "../Typography";
 import { IconButton } from "../IconButton";
+import { scaleSize } from "../../../utils/dimensions";
 
 const CLEAR_ICON = require("../../../assets/icons/ic_clear.png");
 const EYE_ICON = require("../../../assets/icons/ic_eye.png");
 const EYE_ICON_OFF = require("../../../assets/icons/ic_eye_off.png");
 
 export interface IInputTextProps extends TextInputProps {
-  title: string;
+  title?: string;
   error?: string;
   onClear?: () => void;
 }
@@ -21,7 +22,7 @@ export const InputText: React.FC<IInputTextProps> = ({
   placeholderTextColor = COLORS.systemGray,
   secureTextEntry = false,
   keyboardType = "default",
-  title,
+  title = " ",
   error,
   placeholder,
   value,
@@ -68,16 +69,16 @@ export const InputText: React.FC<IInputTextProps> = ({
             {secureTextEntry && (
               <IconButton
                 style={styles.button}
-                iconHeight={24}
-                iconWidth={24}
+                iconHeight={scaleSize(20)}
+                iconWidth={scaleSize(20)}
                 source={passwordIcon}
                 onPress={toggleIsSecureText}
               />
             )}
             <IconButton
               style={styles.button}
-              iconHeight={24}
-              iconWidth={24}
+              iconHeight={scaleSize(20)}
+              iconWidth={scaleSize(20)}
               source={CLEAR_ICON}
               onPress={onClear}
             />

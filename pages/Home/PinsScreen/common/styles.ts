@@ -26,10 +26,6 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: COLORS.lightVariant,
   },
-  arrowIcon: {
-    width: 29,
-    height: 29,
-  },
 });
 
 export default styles;

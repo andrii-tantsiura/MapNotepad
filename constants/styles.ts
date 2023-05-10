@@ -1,12 +1,19 @@
 import { StyleSheet } from "react-native";
 import COLORS from "./colors";
-import { SCALE_FACTOR as SCALE_FACTOR } from "./fontSizes";
+import { FontSizes } from "./fontSizes";
+import { FontWeights } from "./fontWeights";
+import { scaleSize } from "../utils/dimensions";
 
 export const GlobalStyles = StyleSheet.create({
+  headerTitle_i1: {
+    ...FontSizes.i16,
+    ...FontWeights.semiBold,
+    color: COLORS.systemBlack,
+  },
   button_i1: {
     alignItems: "center",
     justifyContent: "center",
-    height: 40 * SCALE_FACTOR,
+    height: scaleSize(40),
     backgroundColor: COLORS.lightPrimary,
     borderWidth: 1,
     borderColor: "transparent",
@@ -18,9 +25,13 @@ export const GlobalStyles = StyleSheet.create({
   iconButtonOutline_i1: {
     alignItems: "center",
     justifyContent: "center",
-    height: 40 * SCALE_FACTOR,
+    height: scaleSize(40),
     borderWidth: 1,
     borderColor: COLORS.systemLightGray,
+  },
+  image_i1: {
+    height: scaleSize(24),
+    width: scaleSize(24),
   },
   shadow_i1: {
     elevation: 5,

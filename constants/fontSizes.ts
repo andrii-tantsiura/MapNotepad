@@ -1,3 +1,5 @@
+import { scaleSize } from "../utils/dimensions";
+
 export interface IFontSizes {
   i10: number;
   i12: number;
@@ -6,22 +8,20 @@ export interface IFontSizes {
   i18: number;
 }
 
-export const SCALE_FACTOR: number = 1.2;
-
 export const FontSizes = {
   i10: {
-    fontSize: 10 * SCALE_FACTOR,
+    fontSize: scaleSize(10),
   },
   i12: {
-    fontSize: 12 * SCALE_FACTOR,
+    fontSize: scaleSize(12),
   },
   i14: {
-    fontSize: 14 * SCALE_FACTOR,
+    fontSize: scaleSize(14),
   },
   i16: {
-    fontSize: 16 * SCALE_FACTOR,
+    fontSize: scaleSize(16),
   },
   i18: {
-    fontSize: 18 * SCALE_FACTOR,
+    fontSize: scaleSize(18),
   },
 };
