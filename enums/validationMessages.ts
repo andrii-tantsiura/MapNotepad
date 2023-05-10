@@ -2,6 +2,7 @@ export enum ValidationErrorMessages {
   REQUIRED = "This field is required",
   USERNAME_INVALID = "The name must start with a letter, contain only uppercase or lowercase letters and numbers, as well as a dash symbol.",
   USERNAME_LENGTH_INVALID = "Names must be between 2 and 50 characters long",
+  PIN_LENGTH_INVALID = "Label must be between 2 and 40 characters long",
   EMAIL_INVALID = "Email is invalid",
   PASSWORD_SHORTER_THAN_8_CHARS = "The password must consist of at least 8 characters",
   PASSWORD_MISMATCH = "Password mismatch",

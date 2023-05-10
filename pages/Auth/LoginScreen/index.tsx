@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import styles from "./styles";
 import {
   Button,
@@ -9,10 +8,6 @@ import {
   Separator,
   Loader,
 } from "../../../components/common";
-import {
-  emailValidationSchema,
-  passwordValidationSchema,
-} from "../../../utils/stringSchemas";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
 import { loginWithEmail } from "../../../utils/auth";
@@ -21,13 +16,9 @@ import { ErrorMessages } from "../../../enums/errorMessages";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { FormikValidatedInputText } from "../../../components/sections";
+import { loginValidationSchema } from "../../../utils/stringSchemas";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
-
-const RegisterSchema = Yup.object().shape({
-  email: emailValidationSchema,
-  password: passwordValidationSchema,
-});
 
 const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const isConnected = useContext(NetworkInfoContext);
@@ -72,7 +63,7 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
         password: password,
       }}
       onSubmit={submitHandler}
-      validationSchema={RegisterSchema}
+      validationSchema={loginValidationSchema}
     >
       {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isLoginDisabled =

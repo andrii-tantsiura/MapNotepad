@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import { CommonActions } from "@react-navigation/native";
 
 import styles from "./styles";
@@ -11,10 +10,7 @@ import {
   Separator,
   Loader,
 } from "../../../components/common";
-import {
-  passwordValidationSchema,
-  confirmPasswordValidationSchema,
-} from "../../../utils/stringSchemas";
+import { createPasswordValidationSchema } from "../../../utils/stringSchemas";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
 import AlertService from "../../../services/AlertService";
@@ -25,11 +21,6 @@ import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { FormikValidatedInputText } from "../../../components/sections";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
-
-const PasswordSchema = Yup.object().shape({
-  password: passwordValidationSchema,
-  confirmPassword: confirmPasswordValidationSchema,
-});
 
 const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
@@ -85,7 +76,7 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         confirmPassword: "",
       }}
       onSubmit={createAccountHandler}
-      validationSchema={PasswordSchema}
+      validationSchema={createPasswordValidationSchema}
     >
       {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isAccountCreationDisabled =

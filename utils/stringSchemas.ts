@@ -8,29 +8,55 @@ import {
 } from "../constants/regexConstants";
 import { ValidationErrorMessages as ErrorMessage } from "../enums/validationMessages";
 
-export const nameValidationSchema = Yup.string()
+const nameSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
   .min(2, ErrorMessage.USERNAME_LENGTH_INVALID)
   .max(50, ErrorMessage.USERNAME_LENGTH_INVALID)
   .matches(USERNAME_REGEX, ErrorMessage.USERNAME_INVALID);
 
-export const emailValidationSchema = Yup.string()
+const emailSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
   .matches(EMAIL_REGEX, ErrorMessage.EMAIL_INVALID);
 
-export const passwordValidationSchema = Yup.string()
+const passwordSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
   .min(8, ErrorMessage.PASSWORD_SHORTER_THAN_8_CHARS)
   .matches(PASSWORD_REGEX, ErrorMessage.PASSWORD_INVALID);
 
-export const confirmPasswordValidationSchema = Yup.string()
+const confirmPasswordSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
   .oneOf([Yup.ref("password")], ErrorMessage.PASSWORD_MISMATCH);
 
-export const longitudeValidationSchema = Yup.string()
+const pinLabelSchema = Yup.string()
+  .required(ErrorMessage.REQUIRED)
+  .min(2, ErrorMessage.PIN_LENGTH_INVALID)
+  .max(40, ErrorMessage.USERNAME_LENGTH_INVALID);
+
+const longitudeSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
   .matches(LONGITUDE_REGEX, ErrorMessage.LONGITUDE_INVALID);
 
-export const latitudeValidationSchema = Yup.string()
+const latitudeSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
   .matches(LATITUDE_REGEX, ErrorMessage.LATITUDE_INVALID);
+
+export const userValidationSchema = Yup.object().shape({
+  name: nameSchema,
+  email: emailSchema,
+});
+
+export const createPasswordValidationSchema = Yup.object().shape({
+  password: passwordSchema,
+  confirmPassword: confirmPasswordSchema,
+});
+
+export const loginValidationSchema = Yup.object().shape({
+  email: emailSchema,
+  password: passwordSchema,
+});
+
+export const pinValidationSchema = Yup.object().shape({
+  label: pinLabelSchema,
+  longitude: longitudeSchema,
+  latitude: latitudeSchema,
+});

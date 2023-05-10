@@ -1,23 +1,14 @@
 import React from "react";
 import { View } from "react-native";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import styles from "./styles";
 import { Button, IconButton, Separator } from "../../../components/common";
-import {
-  nameValidationSchema,
-  emailValidationSchema,
-} from "../../../utils/stringSchemas";
+import { userValidationSchema } from "../../../utils/stringSchemas";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
 import { FormikValidatedInputText } from "../../../components/sections";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
-
-const UserSchema = Yup.object().shape({
-  name: nameValidationSchema,
-  email: emailValidationSchema,
-});
 
 const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,
@@ -36,7 +27,7 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
         email: "",
       }}
       onSubmit={goToNextRegistrationStepHandler}
-      validationSchema={UserSchema}
+      validationSchema={userValidationSchema}
     >
       {({ values, isValid, handleSubmit, ...formikProps }) => {
         const isNextRegistrationStepDisabled =

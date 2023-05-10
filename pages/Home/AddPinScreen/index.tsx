@@ -2,7 +2,6 @@ import { FC, useState } from "react";
 import { View } from "react-native";
 import MapView from "react-native-maps";
 import { Formik } from "formik";
-import * as Yup from "yup";
 import styles from "./styles";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import {
@@ -10,18 +9,10 @@ import {
   FormikValidatedInputText,
 } from "../../../components/sections";
 import { IconButton, Separator } from "../../../components/common";
-import {
-  latitudeValidationSchema,
-  longitudeValidationSchema,
-} from "../../../utils/stringSchemas";
+import { pinValidationSchema } from "../../../utils/stringSchemas";
 
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 const SAVE_ICON = require("../../../assets/icons/ic_save.png");
-
-const ValidationSchema = Yup.object().shape({
-  longitude: longitudeValidationSchema,
-  latitude: latitudeValidationSchema,
-});
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const [label, setLabel] = useState("");
@@ -50,7 +41,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
             longitude: longitude,
             latitude: latitude,
           }}
-          validationSchema={ValidationSchema}
+          validationSchema={pinValidationSchema}
           onSubmit={submitHandler}
         >
           {({ values, handleSubmit, ...formikProps }) => (
