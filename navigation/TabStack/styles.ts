@@ -5,7 +5,7 @@ import { FontWeights } from "../../constants/fontWeights";
 import COLORS from "../../constants/colors";
 
 const styles = StyleSheet.create({
-  tabBarIcon: { height: 24, width: 24 },
+  tabBarIcon: { height: 29, width: 29 },
   tabBarLabel: {
     ...FontSizes.i12,
     ...FontWeights.semiBold,

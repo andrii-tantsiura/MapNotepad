@@ -17,14 +17,9 @@ export const SearchBar: FC<ISearchBarProps> = ({
 }) => (
   <>
     <View style={[styles.container, style]}>
-      <IconButton iconHeight={28} iconWidth={28} source={SETTINGS_ICON} />
+      <IconButton source={SETTINGS_ICON} />
       <TextInput style={styles.input} placeholder="Search" />
-      <IconButton
-        iconHeight={28}
-        iconWidth={28}
-        source={EXIT_ICON}
-        onPress={onRightButtonPress}
-      />
+      <IconButton source={EXIT_ICON} onPress={onRightButtonPress} />
     </View>
     <Separator />
   </>

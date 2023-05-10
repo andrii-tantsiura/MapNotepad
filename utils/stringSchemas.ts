@@ -3,6 +3,8 @@ import {
   EMAIL_REGEX,
   USERNAME_REGEX,
   PASSWORD_REGEX,
+  LONGITUDE_REGEX,
+  LATITUDE_REGEX,
 } from "../constants/regexConstants";
 import { ValidationErrorMessages as ErrorMessage } from "../enums/validationMessages";
 
@@ -24,3 +26,11 @@ export const passwordValidationSchema = Yup.string()
 export const confirmPasswordValidationSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
   .oneOf([Yup.ref("password")], ErrorMessage.PASSWORD_MISMATCH);
+
+export const longitudeValidationSchema = Yup.string()
+  .required(ErrorMessage.REQUIRED)
+  .matches(LONGITUDE_REGEX, ErrorMessage.LONGITUDE_INVALID);
+
+export const latitudeValidationSchema = Yup.string()
+  .required(ErrorMessage.REQUIRED)
+  .matches(LATITUDE_REGEX, ErrorMessage.LATITUDE_INVALID);

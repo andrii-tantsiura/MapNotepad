@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native";
+import { SCALE_FACTOR } from "../../../constants/fontSizes";
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  logo: { height: 150, width: "100%" },
+  logo: { height: 150 * SCALE_FACTOR, width: "100%" },
   logoContainer: {
     flex: 1,
     justifyContent: "center",
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     rowGap: 16,
   },
   buttonsContainer: {
-    rowGap: 16,
+    rowGap: 18,
     marginHorizontal: 16,
     marginVertical: 32,
   },

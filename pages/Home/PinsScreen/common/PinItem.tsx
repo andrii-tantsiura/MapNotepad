@@ -23,12 +23,7 @@ export const PinItem: FC<IPinItemProps> = ({ data }) => {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.infoContainer}>
-          <IconButton
-            style={styles.likeButton}
-            iconHeight={28}
-            iconWidth={28}
-            source={favoriteIcon}
-          />
+          <IconButton style={styles.likeButton} source={favoriteIcon} />
           <View style={styles.textLinesContainer}>
             <Typography color="systemBlack">{data.label}</Typography>
             <Typography weight="regular" size="i12" color="systemDarkGray">

@@ -39,7 +39,7 @@ export const InputText: React.FC<IInputTextProps> = ({
   const toggleIsSecureText = () => setIsSecureText(!isSecureText);
 
   return (
-    <View>
+    <>
       <Typography textAlign="left" textStyle={styles.titleLabel}>
         {title}
       </Typography>
@@ -68,12 +68,16 @@ export const InputText: React.FC<IInputTextProps> = ({
             {secureTextEntry && (
               <IconButton
                 style={styles.button}
+                iconHeight={24}
+                iconWidth={24}
                 source={passwordIcon}
                 onPress={toggleIsSecureText}
               />
             )}
             <IconButton
               style={styles.button}
+              iconHeight={24}
+              iconWidth={24}
               source={CLEAR_ICON}
               onPress={onClear}
             />
@@ -81,6 +85,6 @@ export const InputText: React.FC<IInputTextProps> = ({
         )}
       </View>
       <Typography textStyle={styles.errorLabel}>{error}</Typography>
-    </View>
+    </>
   );
 };

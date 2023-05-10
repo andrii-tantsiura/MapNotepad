@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.lightVariant,
   },
   arrowIcon: {
-    width: 28,
-    height: 28,
+    width: 29,
+    height: 29,
   },
 });
 

@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native";
 import COLORS from "./colors";
+import { SCALE_FACTOR as SCALE_FACTOR } from "./fontSizes";
 
 export const GlobalStyles = StyleSheet.create({
   button_i1: {
     alignItems: "center",
     justifyContent: "center",
-    height: 44,
+    height: 40 * SCALE_FACTOR,
     backgroundColor: COLORS.lightPrimary,
     borderWidth: 1,
     borderColor: "transparent",
@@ -17,7 +18,7 @@ export const GlobalStyles = StyleSheet.create({
   iconButtonOutline_i1: {
     alignItems: "center",
     justifyContent: "center",
-    height: 44,
+    height: 40 * SCALE_FACTOR,
     borderWidth: 1,
     borderColor: COLORS.systemLightGray,
   },
