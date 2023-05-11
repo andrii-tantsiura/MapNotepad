@@ -20,7 +20,7 @@ const emailSchema = Yup.string()
 
 const passwordSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
-  .min(8, ErrorMessage.PASSWORD_SHORTER_THAN_8_CHARS)
+  .min(8, ErrorMessage.PASSWORD_TOO_SHORT)
   .matches(PASSWORD_REGEX, ErrorMessage.PASSWORD_INVALID);
 
 const confirmPasswordSchema = Yup.string()
@@ -29,8 +29,8 @@ const confirmPasswordSchema = Yup.string()
 
 const pinLabelSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)
-  .min(2, ErrorMessage.PIN_LENGTH_INVALID)
-  .max(40, ErrorMessage.USERNAME_LENGTH_INVALID);
+  .min(2, ErrorMessage.PIN_LABEL_TOO_SHORT)
+  .max(40, ErrorMessage.PIN_LABEL_TOO_LONG);
 
 const longitudeSchema = Yup.string()
   .required(ErrorMessage.REQUIRED)

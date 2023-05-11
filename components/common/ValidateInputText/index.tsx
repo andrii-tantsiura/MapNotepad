@@ -77,7 +77,6 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
               value={value}
               onChangeText={onChange}
               onSubmitEditing={onSubmitEditing}
-              maxLength={10}
               onFocus={() => setIsFocused(true)}
               onBlur={() => {
                 setIsFocused(false);

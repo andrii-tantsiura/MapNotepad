@@ -35,14 +35,16 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
 
   const mapViewRef = createRef<MapView>();
 
-  const { control, handleSubmit, setValue, resetField, watch } = useForm({
-    defaultValues: {
-      label: "",
-      description: "",
-      latitude: "",
-      longitude: "",
-    },
-  });
+  const { control, handleSubmit, setValue, resetField, watch, trigger } =
+    useForm({
+      defaultValues: {
+        label: "",
+        description: "",
+        latitude: "",
+        longitude: "",
+      },
+      mode: "onTouched",
+    });
 
   const setValidatedCoordinates = (coordinate: LatLng) => {
     const { latitude, longitude } = coordinate;
@@ -63,6 +65,9 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     const { coords } = await Location.getCurrentPositionAsync();
 
     setValidatedCoordinates(coords);
+
+    trigger("latitude");
+    trigger("longitude");
   };
 
   const savePinHandler = (values: FieldValues) => {};
@@ -76,6 +81,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     if (!isNaN(parsedLatitude)) {
       setLastValidLatitude(parsedLatitude);
     }
+
     if (!isNaN(parsedLongitude)) {
       setLastValidLongitude(parsedLongitude);
     }
@@ -123,9 +129,9 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
             control={control}
             resetField={resetField}
             name="label"
+            rules={PIN_LABEL_RULES}
             title="Label"
             placeholder="Write a label"
-            rules={PIN_LABEL_RULES}
           />
 
           <ValidateInputText
@@ -145,6 +151,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 keyboardType="numeric"
                 title="Coordinates"
                 placeholder="Longitude"
+                maxLength={10}
                 rules={LONGITUDE_RULES}
               />
             </View>
@@ -154,9 +161,10 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 control={control}
                 resetField={resetField}
                 name="latitude"
-                keyboardType="numeric"
-                placeholder="Latitude"
                 rules={LATITUDE_RULES}
+                keyboardType="numeric"
+                maxLength={10}
+                placeholder="Latitude"
               />
             </View>
           </View>
