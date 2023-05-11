@@ -1,4 +1,4 @@
-import { FC, createRef, useEffect, useState } from "react";
+import { FC, createRef, useEffect, useLayoutEffect, useState } from "react";
 import { View } from "react-native";
 import MapView, {
   LatLng,
@@ -7,136 +7,181 @@ import MapView, {
   MarkerDragStartEndEvent,
 } from "react-native-maps";
 import * as Location from "expo-location";
+import { FieldValues, useForm } from "react-hook-form";
 import styles from "./styles";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { FloatingActionButton } from "../../../components/sections";
-import { IconButton, InputText, Separator } from "../../../components/common";
+import { IconButton, Separator } from "../../../components/common";
 import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
+import { ValidateInputText } from "../../../components/common/ValidateInputText";
+import {
+  LATITUDE_RULES,
+  LONGITUDE_RULES,
+  PIN_LABEL_RULES,
+} from "../../../utils/validationRules";
 
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 const SAVE_ICON = require("../../../assets/icons/ic_save.png");
 
+const defaultLatitude = 51.5079145;
+const defaultLongitude = -0.0899163;
+
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
-  const mapRef = createRef<MapView>();
-
-  const [label, setLabel] = useState("");
-  const [description, setDescription] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [latitude, setLatitude] = useState("");
-
   const [isPinSaveDisabled, setIsPinSaveDisabled] = useState(true);
+  const [lastValidLatitude, setLastValidLatitude] = useState(defaultLatitude);
+  const [lastValidLongitude, setLastValidLongitude] =
+    useState(defaultLongitude);
 
-  const initialRegion = {
-    latitude: 51.5079145,
-    longitude: -0.0899163,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
-  };
+  const mapViewRef = createRef<MapView>();
 
-  const setCoordinate = (coordinate: LatLng) => {
+  const { control, handleSubmit, setValue, resetField, watch } = useForm({
+    defaultValues: {
+      label: "",
+      description: "",
+      latitude: "",
+      longitude: "",
+    },
+  });
+
+  const setValidatedCoordinates = (coordinate: LatLng) => {
     const { latitude, longitude } = coordinate;
 
-    setLatitude(String(latitude));
-    setLongitude(String(longitude));
+    setValue("latitude", String(latitude));
+    setValue("longitude", String(longitude));
   };
 
-  const markerDragEndHandler = (e: MarkerDragStartEndEvent) =>
-    setCoordinate(e.nativeEvent.coordinate);
-
-  const mapPressHandler = (e: MapPressEvent) =>
-    setCoordinate(e.nativeEvent.coordinate);
-
-  const setCurrentPositionHandlerAsync = () => {
-    (async () => {
-      const { coords } = await Location.getCurrentPositionAsync();
-      const { latitude, longitude } = coords;
-
-      setLatitude(String(latitude));
-      setLongitude(String(longitude));
-    })();
+  const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
+    setValidatedCoordinates(e.nativeEvent.coordinate);
   };
 
+  const mapPressedHandler = (e: MapPressEvent) => {
+    setValidatedCoordinates(e.nativeEvent.coordinate);
+  };
+
+  const setCurrentPositionHandler = async () => {
+    const { coords } = await Location.getCurrentPositionAsync();
+
+    setValidatedCoordinates(coords);
+  };
+
+  const savePinHandler = (values: FieldValues) => {};
+
+  const { latitude: enteredLatitude, longitude: enteredLongitude } = watch();
+
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+    const parsedLatitude = Number.parseFloat(enteredLatitude);
+    const parsedLongitude = Number.parseFloat(enteredLongitude);
 
-      if (status !== "granted") {
-        AlertService.error(ErrorMessages.LOCATION_PERMISSION_DENIED);
-        return;
-      }
-
-      setCurrentPositionHandlerAsync();
-    })();
-  }, []);
+    if (!isNaN(parsedLatitude)) {
+      setLastValidLatitude(parsedLatitude);
+    }
+    if (!isNaN(parsedLongitude)) {
+      setLastValidLongitude(parsedLongitude);
+    }
+  }, [enteredLatitude, enteredLongitude]);
 
   useEffect(() => {
+    mapViewRef.current?.animateToRegion({
+      latitudeDelta: 0.01,
+      longitudeDelta: 0.01,
+      latitude: lastValidLatitude,
+      longitude: lastValidLongitude,
+    });
+  }, [lastValidLatitude, lastValidLongitude]);
+
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
         <IconButton
-          disabled={isPinSaveDisabled}
           style={{ marginRight: 12 }}
           source={SAVE_ICON}
+          onPress={handleSubmit(savePinHandler)}
         />
       ),
     });
   }, [isPinSaveDisabled]);
 
   useEffect(() => {
-    mapRef.current?.animateToRegion({
-      ...initialRegion,
-      latitude: Number(latitude),
-      longitude: Number(longitude),
-    });
-  }, [latitude, longitude]);
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+
+      if (status === "granted") {
+        await setCurrentPositionHandler();
+      } else {
+        AlertService.error(ErrorMessages.LOCATION_PERMISSION_DENIED);
+      }
+    })();
+  }, []);
 
   return (
     <>
       <Separator />
       <View style={styles.container}>
         <View style={styles.inputsContainer}>
-          <InputText title="Label" placeholder="Enter the label" />
-          <InputText title="Description" placeholder="Write a description" />
+          <ValidateInputText
+            control={control}
+            resetField={resetField}
+            name="label"
+            title="Label"
+            placeholder="Write a label"
+            rules={PIN_LABEL_RULES}
+          />
+
+          <ValidateInputText
+            control={control}
+            resetField={resetField}
+            name="description"
+            title="Description"
+            placeholder="Write a description"
+          />
+
           <View style={styles.coordinatesContainer}>
             <View style={styles.coordinateContainer}>
-              <InputText
+              <ValidateInputText
+                control={control}
+                resetField={resetField}
+                name="longitude"
                 keyboardType="numeric"
                 title="Coordinates"
                 placeholder="Longitude"
-                value={longitude}
+                rules={LONGITUDE_RULES}
               />
             </View>
+
             <View style={styles.coordinateContainer}>
-              <InputText
+              <ValidateInputText
+                control={control}
+                resetField={resetField}
+                name="latitude"
                 keyboardType="numeric"
                 placeholder="Latitude"
-                value={latitude}
+                rules={LATITUDE_RULES}
               />
             </View>
           </View>
         </View>
+
         <MapView
           style={styles.map}
-          ref={mapRef}
-          initialRegion={initialRegion}
-          onPress={mapPressHandler}
+          ref={mapViewRef}
+          onPress={mapPressedHandler}
         >
           <Marker
-            image={require("../../../assets/icons/ic_marker.png")}
             draggable
+            image={require("../../../assets/icons/ic_marker.png")}
             coordinate={{
-              latitude: Number(latitude),
-              longitude: Number(longitude),
+              latitude: lastValidLatitude,
+              longitude: lastValidLongitude,
             }}
-            title={label}
-            description={description}
-            onDragEnd={markerDragEndHandler}
+            onDragEnd={markerDraggedHandler}
           />
         </MapView>
+
         <FloatingActionButton
           style={styles.locationButton}
           source={LOCATION_ICON}
-          onPress={setCurrentPositionHandlerAsync}
+          onPress={setCurrentPositionHandler}
         />
       </View>
     </>
