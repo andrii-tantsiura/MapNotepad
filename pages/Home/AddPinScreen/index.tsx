@@ -6,16 +6,11 @@ import MapView, {
   Marker,
   MarkerDragStartEndEvent,
 } from "react-native-maps";
-import { Formik } from "formik";
 import * as Location from "expo-location";
 import styles from "./styles";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import {
-  FloatingActionButton,
-  FormikValidatedInputText,
-} from "../../../components/sections";
+import { FloatingActionButton } from "../../../components/sections";
 import { IconButton, InputText, Separator } from "../../../components/common";
-import { pinValidationSchema } from "../../../utils/stringSchemas";
 import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
 
@@ -75,8 +70,6 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     })();
   }, []);
 
-  const submitHandler = (values: any) => {};
-
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -101,67 +94,27 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     <>
       <Separator />
       <View style={styles.container}>
-        <Formik
-          initialValues={{
-            label: label,
-            description: description,
-            longitude: longitude,
-            latitude: latitude,
-          }}
-          validationSchema={pinValidationSchema}
-          onSubmit={submitHandler}
-        >
-          {({ values, handleSubmit, ...formikProps }) => (
-            <View style={styles.inputsContainer}>
-              <FormikValidatedInputText
-                title="Label"
-                placeholder="Enter the label"
-                valueName="label"
-                value={values.label}
-                {...formikProps}
+        <View style={styles.inputsContainer}>
+          <InputText title="Label" placeholder="Enter the label" />
+          <InputText title="Description" placeholder="Write a description" />
+          <View style={styles.coordinatesContainer}>
+            <View style={styles.coordinateContainer}>
+              <InputText
+                keyboardType="numeric"
+                title="Coordinates"
+                placeholder="Longitude"
+                value={longitude}
               />
-              <FormikValidatedInputText
-                title="Description"
-                placeholder="Write a description"
-                valueName="description"
-                value={values.description}
-                {...formikProps}
-              />
-              <View style={styles.coordinatesContainer}>
-                <View style={styles.coordinateContainer}>
-                  {/* <FormikValidatedInputText
-                    keyboardType="numeric"
-                    title="Coordinates"
-                    placeholder="Longitude"
-                    valueName="longitude"
-                    value={values.longitude}
-                    {...formikProps}
-                  /> */}
-                  <InputText
-                    keyboardType="numeric"
-                    title="Coordinates"
-                    placeholder="Longitude"
-                    value={longitude}
-                  />
-                </View>
-                <View style={styles.coordinateContainer}>
-                  {/* <FormikValidatedInputText
-                    keyboardType="numeric"
-                    placeholder="Latitude"
-                    valueName="latitude"
-                    value={values.latitude}
-                    {...formikProps}
-                  /> */}
-                  <InputText
-                    keyboardType="numeric"
-                    placeholder="Latitude"
-                    value={latitude}
-                  />
-                </View>
-              </View>
             </View>
-          )}
-        </Formik>
+            <View style={styles.coordinateContainer}>
+              <InputText
+                keyboardType="numeric"
+                placeholder="Latitude"
+                value={latitude}
+              />
+            </View>
+          </View>
+        </View>
         <MapView
           style={styles.map}
           ref={mapRef}
