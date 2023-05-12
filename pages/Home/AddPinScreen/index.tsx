@@ -33,24 +33,36 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const [lastValidLongitude, setLastValidLongitude] =
     useState(defaultLongitude);
 
+  const [isManualEdit, setIsManualEdit] = useState(false);
+
   const mapViewRef = createRef<MapView>();
 
-  const { control, handleSubmit, setValue, resetField, watch, trigger } =
-    useForm({
-      defaultValues: {
-        label: "",
-        description: "",
-        latitude: "",
-        longitude: "",
-      },
-      mode: "onTouched",
-    });
+  const {
+    control,
+    setValue,
+    resetField,
+    watch,
+    trigger,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm({
+    defaultValues: {
+      label: "",
+      description: "",
+      latitude: "",
+      longitude: "",
+    },
+    mode: "onTouched",
+  });
 
   const setValidatedCoordinates = (coordinate: LatLng) => {
     const { latitude, longitude } = coordinate;
 
     setValue("latitude", String(latitude));
     setValue("longitude", String(longitude));
+
+    trigger("latitude");
+    trigger("longitude");
   };
 
   const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
@@ -65,9 +77,6 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     const { coords } = await Location.getCurrentPositionAsync();
 
     setValidatedCoordinates(coords);
-
-    trigger("latitude");
-    trigger("longitude");
   };
 
   const savePinHandler = (values: FieldValues) => {};
@@ -106,7 +115,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         />
       ),
     });
-  }, [isPinSaveDisabled]);
+  }, [isValid]);
 
   useEffect(() => {
     (async () => {
@@ -120,27 +129,33 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     })();
   }, []);
 
+  console.log(isManualEdit);
+
   return (
     <>
       <Separator />
       <View style={styles.container}>
         <View style={styles.inputsContainer}>
-          <ValidateInputText
-            control={control}
-            resetField={resetField}
-            name="label"
-            rules={PIN_LABEL_RULES}
-            title="Label"
-            placeholder="Write a label"
-          />
+          {!isManualEdit && (
+            <View>
+              <ValidateInputText
+                control={control}
+                resetField={resetField}
+                name="label"
+                rules={PIN_LABEL_RULES}
+                title="Label"
+                placeholder="Write a label"
+              />
 
-          <ValidateInputText
-            control={control}
-            resetField={resetField}
-            name="description"
-            title="Description"
-            placeholder="Write a description"
-          />
+              <ValidateInputText
+                control={control}
+                resetField={resetField}
+                name="description"
+                title="Description"
+                placeholder="Write a description"
+              />
+            </View>
+          )}
 
           <View style={styles.coordinatesContainer}>
             <View style={styles.coordinateContainer}>
@@ -153,6 +168,12 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 placeholder="Longitude"
                 maxLength={10}
                 rules={LONGITUDE_RULES}
+                onFocus={() => {
+                  setIsManualEdit(true);
+                }}
+                onSubmitEditing={() => {
+                  setIsManualEdit(false);
+                }}
               />
             </View>
 
@@ -165,6 +186,12 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 keyboardType="numeric"
                 maxLength={10}
                 placeholder="Latitude"
+                onFocus={() => {
+                  setIsManualEdit(true);
+                }}
+                onSubmitEditing={() => {
+                  setIsManualEdit(false);
+                }}
               />
             </View>
           </View>

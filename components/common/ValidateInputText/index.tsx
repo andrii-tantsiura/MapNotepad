@@ -38,6 +38,7 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
   keyboardType = "default",
   maxLength,
   onSubmitEditing,
+  onFocus,
 }) => {
   const [isSecureText, setIsSecureText] = useState(secureTextEntry);
   const [isFocused, setIsFocused] = useState(false);
@@ -45,7 +46,6 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
   const passwordIcon = isSecureText ? EYE_ICON : EYE_ICON_OFF;
 
   const toggleIsSecureText = () => setIsSecureText(!isSecureText);
-
   const clearHandler = () => resetField(name);
 
   return (
@@ -54,7 +54,7 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
       name={name}
       rules={rules}
       render={({
-        field: { value, onChange, onBlur },
+        field: { value, onChange: onFieldChange, onBlur: onFieldBlur },
         fieldState: { error },
       }) => (
         <>
@@ -77,12 +77,15 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
               placeholderTextColor={placeholderTextColor}
               placeholder={placeholder}
               value={value}
-              onChangeText={onChange}
+              onChangeText={onFieldChange}
               onSubmitEditing={onSubmitEditing}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => {
+              onFocus={(e) => {
+                onFocus?.(e);
+                setIsFocused(true);
+              }}
+              onBlur={(e) => {
                 setIsFocused(false);
-                onBlur();
+                onFieldBlur();
               }}
             />
 
