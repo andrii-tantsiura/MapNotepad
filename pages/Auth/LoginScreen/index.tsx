@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { View } from "react-native";
-import { Formik } from "formik";
+import { useForm } from "react-hook-form";
 import styles from "./styles";
 import {
   Button,
@@ -15,8 +15,8 @@ import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { FormikValidatedInputText } from "../../../components/sections";
-import { loginValidationSchema } from "../../../utils/stringSchemas";
+import { ValidateInputText } from "../../../components/common/ValidateInputText";
+import { EMAIL_RULES, PASSWORD_RULES } from "../../../utils/validationRules";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
@@ -25,13 +25,20 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const [email, setEmail] = useState(route.params?.email ?? "");
-  const [password, setPassword] = useState("");
+  const {
+    control,
+    resetField,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm({
+    defaultValues: {
+      email: route.params?.email ?? "",
+      password: "",
+    },
+    mode: "onTouched",
+  });
 
   const submitHandler = async (values: any) => {
-    setEmail(values.email);
-    setPassword(values.password);
-
     if (isConnected) {
       setIsLoading(true);
 
@@ -57,54 +64,44 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   }
 
   return (
-    <Formik
-      initialValues={{
-        email: email,
-        password: password,
-      }}
-      onSubmit={submitHandler}
-      validationSchema={loginValidationSchema}
-    >
-      {({ values, isValid, handleSubmit, ...formikProps }) => {
-        const isLoginDisabled =
-          !isValid || values.password.length == 0 || values.email.length == 0;
+    <View style={styles.container}>
+      <View style={styles.inputsContainer}>
+        <ValidateInputText
+          control={control}
+          resetField={resetField}
+          name="email"
+          rules={EMAIL_RULES}
+          title="Email"
+          placeholder="Enter email"
+          autoCapitalize="none"
+          keyboardType="email-address"
+        />
 
-        return (
-          <View style={styles.container}>
-            <View style={styles.inputsContainer}>
-              <FormikValidatedInputText
-                autoCapitalize="none"
-                keyboardType="email-address"
-                title="Email"
-                placeholder="Enter email"
-                valueName="email"
-                value={values.email}
-                {...formikProps}
-              />
-              <FormikValidatedInputText
-                secureTextEntry
-                autoCapitalize="none"
-                title="Password"
-                placeholder="Enter password"
-                valueName="password"
-                value={values.password}
-                {...formikProps}
-              />
-            </View>
-            <View style={styles.buttonsContainer}>
-              <Button onPress={handleSubmit} disabled={isLoginDisabled}>
-                Login
-              </Button>
-              <Separator>or</Separator>
-              <IconButton
-                style={GlobalStyles.iconButtonOutline_i1}
-                source={GOOGLE_ICON}
-              />
-            </View>
-          </View>
-        );
-      }}
-    </Formik>
+        <ValidateInputText
+          control={control}
+          resetField={resetField}
+          name="password"
+          rules={PASSWORD_RULES}
+          title="Password"
+          placeholder="Enter password"
+          autoCapitalize="none"
+          secureTextEntry
+        />
+      </View>
+
+      <View style={styles.buttonsContainer}>
+        <Button onPress={handleSubmit(submitHandler)} disabled={!isValid}>
+          Login
+        </Button>
+
+        <Separator>or</Separator>
+
+        <IconButton
+          style={GlobalStyles.iconButtonOutline_i1}
+          source={GOOGLE_ICON}
+        />
+      </View>
+    </View>
   );
 };
 

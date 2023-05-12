@@ -29,13 +29,14 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
   control,
   rules = {},
   resetField,
+  title = " ",
+  placeholder,
   editable = true,
   autoCapitalize,
   placeholderTextColor = COLORS.systemGray,
   secureTextEntry = false,
   keyboardType = "default",
-  title = " ",
-  placeholder,
+  maxLength,
   onSubmitEditing,
 }) => {
   const [isSecureText, setIsSecureText] = useState(secureTextEntry);
@@ -69,6 +70,7 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
             <TextInput
               style={styles.input}
               editable={editable}
+              maxLength={maxLength}
               secureTextEntry={secureTextEntry && isSecureText}
               keyboardType={keyboardType}
               autoCapitalize={autoCapitalize}

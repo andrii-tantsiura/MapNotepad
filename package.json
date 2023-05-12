@@ -21,7 +21,6 @@
     "expo-location": "^15.1.1",
     "expo-splash-screen": "^0.18.2",
     "expo-status-bar": "~1.4.4",
-    "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "react-native": "^0.71.7",

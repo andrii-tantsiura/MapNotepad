@@ -1,18 +1,11 @@
 import {
+  USERNAME_REGEX,
   EMAIL_REGEX,
+  PASSWORD_REGEX,
   LATITUDE_REGEX,
   LONGITUDE_REGEX,
-  USERNAME_REGEX,
 } from "../constants/regexConstants";
 import { ValidationErrorMessages } from "../enums/validationMessages";
-
-export const EMAIL_RULES = {
-  required: ValidationErrorMessages.REQUIRED,
-  pattern: {
-    value: EMAIL_REGEX,
-    message: ValidationErrorMessages.EMAIL_INVALID,
-  },
-};
 
 export const USERNAME_RULES = {
   required: ValidationErrorMessages.REQUIRED,
@@ -24,16 +17,35 @@ export const USERNAME_RULES = {
   },
 };
 
+export const EMAIL_RULES = {
+  required: ValidationErrorMessages.REQUIRED,
+  pattern: {
+    value: EMAIL_REGEX,
+    message: ValidationErrorMessages.EMAIL_INVALID,
+  },
+};
+
+export const PASSWORD_RULES = {
+  required: ValidationErrorMessages.REQUIRED,
+  minLength: { value: 8, message: ValidationErrorMessages.PASSWORD_TOO_SHORT },
+  pattern: {
+    value: PASSWORD_REGEX,
+    message: ValidationErrorMessages.PASSWORD_INVALID,
+  },
+};
+
+export const CONFIRM_PASSWORD_RULES = {
+  required: ValidationErrorMessages.REQUIRED,
+  validate: {
+    value: PASSWORD_REGEX,
+    message: ValidationErrorMessages.PASSWORD_MISMATCH,
+  },
+};
+
 export const PIN_LABEL_RULES = {
   required: ValidationErrorMessages.REQUIRED,
-  minLength: {
-    value: 2,
-    message: ValidationErrorMessages.PIN_LABEL_TOO_SHORT,
-  },
-  maxLength: {
-    value: 40,
-    message: ValidationErrorMessages.PIN_LABEL_TOO_LONG,
-  },
+  minLength: { value: 2, message: ValidationErrorMessages.PIN_LABEL_TOO_SHORT },
+  maxLength: { value: 40, message: ValidationErrorMessages.PIN_LABEL_TOO_LONG },
 };
 
 export const LONGITUDE_RULES = {
