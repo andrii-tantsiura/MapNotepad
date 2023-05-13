@@ -27,6 +27,8 @@ export const SelectLocationMapView: FC<ISelectLocationMapViewProps> = ({
 }) => {
   const mapViewRef = createRef<MapView>();
 
+  const isCoordinatedValid = isFinite(latitude) && isFinite(longitude);
+
   const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
     setCoordinates(e.nativeEvent.coordinate);
   };
@@ -54,26 +56,30 @@ export const SelectLocationMapView: FC<ISelectLocationMapViewProps> = ({
   }, []);
 
   useEffect(() => {
-    mapViewRef.current?.animateToRegion({
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-      latitude: latitude,
-      longitude: longitude,
-    });
+    if (isCoordinatedValid) {
+      mapViewRef.current?.animateToRegion({
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+        latitude: latitude,
+        longitude: longitude,
+      });
+    }
   }, [latitude, longitude]);
 
   return (
     <View style={styles.container}>
       <MapView style={styles.map} ref={mapViewRef} onPress={mapPressedHandler}>
-        <Marker
-          draggable
-          image={require("../../../assets/icons/ic_marker.png")}
-          coordinate={{
-            latitude: latitude,
-            longitude: longitude,
-          }}
-          onDragEnd={markerDraggedHandler}
-        />
+        {isCoordinatedValid && (
+          <Marker
+            draggable
+            image={require("../../../assets/icons/ic_marker.png")}
+            coordinate={{
+              latitude: latitude,
+              longitude: longitude,
+            }}
+            onDragEnd={markerDraggedHandler}
+          />
+        )}
       </MapView>
 
       <FloatingActionButton
