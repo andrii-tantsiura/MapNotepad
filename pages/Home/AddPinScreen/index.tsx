@@ -1,27 +1,18 @@
-import { FC, createRef, useEffect, useLayoutEffect, useState } from "react";
+import { FC, useEffect, useLayoutEffect, useState } from "react";
 import { View } from "react-native";
-import MapView, {
-  LatLng,
-  MapPressEvent,
-  Marker,
-  MarkerDragStartEndEvent,
-} from "react-native-maps";
-import * as Location from "expo-location";
+import { LatLng } from "react-native-maps";
 import { FieldValues, useForm } from "react-hook-form";
 import styles from "./styles";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import { FloatingActionButton } from "../../../components/sections";
 import { IconButton, Separator } from "../../../components/common";
-import AlertService from "../../../services/AlertService";
-import { ErrorMessages } from "../../../enums/errorMessages";
 import { ValidateInputText } from "../../../components/common/ValidateInputText";
 import {
   LATITUDE_RULES,
   LONGITUDE_RULES,
   PIN_LABEL_RULES,
 } from "../../../utils/validationRules";
+import { SelectLocationMapView } from "../../../components/sections/SelectLocationMapView";
 
-const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 const SAVE_ICON = require("../../../assets/icons/ic_save.png");
 
 const defaultLatitude = 51.5079145;
@@ -33,27 +24,18 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const [lastValidLongitude, setLastValidLongitude] =
     useState(defaultLongitude);
 
-  const [isManualEdit, setIsManualEdit] = useState(false);
+  const [isManualCoordsEdit, setIsManualCoordsEdit] = useState(false);
 
-  const mapViewRef = createRef<MapView>();
-
-  const {
-    control,
-    setValue,
-    resetField,
-    watch,
-    trigger,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm({
-    defaultValues: {
-      label: "",
-      description: "",
-      latitude: "",
-      longitude: "",
-    },
-    mode: "onTouched",
-  });
+  const { control, watch, trigger, setValue, resetField, handleSubmit } =
+    useForm({
+      defaultValues: {
+        label: "",
+        description: "",
+        latitude: "",
+        longitude: "",
+      },
+      mode: "onTouched",
+    });
 
   const setValidatedCoordinates = (coordinate: LatLng) => {
     const { latitude, longitude } = coordinate;
@@ -63,20 +45,6 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
 
     trigger("latitude");
     trigger("longitude");
-  };
-
-  const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
-    setValidatedCoordinates(e.nativeEvent.coordinate);
-  };
-
-  const mapPressedHandler = (e: MapPressEvent) => {
-    setValidatedCoordinates(e.nativeEvent.coordinate);
-  };
-
-  const setCurrentPositionHandler = async () => {
-    const { coords } = await Location.getCurrentPositionAsync();
-
-    setValidatedCoordinates(coords);
   };
 
   const savePinHandler = (values: FieldValues) => {};
@@ -96,15 +64,6 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     }
   }, [enteredLatitude, enteredLongitude]);
 
-  useEffect(() => {
-    mapViewRef.current?.animateToRegion({
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-      latitude: lastValidLatitude,
-      longitude: lastValidLongitude,
-    });
-  }, [lastValidLatitude, lastValidLongitude]);
-
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -115,28 +74,14 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         />
       ),
     });
-  }, [isValid]);
-
-  useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
-
-      if (status === "granted") {
-        await setCurrentPositionHandler();
-      } else {
-        AlertService.error(ErrorMessages.LOCATION_PERMISSION_DENIED);
-      }
-    })();
   }, []);
-
-  console.log(isManualEdit);
 
   return (
     <>
       <Separator />
       <View style={styles.container}>
         <View style={styles.inputsContainer}>
-          {!isManualEdit && (
+          {!isManualCoordsEdit && (
             <View>
               <ValidateInputText
                 control={control}
@@ -169,10 +114,10 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 maxLength={10}
                 rules={LONGITUDE_RULES}
                 onFocus={() => {
-                  setIsManualEdit(true);
+                  setIsManualCoordsEdit(true);
                 }}
                 onSubmitEditing={() => {
-                  setIsManualEdit(false);
+                  setIsManualCoordsEdit(false);
                 }}
               />
             </View>
@@ -187,36 +132,20 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
                 maxLength={10}
                 placeholder="Latitude"
                 onFocus={() => {
-                  setIsManualEdit(true);
+                  setIsManualCoordsEdit(true);
                 }}
                 onSubmitEditing={() => {
-                  setIsManualEdit(false);
+                  setIsManualCoordsEdit(false);
                 }}
               />
             </View>
           </View>
         </View>
 
-        <MapView
-          style={styles.map}
-          ref={mapViewRef}
-          onPress={mapPressedHandler}
-        >
-          <Marker
-            draggable
-            image={require("../../../assets/icons/ic_marker.png")}
-            coordinate={{
-              latitude: lastValidLatitude,
-              longitude: lastValidLongitude,
-            }}
-            onDragEnd={markerDraggedHandler}
-          />
-        </MapView>
-
-        <FloatingActionButton
-          style={styles.locationButton}
-          source={LOCATION_ICON}
-          onPress={setCurrentPositionHandler}
+        <SelectLocationMapView
+          latitude={lastValidLatitude}
+          longitude={lastValidLongitude}
+          setCoordinates={setValidatedCoordinates}
         />
       </View>
     </>
