@@ -45,6 +45,7 @@ export const AuthContextProvider: React.FC<IAuthContextProviderProps> = ({
       });
     },
     logout: () => {
+      AsyncStorage.removeItem("token");
       setToken(null);
     },
   };
