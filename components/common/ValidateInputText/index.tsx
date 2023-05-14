@@ -31,6 +31,7 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
   resetField,
   title = " ",
   placeholder,
+  autoFocus,
   editable = true,
   autoCapitalize,
   placeholderTextColor = COLORS.systemGray,
@@ -87,6 +88,7 @@ export const ValidateInputText: React.FC<IInputTextProps> = ({
                 setIsFocused(false);
                 onFieldBlur();
               }}
+              autoFocus={autoFocus}
             />
 
             {value && isFocused && (

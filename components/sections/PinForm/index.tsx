@@ -9,6 +9,7 @@ import {
   LONGITUDE_RULES,
   PIN_LABEL_RULES,
 } from "../../../utils/validationRules";
+import { TextInput } from "react-native-gesture-handler";
 
 export type PinFormFieldValues = {
   label: string;
@@ -29,6 +30,7 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
     <View style={styles.container}>
       {!isManualCoordsEdit && (
         <View>
+          {/* <TextInput value="sdf" autoFocus /> */}
           <ValidateInputText
             control={control}
             resetField={resetField}
@@ -36,6 +38,7 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
             rules={PIN_LABEL_RULES}
             title="Label"
             placeholder="Write a label"
+            autoFocus
           />
 
           <ValidateInputText
