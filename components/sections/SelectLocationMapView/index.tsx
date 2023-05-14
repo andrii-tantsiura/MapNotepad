@@ -17,30 +17,30 @@ const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 interface ISelectLocationMapViewProps {
   latitude: number;
   longitude: number;
-  setCoordinates: (coordinate: LatLng) => void;
+  onSelectCoordinates: (coordinate: LatLng) => void;
 }
 
 export const SelectLocationMapView: FC<ISelectLocationMapViewProps> = ({
   latitude,
   longitude,
-  setCoordinates,
+  onSelectCoordinates,
 }) => {
   const mapViewRef = createRef<MapView>();
 
   const isCoordinatedValid = isFinite(latitude) && isFinite(longitude);
 
   const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
-    setCoordinates(e.nativeEvent.coordinate);
+    onSelectCoordinates(e.nativeEvent.coordinate);
   };
 
   const mapPressedHandler = (e: MapPressEvent) => {
-    setCoordinates(e.nativeEvent.coordinate);
+    onSelectCoordinates(e.nativeEvent.coordinate);
   };
 
   const setCurrentPositionHandler = async () => {
     const { coords } = await Location.getCurrentPositionAsync();
 
-    setCoordinates(coords);
+    onSelectCoordinates(coords);
   };
 
   useEffect(() => {

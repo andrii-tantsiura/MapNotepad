@@ -1,17 +1,26 @@
-import { FC, useLayoutEffect, useState } from "react";
+import { FC, useLayoutEffect } from "react";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import styles from "./styles";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { IconButton, Separator } from "../../../components/common";
-import { PinForm, SelectLocationMapView } from "../../../components/sections";
+import {
+  PinForm,
+  PinFormFieldValues,
+  SelectLocationMapView,
+} from "../../../components/sections";
+import { Pin } from "../../../types/map";
+import { addPin } from "../../../store/redux/actions/pin.actions";
+import { useAppDispatch } from "../../../store/redux/store";
 
 const SAVE_ICON = require("../../../assets/icons/ic_save.png");
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
+  const dispatch = useAppDispatch();
+
   const { control, watch, trigger, setValue, resetField, handleSubmit } =
-    useForm({
+    useForm<PinFormFieldValues>({
       defaultValues: {
         label: "",
         description: "",
@@ -21,7 +30,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
       mode: "onTouched",
     });
 
-  const setCoordinates = (coordinate: LatLng) => {
+  const coordinatesSelectedHandler = (coordinate: LatLng) => {
     setValue("latitude", String(coordinate.latitude));
     setValue("longitude", String(coordinate.longitude));
 
@@ -29,7 +38,21 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     trigger("longitude");
   };
 
-  const savePinHandler = (values: FieldValues) => {};
+  const savePinHandler = (values: PinFormFieldValues) => {
+    const newPin: Pin = {
+      id: Date.now().toString(),
+      label: values.label,
+      description: values.description,
+      location: {
+        latitude: Number.parseFloat(values.latitude),
+        longitude: Number.parseFloat(values.longitude),
+      },
+    };
+
+    dispatch(addPin(newPin));
+
+    navigation.goBack();
+  };
 
   const latitude = Number.parseFloat(watch("latitude"));
   const longitude = Number.parseFloat(watch("longitude"));
@@ -54,7 +77,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         <SelectLocationMapView
           latitude={latitude}
           longitude={longitude}
-          setCoordinates={setCoordinates}
+          onSelectCoordinates={coordinatesSelectedHandler}
         />
       </View>
     </>

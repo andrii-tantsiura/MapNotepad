@@ -2,7 +2,10 @@ import { StyleSheet } from "react-native";
 import COLORS from "../../../constants/colors";
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
+  pinsListContainer: { flex: 1 },
   addPinButton: {
     bottom: 0,
     right: 0,

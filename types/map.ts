@@ -4,7 +4,7 @@ export interface Location {
 }
 
 export interface Pin {
-  id: number;
+  id: string;
   location: Location;
   label: string;
   description?: string;

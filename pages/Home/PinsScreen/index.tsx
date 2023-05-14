@@ -1,65 +1,70 @@
 import React, { FC } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import { ListRenderItem, View } from "react-native";
+import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
+import { useAppDispatch } from "../../../store/redux/store";
+import { useSelector } from "react-redux";
 import styles from "./styles";
-import { Pin } from "../../../types/map";
-import { PinItem } from "./common/PinItem";
+import { PinItem } from "./components/PinItem";
 import { FloatingActionButton } from "../../../components/sections";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
+import { selectPins } from "../../../store/redux/slices/pinsSlice";
+import { Typography } from "../../../components/common";
+import { toggleFavoritePinStatus } from "../../../store/redux/actions/pin.actions";
+import { Pin } from "../../../types/map";
 
 const PLUS_ICON = require("../../../assets/icons/ic_plus.png");
-
-const pins: Array<Pin> = [
-  {
-    id: 1,
-    location: { latitude: 41.39291018, longitude: 12.27313791 },
-    label: "Favourite restairant",
-  },
-  {
-    id: 2,
-    location: { latitude: 14.920247891, longitude: 11.09561248 },
-    label: "Buon Fratelli",
-    isFavorite: true,
-  },
-  {
-    id: 3,
-    location: { latitude: 42.39242528, longitude: 18.29453291 },
-    label: "School",
-    isFavorite: true,
-  },
-  {
-    id: 4,
-    location: { latitude: 16.98453127, longitude: 10.76190482 },
-    label: "Grocery",
-  },
-];
-
-const renderPinItem: ListRenderItem<Pin> = ({ item }) => (
-  <PinItem data={item} />
-);
 
 type HomeScreenNavigationProp = StackNavigationProp<
   HomeStackParamList,
   "AddPin"
 >;
 
-// TODO: define type
 export const PinsScreen: FC = () => {
+  const pins = useSelector(selectPins);
+  const dispatch = useAppDispatch();
+
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
+
+  const pressFavoriteStatusHandler = (pin: Pin) =>
+    dispatch(toggleFavoritePinStatus(pin.id));
+
+  const addPinHandler = () => homeNavigation.navigate("AddPin");
 
   return (
     <View style={styles.container}>
       <FlatList
         data={pins}
+        contentContainerStyle={styles.pinsListContainer}
+        ListEmptyComponent={() => (
+          <View
+            style={{
+              flex: 1,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography color="lightPrimary">
+              There are no added pins yet
+            </Typography>
+          </View>
+        )}
         keyExtractor={(item) => item.id.toString()}
-        renderItem={renderPinItem}
+        renderItem={(item) => (
+          <PinItem
+            data={item.item}
+            onPressFavoriteStatus={pressFavoriteStatusHandler.bind(
+              this,
+              item.item
+            )}
+          />
+        )}
       />
       <FloatingActionButton
         style={styles.addPinButton}
         source={PLUS_ICON}
-        onPress={() => homeNavigation.navigate("AddPin")}
+        onPress={addPinHandler}
       />
     </View>
   );

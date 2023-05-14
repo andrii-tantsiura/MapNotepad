@@ -10,7 +10,7 @@ import {
   PIN_LABEL_RULES,
 } from "../../../utils/validationRules";
 
-type PinFormFieldValues = {
+export type PinFormFieldValues = {
   label: string;
   description: string;
   latitude: string;
