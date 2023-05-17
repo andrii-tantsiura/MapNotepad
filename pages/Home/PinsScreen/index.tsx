@@ -3,16 +3,16 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { useAppDispatch } from "../../../store/redux/store";
 import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../../store/redux/store";
 import styles from "./styles";
 import { PinItem } from "./components/PinItem";
 import { FloatingActionButton } from "../../../components/sections";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { selectPins } from "../../../store/redux/slices/pinsSlice";
-import { Typography } from "../../../components/common";
 import { toggleFavoritePinStatus } from "../../../store/redux/actions/pin.actions";
 import { Pin } from "../../../types/map";
+import EmptyView from "../../../components/sections/EmptyView";
 
 const PLUS_ICON = require("../../../assets/icons/ic_plus.png");
 
@@ -22,8 +22,8 @@ type HomeScreenNavigationProp = StackNavigationProp<
 >;
 
 export const PinsScreen: FC = () => {
-  const pins = useSelector(selectPins);
   const dispatch = useAppDispatch();
+  const pins = useSelector(selectPins);
 
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
 
@@ -36,19 +36,9 @@ export const PinsScreen: FC = () => {
     <View style={styles.container}>
       <FlatList
         data={pins}
-        contentContainerStyle={styles.pinsListContainer}
+        contentContainerStyle={pins.length === 0 && styles.emptyListContainer}
         ListEmptyComponent={() => (
-          <View
-            style={{
-              flex: 1,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <Typography color="lightPrimary">
-              There are no added pins yet
-            </Typography>
-          </View>
+          <EmptyView>There are no added pins yet</EmptyView>
         )}
         keyExtractor={(item) => item.id.toString()}
         renderItem={(item) => (

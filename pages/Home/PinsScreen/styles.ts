@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  pinsListContainer: { flex: 1 },
+  emptyListContainer: { flex: 1 },
   addPinButton: {
     bottom: 0,
     right: 0,
