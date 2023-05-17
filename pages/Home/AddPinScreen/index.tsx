@@ -47,6 +47,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         latitude: Number.parseFloat(values.latitude),
         longitude: Number.parseFloat(values.longitude),
       },
+      isFavorite: true,
     };
 
     dispatch(addPin(newPin));

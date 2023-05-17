@@ -13,6 +13,7 @@ import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
 
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
+const MARKER_ICON = require("../../../assets/icons/ic_marker.png");
 
 interface ISelectLocationMapViewProps {
   latitude: number;
@@ -72,7 +73,7 @@ export const SelectLocationMapView: FC<ISelectLocationMapViewProps> = ({
         {isCoordinatedValid && (
           <Marker
             draggable
-            image={require("../../../assets/icons/ic_marker.png")}
+            image={MARKER_ICON}
             coordinate={{
               latitude: latitude,
               longitude: longitude,

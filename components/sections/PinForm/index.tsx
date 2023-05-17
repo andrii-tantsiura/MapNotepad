@@ -26,7 +26,7 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
   const [isManualCoordsEdit, setIsManualCoordsEdit] = useState(false);
 
   const setManualCoordsEditHandler = () => setIsManualCoordsEdit(true);
-  const resetManualCoordsEditHandler = () => setIsManualCoordsEdit(true);
+  const resetManualCoordsEditHandler = () => setIsManualCoordsEdit(false);
 
   return (
     <View style={styles.container}>
