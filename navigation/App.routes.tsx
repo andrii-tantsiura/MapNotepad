@@ -6,7 +6,7 @@ import AuthStack from "./AuthStack";
 import { AuthContext } from "../store/AuthContextProvider";
 import COLORS from "../constants/colors";
 import { Loader } from "../components/common";
-import TabsStack from "./TabStack";
+import HomeStack from "./HomeStack";
 
 const THEME = {
   ...DefaultTheme,
@@ -37,7 +37,7 @@ const AppRoutes: React.FC = () => {
       <StatusBar style="auto" />
       <FlashMessage />
       <NavigationContainer theme={THEME}>
-        {authContext.isAuthenticated ? <TabsStack /> : <AuthStack />}
+        {authContext.isAuthenticated ? <HomeStack /> : <AuthStack />}
       </NavigationContainer>
     </>
   );

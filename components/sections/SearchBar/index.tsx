@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { TextInput, View, ViewStyle } from "react-native";
-import { IconButton } from "../../common";
+import { IconButton, Separator } from "../../common";
 import styles from "./styles";
 
 const SETTINGS_ICON = require("../../../assets/icons/ic_settings.png");
@@ -15,14 +15,15 @@ export const SearchBar: FC<ISearchBarProps> = ({
   style,
   onRightButtonPress,
 }) => (
-  <View style={[styles.container, style]}>
-    <IconButton iconHeight={28} iconWidth={28} source={SETTINGS_ICON} />
-    <TextInput style={styles.input} placeholder="Search" />
-    <IconButton
-      iconHeight={28}
-      iconWidth={28}
-      source={EXIT_ICON}
-      onPress={onRightButtonPress}
-    />
-  </View>
+  <>
+    <View style={[styles.container, style]}>
+      <IconButton source={SETTINGS_ICON} />
+
+      <TextInput style={styles.input} placeholder="Search" />
+
+      <IconButton source={EXIT_ICON} onPress={onRightButtonPress} />
+    </View>
+
+    <Separator />
+  </>
 );

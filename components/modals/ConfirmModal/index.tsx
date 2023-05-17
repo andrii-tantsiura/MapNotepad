@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { Modal, Pressable, TextStyle, View } from "react-native";
-import { Button, Typography } from "../../common";
+import { Modal, View } from "react-native";
+import { CustomButton, Typography } from "../../common";
 import styles from "./styles";
 import { GlobalStyles } from "../../../constants/styles";
 
@@ -35,21 +35,24 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
         <Typography weight="semiBold" size="i12" color="systemBlack">
           {title}
         </Typography>
+
         <Typography size="i12" color="systemBlack">
           {description}
         </Typography>
+
         <View style={styles.buttonsContainer}>
-          <Button
+          <CustomButton
             style={[GlobalStyles.buttonOutline_i1, styles.button]}
             size="i12"
             color="lightPrimary"
             onPress={onCancel}
           >
             {cancelText}
-          </Button>
-          <Button size="i12" style={styles.button} onPress={onConfirm}>
+          </CustomButton>
+
+          <CustomButton size="i12" style={styles.button} onPress={onConfirm}>
             {confirmText}
-          </Button>
+          </CustomButton>
         </View>
       </View>
     </View>

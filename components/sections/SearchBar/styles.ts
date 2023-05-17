@@ -2,19 +2,20 @@ import { StyleSheet } from "react-native";
 import { FontSizes } from "../../../constants/fontSizes";
 import { FontWeights } from "../../../constants/fontWeights";
 import COLORS from "../../../constants/colors";
+import { scaleSize } from "../../../utils/dimensions";
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 16,
+    paddingHorizontal: scaleSize(16),
     paddingTop: 12,
-    paddingBottom: 8,
+    paddingBottom: 9,
   },
   input: {
     flex: 1,
-    marginHorizontal: 12,
+    marginHorizontal: scaleSize(12),
     paddingLeft: 16,
     ...FontSizes.i12,
     ...FontWeights.regular,

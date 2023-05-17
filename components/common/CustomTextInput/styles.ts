@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { FontSizes } from "../../../constants/fontSizes";
 import { FontWeights } from "../../../constants/fontWeights";
 import COLORS from "../../../constants/colors";
+import { scaleSize } from "../../../utils/dimensions";
 
 const styles = StyleSheet.create({
   titleLabel: {
@@ -13,9 +14,10 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     flexDirection: "row",
-    paddingHorizontal: 12,
-    height: 48,
+    paddingRight: 12,
+    height: scaleSize(40),
     borderWidth: 1,
+    borderRadius: 2,
     borderColor: COLORS.systemLightGray,
   },
   errorInputContainer: {
@@ -23,7 +25,8 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    height: 48,
+    paddingLeft: 12,
+    height: scaleSize(40),
     ...FontSizes.i14,
     ...FontWeights.medium,
     color: COLORS.systemBlack,
@@ -31,7 +34,7 @@ const styles = StyleSheet.create({
   errorLabel: {
     marginTop: 4,
     marginLeft: 12,
-    marginBottom: 10,
+    marginBottom: 5,
     ...FontSizes.i10,
     ...FontWeights.medium,
     color: COLORS.lightError,

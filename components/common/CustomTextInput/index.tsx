@@ -4,24 +4,25 @@ import styles from "./styles";
 import COLORS from "../../../constants/colors";
 import { Typography } from "../Typography";
 import { IconButton } from "../IconButton";
+import { scaleSize } from "../../../utils/dimensions";
 
 const CLEAR_ICON = require("../../../assets/icons/ic_clear.png");
 const EYE_ICON = require("../../../assets/icons/ic_eye.png");
 const EYE_ICON_OFF = require("../../../assets/icons/ic_eye_off.png");
 
-export interface IInputTextProps extends TextInputProps {
-  title: string;
+export interface ICustomTextInputProps extends TextInputProps {
+  title?: string;
   error?: string;
   onClear?: () => void;
 }
 
-export const InputText: React.FC<IInputTextProps> = ({
+export const CustomTextInput: React.FC<ICustomTextInputProps> = ({
   editable = true,
   autoCapitalize,
   placeholderTextColor = COLORS.systemGray,
   secureTextEntry = false,
   keyboardType = "default",
-  title,
+  title = " ",
   error,
   placeholder,
   value,
@@ -33,16 +34,17 @@ export const InputText: React.FC<IInputTextProps> = ({
   const [isSecureText, setIsSecureText] = useState(secureTextEntry);
   const ref = useRef<TextInput>(null);
 
-  const passwordIcon = isSecureText ? EYE_ICON : EYE_ICON_OFF;
-  const isNeedToShowButtons = value && ref.current?.isFocused();
+  const togglePasswordIcon = isSecureText ? EYE_ICON : EYE_ICON_OFF;
+  const isButtonsShown = value && ref.current?.isFocused();
 
   const toggleIsSecureText = () => setIsSecureText(!isSecureText);
 
   return (
-    <View>
+    <>
       <Typography textAlign="left" textStyle={styles.titleLabel}>
         {title}
       </Typography>
+
       <View
         style={[
           styles.inputContainer,
@@ -63,24 +65,31 @@ export const InputText: React.FC<IInputTextProps> = ({
           onSubmitEditing={onSubmitEditing}
           onBlur={onBlur}
         />
-        {isNeedToShowButtons && (
+
+        {isButtonsShown && (
           <View style={styles.buttonsContainer}>
             {secureTextEntry && (
               <IconButton
                 style={styles.button}
-                source={passwordIcon}
+                iconHeight={scaleSize(20)}
+                iconWidth={scaleSize(20)}
+                source={togglePasswordIcon}
                 onPress={toggleIsSecureText}
               />
             )}
+
             <IconButton
               style={styles.button}
+              iconHeight={scaleSize(20)}
+              iconWidth={scaleSize(20)}
               source={CLEAR_ICON}
               onPress={onClear}
             />
           </View>
         )}
       </View>
+
       <Typography textStyle={styles.errorLabel}>{error}</Typography>
-    </View>
+    </>
   );
 };

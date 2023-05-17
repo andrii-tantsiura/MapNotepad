@@ -7,11 +7,5 @@ export const FloatingActionButton: FC<IIconButtonProps> = ({
   style,
   ...props
 }) => (
-  <IconButton
-    style={[styles.container, style]}
-    iconHeight={28}
-    iconWidth={28}
-    source={source}
-    {...props}
-  />
+  <IconButton style={[styles.container, style]} source={source} {...props} />
 );

@@ -1,42 +1,49 @@
 import React, { useContext, useState } from "react";
 import { View } from "react-native";
-import { Formik } from "formik";
-import * as Yup from "yup";
 import { CommonActions } from "@react-navigation/native";
-
+import { useForm } from "react-hook-form";
 import styles from "./styles";
 import {
-  Button,
+  CustomButton,
   IconButton,
   Separator,
   Loader,
+  ValidatedInputText,
 } from "../../../components/common";
-import {
-  passwordValidationSchema,
-  confirmPasswordValidationSchema,
-} from "../../../utils/stringSchemas";
-import { ScreenProps } from "../../../navigation/AuthStack/types";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
 import AlertService from "../../../services/AlertService";
 import { createUserWithEmail } from "../../../utils/auth";
 import { FirebaseAuthErrorCodes } from "../../../enums/fireabaseAuthErrorCodes";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { FormikValidatedInputText } from "../../../components/sections";
+import { PASSWORD_RULES } from "../../../utils/validationRules";
+import { ValidationErrorMessages } from "../../../enums/validationMessages";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
-const PasswordSchema = Yup.object().shape({
-  password: passwordValidationSchema,
-  confirmPassword: confirmPasswordValidationSchema,
-});
-
-const RegistrationCompletionScreen: React.FC<ScreenProps> = ({
+const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
-}: ScreenProps) => {
+}: AuthScreenProps) => {
   const isConnected = useContext(NetworkInfoContext);
   const [isLoading, setIsLoading] = useState(false);
+
+  const {
+    control,
+    resetField,
+    watch,
+    handleSubmit,
+    formState: { isValid },
+  } = useForm({
+    defaultValues: {
+      password: "",
+      confirmPassword: "",
+    },
+    mode: "onTouched",
+  });
+
+  const watchedPassword = watch("password");
 
   const createAccountHandler = async (values: any) => {
     if (isConnected) {
@@ -79,59 +86,51 @@ const RegistrationCompletionScreen: React.FC<ScreenProps> = ({
   }
 
   return (
-    <Formik
-      initialValues={{
-        password: "",
-        confirmPassword: "",
-      }}
-      onSubmit={createAccountHandler}
-      validationSchema={PasswordSchema}
-    >
-      {({ values, isValid, handleSubmit, ...formikProps }) => {
-        const isAccountCreationDisabled =
-          !isValid ||
-          values.password.length == 0 ||
-          values.confirmPassword.length == 0;
+    <View style={styles.container}>
+      <View style={styles.inputsContainer}>
+        <ValidatedInputText
+          control={control}
+          resetField={resetField}
+          name="password"
+          rules={PASSWORD_RULES}
+          secureTextEntry
+          autoCapitalize="none"
+          title="Password"
+          placeholder="Create password"
+        />
 
-        return (
-          <View style={styles.container}>
-            <View style={styles.inputsContainer}>
-              <FormikValidatedInputText
-                secureTextEntry
-                autoCapitalize="none"
-                title="Password"
-                placeholder="Create password"
-                valueName="password"
-                value={values.password}
-                {...formikProps}
-              />
-              <FormikValidatedInputText
-                secureTextEntry
-                autoCapitalize="none"
-                title="Confirm password"
-                placeholder="Repeat password"
-                valueName="confirmPassword"
-                value={values.confirmPassword}
-                {...formikProps}
-              />
-            </View>
-            <View style={styles.buttonsContainer}>
-              <Button
-                onPress={handleSubmit}
-                disabled={isAccountCreationDisabled}
-              >
-                Create account
-              </Button>
-              <Separator>or</Separator>
-              <IconButton
-                style={GlobalStyles.iconButtonOutline_i1}
-                source={GOOGLE_ICON}
-              />
-            </View>
-          </View>
-        );
-      }}
-    </Formik>
+        <ValidatedInputText
+          control={control}
+          resetField={resetField}
+          name="confirmPassword"
+          rules={{
+            required: ValidationErrorMessages.REQUIRED,
+            validate: (value) =>
+              value === watchedPassword ||
+              ValidationErrorMessages.PASSWORD_MISMATCH,
+          }}
+          secureTextEntry
+          autoCapitalize="none"
+          title="Confirm password"
+          placeholder="Repeat password"
+        />
+      </View>
+      <View style={styles.buttonsContainer}>
+        <CustomButton
+          onPress={handleSubmit(createAccountHandler)}
+          disabled={!isValid}
+        >
+          Create account
+        </CustomButton>
+
+        <Separator>or</Separator>
+
+        <IconButton
+          style={GlobalStyles.iconButtonOutline_i1}
+          source={GOOGLE_ICON}
+        />
+      </View>
+    </View>
   );
 };
 

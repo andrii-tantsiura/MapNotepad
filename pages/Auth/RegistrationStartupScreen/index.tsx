@@ -1,25 +1,22 @@
 import React from "react";
 import { View } from "react-native";
-import { Formik } from "formik";
-import * as Yup from "yup";
+import { useForm } from "react-hook-form";
 import styles from "./styles";
-import { Button, IconButton, Separator } from "../../../components/common";
 import {
-  nameValidationSchema,
-  emailValidationSchema,
-} from "../../../utils/stringSchemas";
-import { ScreenProps } from "../../../navigation/AuthStack/types";
+  CustomButton,
+  IconButton,
+  Separator,
+  ValidatedInputText,
+} from "../../../components/common";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
-import { FormikValidatedInputText } from "../../../components/sections";
+import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
-const UserSchema = Yup.object().shape({
-  name: nameValidationSchema,
-  email: emailValidationSchema,
-});
-
-const RegistrationStartupScreen: React.FC<ScreenProps> = ({ navigation }) => {
+const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
+  navigation,
+}) => {
   const goToNextRegistrationStepHandler = (values: any) => {
     navigation.navigate("RegistrationCompletion", {
       name: values.name,
@@ -27,56 +24,59 @@ const RegistrationStartupScreen: React.FC<ScreenProps> = ({ navigation }) => {
     });
   };
 
-  return (
-    <Formik
-      initialValues={{
-        name: "",
-        email: "",
-      }}
-      onSubmit={goToNextRegistrationStepHandler}
-      validationSchema={UserSchema}
-    >
-      {({ values, isValid, handleSubmit, ...formikProps }) => {
-        const isNextRegistrationStepDisabled =
-          !isValid || values.name.length == 0 || values.email.length == 0;
+  const {
+    control,
+    handleSubmit,
+    resetField,
+    formState: { isValid },
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    mode: "onTouched",
+  });
 
-        return (
-          <View style={styles.container}>
-            <View style={styles.inputsContainer}>
-              <FormikValidatedInputText
-                title="Name"
-                placeholder="Enter name"
-                valueName="name"
-                value={values.name}
-                {...formikProps}
-              />
-              <FormikValidatedInputText
-                autoCapitalize="none"
-                keyboardType="email-address"
-                title="Email"
-                placeholder="Enter email"
-                valueName="email"
-                value={values.email}
-                {...formikProps}
-              />
-            </View>
-            <View style={styles.buttonsContainer}>
-              <Button
-                onPress={handleSubmit}
-                disabled={isNextRegistrationStepDisabled}
-              >
-                Next
-              </Button>
-              <Separator>or</Separator>
-              <IconButton
-                style={GlobalStyles.iconButtonOutline_i1}
-                source={GOOGLE_ICON}
-              />
-            </View>
-          </View>
-        );
-      }}
-    </Formik>
+  return (
+    <View style={styles.container}>
+      <View style={styles.inputsContainer}>
+        <ValidatedInputText
+          control={control}
+          resetField={resetField}
+          name="name"
+          rules={USERNAME_RULES}
+          title="Name"
+          placeholder="Enter name"
+        />
+
+        <ValidatedInputText
+          control={control}
+          resetField={resetField}
+          name="email"
+          rules={EMAIL_RULES}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          title="Email"
+          placeholder="Enter email"
+        />
+      </View>
+
+      <View style={styles.buttonsContainer}>
+        <CustomButton
+          disabled={!isValid}
+          onPress={handleSubmit(goToNextRegistrationStepHandler)}
+        >
+          Next
+        </CustomButton>
+
+        <Separator>or</Separator>
+
+        <IconButton
+          style={GlobalStyles.iconButtonOutline_i1}
+          source={GOOGLE_ICON}
+        />
+      </View>
+    </View>
   );
 };
 

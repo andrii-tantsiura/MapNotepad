@@ -1,39 +1,32 @@
-import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { IconButton, Typography } from "../../components/common";
+import { createStackNavigator } from "@react-navigation/stack";
+import { Image } from "react-native";
 import COLORS from "../../constants/colors";
+import { GlobalStyles } from "../../constants/styles";
+import { AuthStackParamList } from "./types";
 import StartupScreen from "../../pages/Auth/StartupScreen";
-import { AuthStackParams } from "./types";
 import LoginScreen from "../../pages/Auth/LoginScreen";
 import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
 import RegistrationCompletionScreen from "../../pages/Auth/RegistrationCompletionScreen";
 
-const LEFT_BLUE = require("../../assets/icons/ic_left_blue.png");
+const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");
 
-const Stack = createStackNavigator<AuthStackParams>();
+const Stack = createStackNavigator<AuthStackParamList>();
 
 const AuthStack: React.FC = () => (
   <Stack.Navigator
     initialRouteName="Startup"
-    screenOptions={({ navigation }) => ({
+    screenOptions={{
       headerShadowVisible: false,
       headerTitleAlign: "center",
       headerStyle: {
         backgroundColor: COLORS.systemWhite,
       },
-      headerTitle: ({ children }) => (
-        <Typography size="i16" weight="semiBold" color="systemBlack">
-          {children}
-        </Typography>
+      headerTitleStyle: GlobalStyles.headerTitle_i1,
+      headerBackImage: () => (
+        <Image style={GlobalStyles.image_i1} source={LEFT_ICON} />
       ),
-      headerLeft: () => (
-        <IconButton
-          style={{ marginLeft: 8 }}
-          source={LEFT_BLUE}
-          onPress={navigation.goBack}
-        />
-      ),
-    })}
+    }}
   >
     <Stack.Screen
       name="Startup"
@@ -42,6 +35,7 @@ const AuthStack: React.FC = () => (
         headerShown: false,
       }}
     />
+
     <Stack.Screen
       name="RegistrationStartup"
       component={RegistrationStartupScreen}
@@ -49,6 +43,7 @@ const AuthStack: React.FC = () => (
         title: "Create an account",
       }}
     />
+
     <Stack.Screen
       name="RegistrationCompletion"
       component={RegistrationCompletionScreen}
@@ -56,6 +51,7 @@ const AuthStack: React.FC = () => (
         title: "Create an account",
       }}
     />
+
     <Stack.Screen
       name="Login"
       component={LoginScreen}
