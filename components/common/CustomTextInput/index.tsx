@@ -34,8 +34,8 @@ export const CustomTextInput: React.FC<ICustomTextInputProps> = ({
   const [isSecureText, setIsSecureText] = useState(secureTextEntry);
   const ref = useRef<TextInput>(null);
 
-  const passwordIcon = isSecureText ? EYE_ICON : EYE_ICON_OFF;
-  const isNeedToShowButtons = value && ref.current?.isFocused();
+  const togglePasswordIcon = isSecureText ? EYE_ICON : EYE_ICON_OFF;
+  const isButtonsShown = value && ref.current?.isFocused();
 
   const toggleIsSecureText = () => setIsSecureText(!isSecureText);
 
@@ -44,6 +44,7 @@ export const CustomTextInput: React.FC<ICustomTextInputProps> = ({
       <Typography textAlign="left" textStyle={styles.titleLabel}>
         {title}
       </Typography>
+
       <View
         style={[
           styles.inputContainer,
@@ -64,17 +65,19 @@ export const CustomTextInput: React.FC<ICustomTextInputProps> = ({
           onSubmitEditing={onSubmitEditing}
           onBlur={onBlur}
         />
-        {isNeedToShowButtons && (
+
+        {isButtonsShown && (
           <View style={styles.buttonsContainer}>
             {secureTextEntry && (
               <IconButton
                 style={styles.button}
                 iconHeight={scaleSize(20)}
                 iconWidth={scaleSize(20)}
-                source={passwordIcon}
+                source={togglePasswordIcon}
                 onPress={toggleIsSecureText}
               />
             )}
+
             <IconButton
               style={styles.button}
               iconHeight={scaleSize(20)}
@@ -85,6 +88,7 @@ export const CustomTextInput: React.FC<ICustomTextInputProps> = ({
           </View>
         )}
       </View>
+
       <Typography textStyle={styles.errorLabel}>{error}</Typography>
     </>
   );

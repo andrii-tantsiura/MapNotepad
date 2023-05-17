@@ -48,6 +48,7 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
           title="Name"
           placeholder="Enter name"
         />
+
         <ValidatedInputText
           control={control}
           resetField={resetField}
@@ -59,6 +60,7 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
           placeholder="Enter email"
         />
       </View>
+
       <View style={styles.buttonsContainer}>
         <CustomButton
           disabled={!isValid}
@@ -66,7 +68,9 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
         >
           Next
         </CustomButton>
+
         <Separator>or</Separator>
+
         <IconButton
           style={GlobalStyles.iconButtonOutline_i1}
           source={GOOGLE_ICON}

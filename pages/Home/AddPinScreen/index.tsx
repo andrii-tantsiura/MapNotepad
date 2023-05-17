@@ -72,8 +72,10 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   return (
     <>
       <Separator />
+
       <View style={styles.container}>
         <PinForm control={control} resetField={resetField} />
+
         <SelectLocationMapView
           latitude={latitude}
           longitude={longitude}

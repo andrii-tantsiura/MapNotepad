@@ -35,6 +35,7 @@ const TabsStack: React.FC = () => {
           setIsLogoutDialogOpened(false);
         }}
       />
+
       <Tabs.Navigator
         initialRouteName="Map"
         screenOptions={{
@@ -64,6 +65,7 @@ const TabsStack: React.FC = () => {
             ),
           }}
         />
+
         <Tabs.Screen
           name="Pins"
           component={PinsScreen}

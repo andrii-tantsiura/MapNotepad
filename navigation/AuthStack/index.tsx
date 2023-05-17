@@ -9,6 +9,8 @@ import LoginScreen from "../../pages/Auth/LoginScreen";
 import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
 import RegistrationCompletionScreen from "../../pages/Auth/RegistrationCompletionScreen";
 
+const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");
+
 const Stack = createStackNavigator<AuthStackParamList>();
 
 const AuthStack: React.FC = () => (
@@ -22,10 +24,7 @@ const AuthStack: React.FC = () => (
       },
       headerTitleStyle: GlobalStyles.headerTitle_i1,
       headerBackImage: () => (
-        <Image
-          style={GlobalStyles.image_i1}
-          source={require("../../assets/icons/ic_left_blue.png")}
-        />
+        <Image style={GlobalStyles.image_i1} source={LEFT_ICON} />
       ),
     }}
   >
@@ -36,6 +35,7 @@ const AuthStack: React.FC = () => (
         headerShown: false,
       }}
     />
+
     <Stack.Screen
       name="RegistrationStartup"
       component={RegistrationStartupScreen}
@@ -43,6 +43,7 @@ const AuthStack: React.FC = () => (
         title: "Create an account",
       }}
     />
+
     <Stack.Screen
       name="RegistrationCompletion"
       component={RegistrationCompletionScreen}
@@ -50,6 +51,7 @@ const AuthStack: React.FC = () => (
         title: "Create an account",
       }}
     />
+
     <Stack.Screen
       name="Login"
       component={LoginScreen}

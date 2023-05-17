@@ -18,9 +18,12 @@ export const SearchBar: FC<ISearchBarProps> = ({
   <>
     <View style={[styles.container, style]}>
       <IconButton source={SETTINGS_ICON} />
+
       <TextInput style={styles.input} placeholder="Search" />
+
       <IconButton source={EXIT_ICON} onPress={onRightButtonPress} />
     </View>
+
     <Separator />
   </>
 );

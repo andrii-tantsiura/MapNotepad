@@ -62,6 +62,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
           <Typography textAlign="left" textStyle={styles.titleLabel}>
             {title}
           </Typography>
+
           <View
             style={[
               styles.inputContainer,
@@ -84,7 +85,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
                 onFocus?.(e);
                 setIsFocused(true);
               }}
-              onBlur={(e) => {
+              onBlur={() => {
                 setIsFocused(false);
                 onFieldBlur();
               }}

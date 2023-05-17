@@ -50,6 +50,7 @@ export const PinsScreen: FC = () => {
           />
         )}
       />
+
       <FloatingActionButton
         style={styles.addPinButton}
         source={PLUS_ICON}

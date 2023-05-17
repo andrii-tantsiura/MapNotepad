@@ -25,6 +25,9 @@ interface IPinFormProps {
 export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
   const [isManualCoordsEdit, setIsManualCoordsEdit] = useState(false);
 
+  const setManualCoordsEditHandler = () => setIsManualCoordsEdit(true);
+  const resetManualCoordsEditHandler = () => setIsManualCoordsEdit(true);
+
   return (
     <View style={styles.container}>
       {!isManualCoordsEdit && (
@@ -60,12 +63,8 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
             placeholder="Longitude"
             maxLength={10}
             rules={LONGITUDE_RULES}
-            onFocus={() => {
-              setIsManualCoordsEdit(true);
-            }}
-            onSubmitEditing={() => {
-              setIsManualCoordsEdit(false);
-            }}
+            onFocus={setManualCoordsEditHandler}
+            onSubmitEditing={resetManualCoordsEditHandler}
           />
         </View>
 
@@ -78,12 +77,8 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
             keyboardType="numeric"
             maxLength={10}
             placeholder="Latitude"
-            onFocus={() => {
-              setIsManualCoordsEdit(true);
-            }}
-            onSubmitEditing={() => {
-              setIsManualCoordsEdit(false);
-            }}
+            onFocus={setManualCoordsEditHandler}
+            onSubmitEditing={resetManualCoordsEditHandler}
           />
         </View>
       </View>

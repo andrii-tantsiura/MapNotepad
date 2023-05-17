@@ -35,9 +35,11 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
         <Typography weight="semiBold" size="i12" color="systemBlack">
           {title}
         </Typography>
+
         <Typography size="i12" color="systemBlack">
           {description}
         </Typography>
+
         <View style={styles.buttonsContainer}>
           <CustomButton
             style={[GlobalStyles.buttonOutline_i1, styles.button]}
@@ -47,6 +49,7 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
           >
             {cancelText}
           </CustomButton>
+
           <CustomButton size="i12" style={styles.button} onPress={onConfirm}>
             {confirmText}
           </CustomButton>

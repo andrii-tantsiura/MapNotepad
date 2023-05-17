@@ -98,6 +98,7 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
           title="Password"
           placeholder="Create password"
         />
+
         <ValidatedInputText
           control={control}
           resetField={resetField}
@@ -121,7 +122,9 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         >
           Create account
         </CustomButton>
+
         <Separator>or</Separator>
+
         <IconButton
           style={GlobalStyles.iconButtonOutline_i1}
           source={GOOGLE_ICON}

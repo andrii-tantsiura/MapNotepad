@@ -24,12 +24,15 @@ const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
           resizeMode="contain"
           source={ENTER_PAGE_ICON}
         />
+
         <Typography size="i18" weight="bold" color="lightPrimary">
           MapNotepad
         </Typography>
       </View>
+
       <View style={styles.buttonsContainer}>
         <CustomButton onPress={loginHandler}>Log in</CustomButton>
+
         <CustomButton
           color="lightPrimary"
           style={GlobalStyles.buttonOutline_i1}

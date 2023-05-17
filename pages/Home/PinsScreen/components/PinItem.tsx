@@ -19,7 +19,7 @@ interface IPinItemProps {
 }
 
 export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
-  const favoriteIcon = data.isFavorite ? LIKE_BLUE_ICON : LIKE_GRAY_ICON;
+  const favoriteStatusIcon = data.isFavorite ? LIKE_BLUE_ICON : LIKE_GRAY_ICON;
 
   return (
     <View style={styles.container}>
@@ -27,11 +27,13 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
         <View style={styles.infoContainer}>
           <IconButton
             style={styles.likeButton}
-            source={favoriteIcon}
+            source={favoriteStatusIcon}
             onPress={onPressFavoriteStatus}
           />
+
           <View style={styles.textLinesContainer}>
             <Typography color="systemBlack">{data.label}</Typography>
+
             <Typography weight="regular" size="i12" color="systemDarkGray">
               {data.location.latitude}
               {", "}
@@ -39,8 +41,10 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
             </Typography>
           </View>
         </View>
+
         <Image style={GlobalStyles.image_i1} source={RIGHT_GRAY_ICON} />
       </View>
+
       <Separator />
     </View>
   );

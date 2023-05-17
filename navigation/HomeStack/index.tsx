@@ -6,6 +6,8 @@ import COLORS from "../../constants/colors";
 import { Image } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 
+const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");
+
 const Stack = createStackNavigator<HomeStackParamList>();
 
 const HomeStack: React.FC = () => (
@@ -19,10 +21,7 @@ const HomeStack: React.FC = () => (
       },
       headerTitleStyle: GlobalStyles.headerTitle_i1,
       headerBackImage: () => (
-        <Image
-          style={GlobalStyles.image_i1}
-          source={require("../../assets/icons/ic_left_blue.png")}
-        />
+        <Image style={GlobalStyles.image_i1} source={LEFT_ICON} />
       ),
     }}
   >
@@ -33,6 +32,7 @@ const HomeStack: React.FC = () => (
         headerShown: false,
       }}
     />
+
     <Stack.Screen
       name="AddPin"
       component={AddPinScreen}

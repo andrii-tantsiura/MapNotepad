@@ -11,6 +11,7 @@ export const MapScreen: FC<TabProps> = () => {
   return (
     <View style={styles.container}>
       <MapView style={styles.map}></MapView>
+
       <FloatingActionButton
         style={styles.locationButton}
         source={LOCATION_ICON}
