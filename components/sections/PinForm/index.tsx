@@ -1,7 +1,6 @@
 import { FC, useState } from "react";
 import { View } from "react-native";
 import { Control, UseFormResetField } from "react-hook-form";
-import { ValidateInputText } from "../../common/ValidateInputText";
 import styles from "./styles";
 
 import {
@@ -9,7 +8,7 @@ import {
   LONGITUDE_RULES,
   PIN_LABEL_RULES,
 } from "../../../utils/validationRules";
-import { TextInput } from "react-native-gesture-handler";
+import { ValidatedInputText } from "../../common";
 
 export type PinFormFieldValues = {
   label: string;
@@ -30,8 +29,7 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
     <View style={styles.container}>
       {!isManualCoordsEdit && (
         <View>
-          {/* <TextInput value="sdf" autoFocus /> */}
-          <ValidateInputText
+          <ValidatedInputText
             control={control}
             resetField={resetField}
             name="label"
@@ -41,7 +39,7 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
             autoFocus
           />
 
-          <ValidateInputText
+          <ValidatedInputText
             control={control}
             resetField={resetField}
             name="description"
@@ -53,7 +51,7 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
 
       <View style={styles.coordinatesContainer}>
         <View style={styles.coordinateContainer}>
-          <ValidateInputText
+          <ValidatedInputText
             control={control}
             resetField={resetField}
             name="longitude"
@@ -72,7 +70,7 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
         </View>
 
         <View style={styles.coordinateContainer}>
-          <ValidateInputText
+          <ValidatedInputText
             control={control}
             resetField={resetField}
             name="latitude"

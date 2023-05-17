@@ -3,10 +3,11 @@ import { View } from "react-native";
 import { useForm } from "react-hook-form";
 import styles from "./styles";
 import {
-  Button,
+  CustomButton,
   IconButton,
   Separator,
   Loader,
+  ValidatedInputText,
 } from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
@@ -15,7 +16,6 @@ import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { ValidateInputText } from "../../../components/common/ValidateInputText";
 import { EMAIL_RULES, PASSWORD_RULES } from "../../../utils/validationRules";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
@@ -66,7 +66,7 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidateInputText
+        <ValidatedInputText
           control={control}
           resetField={resetField}
           name="email"
@@ -77,7 +77,7 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
           keyboardType="email-address"
         />
 
-        <ValidateInputText
+        <ValidatedInputText
           control={control}
           resetField={resetField}
           name="password"
@@ -90,9 +90,9 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <Button onPress={handleSubmit(submitHandler)} disabled={!isValid}>
+        <CustomButton onPress={handleSubmit(submitHandler)} disabled={!isValid}>
           Login
-        </Button>
+        </CustomButton>
 
         <Separator>or</Separator>
 

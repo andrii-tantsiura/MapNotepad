@@ -1,11 +1,15 @@
 import React from "react";
 import { View } from "react-native";
+import { useForm } from "react-hook-form";
 import styles from "./styles";
-import { Button, IconButton, Separator } from "../../../components/common";
+import {
+  CustomButton,
+  IconButton,
+  Separator,
+  ValidatedInputText,
+} from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
-import { useForm } from "react-hook-form";
-import { ValidateInputText } from "../../../components/common/ValidateInputText";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
@@ -36,7 +40,7 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidateInputText
+        <ValidatedInputText
           control={control}
           resetField={resetField}
           name="name"
@@ -44,7 +48,7 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
           title="Name"
           placeholder="Enter name"
         />
-        <ValidateInputText
+        <ValidatedInputText
           control={control}
           resetField={resetField}
           name="email"
@@ -56,12 +60,12 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <Button
+        <CustomButton
           disabled={!isValid}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
         >
           Next
-        </Button>
+        </CustomButton>
         <Separator>or</Separator>
         <IconButton
           style={GlobalStyles.iconButtonOutline_i1}

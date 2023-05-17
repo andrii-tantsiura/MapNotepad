@@ -9,7 +9,7 @@ import { ITypographyProps, Typography } from "../Typography";
 import { GlobalStyles } from "../../../constants/styles";
 import styles from "./styles";
 
-interface IButtonProps extends ITypographyProps {
+interface ICustomButtonProps extends ITypographyProps {
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   pressedStyle?: ViewStyle;
@@ -17,7 +17,7 @@ interface IButtonProps extends ITypographyProps {
   onPress?: () => void;
 }
 
-export const Button: React.FC<IButtonProps> = ({
+export const CustomButton: React.FC<ICustomButtonProps> = ({
   size = "i14",
   weight = "semiBold",
   color = "systemWhite",

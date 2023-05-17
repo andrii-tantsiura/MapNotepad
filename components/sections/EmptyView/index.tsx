@@ -7,10 +7,8 @@ interface IEmptyViewProps {
   children: ReactNode;
 }
 
-const EmptyView: FC<IEmptyViewProps> = ({ children }) => (
+export const EmptyView: FC<IEmptyViewProps> = ({ children }) => (
   <View style={styles.container}>
     <Typography color="lightPrimary">{children}</Typography>
   </View>
 );
-
-export default EmptyView;

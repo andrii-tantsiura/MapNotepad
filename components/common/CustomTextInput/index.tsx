@@ -10,13 +10,13 @@ const CLEAR_ICON = require("../../../assets/icons/ic_clear.png");
 const EYE_ICON = require("../../../assets/icons/ic_eye.png");
 const EYE_ICON_OFF = require("../../../assets/icons/ic_eye_off.png");
 
-export interface IInputTextProps extends TextInputProps {
+export interface ICustomTextInputProps extends TextInputProps {
   title?: string;
   error?: string;
   onClear?: () => void;
 }
 
-export const InputText: React.FC<IInputTextProps> = ({
+export const CustomTextInput: React.FC<ICustomTextInputProps> = ({
   editable = true,
   autoCapitalize,
   placeholderTextColor = COLORS.systemGray,

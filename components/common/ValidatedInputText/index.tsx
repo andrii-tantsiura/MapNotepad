@@ -16,7 +16,7 @@ const CLEAR_ICON = require("../../../assets/icons/ic_clear.png");
 const EYE_ICON = require("../../../assets/icons/ic_eye.png");
 const EYE_ICON_OFF = require("../../../assets/icons/ic_eye_off.png");
 
-export interface IInputTextProps extends TextInputProps {
+interface IValidatedInputTextProps extends TextInputProps {
   name: string;
   control: Control<any, any>;
   rules?: UseControllerProps["rules"];
@@ -24,7 +24,7 @@ export interface IInputTextProps extends TextInputProps {
   title?: string;
 }
 
-export const ValidateInputText: React.FC<IInputTextProps> = ({
+export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   name,
   control,
   rules = {},

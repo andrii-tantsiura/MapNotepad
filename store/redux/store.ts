@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
-import pinsSlice from "./slices/pinsSlice";
 import { useDispatch } from "react-redux";
+import pinsSlice from "./slices/pinsSlice";
 
 const store = configureStore({
   reducer: {

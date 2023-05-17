@@ -2,7 +2,7 @@ import React from "react";
 import { Image, View } from "react-native";
 import styles from "./styles";
 import { GlobalStyles } from "../../../constants/styles";
-import { Typography, Button } from "../../../components/common";
+import { Typography, CustomButton } from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 
 const ENTER_PAGE_ICON = require("../../../assets/icons/pic_enter_page.png");
@@ -29,14 +29,14 @@ const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
         </Typography>
       </View>
       <View style={styles.buttonsContainer}>
-        <Button onPress={loginHandler}>Log in</Button>
-        <Button
+        <CustomButton onPress={loginHandler}>Log in</CustomButton>
+        <CustomButton
           color="lightPrimary"
           style={GlobalStyles.buttonOutline_i1}
           onPress={createAccountHandler}
         >
           Create account
-        </Button>
+        </CustomButton>
       </View>
     </View>
   );

@@ -1,13 +1,14 @@
 import React, { useContext, useState } from "react";
 import { View } from "react-native";
 import { CommonActions } from "@react-navigation/native";
-
+import { useForm } from "react-hook-form";
 import styles from "./styles";
 import {
-  Button,
+  CustomButton,
   IconButton,
   Separator,
   Loader,
+  ValidatedInputText,
 } from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { GlobalStyles } from "../../../constants/styles";
@@ -16,8 +17,6 @@ import { createUserWithEmail } from "../../../utils/auth";
 import { FirebaseAuthErrorCodes } from "../../../enums/fireabaseAuthErrorCodes";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { ValidateInputText } from "../../../components/common/ValidateInputText";
-import { useForm } from "react-hook-form";
 import { PASSWORD_RULES } from "../../../utils/validationRules";
 import { ValidationErrorMessages } from "../../../enums/validationMessages";
 
@@ -89,7 +88,7 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidateInputText
+        <ValidatedInputText
           control={control}
           resetField={resetField}
           name="password"
@@ -99,7 +98,7 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
           title="Password"
           placeholder="Create password"
         />
-        <ValidateInputText
+        <ValidatedInputText
           control={control}
           resetField={resetField}
           name="confirmPassword"
@@ -116,12 +115,12 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         />
       </View>
       <View style={styles.buttonsContainer}>
-        <Button
+        <CustomButton
           onPress={handleSubmit(createAccountHandler)}
           disabled={!isValid}
         >
           Create account
-        </Button>
+        </CustomButton>
         <Separator>or</Separator>
         <IconButton
           style={GlobalStyles.iconButtonOutline_i1}

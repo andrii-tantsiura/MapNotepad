@@ -7,12 +7,11 @@ import { useSelector } from "react-redux";
 import { useAppDispatch } from "../../../store/redux/store";
 import styles from "./styles";
 import { PinItem } from "./components/PinItem";
-import { FloatingActionButton } from "../../../components/sections";
+import { EmptyView, FloatingActionButton } from "../../../components/sections";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { selectPins } from "../../../store/redux/slices/pinsSlice";
 import { toggleFavoritePinStatus } from "../../../store/redux/actions/pin.actions";
 import { Pin } from "../../../types/map";
-import EmptyView from "../../../components/sections/EmptyView";
 
 const PLUS_ICON = require("../../../assets/icons/ic_plus.png");
 
