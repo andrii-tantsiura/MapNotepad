@@ -9,7 +9,7 @@ import {
   ValidatedInputText,
 } from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
-import { GlobalStyles } from "../../../constants/styles";
+import { ComponentStyles } from "../../../constants/styles";
 import { loginWithEmail } from "../../../utils/auth";
 import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
@@ -97,7 +97,7 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
         <Separator>or</Separator>
 
         <IconButton
-          style={GlobalStyles.iconButtonOutline_i1}
+          style={ComponentStyles.iconButtonOutline_i1}
           source={GOOGLE_ICON}
         />
       </View>

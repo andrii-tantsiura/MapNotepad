@@ -6,7 +6,8 @@ import styles from "./styles";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPins } from "../../../store/redux/slices/pinsSlice";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
-import { FloatingIconButton } from "../../../components/common";
+import { IconButton } from "../../../components/common";
+import { ComponentStyles } from "../../../constants/styles";
 
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 const MARKER_ICON = require("../../../assets/icons/ic_marker.png");
@@ -46,8 +47,8 @@ export const MapScreen: FC<TabProps> = () => {
         ))}
       </MapView>
 
-      <FloatingIconButton
-        style={styles.locationButton}
+      <IconButton
+        style={ComponentStyles.floatIconButton_i1}
         source={LOCATION_ICON}
         onPress={updateCurrentLocation}
       />

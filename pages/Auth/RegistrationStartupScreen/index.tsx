@@ -9,7 +9,7 @@ import {
   ValidatedInputText,
 } from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
-import { GlobalStyles } from "../../../constants/styles";
+import { ComponentStyles } from "../../../constants/styles";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
@@ -72,7 +72,7 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
         <Separator>or</Separator>
 
         <IconButton
-          style={GlobalStyles.iconButtonOutline_i1}
+          style={ComponentStyles.iconButtonOutline_i1}
           source={GOOGLE_ICON}
         />
       </View>

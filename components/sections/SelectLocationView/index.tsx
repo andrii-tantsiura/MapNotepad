@@ -7,10 +7,11 @@ import MapView, {
 } from "react-native-maps";
 import * as Location from "expo-location";
 import { View } from "react-native";
-import { FloatingIconButton } from "../../common";
+import { IconButton } from "../../common";
 import styles from "./styles";
 import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
+import { ComponentStyles } from "../../../constants/styles";
 
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 const MARKER_ICON = require("../../../assets/icons/ic_marker.png");
@@ -83,8 +84,8 @@ export const SelectLocationView: FC<ISelectLocationViewProps> = ({
         )}
       </MapView>
 
-      <FloatingIconButton
-        style={styles.locationButton}
+      <IconButton
+        style={ComponentStyles.floatIconButton_i1}
         source={LOCATION_ICON}
         onPress={setCurrentPositionHandler}
       />

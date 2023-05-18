@@ -1,7 +1,7 @@
 import React from "react";
 import { Image, View } from "react-native";
 import styles from "./styles";
-import { GlobalStyles } from "../../../constants/styles";
+import { ComponentStyles } from "../../../constants/styles";
 import { Typography, CustomButton } from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 
@@ -35,7 +35,7 @@ const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
 
         <CustomButton
           color="lightPrimary"
-          style={GlobalStyles.buttonOutline_i1}
+          style={ComponentStyles.buttonOutline_i1}
           onPress={createAccountHandler}
         >
           Create account

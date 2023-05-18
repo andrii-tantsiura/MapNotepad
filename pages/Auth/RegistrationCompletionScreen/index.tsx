@@ -10,7 +10,6 @@ import {
   ValidatedInputText,
 } from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
-import { GlobalStyles } from "../../../constants/styles";
 import AlertService from "../../../services/AlertService";
 import { createUserWithEmail } from "../../../utils/auth";
 import { FirebaseAuthErrorCodes } from "../../../enums/fireabaseAuthErrorCodes";
@@ -19,6 +18,7 @@ import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { PASSWORD_RULES } from "../../../utils/validationRules";
 import { ValidationErrorMessages } from "../../../enums/validationMessages";
 import { LoaderView } from "../../../components/sections";
+import { ComponentStyles } from "../../../constants/styles";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
@@ -126,7 +126,7 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         <Separator>or</Separator>
 
         <IconButton
-          style={GlobalStyles.iconButtonOutline_i1}
+          style={ComponentStyles.iconButtonOutline_i1}
           source={GOOGLE_ICON}
         />
       </View>

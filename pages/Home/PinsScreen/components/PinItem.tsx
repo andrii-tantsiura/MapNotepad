@@ -7,7 +7,7 @@ import {
 } from "../../../../components/common";
 import { Pin } from "../../../../types/map";
 import styles from "./styles";
-import { GlobalStyles } from "../../../../constants/styles";
+import { ComponentStyles } from "../../../../constants/styles";
 
 const LIKE_BLUE_ICON = require("../../../../assets/icons/ic_like_blue.png");
 const LIKE_GRAY_ICON = require("../../../../assets/icons/ic_like_gray.png");
@@ -42,7 +42,7 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
           </View>
         </View>
 
-        <Image style={GlobalStyles.image_i1} source={RIGHT_GRAY_ICON} />
+        <Image style={ComponentStyles.image_i1} source={RIGHT_GRAY_ICON} />
       </View>
 
       <Separator />

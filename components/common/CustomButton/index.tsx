@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from "react-native";
 import { ITypographyProps, Typography } from "../Typography";
-import { GlobalStyles } from "../../../constants/styles";
+import { ComponentStyles } from "../../../constants/styles";
 import styles from "./styles";
 
 interface ICustomButtonProps extends ITypographyProps {
@@ -31,7 +31,7 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
   onPress,
 }) => {
   const getStyle = ({ pressed }: PressableStateCallbackType) => [
-    GlobalStyles.button_i1,
+    ComponentStyles.button_i1,
     style,
     disabled ? disabledStyle : pressed && pressedStyle,
   ];

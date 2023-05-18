@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Modal, View } from "react-native";
 import { CustomButton, Typography } from "../../common";
 import styles from "./styles";
-import { GlobalStyles } from "../../../constants/styles";
+import { ComponentStyles } from "../../../constants/styles";
 
 interface IConfirmModalProps {
   visible: boolean;
@@ -42,7 +42,7 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
 
         <View style={styles.buttonsContainer}>
           <CustomButton
-            style={[GlobalStyles.buttonOutline_i1, styles.button]}
+            style={[ComponentStyles.buttonOutline_i1, styles.button]}
             size="i12"
             color="lightPrimary"
             onPress={onCancel}

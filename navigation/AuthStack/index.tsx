@@ -2,7 +2,7 @@ import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Image } from "react-native";
 import COLORS from "../../constants/colors";
-import { GlobalStyles } from "../../constants/styles";
+import { ComponentStyles } from "../../constants/styles";
 import { AuthStackParamList } from "./types";
 import StartupScreen from "../../pages/Auth/StartupScreen";
 import LoginScreen from "../../pages/Auth/LoginScreen";
@@ -22,9 +22,9 @@ const AuthStack: React.FC = () => (
       headerStyle: {
         backgroundColor: COLORS.systemWhite,
       },
-      headerTitleStyle: GlobalStyles.headerTitle_i1,
+      headerTitleStyle: ComponentStyles.headerTitle_i1,
       headerBackImage: () => (
-        <Image style={GlobalStyles.image_i1} source={LEFT_ICON} />
+        <Image style={ComponentStyles.image_i1} source={LEFT_ICON} />
       ),
     }}
   >

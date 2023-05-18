@@ -4,7 +4,7 @@ import TabsStack from "../TabStack";
 import { AddPinScreen } from "../../pages/Home/AddPinScreen";
 import COLORS from "../../constants/colors";
 import { Image } from "react-native";
-import { GlobalStyles } from "../../constants/styles";
+import { ComponentStyles } from "../../constants/styles";
 
 const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");
 
@@ -19,9 +19,9 @@ const HomeStack: React.FC = () => (
       headerStyle: {
         backgroundColor: COLORS.systemWhite,
       },
-      headerTitleStyle: GlobalStyles.headerTitle_i1,
+      headerTitleStyle: ComponentStyles.headerTitle_i1,
       headerBackImage: () => (
-        <Image style={GlobalStyles.image_i1} source={LEFT_ICON} />
+        <Image style={ComponentStyles.image_i1} source={LEFT_ICON} />
       ),
     }}
   >

@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import COLORS from "../../../constants/colors";
+import { ComponentStyles } from "../../../constants/styles";
 
 const styles = StyleSheet.create({
   container: {
@@ -7,10 +8,7 @@ const styles = StyleSheet.create({
   },
   emptyListContainer: { flex: 1 },
   addPinButton: {
-    bottom: 0,
-    right: 0,
-    marginRight: 16,
-    marginBottom: 18,
+    ...ComponentStyles.floatIconButton_i1,
     backgroundColor: COLORS.lightPrimary,
   },
 });

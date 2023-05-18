@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import COLORS from "../../../constants/colors";
-import { GlobalStyles } from "../../../constants/styles";
+import { CommonStyles } from "../../../constants/styles";
 
 const styles = StyleSheet.create({
   dialogContainer: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: COLORS.systemLightGray,
-    ...GlobalStyles.shadow_i1,
+    ...CommonStyles.shadow_i1,
   },
   buttonsContainer: {
     flexDirection: "row",
