@@ -3,10 +3,10 @@ import { View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useSelector } from "react-redux";
 import styles from "./styles";
-import { FloatingActionButton } from "../../../components/sections";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPins } from "../../../store/redux/slices/pinsSlice";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
+import { FloatingIconButton } from "../../../components/common";
 
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 const MARKER_ICON = require("../../../assets/icons/ic_marker.png");
@@ -46,7 +46,7 @@ export const MapScreen: FC<TabProps> = () => {
         ))}
       </MapView>
 
-      <FloatingActionButton
+      <FloatingIconButton
         style={styles.locationButton}
         source={LOCATION_ICON}
         onPress={updateCurrentLocation}

@@ -6,7 +6,6 @@ import {
   CustomButton,
   IconButton,
   Separator,
-  Loader,
   ValidatedInputText,
 } from "../../../components/common";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
@@ -17,6 +16,7 @@ import { ErrorMessages } from "../../../enums/errorMessages";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { EMAIL_RULES, PASSWORD_RULES } from "../../../utils/validationRules";
+import { LoaderView } from "../../../components/sections";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
@@ -60,7 +60,7 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   };
 
   if (isLoading) {
-    return <Loader />;
+    return <LoaderView />;
   }
 
   return (

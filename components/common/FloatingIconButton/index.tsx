@@ -1,8 +1,8 @@
 import { FC } from "react";
-import { IIconButtonProps, IconButton } from "../../common";
+import { IIconButtonProps, IconButton } from "../../common/IconButton";
 import styles from "./styles";
 
-export const FloatingActionButton: FC<IIconButtonProps> = ({
+export const FloatingIconButton: FC<IIconButtonProps> = ({
   source,
   style,
   ...props

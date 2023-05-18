@@ -1,5 +1,5 @@
 export * from "./EmptyView";
-export * from "./FloatingActionButton";
+export * from "./LoaderView";
 export * from "./PinForm";
 export * from "./SearchBar";
-export * from "./SelectLocationMapView";
+export * from "./SelectLocationView";

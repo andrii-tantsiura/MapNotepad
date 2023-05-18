@@ -2,12 +2,12 @@ import { ActivityIndicator, Text, View } from "react-native";
 import styles from "./styles";
 import COLORS, { IColors } from "../../../constants/colors";
 
-interface ILoading {
+interface ILoaderView {
   message?: string;
   spinnerColor?: keyof IColors;
 }
 
-export const Loader: React.FC<ILoading> = ({
+export const LoaderView: React.FC<ILoaderView> = ({
   message = "Loading...",
   spinnerColor = COLORS.darkPrimary,
 }) => (

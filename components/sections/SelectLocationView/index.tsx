@@ -7,7 +7,7 @@ import MapView, {
 } from "react-native-maps";
 import * as Location from "expo-location";
 import { View } from "react-native";
-import { FloatingActionButton } from "../FloatingActionButton";
+import { FloatingIconButton } from "../../common";
 import styles from "./styles";
 import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
@@ -15,13 +15,13 @@ import { ErrorMessages } from "../../../enums/errorMessages";
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 const MARKER_ICON = require("../../../assets/icons/ic_marker.png");
 
-interface ISelectLocationMapViewProps {
+interface ISelectLocationViewProps {
   latitude: number;
   longitude: number;
   onSelectCoordinates: (coordinate: LatLng) => void;
 }
 
-export const SelectLocationMapView: FC<ISelectLocationMapViewProps> = ({
+export const SelectLocationView: FC<ISelectLocationViewProps> = ({
   latitude,
   longitude,
   onSelectCoordinates,
@@ -83,7 +83,7 @@ export const SelectLocationMapView: FC<ISelectLocationMapViewProps> = ({
         )}
       </MapView>
 
-      <FloatingActionButton
+      <FloatingIconButton
         style={styles.locationButton}
         source={LOCATION_ICON}
         onPress={setCurrentPositionHandler}

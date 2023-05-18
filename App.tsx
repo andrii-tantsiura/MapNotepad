@@ -12,10 +12,10 @@ import {
 } from "./constants/fontWeights";
 import { NetworkInfoContext } from "./store/NetworkInfoContext";
 import { AuthContextProvider } from "./store/AuthContextProvider";
-import { Loader } from "./components/common";
 import AppRoutes from "./navigation/App.routes";
 import { Provider } from "react-redux";
 import store from "./store/redux/store";
+import { LoaderView } from "./components/sections";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
@@ -37,7 +37,7 @@ export default function App() {
   }, []);
 
   return !isFontsLoaded ? (
-    <Loader />
+    <LoaderView />
   ) : (
     <>
       <AuthContextProvider>

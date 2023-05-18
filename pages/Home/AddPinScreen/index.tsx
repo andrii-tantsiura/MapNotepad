@@ -8,7 +8,7 @@ import { IconButton, Separator } from "../../../components/common";
 import {
   PinForm,
   PinFormFieldValues,
-  SelectLocationMapView,
+  SelectLocationView,
 } from "../../../components/sections";
 import { Pin } from "../../../types/map";
 import { addPin } from "../../../store/redux/actions/pin.actions";
@@ -77,7 +77,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
       <View style={styles.container}>
         <PinForm control={control} resetField={resetField} />
 
-        <SelectLocationMapView
+        <SelectLocationView
           latitude={latitude}
           longitude={longitude}
           onSelectCoordinates={coordinatesSelectedHandler}

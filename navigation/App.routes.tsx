@@ -5,8 +5,8 @@ import FlashMessage from "react-native-flash-message";
 import AuthStack from "./AuthStack";
 import { AuthContext } from "../store/AuthContextProvider";
 import COLORS from "../constants/colors";
-import { Loader } from "../components/common";
 import HomeStack from "./HomeStack";
+import { LoaderView } from "../components/sections";
 
 const THEME = {
   ...DefaultTheme,
@@ -31,7 +31,7 @@ const AppRoutes: React.FC = () => {
   }, []);
 
   return isTryingAuthenticate ? (
-    <Loader />
+    <LoaderView />
   ) : (
     <>
       <StatusBar style="auto" />
