@@ -1,13 +1,15 @@
 import { StyleSheet } from "react-native";
 
 import COLORS from "../../../constants/colors";
-import { CommonStyles } from "../../../constants/styles";
+import {
+  ContainerStyles,
+  CustomButtonStyles,
+  ShadowStyles,
+} from "../../../constants/globalStyles";
 
 const styles = StyleSheet.create({
   dialogContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    ...ContainerStyles.fill_i1,
     backgroundColor: COLORS.systemDarkGray80,
   },
   contentContainer: {
@@ -19,7 +21,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: COLORS.systemLightGray,
-    ...CommonStyles.shadow_i1,
+    ...ShadowStyles.shadow_i1,
   },
   buttonsContainer: {
     flexDirection: "row",
@@ -27,10 +29,13 @@ const styles = StyleSheet.create({
     columnGap: 24,
     marginTop: 16,
   },
-  button: {
+  leftButton: {
+    ...CustomButtonStyles.outline_i1,
     width: "50%",
-    height: 40,
-    borderRadius: 4,
+  },
+  rightButton: {
+    ...CustomButtonStyles.regular_i1,
+    width: "50%",
   },
 });
 

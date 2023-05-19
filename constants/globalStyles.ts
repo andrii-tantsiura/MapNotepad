@@ -4,7 +4,7 @@ import { scaleSize } from "../utils/dimensions";
 import COLORS from "./colors";
 import { FontSizes, FontWeights } from "./textStyles";
 
-export const CommonStyles = StyleSheet.create({
+export const ShadowStyles = StyleSheet.create({
   shadow_i1: {
     elevation: 5,
     shadowColor: COLORS.systemBlack,
@@ -21,39 +21,60 @@ export const CommonStyles = StyleSheet.create({
   },
 });
 
-export const ComponentStyles = StyleSheet.create({
-  headerTitle_i1: {
+export const ContainerStyles = StyleSheet.create({
+  fill_i1: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
+export const TextStyles = StyleSheet.create({
+  header_i1: {
     ...FontSizes.i16,
     ...FontWeights.semiBold,
     color: COLORS.systemBlack,
   },
+});
+
+export const ImageStyles = StyleSheet.create({
   image_i1: {
     height: scaleSize(24),
     width: scaleSize(24),
   },
-  button_i1: {
+});
+
+const ButtonStyles = StyleSheet.create({
+  baseCustomButton: {
     alignItems: "center",
     justifyContent: "center",
     height: scaleSize(40),
-    backgroundColor: COLORS.lightPrimary,
     borderWidth: 1,
+    borderRadius: 4,
+  },
+});
+
+export const CustomButtonStyles = StyleSheet.create({
+  regular_i1: {
+    ...ButtonStyles.baseCustomButton,
+    backgroundColor: COLORS.lightPrimary,
     borderColor: "transparent",
   },
-  buttonOutline_i1: {
-    borderColor: COLORS.lightPrimary,
+  outline_i1: {
+    ...ButtonStyles.baseCustomButton,
     backgroundColor: COLORS.systemWhite,
+    borderColor: COLORS.lightPrimary,
   },
-  iconButtonOutline_i1: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: scaleSize(40),
-    borderWidth: 1,
+});
+export const IconButtonStyles = StyleSheet.create({
+  outline_i1: {
+    ...ButtonStyles.baseCustomButton,
     borderColor: COLORS.systemLightGray,
   },
-  floatIconButton_i1: {
-    position: "absolute",
+  float_i1: {
     alignItems: "center",
     justifyContent: "center",
+    position: "absolute",
     bottom: 0,
     right: 0,
     marginRight: 16,
@@ -62,6 +83,6 @@ export const ComponentStyles = StyleSheet.create({
     height: scaleSize(46),
     borderRadius: 30,
     backgroundColor: COLORS.systemWhite,
-    ...CommonStyles.shadow_i2,
+    ...ShadowStyles.shadow_i2,
   },
 });

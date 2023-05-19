@@ -1,18 +1,19 @@
-import React, { FC } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import React, { FC } from "react";
 import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../../store/redux/store";
-import styles from "./styles";
-import { PinItem } from "./components/PinItem";
+
+import { IconButton } from "../../../components/common";
 import { EmptyView } from "../../../components/sections";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
-import { selectPins } from "../../../store/redux/slices/pinsSlice";
 import { toggleFavoritePinStatus } from "../../../store/redux/actions/pin.actions";
+import { selectPins } from "../../../store/redux/slices/pinsSlice";
+import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
-import { IconButton } from "../../../components/common";
+import { PinItem } from "./components/PinItem";
+import styles from "./styles";
 
 const PLUS_ICON = require("../../../assets/icons/ic_plus.png");
 

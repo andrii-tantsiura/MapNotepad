@@ -8,7 +8,7 @@ import MapView, {
   MarkerDragStartEndEvent,
 } from "react-native-maps";
 
-import { ComponentStyles } from "../../../constants/styles";
+import { IconButtonStyles } from "../../../constants/globalStyles";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import AlertService from "../../../services/AlertService";
 import { IconButton } from "../../common";
@@ -86,7 +86,7 @@ export const SelectLocationView: FC<ISelectLocationViewProps> = ({
       </MapView>
 
       <IconButton
-        style={ComponentStyles.floatIconButton_i1}
+        style={IconButtonStyles.float_i1}
         source={LOCATION_ICON}
         onPress={setCurrentPositionHandler}
       />

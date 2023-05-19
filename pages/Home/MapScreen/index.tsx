@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import { useSelector } from "react-redux";
 
 import { IconButton } from "../../../components/common";
-import { ComponentStyles } from "../../../constants/styles";
+import { IconButtonStyles } from "../../../constants/globalStyles";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPins } from "../../../store/redux/slices/pinsSlice";
@@ -49,7 +49,7 @@ export const MapScreen: FC<TabProps> = () => {
       </MapView>
 
       <IconButton
-        style={ComponentStyles.floatIconButton_i1}
+        style={IconButtonStyles.float_i1}
         source={LOCATION_ICON}
         onPress={updateCurrentLocation}
       />

@@ -10,7 +10,7 @@ import {
   ValidatedInputText,
 } from "../../../components/common";
 import { LoaderView } from "../../../components/sections";
-import { ComponentStyles } from "../../../constants/styles";
+import { IconButtonStyles } from "../../../constants/globalStyles";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import { FirebaseAuthErrorCodes } from "../../../enums/firebaseAuthErrorCodes";
 import { ValidationErrorMessages } from "../../../enums/validationMessages";
@@ -126,10 +126,7 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
         <Separator>or</Separator>
 
-        <IconButton
-          style={ComponentStyles.iconButtonOutline_i1}
-          source={GOOGLE_ICON}
-        />
+        <IconButton style={IconButtonStyles.outline_i1} source={GOOGLE_ICON} />
       </View>
     </View>
   );

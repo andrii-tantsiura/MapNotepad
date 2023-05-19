@@ -6,7 +6,7 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { ComponentStyles } from "../../../constants/styles";
+import { CustomButtonStyles } from "../../../constants/globalStyles";
 import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
@@ -25,14 +25,13 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
   textAlign = "center",
   disabled,
   textStyle,
-  style,
+  style = CustomButtonStyles.regular_i1,
   pressedStyle = styles.pressed,
   disabledStyle = styles.disabled,
   children,
   onPress,
 }) => {
   const getStyle = ({ pressed }: PressableStateCallbackType) => [
-    ComponentStyles.button_i1,
     style,
     disabled ? disabledStyle : pressed && pressedStyle,
   ];

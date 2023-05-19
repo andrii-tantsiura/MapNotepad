@@ -8,7 +8,7 @@ import {
   Separator,
   ValidatedInputText,
 } from "../../../components/common";
-import { ComponentStyles } from "../../../constants/styles";
+import { IconButtonStyles } from "../../../constants/globalStyles";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
 import styles from "./styles";
@@ -72,10 +72,7 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
         <Separator>or</Separator>
 
-        <IconButton
-          style={ComponentStyles.iconButtonOutline_i1}
-          source={GOOGLE_ICON}
-        />
+        <IconButton style={IconButtonStyles.outline_i1} source={GOOGLE_ICON} />
       </View>
     </View>
   );

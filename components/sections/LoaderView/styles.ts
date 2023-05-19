@@ -1,19 +1,20 @@
 import { StyleSheet } from "react-native";
 
 import COLORS from "../../../constants/colors";
-import { FontSizes } from "../../../constants/textStyles";
+import { FontSizes, FontWeights } from "../../../constants/textStyles";
+import { ContainerStyles } from "../../../constants/globalStyles";
 
 const styles = StyleSheet.create({
   container: {
+    ...ContainerStyles.fill_i1,
     backgroundColor: COLORS.systemWhite,
     opacity: 0.8,
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     padding: 32,
   },
   message: {
     ...FontSizes.i14,
+    ...FontWeights.medium,
+    color: COLORS.systemWhite,
     marginBottom: 12,
   },
 });

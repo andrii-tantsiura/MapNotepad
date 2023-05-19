@@ -5,7 +5,7 @@ import { Image } from "react-native";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 import { SearchBar } from "../../components/sections";
 import COLORS from "../../constants/colors";
-import { ComponentStyles } from "../../constants/styles";
+import { ImageStyles } from "../../constants/globalStyles";
 import { MapScreen } from "../../pages/Home/MapScreen";
 import { PinsScreen } from "../../pages/Home/PinsScreen";
 import { AuthContext } from "../../store/AuthContextProvider";
@@ -59,7 +59,7 @@ const TabsStack: React.FC = () => {
           options={{
             tabBarIcon: () => (
               <Image
-                style={ComponentStyles.image_i1}
+                style={ImageStyles.image_i1}
                 resizeMode="center"
                 source={MAP_ICON}
               />
@@ -73,7 +73,7 @@ const TabsStack: React.FC = () => {
           options={{
             tabBarIcon: () => (
               <Image
-                style={ComponentStyles.image_i1}
+                style={ImageStyles.image_i1}
                 resizeMode="center"
                 source={PIN_ICON}
               />

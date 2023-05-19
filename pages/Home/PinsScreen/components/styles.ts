@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
+
 import COLORS from "../../../../constants/colors";
+import { scaleSize } from "../../../../utils/dimensions";
 
 const styles = StyleSheet.create({
   container: {
@@ -22,8 +24,8 @@ const styles = StyleSheet.create({
   likeButton: {
     justifyContent: "center",
     alignItems: "center",
-    height: 48,
-    width: 48,
+    height: scaleSize(40),
+    width: scaleSize(40),
     borderRadius: 6,
     backgroundColor: COLORS.lightVariant,
   },
