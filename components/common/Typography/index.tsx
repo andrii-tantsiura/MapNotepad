@@ -2,8 +2,12 @@ import React from "react";
 import { Text, TextProps, TextStyle } from "react-native";
 
 import COLORS, { IColors } from "../../../constants/colors";
-import { FontSizes, IFontSizes } from "../../../constants/fontSizes";
-import { FontWeights, IFontWeights } from "../../../constants/fontWeights";
+import {
+  FontSizes,
+  FontWeights,
+  IFontSizes,
+  IFontWeights,
+} from "../../../constants/textStyles";
 
 export interface ITypographyProps extends TextProps {
   size?: keyof IFontSizes;

@@ -2,8 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { scaleSize } from "../utils/dimensions";
 import COLORS from "./colors";
-import { FontSizes } from "./fontSizes";
-import { FontWeights } from "./fontWeights";
+import { FontSizes, FontWeights } from "./textStyles";
 
 export const CommonStyles = StyleSheet.create({
   shadow_i1: {

@@ -1,8 +1,8 @@
 import { scaleSize } from "../utils/dimensions";
 
-type FontFamily = {
+interface FontFamily {
   fontFamily: string;
-};
+}
 
 export interface IFontWeights {
   bold: FontFamily;
