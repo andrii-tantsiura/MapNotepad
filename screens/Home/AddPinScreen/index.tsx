@@ -3,11 +3,12 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
 
-import { IconButton, Separator } from "../../../components/common";
+import { IconButton } from "../../../components/common";
 import {
   PinForm,
   PinFormFieldValues,
   SelectLocationView,
+  Separator,
 } from "../../../components/sections";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { addPin } from "../../../store/redux/actions/pin.actions";

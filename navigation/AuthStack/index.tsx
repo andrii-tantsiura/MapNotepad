@@ -4,10 +4,10 @@ import { Image } from "react-native";
 
 import COLORS from "../../constants/colors";
 import { ImageStyles, TextStyles } from "../../constants/globalStyles";
-import LoginScreen from "../../pages/Auth/LoginScreen";
-import RegistrationCompletionScreen from "../../pages/Auth/RegistrationCompletionScreen";
-import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
-import StartupScreen from "../../pages/Auth/StartupScreen";
+import LoginScreen from "../../screens/Auth/LoginScreen";
+import RegistrationCompletionScreen from "../../screens/Auth/RegistrationCompletionScreen";
+import RegistrationStartupScreen from "../../screens/Auth/RegistrationStartupScreen";
+import StartupScreen from "../../screens/Auth/StartupScreen";
 import { AuthStackParamList } from "./types";
 
 const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");

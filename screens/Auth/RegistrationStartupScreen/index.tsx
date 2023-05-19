@@ -5,13 +5,13 @@ import { View } from "react-native";
 import {
   CustomButton,
   IconButton,
-  Separator,
   ValidatedInputText,
 } from "../../../components/common";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
 import styles from "./styles";
+import { Separator } from "../../../components/sections";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 

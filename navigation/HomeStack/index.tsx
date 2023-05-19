@@ -3,7 +3,7 @@ import { Image } from "react-native";
 
 import COLORS from "../../constants/colors";
 import { ImageStyles, TextStyles } from "../../constants/globalStyles";
-import { AddPinScreen } from "../../pages/Home/AddPinScreen";
+import { AddPinScreen } from "../../screens/Home/AddPinScreen";
 import TabsStack from "../TabStack";
 import { HomeStackParamList } from "./types";
 

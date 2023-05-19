@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 
-import { Typography } from "../Typography";
+import { Typography } from "../../common/Typography";
 import styles from "./styles";
 
 interface ISeparatorProps {

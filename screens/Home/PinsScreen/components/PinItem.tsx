@@ -1,17 +1,14 @@
 import { FC } from "react";
 import { Image, View } from "react-native";
-import {
-  IconButton,
-  Separator,
-  Typography,
-} from "../../../../components/common";
+import { IconButton, Typography } from "../../../../components/common";
 import { Pin } from "../../../../types/map";
 import styles from "./styles";
 import { ImageStyles } from "../../../../constants/globalStyles";
+import { Separator } from "../../../../components/sections";
 
-const LIKE_BLUE_ICON = require("../../../../assets/icons/ic_like_blue.png");
-const LIKE_GRAY_ICON = require("../../../../assets/icons/ic_like_gray.png");
-const RIGHT_GRAY_ICON = require("../../../../assets/icons/ic_right_gray.png");
+import LIKE_BLUE_ICON from "../../../../assets/icons/ic_like_blue.png";
+import LIKE_GRAY_ICON from "../../../../assets/icons/ic_like_gray.png";
+import RIGHT_GRAY_ICON from "../../../../assets/icons/ic_right_gray.png";
 
 interface IPinItemProps {
   data: Pin;

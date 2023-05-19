@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, ViewStyle } from "react-native";
 
 import { scaleSize } from "../utils/dimensions";
 import COLORS from "./colors";
@@ -44,41 +44,38 @@ export const ImageStyles = StyleSheet.create({
   },
 });
 
-const ButtonStyles = StyleSheet.create({
-  baseCustomButton: {
-    alignItems: "center",
-    justifyContent: "center",
-    height: scaleSize(40),
-    borderWidth: 1,
-    borderRadius: 4,
-  },
-});
+const baseButtonStyle: ViewStyle = {
+  alignItems: "center",
+  justifyContent: "center",
+  height: scaleSize(40),
+  borderWidth: 1,
+  borderRadius: 4,
+  borderColor: "transparent",
+};
 
 export const CustomButtonStyles = StyleSheet.create({
   regular_i1: {
-    ...ButtonStyles.baseCustomButton,
+    ...baseButtonStyle,
     backgroundColor: COLORS.lightPrimary,
-    borderColor: "transparent",
   },
   outline_i1: {
-    ...ButtonStyles.baseCustomButton,
+    ...baseButtonStyle,
     backgroundColor: COLORS.systemWhite,
     borderColor: COLORS.lightPrimary,
   },
 });
 export const IconButtonStyles = StyleSheet.create({
   outline_i1: {
-    ...ButtonStyles.baseCustomButton,
+    ...baseButtonStyle,
     borderColor: COLORS.systemLightGray,
   },
   float_i1: {
-    alignItems: "center",
-    justifyContent: "center",
     position: "absolute",
     bottom: 0,
     right: 0,
     marginRight: 16,
     marginBottom: 18,
+    ...baseButtonStyle,
     width: scaleSize(46),
     height: scaleSize(46),
     borderRadius: 30,

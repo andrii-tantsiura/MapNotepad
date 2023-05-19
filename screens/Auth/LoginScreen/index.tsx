@@ -5,10 +5,9 @@ import { View } from "react-native";
 import {
   CustomButton,
   IconButton,
-  Separator,
   ValidatedInputText,
 } from "../../../components/common";
-import { LoaderView } from "../../../components/sections";
+import { LoaderView, Separator } from "../../../components/sections";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
