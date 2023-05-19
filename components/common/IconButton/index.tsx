@@ -1,14 +1,15 @@
 import React from "react";
 import {
-  Pressable,
-  ViewStyle,
-  PressableStateCallbackType,
   Image,
   ImageStyle,
+  Pressable,
+  PressableStateCallbackType,
   StyleProp,
+  ViewStyle,
 } from "react-native";
-import styles from "./styles";
+
 import { scaleSize } from "../../../utils/dimensions";
+import styles from "./styles";
 
 export interface IIconButtonProps {
   iconHeight?: ImageStyle["height"];

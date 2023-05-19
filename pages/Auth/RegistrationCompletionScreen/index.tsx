@@ -1,24 +1,25 @@
-import React, { useContext, useState } from "react";
-import { View } from "react-native";
 import { CommonActions } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import styles from "./styles";
+import { View } from "react-native";
+
 import {
   CustomButton,
   IconButton,
   Separator,
   ValidatedInputText,
 } from "../../../components/common";
-import { AuthScreenProps } from "../../../navigation/AuthStack/types";
-import AlertService from "../../../services/AlertService";
-import { createUserWithEmail } from "../../../utils/auth";
-import { FirebaseAuthErrorCodes } from "../../../enums/fireabaseAuthErrorCodes";
-import { ErrorMessages } from "../../../enums/errorMessages";
-import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { PASSWORD_RULES } from "../../../utils/validationRules";
-import { ValidationErrorMessages } from "../../../enums/validationMessages";
 import { LoaderView } from "../../../components/sections";
 import { ComponentStyles } from "../../../constants/styles";
+import { ErrorMessages } from "../../../enums/errorMessages";
+import { FirebaseAuthErrorCodes } from "../../../enums/firebaseAuthErrorCodes";
+import { ValidationErrorMessages } from "../../../enums/validationMessages";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
+import AlertService from "../../../services/AlertService";
+import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
+import { createUserWithEmail } from "../../../utils/auth";
+import { PASSWORD_RULES } from "../../../utils/validationRules";
+import styles from "./styles";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 

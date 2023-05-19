@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { RootStore } from "../store";
+
 import { Pin } from "../../../types/map";
 import { addPin, toggleFavoritePinStatus } from "../actions/pin.actions";
+import { RootStore } from "../store";
 
 type InitialState = {
   pins: Array<Pin>;

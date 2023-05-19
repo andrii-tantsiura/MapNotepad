@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
 import * as ExpoLocation from "expo-location";
+import { useEffect, useState } from "react";
+
 import { ErrorMessages } from "../enums/errorMessages";
 import AlertService from "../services/AlertService";
 import { Location } from "../types/map";

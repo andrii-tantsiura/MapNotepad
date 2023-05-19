@@ -1,13 +1,14 @@
-import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 import { Image } from "react-native";
+
 import COLORS from "../../constants/colors";
 import { ComponentStyles } from "../../constants/styles";
-import { AuthStackParamList } from "./types";
-import StartupScreen from "../../pages/Auth/StartupScreen";
 import LoginScreen from "../../pages/Auth/LoginScreen";
-import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
 import RegistrationCompletionScreen from "../../pages/Auth/RegistrationCompletionScreen";
+import RegistrationStartupScreen from "../../pages/Auth/RegistrationStartupScreen";
+import StartupScreen from "../../pages/Auth/StartupScreen";
+import { AuthStackParamList } from "./types";
 
 const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");
 

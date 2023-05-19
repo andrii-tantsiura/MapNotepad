@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from "react";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
+import { useContext, useEffect, useState } from "react";
 import FlashMessage from "react-native-flash-message";
-import AuthStack from "./AuthStack";
-import { AuthContext } from "../store/AuthContextProvider";
-import COLORS from "../constants/colors";
-import HomeStack from "./HomeStack";
+
 import { LoaderView } from "../components/sections";
+import COLORS from "../constants/colors";
+import { AuthContext } from "../store/AuthContextProvider";
+import AuthStack from "./AuthStack";
+import HomeStack from "./HomeStack";
 
 const THEME = {
   ...DefaultTheme,

@@ -1,6 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
-import { withPayloadType } from "./types";
+
 import { Pin } from "../../../types/map";
+import { withPayloadType } from "./types";
 
 export const addPin = createAction("addPin", withPayloadType<Pin>());
 

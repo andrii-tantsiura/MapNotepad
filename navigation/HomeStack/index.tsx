@@ -1,10 +1,11 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { HomeStackParamList } from "./types";
-import TabsStack from "../TabStack";
-import { AddPinScreen } from "../../pages/Home/AddPinScreen";
-import COLORS from "../../constants/colors";
 import { Image } from "react-native";
+
+import COLORS from "../../constants/colors";
 import { ComponentStyles } from "../../constants/styles";
+import { AddPinScreen } from "../../pages/Home/AddPinScreen";
+import TabsStack from "../TabStack";
+import { HomeStackParamList } from "./types";
 
 const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");
 

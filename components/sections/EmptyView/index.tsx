@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import { View } from "react-native";
+
 import { Typography } from "../../common";
 import styles from "./styles";
 

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+
 import COLORS from "../../constants/colors";
 import { FontSizes } from "../../constants/fontSizes";
 import { FontWeights } from "../../constants/fontWeights";

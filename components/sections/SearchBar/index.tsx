@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { TextInput, View, ViewStyle } from "react-native";
+
 import { IconButton, Separator } from "../../common";
 import styles from "./styles";
 

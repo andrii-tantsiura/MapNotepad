@@ -1,21 +1,21 @@
-import React, { useEffect, useState } from "react";
-import "react-native-gesture-handler";
-import { useFonts } from "expo-font";
 import NetInfo from "@react-native-community/netinfo";
+import { useFonts } from "expo-font";
+import React, { useEffect, useState } from "react";
 import FlashMessage from "react-native-flash-message";
+import "react-native-gesture-handler";
+import { Provider } from "react-redux";
 
+import { LoaderView } from "./components/sections";
 import {
   BOLD_FONT_FAMILY,
   MEDIUM_FONT_FAMILY,
   REGULAR_FONT_FAMILY,
   SEMI_BOLD_FONT_FAMILY,
 } from "./constants/fontWeights";
-import { NetworkInfoContext } from "./store/NetworkInfoContext";
-import { AuthContextProvider } from "./store/AuthContextProvider";
 import AppRoutes from "./navigation/App.routes";
-import { Provider } from "react-redux";
+import { AuthContextProvider } from "./store/AuthContextProvider";
+import { NetworkInfoContext } from "./store/NetworkInfoContext";
 import store from "./store/redux/store";
-import { LoaderView } from "./components/sections";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({

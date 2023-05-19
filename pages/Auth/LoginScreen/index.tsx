@@ -1,22 +1,23 @@
 import React, { useContext, useState } from "react";
-import { View } from "react-native";
 import { useForm } from "react-hook-form";
-import styles from "./styles";
+import { View } from "react-native";
+
 import {
   CustomButton,
   IconButton,
   Separator,
   ValidatedInputText,
 } from "../../../components/common";
-import { AuthScreenProps } from "../../../navigation/AuthStack/types";
+import { LoaderView } from "../../../components/sections";
 import { ComponentStyles } from "../../../constants/styles";
-import { loginWithEmail } from "../../../utils/auth";
-import AlertService from "../../../services/AlertService";
 import { ErrorMessages } from "../../../enums/errorMessages";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
+import AlertService from "../../../services/AlertService";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
+import { loginWithEmail } from "../../../utils/auth";
 import { EMAIL_RULES, PASSWORD_RULES } from "../../../utils/validationRules";
-import { LoaderView } from "../../../components/sections";
+import styles from "./styles";
 
 const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 

@@ -1,8 +1,9 @@
 import { FC } from "react";
 import { Modal, View } from "react-native";
+
+import { ComponentStyles } from "../../../constants/styles";
 import { CustomButton, Typography } from "../../common";
 import styles from "./styles";
-import { ComponentStyles } from "../../../constants/styles";
 
 interface IConfirmModalProps {
   visible: boolean;

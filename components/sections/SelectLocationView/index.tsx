@@ -1,17 +1,18 @@
+import * as Location from "expo-location";
 import { FC, createRef, useEffect } from "react";
+import { View } from "react-native";
 import MapView, {
   LatLng,
   MapPressEvent,
   Marker,
   MarkerDragStartEndEvent,
 } from "react-native-maps";
-import * as Location from "expo-location";
-import { View } from "react-native";
+
+import { ComponentStyles } from "../../../constants/styles";
+import { ErrorMessages } from "../../../enums/errorMessages";
+import AlertService from "../../../services/AlertService";
 import { IconButton } from "../../common";
 import styles from "./styles";
-import AlertService from "../../../services/AlertService";
-import { ErrorMessages } from "../../../enums/errorMessages";
-import { ComponentStyles } from "../../../constants/styles";
 
 const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
 const MARKER_ICON = require("../../../assets/icons/ic_marker.png");

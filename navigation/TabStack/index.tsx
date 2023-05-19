@@ -1,15 +1,16 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { TabStackParamList } from "./types";
 import { useContext, useState } from "react";
 import { Image } from "react-native";
-import styles from "./styles";
-import COLORS from "../../constants/colors";
-import { AuthContext } from "../../store/AuthContextProvider";
-import { SearchBar } from "../../components/sections";
+
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
+import { SearchBar } from "../../components/sections";
+import COLORS from "../../constants/colors";
+import { ComponentStyles } from "../../constants/styles";
 import { MapScreen } from "../../pages/Home/MapScreen";
 import { PinsScreen } from "../../pages/Home/PinsScreen";
-import { ComponentStyles } from "../../constants/styles";
+import { AuthContext } from "../../store/AuthContextProvider";
+import styles from "./styles";
+import { TabStackParamList } from "./types";
 
 const MAP_ICON = require("../../assets/icons/ic_map.png");
 const PIN_ICON = require("../../assets/icons/ic_pin.png");

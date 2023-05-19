@@ -1,18 +1,19 @@
 import { FC, useLayoutEffect } from "react";
+import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
-import { useForm } from "react-hook-form";
-import styles from "./styles";
-import { HomeScreenProps } from "../../../navigation/HomeStack/types";
+
 import { IconButton, Separator } from "../../../components/common";
 import {
   PinForm,
   PinFormFieldValues,
   SelectLocationView,
 } from "../../../components/sections";
-import { Pin } from "../../../types/map";
+import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { addPin } from "../../../store/redux/actions/pin.actions";
 import { useAppDispatch } from "../../../store/redux/store";
+import { Pin } from "../../../types/map";
+import styles from "./styles";
 
 const SAVE_ICON = require("../../../assets/icons/ic_save.png");
 

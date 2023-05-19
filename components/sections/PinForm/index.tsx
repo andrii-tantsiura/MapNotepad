@@ -1,6 +1,7 @@
 import { FC, useState } from "react";
-import { View } from "react-native";
 import { Control, UseFormResetField } from "react-hook-form";
+import { View } from "react-native";
+
 import styles from "./styles";
 
 import {

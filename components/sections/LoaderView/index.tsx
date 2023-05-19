@@ -1,6 +1,7 @@
 import { ActivityIndicator, Text, View } from "react-native";
-import styles from "./styles";
+
 import COLORS, { IColors } from "../../../constants/colors";
+import styles from "./styles";
 
 interface ILoaderView {
   message?: string;

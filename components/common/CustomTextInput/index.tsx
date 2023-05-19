@@ -1,10 +1,11 @@
 import React, { useRef, useState } from "react";
-import { View, TextInput, TextInputProps } from "react-native";
-import styles from "./styles";
+import { TextInput, TextInputProps, View } from "react-native";
+
 import COLORS from "../../../constants/colors";
-import { Typography } from "../Typography";
-import { IconButton } from "../IconButton";
 import { scaleSize } from "../../../utils/dimensions";
+import { IconButton } from "../IconButton";
+import { Typography } from "../Typography";
+import styles from "./styles";
 
 const CLEAR_ICON = require("../../../assets/icons/ic_clear.png");
 const EYE_ICON = require("../../../assets/icons/ic_eye.png");

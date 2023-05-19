@@ -1,9 +1,9 @@
 import {
-  USERNAME_REGEX,
   EMAIL_REGEX,
-  PASSWORD_REGEX,
   LATITUDE_REGEX,
   LONGITUDE_REGEX,
+  PASSWORD_REGEX,
+  USERNAME_REGEX,
 } from "../constants/regexConstants";
 import { ValidationErrorMessages } from "../enums/validationMessages";
 

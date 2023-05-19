@@ -5,8 +5,9 @@ import {
   StyleProp,
   ViewStyle,
 } from "react-native";
-import { ITypographyProps, Typography } from "../Typography";
+
 import { ComponentStyles } from "../../../constants/styles";
+import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
 interface ICustomButtonProps extends ITypographyProps {
