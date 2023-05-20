@@ -4,7 +4,7 @@ import {
   LONGITUDE_REGEX,
   PASSWORD_REGEX,
   USERNAME_REGEX,
-} from "../constants/regexConstants";
+} from "../constants/validationRegex";
 import { ValidationErrorMessages } from "../enums/validationMessages";
 
 export const USERNAME_RULES = {

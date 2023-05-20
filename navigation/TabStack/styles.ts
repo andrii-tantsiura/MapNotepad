@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 
 import COLORS from "../../constants/colors";
-import { FontSizes, FontWeights } from "../../constants/textStyles";
+import { FontSizes, FontWeights } from "../../constants/typography";
 
 const styles = StyleSheet.create({
   tabBarLabel: {

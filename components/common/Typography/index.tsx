@@ -7,7 +7,7 @@ import {
   FontWeights,
   IFontSizes,
   IFontWeights,
-} from "../../../constants/textStyles";
+} from "../../../constants/typography";
 
 export interface ITypographyProps extends TextProps {
   size?: keyof IFontSizes;

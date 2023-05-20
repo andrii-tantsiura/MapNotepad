@@ -19,7 +19,7 @@ export interface IFontSizes {
   i18: number;
 }
 
-export enum FontWeightValues {
+export enum FontWeightAliases {
   Bold = "Montserrat-Bold",
   SemiBold = "Montserrat-SemiBold",
   Medium = "Montserrat-Medium",
@@ -28,16 +28,16 @@ export enum FontWeightValues {
 
 export const FontWeights: IFontWeights = {
   bold: {
-    fontFamily: FontWeightValues.Bold,
+    fontFamily: FontWeightAliases.Bold,
   },
   semiBold: {
-    fontFamily: FontWeightValues.SemiBold,
+    fontFamily: FontWeightAliases.SemiBold,
   },
   medium: {
-    fontFamily: FontWeightValues.Medium,
+    fontFamily: FontWeightAliases.Medium,
   },
   regular: {
-    fontFamily: FontWeightValues.Regular,
+    fontFamily: FontWeightAliases.Regular,
   },
 };
 

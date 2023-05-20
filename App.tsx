@@ -6,19 +6,18 @@ import "react-native-gesture-handler";
 import { Provider } from "react-redux";
 
 import { LoaderView } from "./components/sections";
-
+import { FontWeightAliases } from "./constants/typography";
 import AppRoutes from "./navigation/App.routes";
 import { AuthContextProvider } from "./store/AuthContextProvider";
 import { NetworkInfoContext } from "./store/NetworkInfoContext";
 import store from "./store/redux/store";
-import { FontWeightValues } from "./constants/textStyles";
 
 export default function App() {
   const [isFontsLoaded] = useFonts({
-    [FontWeightValues.Bold]: require("./assets/fonts/Montserrat-Bold.ttf"),
-    [FontWeightValues.SemiBold]: require("./assets/fonts/Montserrat-SemiBold.ttf"),
-    [FontWeightValues.Medium]: require("./assets/fonts/Montserrat-Medium.ttf"),
-    [FontWeightValues.Regular]: require("./assets/fonts/Montserrat-Regular.ttf"),
+    [FontWeightAliases.Bold]: require("./assets/fonts/Montserrat-Bold.ttf"),
+    [FontWeightAliases.SemiBold]: require("./assets/fonts/Montserrat-SemiBold.ttf"),
+    [FontWeightAliases.Medium]: require("./assets/fonts/Montserrat-Medium.ttf"),
+    [FontWeightAliases.Regular]: require("./assets/fonts/Montserrat-Regular.ttf"),
   });
 
   const [isConnected, setIsConnected] = useState<boolean | null>(true);
@@ -27,6 +26,7 @@ export default function App() {
     const unsubscribe = NetInfo.addEventListener((state) => {
       setIsConnected(state.isConnected);
     });
+
     return () => {
       unsubscribe();
     };

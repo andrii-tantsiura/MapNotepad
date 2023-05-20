@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 import COLORS from "../../../constants/colors";
 import { scaleSize } from "../../../utils/dimensions";
-import { FontSizes, FontWeights } from "../../../constants/textStyles";
+import { FontSizes, FontWeights } from "../../../constants/typography";
 
 const styles = StyleSheet.create({
   titleLabel: {
