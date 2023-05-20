@@ -13,7 +13,6 @@ const styles = StyleSheet.create({
   },
   message: {
     ...FontSizes.i14,
-    ...FontWeights.medium,
     color: COLORS.systemWhite,
     marginBottom: 12,
   },
