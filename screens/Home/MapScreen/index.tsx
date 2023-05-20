@@ -3,15 +3,13 @@ import { View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useSelector } from "react-redux";
 
+import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { IconButton } from "../../../components/common";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPins } from "../../../store/redux/slices/pinsSlice";
 import styles from "./styles";
-
-const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
-const MARKER_ICON = require("../../../assets/icons/ic_marker.png");
 
 export const MapScreen: FC<TabProps> = () => {
   const mapViewRef = createRef<MapView>();

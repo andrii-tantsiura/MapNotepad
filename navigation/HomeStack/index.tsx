@@ -1,13 +1,12 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { Image } from "react-native";
 
+import { LEFT_BLUE_ICON } from "../../assets/icons";
 import COLORS from "../../constants/colors";
 import { ImageStyles, TextStyles } from "../../constants/globalStyles";
 import { AddPinScreen } from "../../screens/Home/AddPinScreen";
 import TabsStack from "../TabStack";
 import { HomeStackParamList } from "./types";
-
-const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
@@ -22,7 +21,7 @@ const HomeStack: React.FC = () => (
       },
       headerTitleStyle: TextStyles.header_i1,
       headerBackImage: () => (
-        <Image style={ImageStyles.image_i1} source={LEFT_ICON} />
+        <Image style={ImageStyles.image_i1} source={LEFT_BLUE_ICON} />
       ),
     }}
   >

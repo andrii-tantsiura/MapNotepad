@@ -7,15 +7,12 @@ import {
 } from "react-hook-form";
 import { TextInput, TextInputProps, View } from "react-native";
 
+import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
 import COLORS from "../../../constants/colors";
 import { scaleSize } from "../../../utils/dimensions";
 import { IconButton } from "../IconButton";
 import { Typography } from "../Typography";
 import styles from "./styles";
-
-const CLEAR_ICON = require("../../../assets/icons/ic_clear.png");
-const EYE_ICON = require("../../../assets/icons/ic_eye.png");
-const EYE_ICON_OFF = require("../../../assets/icons/ic_eye_off.png");
 
 interface IValidatedInputTextProps extends TextInputProps {
   name: string;
@@ -45,7 +42,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   const [isSecureText, setIsSecureText] = useState(secureTextEntry);
   const [isFocused, setIsFocused] = useState(false);
 
-  const passwordIcon = isSecureText ? EYE_ICON : EYE_ICON_OFF;
+  const passwordIcon = isSecureText ? EYE_ICON : EYE_OFF_ICON;
 
   const toggleIsSecureText = () => setIsSecureText(!isSecureText);
   const clearHandler = () => resetField(name);

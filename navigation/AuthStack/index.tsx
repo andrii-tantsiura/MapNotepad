@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 import { Image } from "react-native";
 
+import { LEFT_BLUE_ICON } from "../../assets/icons";
 import COLORS from "../../constants/colors";
 import { ImageStyles, TextStyles } from "../../constants/globalStyles";
 import LoginScreen from "../../screens/Auth/LoginScreen";
@@ -9,8 +10,6 @@ import RegistrationCompletionScreen from "../../screens/Auth/RegistrationComplet
 import RegistrationStartupScreen from "../../screens/Auth/RegistrationStartupScreen";
 import StartupScreen from "../../screens/Auth/StartupScreen";
 import { AuthStackParamList } from "./types";
-
-const LEFT_ICON = require("../../assets/icons/ic_left_blue.png");
 
 const Stack = createStackNavigator<AuthStackParamList>();
 
@@ -25,7 +24,7 @@ const AuthStack: React.FC = () => (
       },
       headerTitleStyle: TextStyles.header_i1,
       headerBackImage: () => (
-        <Image style={ImageStyles.image_i1} source={LEFT_ICON} />
+        <Image style={ImageStyles.image_i1} source={LEFT_BLUE_ICON} />
       ),
     }}
   >

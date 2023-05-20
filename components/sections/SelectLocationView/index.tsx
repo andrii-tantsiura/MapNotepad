@@ -8,14 +8,12 @@ import MapView, {
   MarkerDragStartEndEvent,
 } from "react-native-maps";
 
+import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import AlertService from "../../../services/AlertService";
 import { IconButton } from "../../common";
 import styles from "./styles";
-
-const LOCATION_ICON = require("../../../assets/icons/ic_location.png");
-const MARKER_ICON = require("../../../assets/icons/ic_marker.png");
 
 interface ISelectLocationViewProps {
   latitude: number;

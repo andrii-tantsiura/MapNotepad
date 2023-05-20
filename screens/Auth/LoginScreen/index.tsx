@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
+import { GOOGLE_ICON } from "../../../assets/icons";
 import {
   CustomButton,
   IconButton,
@@ -17,8 +18,6 @@ import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { loginWithEmail } from "../../../utils/auth";
 import { EMAIL_RULES, PASSWORD_RULES } from "../../../utils/validationRules";
 import styles from "./styles";
-
-const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
 const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const isConnected = useContext(NetworkInfoContext);

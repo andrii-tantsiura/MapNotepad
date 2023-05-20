@@ -2,18 +2,17 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
+import { GOOGLE_ICON } from "../../../assets/icons";
 import {
   CustomButton,
   IconButton,
   ValidatedInputText,
 } from "../../../components/common";
+import { Separator } from "../../../components/sections";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
 import styles from "./styles";
-import { Separator } from "../../../components/sections";
-
-const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
 const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,

@@ -1,12 +1,10 @@
 import { FC } from "react";
 import { TextInput, View, ViewStyle } from "react-native";
 
+import { EXIT_ICON, SETTINGS_ICON } from "../../../assets/icons";
 import { IconButton } from "../../common";
-import styles from "./styles";
 import { Separator } from "../Separator";
-
-const SETTINGS_ICON = require("../../../assets/icons/ic_settings.png");
-const EXIT_ICON = require("../../../assets/icons/ic_exit.png");
+import styles from "./styles";
 
 interface ISearchBarProps {
   onRightButtonPress?: () => void;

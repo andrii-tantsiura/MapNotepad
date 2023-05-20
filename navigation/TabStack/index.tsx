@@ -2,6 +2,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useContext, useState } from "react";
 import { Image } from "react-native";
 
+import { MAP_ICON, PIN_ICON } from "../../assets/icons";
 import { ConfirmModal } from "../../components/modals/ConfirmModal";
 import { SearchBar } from "../../components/sections";
 import COLORS from "../../constants/colors";
@@ -11,9 +12,6 @@ import { PinsScreen } from "../../screens/Home/PinsScreen";
 import { AuthContext } from "../../store/AuthContextProvider";
 import styles from "./styles";
 import { TabStackParamList } from "./types";
-
-const MAP_ICON = require("../../assets/icons/ic_map.png");
-const PIN_ICON = require("../../assets/icons/ic_pin.png");
 
 const Tabs = createBottomTabNavigator<TabStackParamList>();
 

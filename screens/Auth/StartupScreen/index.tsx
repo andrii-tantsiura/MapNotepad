@@ -1,12 +1,11 @@
 import React from "react";
 import { Image, View } from "react-native";
 
+import { ENTER_PAGE_PIC } from "../../../assets/icons";
 import { CustomButton, Typography } from "../../../components/common";
 import { CustomButtonStyles } from "../../../constants/globalStyles";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
-
-const ENTER_PAGE_ICON = require("../../../assets/icons/pic_enter_page.png");
 
 const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
   const loginHandler = () => {
@@ -23,7 +22,7 @@ const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
         <Image
           style={styles.logo}
           resizeMode="contain"
-          source={ENTER_PAGE_ICON}
+          source={ENTER_PAGE_PIC}
         />
 
         <Typography size="i18" weight="bold" color="lightPrimary">

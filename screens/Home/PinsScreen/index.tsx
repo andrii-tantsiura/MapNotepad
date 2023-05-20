@@ -5,6 +5,7 @@ import { View } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { useSelector } from "react-redux";
 
+import { PLUS_ICON } from "../../../assets/icons";
 import { IconButton } from "../../../components/common";
 import { EmptyView } from "../../../components/sections";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
@@ -14,8 +15,6 @@ import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
 import { PinItem } from "./components/PinItem";
 import styles from "./styles";
-
-const PLUS_ICON = require("../../../assets/icons/ic_plus.png");
 
 type HomeScreenNavigationProp = StackNavigationProp<
   HomeStackParamList,

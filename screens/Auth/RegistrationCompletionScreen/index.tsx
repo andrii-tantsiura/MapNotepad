@@ -3,6 +3,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
+import { GOOGLE_ICON } from "../../../assets/icons";
 import {
   CustomButton,
   IconButton,
@@ -19,8 +20,6 @@ import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { createUserWithEmail } from "../../../utils/auth";
 import { PASSWORD_RULES } from "../../../utils/validationRules";
 import styles from "./styles";
-
-const GOOGLE_ICON = require("../../../assets/icons/ic_google.png");
 
 const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,

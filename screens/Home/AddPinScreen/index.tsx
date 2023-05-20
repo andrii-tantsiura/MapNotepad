@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
 
+import { SAVE_ICON } from "../../../assets/icons";
 import { IconButton } from "../../../components/common";
 import {
   PinForm,
@@ -15,8 +16,6 @@ import { addPin } from "../../../store/redux/actions/pin.actions";
 import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
 import styles from "./styles";
-
-const SAVE_ICON = require("../../../assets/icons/ic_save.png");
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
