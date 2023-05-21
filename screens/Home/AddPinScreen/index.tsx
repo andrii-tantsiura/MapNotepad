@@ -31,13 +31,16 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
       mode: "onTouched",
     });
 
-  const coordinatesSelectedHandler = (coordinate: LatLng) => {
-    setValue("latitude", String(coordinate.latitude));
-    setValue("longitude", String(coordinate.longitude));
+  const setCoordinates = ({ latitude, longitude }: LatLng) => {
+    setValue("latitude", String(latitude));
+    setValue("longitude", String(longitude));
 
     trigger("latitude");
     trigger("longitude");
   };
+
+  const coordinatesPickedHandler = (coordinates: LatLng) =>
+    setCoordinates(coordinates);
 
   const savePinHandler = (values: PinFormFieldValues) => {
     const newPin: Pin = {
@@ -81,7 +84,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         <SelectLocationView
           latitude={latitude}
           longitude={longitude}
-          onSelectCoordinates={coordinatesSelectedHandler}
+          onPickCoordinates={coordinatesPickedHandler}
         />
       </View>
     </>

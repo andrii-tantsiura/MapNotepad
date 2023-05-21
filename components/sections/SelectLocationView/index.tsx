@@ -1,76 +1,64 @@
-import * as Location from "expo-location";
-import { FC, createRef, useEffect } from "react";
-import { View } from "react-native";
+import React, { useEffect, useRef } from "react";
 import MapView, {
   LatLng,
   MapPressEvent,
   Marker,
   MarkerDragStartEndEvent,
+  Region,
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { IconButtonStyles } from "../../../constants/globalStyles";
-import { ErrorMessages } from "../../../enums/errorMessages";
-import AlertService from "../../../services/AlertService";
+import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
 import { IconButton } from "../../common";
 import styles from "./styles";
 
 interface ISelectLocationViewProps {
   latitude: number;
   longitude: number;
-  onSelectCoordinates: (coordinate: LatLng) => void;
+  onPickCoordinates: (coordinate: LatLng) => void;
 }
 
-export const SelectLocationView: FC<ISelectLocationViewProps> = ({
+export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   latitude,
   longitude,
-  onSelectCoordinates,
+  onPickCoordinates,
 }) => {
-  const mapViewRef = createRef<MapView>();
+  const mapViewRef = useRef<MapView>(null);
+  const [currentLocation, requestCurrentLocation] = useCurrentLocation(true);
 
-  const isCoordinatedValid = isFinite(latitude) && isFinite(longitude);
-
+  const isCoordinatesValid = isFinite(latitude) && isFinite(longitude);
   const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
-    onSelectCoordinates(e.nativeEvent.coordinate);
+    onPickCoordinates(e.nativeEvent.coordinate);
   };
 
   const mapPressedHandler = (e: MapPressEvent) => {
-    onSelectCoordinates(e.nativeEvent.coordinate);
+    onPickCoordinates(e.nativeEvent.coordinate);
   };
 
-  const setCurrentPositionHandler = async () => {
-    const { coords } = await Location.getCurrentPositionAsync();
-
-    onSelectCoordinates(coords);
+  const pickCurrentLocationHandler = () => {
+    requestCurrentLocation();
   };
 
   useEffect(() => {
-    (async () => {
-      let { status } = await Location.requestForegroundPermissionsAsync();
+    if (currentLocation) {
+      const region: Region = {
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+        latitude: currentLocation.latitude,
+        longitude: currentLocation.longitude,
+      };
 
-      if (status === "granted") {
-        await setCurrentPositionHandler();
-      } else {
-        AlertService.error(ErrorMessages.LOCATION_PERMISSION_DENIED);
-      }
-    })();
-  }, []);
+      onPickCoordinates(currentLocation);
 
-  useEffect(() => {
-    if (isCoordinatedValid) {
-      mapViewRef.current?.animateToRegion({
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-        latitude: latitude,
-        longitude: longitude,
-      });
+      mapViewRef.current?.animateToRegion(region);
     }
-  }, [latitude, longitude]);
+  }, [currentLocation]);
 
   return (
-    <View style={styles.container}>
-      <MapView style={styles.map} ref={mapViewRef} onPress={mapPressedHandler}>
-        {isCoordinatedValid && (
+    <>
+      <MapView ref={mapViewRef} style={styles.map} onPress={mapPressedHandler}>
+        {isCoordinatesValid && (
           <Marker
             draggable
             image={MARKER_ICON}
@@ -86,8 +74,8 @@ export const SelectLocationView: FC<ISelectLocationViewProps> = ({
       <IconButton
         style={IconButtonStyles.float_i1}
         source={LOCATION_ICON}
-        onPress={setCurrentPositionHandler}
+        onPress={pickCurrentLocationHandler}
       />
-    </View>
+    </>
   );
 };

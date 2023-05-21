@@ -1,11 +1,8 @@
-export interface Location {
-  latitude: number;
-  longitude: number;
-}
+import { LatLng } from "react-native-maps";
 
 export interface Pin {
   id: string;
-  location: Location;
+  location: LatLng;
   label: string;
   description?: string;
   isFavorite?: boolean;

@@ -1,20 +1,26 @@
-import * as ExpoLocation from "expo-location";
+import {
+  PermissionStatus,
+  getCurrentPositionAsync,
+  requestForegroundPermissionsAsync,
+} from "expo-location";
 import { useEffect, useState } from "react";
 
+import { LatLng } from "react-native-maps";
 import { ErrorMessages } from "../enums/errorMessages";
-import AlertService from "../services/AlertService";
-import { Location } from "../types/map";
 
-const requestLocationPermissions =
-  async (): Promise<ExpoLocation.PermissionStatus> => {
-    const { status } = await ExpoLocation.requestForegroundPermissionsAsync();
+const requestLocationPermissions = async (): Promise<void> => {
+  const { status } = await requestForegroundPermissionsAsync();
 
-    return status;
-  };
+  switch (status) {
+    case PermissionStatus.DENIED:
+      throw new Error(ErrorMessages.LOCATION_PERMISSION_DENIED);
+    case PermissionStatus.UNDETERMINED:
+      throw new Error(ErrorMessages.SOME_WENT_WRONG);
+  }
+};
 
-const getCurrentLocation = async (): Promise<Location> => {
-  const { coords } = await ExpoLocation.getCurrentPositionAsync();
-
+const getCurrentLocation = async (): Promise<LatLng> => {
+  const { coords } = await getCurrentPositionAsync();
   return {
     latitude: coords.latitude,
     longitude: coords.longitude,
@@ -22,38 +28,35 @@ const getCurrentLocation = async (): Promise<Location> => {
 };
 
 export const useCurrentLocation = (
-  isNeedInitialRequest: boolean = false
-): [location: Location | undefined, requestCurrentLocation: () => void] => {
-  const [currentLocation, setCurrentLocation] = useState<Location>();
-  const [isLocationUpdating, setIsLocationUpdating] =
-    useState(isNeedInitialRequest);
+  shouldRequestLocationInitially: boolean = false
+): [
+  currentLocation: LatLng | undefined,
+  requestCurrentLocation: () => void
+] => {
+  const [currentLocation, setCurrentLocation] = useState<LatLng | undefined>();
+  const [isRequestingLocation, setIsRequestingLocation] = useState(
+    shouldRequestLocationInitially
+  );
 
   useEffect(() => {
-    if (isLocationUpdating) {
+    if (isRequestingLocation) {
       (async () => {
         try {
-          let status = await requestLocationPermissions();
+          await requestLocationPermissions();
+          const location = await getCurrentLocation();
 
-          if (status === "granted") {
-            const location = await getCurrentLocation();
-
-            setCurrentLocation(location);
-          } else {
-            setCurrentLocation(undefined);
-
-            AlertService.error(ErrorMessages.LOCATION_PERMISSION_DENIED);
-          }
+          setCurrentLocation(location);
         } catch (error) {
           setCurrentLocation(undefined);
         } finally {
-          setIsLocationUpdating(false);
+          setIsRequestingLocation(false);
         }
       })();
     }
-  }, [isLocationUpdating]);
+  }, [isRequestingLocation]);
 
   const requestCurrentLocation = () => {
-    setIsLocationUpdating(true);
+    setIsRequestingLocation(true);
   };
 
   return [currentLocation, requestCurrentLocation];

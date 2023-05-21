@@ -1,6 +1,6 @@
-import { FC, createRef, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { View } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import MapView, { Marker, Region } from "react-native-maps";
 import { useSelector } from "react-redux";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
@@ -12,7 +12,7 @@ import { selectPins } from "../../../store/redux/slices/pinsSlice";
 import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = () => {
-  const mapViewRef = createRef<MapView>();
+  const mapViewRef = useRef<MapView>(null);
   const [currentLocation, requestCurrentLocation] = useCurrentLocation(true);
 
   const pins = useSelector(selectPins);
@@ -20,12 +20,13 @@ export const MapScreen: FC<TabProps> = () => {
 
   useEffect(() => {
     if (currentLocation) {
-      mapViewRef.current?.animateToRegion({
+      const region: Region = {
         latitudeDelta: 0.05,
         longitudeDelta: 0.05,
-        latitude: currentLocation.latitude,
-        longitude: currentLocation.longitude,
-      });
+        ...currentLocation,
+      };
+
+      mapViewRef.current?.animateToRegion(region);
     }
   }, [currentLocation]);
 

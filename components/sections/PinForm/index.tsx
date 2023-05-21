@@ -40,7 +40,6 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
             rules={PIN_LABEL_RULES}
             title="Label"
             placeholder="Write a label"
-            autoFocus
           />
 
           <ValidatedInputText
