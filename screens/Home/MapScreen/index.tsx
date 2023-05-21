@@ -13,21 +13,21 @@ import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = () => {
   const mapViewRef = createRef<MapView>();
-  const [currentLocation, updateCurrentLocation] = useCurrentLocation();
+  const [currentLocation, requestCurrentLocation] = useCurrentLocation(true);
 
   const pins = useSelector(selectPins);
   const favoritePins = pins.filter((x) => x.isFavorite);
 
-  const { latitude = 0, longitude = 0 } = currentLocation ?? {};
-
   useEffect(() => {
-    mapViewRef.current?.animateToRegion({
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-      latitude: latitude,
-      longitude: longitude,
-    });
-  }, [latitude, longitude]);
+    if (currentLocation) {
+      mapViewRef.current?.animateToRegion({
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+        latitude: currentLocation.latitude,
+        longitude: currentLocation.longitude,
+      });
+    }
+  }, [currentLocation]);
 
   return (
     <View style={styles.container}>
@@ -49,7 +49,7 @@ export const MapScreen: FC<TabProps> = () => {
       <IconButton
         style={IconButtonStyles.float_i1}
         source={LOCATION_ICON}
-        onPress={updateCurrentLocation}
+        onPress={requestCurrentLocation}
       />
     </View>
   );

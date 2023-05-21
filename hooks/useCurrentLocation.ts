@@ -21,31 +21,40 @@ const getCurrentLocation = async (): Promise<Location> => {
   };
 };
 
-export const useCurrentLocation = (): [Location | undefined, () => void] => {
+export const useCurrentLocation = (
+  isNeedInitialRequest: boolean = false
+): [location: Location | undefined, requestCurrentLocation: () => void] => {
   const [currentLocation, setCurrentLocation] = useState<Location>();
+  const [isLocationUpdating, setIsLocationUpdating] =
+    useState(isNeedInitialRequest);
 
   useEffect(() => {
-    (async () => {
-      let status = await requestLocationPermissions();
+    if (isLocationUpdating) {
+      (async () => {
+        try {
+          let status = await requestLocationPermissions();
 
-      if (status === "granted") {
-        const location = await getCurrentLocation();
+          if (status === "granted") {
+            const location = await getCurrentLocation();
 
-        setCurrentLocation(location);
-      } else {
-        AlertService.error(ErrorMessages.LOCATION_PERMISSION_DENIED);
-      }
-    })();
-  }, [currentLocation]);
+            setCurrentLocation(location);
+          } else {
+            setCurrentLocation(undefined);
 
-  const updateCurrentLocation = () => {
-    const { latitude = 0, longitude = 0 } = currentLocation || {};
+            AlertService.error(ErrorMessages.LOCATION_PERMISSION_DENIED);
+          }
+        } catch (error) {
+          setCurrentLocation(undefined);
+        } finally {
+          setIsLocationUpdating(false);
+        }
+      })();
+    }
+  }, [isLocationUpdating]);
 
-    setCurrentLocation({
-      latitude: latitude + 0.00000001,
-      longitude,
-    });
+  const requestCurrentLocation = () => {
+    setIsLocationUpdating(true);
   };
 
-  return [currentLocation, updateCurrentLocation];
+  return [currentLocation, requestCurrentLocation];
 };
