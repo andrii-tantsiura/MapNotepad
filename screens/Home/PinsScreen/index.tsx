@@ -1,8 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC } from "react";
-import { View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { ListRenderItemInfo, View } from "react-native";
+import { RowMap, SwipeListView } from "react-native-swipe-list-view";
 import { useSelector } from "react-redux";
 
 import { PLUS_ICON } from "../../../assets/icons";
@@ -13,6 +13,8 @@ import { toggleFavoritePinStatus } from "../../../store/redux/actions/pin.action
 import { selectPins } from "../../../store/redux/slices/pinsSlice";
 import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
+import { scaleSize } from "../../../utils/dimensions";
+import { PinActionMenu } from "./components/PinActionMenu";
 import { PinItem } from "./components/PinItem";
 import styles from "./styles";
 
@@ -22,34 +24,63 @@ type HomeScreenNavigationProp = StackNavigationProp<
 >;
 
 export const PinsScreen: FC = () => {
+  const homeNavigation = useNavigation<HomeScreenNavigationProp>();
   const dispatch = useAppDispatch();
+
   const pins = useSelector(selectPins);
 
-  const homeNavigation = useNavigation<HomeScreenNavigationProp>();
+  const hidePinActionMenu = (rowMap: RowMap<Pin>, itemKey: string) => {
+    rowMap[itemKey].closeRow();
+  };
 
-  const pressFavoriteStatusHandler = (pin: Pin) =>
+  const toggleFavoriteStatusHandler = (pin: Pin) =>
     dispatch(toggleFavoritePinStatus(pin.id));
 
   const addPinHandler = () => homeNavigation.navigate("AddPin");
 
+  const deletePinHandler = (
+    data: ListRenderItemInfo<Pin>,
+    row: RowMap<Pin>
+  ) => {
+    console.log("delete pin");
+
+    hidePinActionMenu(row, data.item.id);
+  };
+
+  const editPinHandler = (data: ListRenderItemInfo<Pin>, row: RowMap<Pin>) => {
+    console.log("edit pin");
+
+    hidePinActionMenu(row, data.item.id);
+  };
+
   return (
     <View style={styles.container}>
-      <FlatList
+      <SwipeListView
+        closeOnRowPress
         data={pins}
+        keyExtractor={(item) => item.id}
         contentContainerStyle={pins.length === 0 && styles.emptyListContainer}
         ListEmptyComponent={() => (
           <EmptyView>There are no added pins yet</EmptyView>
         )}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={(item) => (
+        renderItem={(data, rowMap) => (
           <PinItem
-            data={item.item}
-            onPressFavoriteStatus={pressFavoriteStatusHandler.bind(
+            data={data.item}
+            onPressFavoriteStatus={toggleFavoriteStatusHandler.bind(
               this,
-              item.item
+              data.item
             )}
           />
         )}
+        renderHiddenItem={(data, row) => (
+          <PinActionMenu
+            onDelete={deletePinHandler.bind(this, data, row)}
+            onEdit={editPinHandler.bind(this, data, row)}
+          />
+        )}
+        stopLeftSwipe={60}
+        stopRightSwipe={-200}
+        rightOpenValue={-scaleSize(112)}
       />
 
       <IconButton
