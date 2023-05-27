@@ -15,7 +15,7 @@ import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
 import { scaleSize } from "../../../utils/dimensions";
 import { PinActionMenu } from "./components/PinActionMenu";
-import { PinItem } from "./components/PinItem";
+import { PinItem } from "./components/PinItem/PinItem";
 import styles from "./styles";
 
 type HomeScreenNavigationProp = StackNavigationProp<

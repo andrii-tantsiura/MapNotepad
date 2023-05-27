@@ -5,11 +5,11 @@ import {
   LIKE_BLUE_ICON,
   LIKE_GRAY_ICON,
   RIGHT_GRAY_ICON,
-} from "../../../../assets/icons";
-import { IconButton, Typography } from "../../../../components/common";
-import { Separator } from "../../../../components/sections";
-import { ImageStyles } from "../../../../constants/globalStyles";
-import { Pin } from "../../../../types/map";
+} from "../../../../../assets/icons";
+import { IconButton, Typography } from "../../../../../components/common";
+import { Separator } from "../../../../../components/sections";
+import { ImageStyles } from "../../../../../constants/globalStyles";
+import { Pin } from "../../../../../types/map";
 import styles from "./styles";
 
 interface IPinItemProps {
