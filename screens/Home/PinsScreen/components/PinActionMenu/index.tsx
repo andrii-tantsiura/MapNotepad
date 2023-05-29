@@ -3,12 +3,15 @@ import { View } from "react-native";
 
 import { DELETE_ICON, EDIT_ICON } from "../../../../../assets/icons";
 import { IconButton } from "../../../../../components/common";
+import { scaleSize } from "../../../../../utils/dimensions";
 import styles from "./styles";
 
 interface IPinActionMenuProps {
   onDelete: () => void;
   onEdit: () => void;
 }
+
+export const PIN_ACTION_MENU_WIDTH = scaleSize(112);
 
 export const PinActionMenu: FC<IPinActionMenuProps> = ({
   onDelete,
@@ -17,14 +20,14 @@ export const PinActionMenu: FC<IPinActionMenuProps> = ({
   <View style={styles.hiddenActionMenu}>
     <IconButton
       style={styles.hiddenDeleteButton}
-      onPress={onDelete}
       source={DELETE_ICON}
+      onPress={onDelete}
     />
 
     <IconButton
-      onPress={onEdit}
       style={styles.hiddenEditButton}
       source={EDIT_ICON}
+      onPress={onEdit}
     />
   </View>
 );

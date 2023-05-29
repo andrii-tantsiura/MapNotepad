@@ -9,3 +9,5 @@ export const toggleFavoritePinStatus = createAction(
   "toggleFavoritePinStatus",
   withPayloadType<string>()
 );
+
+export const deletePin = createAction("deletePin", withPayloadType<string>());

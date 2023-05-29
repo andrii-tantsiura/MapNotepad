@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { Pin } from "../../../types/map";
-import { addPin, toggleFavoritePinStatus } from "../actions/pin.actions";
+import {
+  addPin,
+  deletePin,
+  toggleFavoritePinStatus,
+} from "../actions/pin.actions";
 import { RootStore } from "../store";
 
 type InitialState = {
@@ -116,6 +120,9 @@ const pinsSlice = createSlice({
             ? { ...item, isFavorite: !item.isFavorite }
             : item
         );
+      })
+      .addCase(deletePin, (state, action) => {
+        state.pins = state.pins.filter((x) => x.id !== action.payload);
       });
   },
 });
