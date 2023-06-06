@@ -5,6 +5,7 @@ import { LEFT_BLUE_ICON } from "../../assets/icons";
 import COLORS from "../../constants/colors";
 import { ImageStyles, TextStyles } from "../../constants/globalStyles";
 import { AddPinScreen } from "../../screens/Home/AddPinScreen";
+import { EditPinScreen } from "../../screens/Home/EditPinScreen";
 import TabsStack from "../TabStack";
 import { HomeStackParamList } from "./types";
 
@@ -38,6 +39,14 @@ const HomeStack: React.FC = () => (
       component={AddPinScreen}
       options={{
         title: "Add pin",
+      }}
+    />
+
+    <Stack.Screen
+      name="EditPin"
+      component={EditPinScreen}
+      options={{
+        title: "Edit pin",
       }}
     />
   </Stack.Navigator>

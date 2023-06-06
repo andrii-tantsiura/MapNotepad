@@ -5,6 +5,8 @@ import { withPayloadType } from "./types";
 
 export const addPin = createAction("addPin", withPayloadType<Pin>());
 
+export const updatePin = createAction("updatePin", withPayloadType<Pin>());
+
 export const toggleFavoritePinStatus = createAction(
   "toggleFavoritePinStatus",
   withPayloadType<string>()

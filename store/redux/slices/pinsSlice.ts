@@ -5,6 +5,7 @@ import {
   addPin,
   deletePin,
   toggleFavoritePinStatus,
+  updatePin,
 } from "../actions/pin.actions";
 import { RootStore } from "../store";
 
@@ -42,8 +43,8 @@ const initialState: InitialState = {
       description:
         " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, ipsam! Nisi aut tempore ",
       location: {
-        latitude: 37.4206,
-        longitude: -122.0842,
+        latitude: 37.4358232,
+        longitude: -122.0707,
       },
       isFavorite: true,
     },
@@ -80,28 +81,6 @@ const initialState: InitialState = {
       },
       isFavorite: true,
     },
-    {
-      id: "7",
-      label: "Google 1098 Alta",
-      description:
-        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, ipsam! Nisi aut tempore ",
-      location: {
-        latitude: 37.4159,
-        longitude: -122.08,
-      },
-      isFavorite: true,
-    },
-    {
-      id: "8",
-      label: "Google 1098 Alta",
-      description:
-        " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, ipsam! Nisi aut tempore ",
-      location: {
-        latitude: 37.4159,
-        longitude: -122.083,
-      },
-      isFavorite: true,
-    },
   ],
 };
 
@@ -120,6 +99,10 @@ const pinsSlice = createSlice({
             ? { ...item, isFavorite: !item.isFavorite }
             : item
         );
+      })
+      .addCase(updatePin, (state, action) => {
+        const id = action.payload.id;
+        state.pins = state.pins.map((x) => (x.id === id ? action.payload : x));
       })
       .addCase(deletePin, (state, action) => {
         state.pins = state.pins.filter((x) => x.id !== action.payload);

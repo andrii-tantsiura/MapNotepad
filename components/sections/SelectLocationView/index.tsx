@@ -8,6 +8,10 @@ import MapView, {
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
+import {
+  DEFAULT_LATITUDE_DELTA,
+  DEFAULT_LONGITUDE_DELTA,
+} from "../../../constants/constants";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
 import { IconButton } from "../../common";
@@ -16,16 +20,20 @@ import styles from "./styles";
 interface ISelectLocationViewProps {
   latitude: number;
   longitude: number;
+  shouldRequestLocationInitially?: boolean;
   onPickCoordinates: (coordinate: LatLng) => void;
 }
 
 export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   latitude,
   longitude,
+  shouldRequestLocationInitially = true,
   onPickCoordinates,
 }) => {
   const mapViewRef = useRef<MapView>(null);
-  const [currentLocation, requestCurrentLocation] = useCurrentLocation(true);
+  const [currentLocation, requestCurrentLocation] = useCurrentLocation(
+    shouldRequestLocationInitially
+  );
 
   const isCoordinatesValid = isFinite(latitude) && isFinite(longitude);
   const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
@@ -43,8 +51,8 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   useEffect(() => {
     if (currentLocation) {
       const region: Region = {
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
         latitude: currentLocation.latitude,
         longitude: currentLocation.longitude,
       };
@@ -55,9 +63,27 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
     }
   }, [currentLocation]);
 
+  const mapViewReadyHandler = () => {
+    if (latitude && longitude) {
+      const region: Region = {
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
+        latitude: latitude,
+        longitude: longitude,
+      };
+
+      mapViewRef.current?.animateToRegion(region);
+    }
+  };
+
   return (
     <>
-      <MapView ref={mapViewRef} style={styles.map} onPress={mapPressedHandler}>
+      <MapView
+        ref={mapViewRef}
+        style={styles.map}
+        onPress={mapPressedHandler}
+        onMapReady={mapViewReadyHandler}
+      >
         {isCoordinatesValid && (
           <Marker
             draggable

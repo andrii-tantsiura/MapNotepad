@@ -7,6 +7,10 @@ import { useSelector } from "react-redux";
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { IconButton } from "../../../components/common";
 import COLORS from "../../../constants/colors";
+import {
+  DEFAULT_LATITUDE_DELTA,
+  DEFAULT_LONGITUDE_DELTA,
+} from "../../../constants/constants";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { FontWeights } from "../../../constants/typography";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
@@ -16,9 +20,9 @@ import styles from "./styles";
 
 const INITIAL_REGION = {
   latitude: 6.394999333003437,
-  latitudeDelta: 136.53565015480194,
   longitude: -4.873477723449469,
-  longitudeDelta: 144.64280527085066,
+  latitudeDelta: DEFAULT_LATITUDE_DELTA,
+  longitudeDelta: DEFAULT_LONGITUDE_DELTA,
 };
 
 export const MapScreen: FC<TabProps> = () => {
@@ -31,12 +35,12 @@ export const MapScreen: FC<TabProps> = () => {
   useEffect(() => {
     if (currentLocation) {
       const region: Region = {
-        latitudeDelta: 0.05,
-        longitudeDelta: 0.05,
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
         ...currentLocation,
       };
 
-      // NOTE: perhaps this warning is a bug
+      // NOTE: this warning may be a package error
       mapViewRef.current?.animateToRegion(region);
     }
   }, [currentLocation]);
