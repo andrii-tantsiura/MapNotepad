@@ -6,7 +6,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  emptyListContainer: { flex: 1 },
+  emptyListContainer: {
+    flex: 1,
+  },
   addPinButton: {
     ...IconButtonStyles.float_i1,
     backgroundColor: COLORS.lightPrimary,
