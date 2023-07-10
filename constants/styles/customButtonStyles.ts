@@ -33,7 +33,7 @@ const roundButtonStyle: ViewStyle = {
 const baseButtonStyle: ViewStyle = {
   height: scaleSize(40),
   borderWidth: 1,
-  borderRadius: 1,
+  borderRadius: 4,
   borderColor: "transparent",
   backgroundColor: AppColors.systemWhite,
 };

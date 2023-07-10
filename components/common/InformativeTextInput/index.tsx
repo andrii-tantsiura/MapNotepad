@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useFormState } from "react-hook-form";
 import { View } from "react-native";
 
-import { textStyle_i11, textStyle_i2, textStyle_i7 } from "../../../constants";
+import { textStyle_i10, textStyle_i2, textStyle_i7 } from "../../../constants";
 import { Typography } from "../Typography";
 import {
   IValidatedInputTextProps,
@@ -32,8 +32,8 @@ export const InformativeTextInput: FC<IInformativeTextInputProps> = ({
         </Typography>
 
         {!rules?.required && (
-          <Typography textAlign="left" style={textStyle_i11}>
-            Optional
+          <Typography textAlign="left" style={textStyle_i10}>
+            (optional)
           </Typography>
         )}
       </View>

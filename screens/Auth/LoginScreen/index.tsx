@@ -16,7 +16,7 @@ import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { loginWithEmail, scaleSize } from "../../../utils";
+import { loginWithEmail } from "../../../utils";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
@@ -104,7 +104,6 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
         <CustomButton
           style={CustomButtonStyles.rectOutline_i2}
-          onPress={handleSubmit(submitHandler)}
           imageSource={GOOGLE_ICON}
         />
       </View>

@@ -5,7 +5,8 @@ import { Image } from "react-native";
 import { MAP_ICON, PIN_ICON } from "../../assets/icons";
 import { ConfirmModal } from "../../components/modals";
 import { SearchBar } from "../../components/sections";
-import { AppColors, ImageStyles } from "../../constants";
+import { AppColors, ImageStyles, textStyle_i3 } from "../../constants";
+import { typographyStyleToTextStyle } from "../../helpers";
 import { MapScreen, PinsScreen } from "../../screens/Home";
 import { AuthContext } from "../../store/AuthContextProvider";
 import styles from "./styles";
@@ -15,6 +16,7 @@ const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 const TabsStack: React.FC = () => {
   const authContext = useContext(AuthContext);
+
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
 
   return (
@@ -38,7 +40,7 @@ const TabsStack: React.FC = () => {
         screenOptions={{
           tabBarActiveBackgroundColor: AppColors.lightVariant,
           tabBarLabelPosition: "beside-icon",
-          tabBarLabelStyle: styles.tabBarLabel,
+          tabBarLabelStyle: typographyStyleToTextStyle(textStyle_i3),
           header: () => (
             <SearchBar
               style={styles.searchBarContainer}
@@ -54,11 +56,7 @@ const TabsStack: React.FC = () => {
           component={MapScreen}
           options={{
             tabBarIcon: () => (
-              <Image
-                style={ImageStyles.i1}
-                resizeMode="center"
-                source={MAP_ICON}
-              />
+              <Image style={ImageStyles.i1} source={MAP_ICON} />
             ),
           }}
         />
@@ -68,11 +66,7 @@ const TabsStack: React.FC = () => {
           component={PinsScreen}
           options={{
             tabBarIcon: () => (
-              <Image
-                style={ImageStyles.i1}
-                resizeMode="center"
-                source={PIN_ICON}
-              />
+              <Image style={ImageStyles.i1} source={PIN_ICON} />
             ),
           }}
         />
