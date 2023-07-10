@@ -2,8 +2,12 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
-import { GOOGLE_ICON, LOCATION_ICON, PLUS_ICON } from "../../../assets/icons";
-import { CustomButton, ValidatedInputText } from "../../../components/common";
+import { GOOGLE_ICON } from "../../../assets/icons";
+import {
+  CustomButton,
+  IFormController,
+  InformativeTextInput,
+} from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { ErrorMessages } from "../../../enums";
@@ -22,6 +26,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
   const {
     control,
+    trigger,
     resetField,
     handleSubmit,
     formState: { isValid },
@@ -30,8 +35,13 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
       email: route.params?.email ?? "",
       password: "",
     },
-    mode: "onTouched",
   });
+
+  const formController: IFormController = {
+    control,
+    resetField,
+    trigger,
+  };
 
   const submitHandler = async (values: any) => {
     if (isConnected) {
@@ -61,22 +71,20 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
-          name="email"
+        <InformativeTextInput
+          formController={formController}
           rules={EMAIL_RULES}
+          name="email"
           title="Email"
-          placeholder="Enter email"
           autoCapitalize="none"
+          placeholder="Enter email"
           keyboardType="email-address"
         />
 
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
-          name="password"
+        <InformativeTextInput
+          formController={formController}
           rules={PASSWORD_RULES}
+          name="password"
           title="Password"
           placeholder="Enter password"
           autoCapitalize="none"
@@ -95,7 +103,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
         <Separator>or</Separator>
 
         <CustomButton
-          style={CustomButtonStyles.rectOutline_i1}
+          style={CustomButtonStyles.rectOutline_i2}
           onPress={handleSubmit(submitHandler)}
           imageSource={GOOGLE_ICON}
         />

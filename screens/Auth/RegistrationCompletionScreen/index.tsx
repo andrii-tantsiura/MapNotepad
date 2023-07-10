@@ -4,15 +4,15 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import { CustomButton, ValidatedInputText } from "../../../components/common";
+import {
+  CustomButton,
+  IFormController,
+  InformativeTextInput,
+} from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import {
-  ErrorMessages,
-  FirebaseAuthErrorCodes,
-  ValidationErrorMessages,
-} from "../../../enums";
-import { PASSWORD_RULES } from "../../../helpers";
+import { ErrorMessages, FirebaseAuthErrorCodes } from "../../../enums";
+import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
@@ -29,6 +29,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   const {
     control,
     resetField,
+    trigger,
     watch,
     handleSubmit,
     formState: { isValid },
@@ -40,7 +41,11 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
     mode: "onTouched",
   });
 
-  const watchedPassword = watch("password");
+  const formController: IFormController = {
+    control,
+    resetField,
+    trigger,
+  };
 
   const createAccountHandler = async (values: any) => {
     if (isConnected) {
@@ -85,33 +90,27 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
-          name="password"
+        <InformativeTextInput
+          formController={formController}
           rules={PASSWORD_RULES}
+          name="password"
           secureTextEntry
           autoCapitalize="none"
           title="Password"
           placeholder="Create password"
         />
 
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
+        <InformativeTextInput
+          formController={formController}
+          rules={getConfirmPasswordRules(watch("password"))}
           name="confirmPassword"
-          rules={{
-            required: ValidationErrorMessages.REQUIRED,
-            validate: (value) =>
-              value === watchedPassword ||
-              ValidationErrorMessages.PASSWORD_MISMATCH,
-          }}
           secureTextEntry
           autoCapitalize="none"
           title="Confirm password"
           placeholder="Repeat password"
         />
       </View>
+
       <View style={styles.buttonsContainer}>
         <CustomButton
           style={CustomButtonStyles.rectSolid_i1}

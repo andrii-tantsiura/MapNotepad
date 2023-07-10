@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { LatLng } from "react-native-maps";
 
 import { SAVE_ICON } from "../../../assets/icons";
-import { CustomButton } from "../../../components/common";
+import { CustomButton, IFormController } from "../../../components/common";
 import {
   PinForm,
   PinFormFieldValues,
@@ -30,6 +30,12 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
       },
       mode: "onTouched",
     });
+
+  const formController: IFormController = {
+    control,
+    resetField,
+    trigger,
+  };
 
   const setCoordinates = ({ latitude, longitude }: LatLng) => {
     setValue("latitude", String(latitude));
@@ -79,7 +85,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
       <Separator />
 
       <View style={styles.container}>
-        <PinForm control={control} resetField={resetField} />
+        <PinForm formController={formController} />
 
         <SelectLocationView
           latitude={latitude}

@@ -38,13 +38,13 @@ export const PASSWORD_RULES: RulesType = {
   },
 };
 
-export const CONFIRM_PASSWORD_RULES: RulesType = {
+export const getConfirmPasswordRules = (
+  comparedPassword: string
+): RulesType => ({
   required: ValidationErrorMessages.REQUIRED,
-  pattern: {
-    value: PASSWORD_REGEX,
-    message: ValidationErrorMessages.PASSWORD_MISMATCH,
-  },
-};
+  validate: (value) =>
+    value === comparedPassword || ValidationErrorMessages.PASSWORD_MISMATCH,
+});
 
 export const PIN_LABEL_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,

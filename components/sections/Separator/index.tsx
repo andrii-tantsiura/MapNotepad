@@ -11,9 +11,10 @@ interface ISeparatorProps {
 
 export const Separator: React.FC<ISeparatorProps> = ({ children }) => (
   <View style={styles.container}>
-    <View style={styles.line}></View>
+    <View style={styles.line} />
+
     {children && <Typography style={textStyle_i8}>{children}</Typography>}
 
-    <View style={styles.line}></View>
+    <View style={styles.line} />
   </View>
 );

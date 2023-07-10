@@ -3,7 +3,11 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import { CustomButton, ValidatedInputText } from "../../../components/common";
+import {
+  CustomButton,
+  IFormController,
+  InformativeTextInput,
+} from "../../../components/common";
 import { Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
@@ -24,6 +28,7 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
     control,
     handleSubmit,
     resetField,
+    trigger,
     formState: { isValid },
   } = useForm({
     defaultValues: {
@@ -33,21 +38,25 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
     mode: "onTouched",
   });
 
+  const formController: IFormController = {
+    control,
+    resetField,
+    trigger,
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
+        <InformativeTextInput
+          formController={formController}
           name="name"
           rules={USERNAME_RULES}
           title="Name"
           placeholder="Enter name"
         />
 
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
+        <InformativeTextInput
+          formController={formController}
           name="email"
           rules={EMAIL_RULES}
           autoCapitalize="none"

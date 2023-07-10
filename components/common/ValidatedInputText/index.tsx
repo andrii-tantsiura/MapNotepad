@@ -5,53 +5,69 @@ import {
   UseControllerProps,
   UseFormResetField,
 } from "react-hook-form";
-import { TextInput, TextInputProps, View } from "react-native";
+import { UseFormTrigger } from "react-hook-form/dist/types";
+import {
+  StyleProp,
+  TextInput,
+  TextInputProps,
+  TextStyle,
+  View,
+  ViewStyle,
+} from "react-native";
 
 import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
-import {
-  AppColors,
-  ImageStyles,
-  textStyle_i2,
-  textStyle_i7,
-  textStyle_i9,
-} from "../../../constants";
+import { AppColors, ImageStyles, textStyle_i9 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
 import { CustomButton } from "../CustomButton";
-import { Typography } from "../Typography";
+import { ITypographyStyle } from "../Typography/types";
 import styles from "./styles";
 
-interface IValidatedInputTextProps extends TextInputProps {
-  name: string;
+export type IFormController = {
   control: Control<any, any>;
-  rules?: UseControllerProps["rules"];
+  trigger: UseFormTrigger<any>;
   resetField: UseFormResetField<any>;
-  title?: string;
+};
+
+export interface IValidatedInputTextProps extends TextInputProps {
+  name: string;
+  formController: IFormController;
+  rules?: UseControllerProps["rules"];
+  style?: StyleProp<ViewStyle>;
+  textInputStyle?: StyleProp<TextStyle>;
+  textStyle?: StyleProp<ITypographyStyle>;
 }
 
 export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   name,
-  control,
+  formController: { control, trigger, resetField },
   rules = {},
-  resetField,
-  title = " ",
-  placeholder,
-  autoFocus,
-  editable = true,
-  autoCapitalize,
+  style,
+  textInputStyle,
+  textStyle = textStyle_i9,
   placeholderTextColor = AppColors.systemGray,
-  secureTextEntry = false,
-  keyboardType = "default",
-  maxLength,
-  onSubmitEditing,
   onFocus,
+  secureTextEntry,
+  ...restProps
 }) => {
-  const [isSecureText, setIsSecureText] = useState(secureTextEntry);
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isTextHidden, setIsTextHidden] = useState(secureTextEntry);
 
-  const passwordIcon = isSecureText ? EYE_ICON : EYE_OFF_ICON;
+  const passwordIcon = isTextHidden ? EYE_ICON : EYE_OFF_ICON;
 
-  const toggleIsSecureText = () => setIsSecureText(!isSecureText);
-  const clearHandler = () => resetField(name);
+  const textStyles = [
+    styles.input,
+    textInputStyle,
+    typographyStyleToTextStyle(textStyle),
+  ];
+
+  const toggleIsTextHidden = () => {
+    setIsTextHidden(!isTextHidden);
+  };
+
+  const clearTextHandler = () => {
+    resetField(name);
+    trigger(name);
+  };
 
   return (
     <Controller
@@ -59,63 +75,59 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
       name={name}
       rules={rules}
       render={({
-        field: { value, onChange: onFieldChange, onBlur: onFieldBlur },
+        field: { value, onChange, onBlur },
         fieldState: { error },
-      }) => (
-        <>
-          <Typography style={textStyle_i7}>{title}</Typography>
+      }) => {
+        const textInputProps: TextInputProps = {
+          ...restProps,
+          style: textStyles,
+          cursorColor: AppColors.lightPrimary,
+          selectionColor: AppColors.lightPrimary,
+          placeholderTextColor: placeholderTextColor,
+          secureTextEntry: isTextHidden,
+          value: value,
+          onChangeText: onChange,
+          onFocus: (e) => {
+            onFocus?.(e);
+            setIsFocused(true);
+          },
+          onBlur: () => {
+            onBlur();
+            setIsFocused(false);
+          },
+        };
 
-          <View
-            style={[
-              styles.inputContainer,
-              Boolean(error) && styles.errorInputContainer,
-            ]}
-          >
-            <TextInput
-              style={[styles.input, typographyStyleToTextStyle(textStyle_i9)]}
-              editable={editable}
-              maxLength={maxLength}
-              secureTextEntry={secureTextEntry && isSecureText}
-              keyboardType={keyboardType}
-              autoCapitalize={autoCapitalize}
-              placeholderTextColor={placeholderTextColor}
-              placeholder={placeholder}
-              value={value}
-              onChangeText={onFieldChange}
-              onSubmitEditing={onSubmitEditing}
-              onFocus={(e) => {
-                onFocus?.(e);
-                setIsFocused(true);
-              }}
-              onBlur={() => {
-                setIsFocused(false);
-                onFieldBlur();
-              }}
-              autoFocus={autoFocus}
-            />
+        const containerStyle = [
+          styles.inputContainer,
+          style,
+          (Boolean(error) && styles.errorInputContainer) ||
+            (isFocused && styles.focusedInputContainer),
+        ];
 
-            {value && isFocused && (
-              <View style={styles.buttonsContainer}>
-                {secureTextEntry && (
-                  <CustomButton
-                    iconStyle={ImageStyles.i2}
-                    imageSource={passwordIcon}
-                    onPress={toggleIsSecureText}
-                  />
-                )}
+        return (
+          <View style={containerStyle}>
+            <TextInput {...textInputProps} />
 
-                <CustomButton
-                  iconStyle={ImageStyles.i2}
-                  imageSource={CLEAR_ICON}
-                  onPress={clearHandler}
-                />
-              </View>
+            {secureTextEntry && value && (
+              <CustomButton
+                containerStyle={styles.toggleHiddenButton}
+                iconStyle={ImageStyles.i2}
+                imageSource={passwordIcon}
+                onPress={toggleIsTextHidden}
+              />
+            )}
+
+            {value && (
+              <CustomButton
+                containerStyle={styles.clearButton}
+                iconStyle={ImageStyles.i2}
+                imageSource={CLEAR_ICON}
+                onPress={clearTextHandler}
+              />
             )}
           </View>
-
-          <Typography style={textStyle_i2}>{error?.message}</Typography>
-        </>
-      )}
+        );
+      }}
     />
   );
 };
