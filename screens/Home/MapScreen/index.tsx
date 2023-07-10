@@ -5,7 +5,7 @@ import { Marker, Region } from "react-native-maps";
 import { useSelector } from "react-redux";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import { IconButton } from "../../../components/common";
+import { CustomButton } from "../../../components/common";
 import COLORS from "../../../constants/colors";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
@@ -64,9 +64,9 @@ export const MapScreen: FC<TabProps> = () => {
         ))}
       </MapView>
 
-      <IconButton
-        style={IconButtonStyles.float_i1}
-        source={LOCATION_ICON}
+      <CustomButton
+        containerStyle={IconButtonStyles.float_i1}
+        imageSource={LOCATION_ICON}
         onPress={requestCurrentLocation}
       />
     </View>

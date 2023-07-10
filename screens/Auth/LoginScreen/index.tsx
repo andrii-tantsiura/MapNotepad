@@ -3,23 +3,16 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import {
-  CustomButton,
-  IconButton,
-  ValidatedInputText,
-} from "../../../components/common";
+import { CustomButton, ValidatedInputText } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import {
-  CustomButtonStyles,
-  IconButtonStyles,
-} from "../../../constants/globalStyles";
+import { CustomButtonStyles } from "../../../constants/globalStyles";
 import { ErrorMessages } from "../../../enums/errorMessages";
+import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { loginWithEmail } from "../../../utils";
-import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
 import styles from "./styles";
 
 const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
@@ -102,7 +95,11 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
         <Separator>or</Separator>
 
-        <IconButton style={IconButtonStyles.outline_i1} source={GOOGLE_ICON} />
+        <CustomButton
+          style={CustomButtonStyles.outline_i2}
+          onPress={handleSubmit(submitHandler)}
+          imageSource={GOOGLE_ICON}
+        />
       </View>
     </View>
   );

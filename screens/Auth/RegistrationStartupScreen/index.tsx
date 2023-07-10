@@ -3,18 +3,14 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import {
-  CustomButton,
-  IconButton,
-  ValidatedInputText,
-} from "../../../components/common";
+import { CustomButton, ValidatedInputText } from "../../../components/common";
 import { Separator } from "../../../components/sections";
 import {
   CustomButtonStyles,
   IconButtonStyles,
 } from "../../../constants/globalStyles";
-import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
+import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
 
 const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
@@ -75,7 +71,10 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
         <Separator>or</Separator>
 
-        <IconButton style={IconButtonStyles.outline_i1} source={GOOGLE_ICON} />
+        <CustomButton
+          containerStyle={IconButtonStyles.outline_i1}
+          imageSource={GOOGLE_ICON}
+        />
       </View>
     </View>
   );

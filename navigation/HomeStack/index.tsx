@@ -1,9 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { Image } from "react-native";
 
-import { LEFT_BLUE_ICON } from "../../assets/icons";
+import { HeaderBackImage, HeaderTitle } from "../../components/sections";
 import COLORS from "../../constants/colors";
-import { ImageStyles, TextStyles } from "../../constants/globalStyles";
 import { AddPinScreen } from "../../screens/Home/AddPinScreen";
 import TabsStack from "../TabStack";
 import { HomeStackParamList } from "./types";
@@ -19,10 +17,8 @@ const HomeStack: React.FC = () => (
       headerStyle: {
         backgroundColor: COLORS.systemWhite,
       },
-      headerTitleStyle: TextStyles.header_i1,
-      headerBackImage: () => (
-        <Image style={ImageStyles.image_i1} source={LEFT_BLUE_ICON} />
-      ),
+      headerTitle: HeaderTitle,
+      headerBackImage: HeaderBackImage,
     }}
   >
     <Stack.Screen

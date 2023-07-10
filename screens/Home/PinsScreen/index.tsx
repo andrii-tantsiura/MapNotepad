@@ -6,7 +6,7 @@ import { RowMap, SwipeListView } from "react-native-swipe-list-view";
 import { useSelector } from "react-redux";
 
 import { PLUS_ICON } from "../../../assets/icons";
-import { IconButton } from "../../../components/common";
+import { CustomButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals/ConfirmModal";
 import { EmptyView } from "../../../components/sections";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
@@ -132,9 +132,9 @@ export const PinsScreen: FC = () => {
         rightOpenValue={-PIN_ACTION_MENU_WIDTH}
       />
 
-      <IconButton
-        style={styles.addPinButton}
-        source={PLUS_ICON}
+      <CustomButton
+        containerStyle={styles.addPinButton}
+        imageSource={PLUS_ICON}
         onPress={addPinHandler}
       />
     </View>

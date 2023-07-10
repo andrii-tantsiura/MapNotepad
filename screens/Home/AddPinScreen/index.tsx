@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { LatLng } from "react-native-maps";
 
 import { SAVE_ICON } from "../../../assets/icons";
-import { IconButton } from "../../../components/common";
+import { CustomButton } from "../../../components/common";
 import {
   PinForm,
   PinFormFieldValues,
@@ -65,9 +65,9 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton
-          style={{ marginRight: 12 }}
-          source={SAVE_ICON}
+        <CustomButton
+          containerStyle={{ marginRight: 12 }}
+          imageSource={SAVE_ICON}
           onPress={handleSubmit(savePinHandler)}
         />
       ),

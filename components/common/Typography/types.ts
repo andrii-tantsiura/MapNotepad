@@ -1,4 +1,5 @@
 import { TextStyle } from "react-native";
+
 import { IColors } from "../../../constants/colors";
 
 export interface IFontWeights {

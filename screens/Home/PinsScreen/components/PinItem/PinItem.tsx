@@ -6,7 +6,7 @@ import {
   LIKE_GRAY_ICON,
   RIGHT_GRAY_ICON,
 } from "../../../../../assets/icons";
-import { IconButton, Typography } from "../../../../../components/common";
+import { CustomButton, Typography } from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
 import { textStyle_i11, textStyle_i9 } from "../../../../../constants";
 import { ImageStyles } from "../../../../../constants/globalStyles";
@@ -25,9 +25,9 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.infoContainer}>
-          <IconButton
-            style={styles.likeButton}
-            source={favoriteStatusIcon}
+          <CustomButton
+            containerStyle={styles.likeButton}
+            imageSource={favoriteStatusIcon}
             onPress={onPressFavoriteStatus}
           />
 

@@ -4,11 +4,7 @@ import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import {
-  CustomButton,
-  IconButton,
-  ValidatedInputText,
-} from "../../../components/common";
+import { CustomButton, ValidatedInputText } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import {
   CustomButtonStyles,
@@ -17,11 +13,11 @@ import {
 import { ErrorMessages } from "../../../enums/errorMessages";
 import { FirebaseAuthErrorCodes } from "../../../enums/firebaseAuthErrorCodes";
 import { ValidationErrorMessages } from "../../../enums/validationMessages";
+import { PASSWORD_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { createUserWithEmail } from "../../../utils";
-import { PASSWORD_RULES } from "../../../helpers";
 import styles from "./styles";
 
 const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
@@ -128,7 +124,10 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
         <Separator>or</Separator>
 
-        <IconButton style={IconButtonStyles.outline_i1} source={GOOGLE_ICON} />
+        <CustomButton
+          containerStyle={IconButtonStyles.outline_i1}
+          imageSource={GOOGLE_ICON}
+        />
       </View>
     </View>
   );

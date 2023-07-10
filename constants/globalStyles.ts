@@ -43,6 +43,10 @@ export const ImageStyles = StyleSheet.create({
     height: scaleSize(24),
     width: scaleSize(24),
   },
+  image_i2: {
+    height: scaleSize(20),
+    width: scaleSize(20),
+  },
 });
 
 const baseButtonStyle: ViewStyle = {
@@ -58,22 +62,32 @@ export const CustomButtonStyles: {
   [key: string]: CustomButtonStyle;
 } = {
   simple_i1: {
-    container: {
+    containerStyle: {
       height: scaleSize(40),
       borderRadius: 2,
       backgroundColor: COLORS.lightPrimary,
     },
-    text: textStyle_i4,
+    textStyle: textStyle_i4,
   },
   outline_i1: {
-    container: {
+    containerStyle: {
       height: scaleSize(40),
       borderRadius: 2,
       borderWidth: 1,
       borderColor: COLORS.lightPrimary,
       backgroundColor: COLORS.systemWhite,
     },
-    text: textStyle_i5,
+    textStyle: textStyle_i5,
+  },
+  outline_i2: {
+    containerStyle: {
+      height: scaleSize(40),
+      borderRadius: 2,
+      borderWidth: 1,
+      borderColor: COLORS.systemLightGray,
+      backgroundColor: COLORS.systemWhite,
+    },
+    textStyle: textStyle_i5,
   },
 };
 

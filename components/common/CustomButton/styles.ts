@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     columnGap: scaleSize(8),
   },
   pressed: {
-    opacity: 0.75,
+    opacity: 0.5,
   },
   disabled: {
     backgroundColor: COLORS.lightDisabled,

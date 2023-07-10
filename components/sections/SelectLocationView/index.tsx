@@ -10,7 +10,7 @@ import MapView, {
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { IconButtonStyles } from "../../../constants/globalStyles";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
-import { IconButton } from "../../common";
+import { CustomButton } from "../../common";
 import styles from "./styles";
 
 interface ISelectLocationViewProps {
@@ -71,9 +71,9 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
         )}
       </MapView>
 
-      <IconButton
-        style={IconButtonStyles.float_i1}
-        source={LOCATION_ICON}
+      <CustomButton
+        containerStyle={IconButtonStyles.float_i1}
+        imageSource={LOCATION_ICON}
         onPress={pickCurrentLocationHandler}
       />
     </>

@@ -2,6 +2,7 @@ import { FC } from "react";
 import { Modal, View } from "react-native";
 
 import { textStyle_i6, textStyle_i9 } from "../../../constants";
+import { CustomButtonStyles } from "../../../constants/globalStyles";
 import { CustomButton, Typography } from "../../common";
 import styles from "./styles";
 
@@ -39,17 +40,16 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
 
         <View style={styles.buttonsContainer}>
           <CustomButton
-            style={styles.leftButton}
-            // size="i12"
-            // color="lightPrimary"
+            style={CustomButtonStyles.outline_i1}
+            containerStyle={styles.leftButton}
             onPress={onCancel}
           >
             {cancelText}
           </CustomButton>
 
           <CustomButton
-            // size="i12"
-            style={styles.rightButton}
+            style={CustomButtonStyles.simple_i1}
+            containerStyle={styles.leftButton}
             onPress={onConfirm}
           >
             {confirmText}

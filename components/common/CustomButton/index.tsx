@@ -1,45 +1,57 @@
 import React from "react";
 import {
+  Image,
+  ImageProps,
   Pressable,
   PressableStateCallbackType,
-  StyleProp,
   ViewProps,
 } from "react-native";
 
-import { Typography } from "../Typography";
-import { ITypographyStyle } from "../Typography/types";
+import { ImageStyles } from "../../../constants/globalStyles";
+import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
 export type CustomButtonStyle = {
-  container?: ViewProps["style"];
-  text?: StyleProp<ITypographyStyle>;
+  containerStyle?: ViewProps["style"];
+  textStyle?: ITypographyProps["style"];
+  iconStyle?: ImageProps["style"];
 };
 
-interface ICustomButtonProps {
-  children: ViewProps["children"];
+interface ICustomButtonProps extends CustomButtonStyle {
+  children?: ViewProps["children"];
+  imageSource?: ImageProps["source"];
   disabled?: boolean;
   style?: CustomButtonStyle;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export const CustomButton: React.FC<ICustomButtonProps> = ({
   children,
+  imageSource,
   disabled,
-  style: { container: containerStyle, text: textStyle } = {
-    text: {},
-    container: {},
-  },
+  style,
+  containerStyle,
+  textStyle,
+  iconStyle,
   onPress,
 }) => {
   const getStyle = ({ pressed }: PressableStateCallbackType) => [
     styles.container,
+    style?.containerStyle,
     containerStyle,
     disabled ? styles.disabled : pressed && styles.pressed,
   ];
 
   return (
     <Pressable style={getStyle} disabled={disabled} onPress={onPress}>
-      <Typography style={textStyle}>{children}</Typography>
+      {children && (
+        <Typography style={[style?.textStyle, textStyle]}>
+          {children}
+        </Typography>
+      )}
+      {imageSource && (
+        <Image style={[ImageStyles.image_i1, iconStyle]} source={imageSource} />
+      )}
     </Pressable>
   );
 };
