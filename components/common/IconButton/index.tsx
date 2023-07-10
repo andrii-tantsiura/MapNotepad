@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { scaleSize } from "../../../utils/dimensions";
+import { scaleSize } from "../../../utils";
 import styles from "./styles";
 
 export interface IIconButtonProps {

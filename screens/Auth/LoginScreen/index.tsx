@@ -18,8 +18,8 @@ import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { loginWithEmail } from "../../../utils/auth";
-import { EMAIL_RULES, PASSWORD_RULES } from "../../../utils/validationRules";
+import { loginWithEmail } from "../../../utils";
+import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
 import styles from "./styles";
 
 const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {

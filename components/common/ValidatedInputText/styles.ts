@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import COLORS from "../../../constants/colors";
-import { scaleSize } from "../../../utils/dimensions";
+import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
   titleLabel: {

@@ -1,3 +1,4 @@
+import { UseControllerProps } from "react-hook-form";
 import {
   EMAIL_REGEX,
   LATITUDE_REGEX,
@@ -7,7 +8,9 @@ import {
 } from "../constants/validationRegex";
 import { ValidationErrorMessages } from "../enums/validationMessages";
 
-export const USERNAME_RULES = {
+type RulesType = UseControllerProps["rules"];
+
+export const USERNAME_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,
   minLength: { value: 2, message: ValidationErrorMessages.USERNAME_TOO_SHORT },
   maxLength: { value: 50, message: ValidationErrorMessages.USERNAME_TOO_LONG },
@@ -17,7 +20,7 @@ export const USERNAME_RULES = {
   },
 };
 
-export const EMAIL_RULES = {
+export const EMAIL_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,
   pattern: {
     value: EMAIL_REGEX,
@@ -25,7 +28,7 @@ export const EMAIL_RULES = {
   },
 };
 
-export const PASSWORD_RULES = {
+export const PASSWORD_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,
   minLength: { value: 8, message: ValidationErrorMessages.PASSWORD_TOO_SHORT },
   pattern: {
@@ -34,21 +37,21 @@ export const PASSWORD_RULES = {
   },
 };
 
-export const CONFIRM_PASSWORD_RULES = {
+export const CONFIRM_PASSWORD_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,
-  validate: {
+  pattern: {
     value: PASSWORD_REGEX,
     message: ValidationErrorMessages.PASSWORD_MISMATCH,
   },
 };
 
-export const PIN_LABEL_RULES = {
+export const PIN_LABEL_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,
   minLength: { value: 2, message: ValidationErrorMessages.PIN_LABEL_TOO_SHORT },
   maxLength: { value: 40, message: ValidationErrorMessages.PIN_LABEL_TOO_LONG },
 };
 
-export const LONGITUDE_RULES = {
+export const LONGITUDE_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,
   pattern: {
     value: LONGITUDE_REGEX,
@@ -56,7 +59,7 @@ export const LONGITUDE_RULES = {
   },
 };
 
-export const LATITUDE_RULES = {
+export const LATITUDE_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,
   pattern: {
     value: LATITUDE_REGEX,

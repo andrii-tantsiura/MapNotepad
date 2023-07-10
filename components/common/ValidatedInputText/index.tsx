@@ -11,7 +11,7 @@ import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
 import { textStyle_i2, textStyle_i7, textStyle_i9 } from "../../../constants";
 import COLORS from "../../../constants/colors";
 import { typographyStyleToTextStyle } from "../../../helpers";
-import { scaleSize } from "../../../utils/dimensions";
+import { scaleSize } from "../../../utils";
 import { IconButton } from "../IconButton";
 import { Typography } from "../Typography";
 import styles from "./styles";

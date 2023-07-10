@@ -8,7 +8,7 @@ import {
   LATITUDE_RULES,
   LONGITUDE_RULES,
   PIN_LABEL_RULES,
-} from "../../../utils/validationRules";
+} from "../../../helpers";
 import { ValidatedInputText } from "../../common";
 
 export type PinFormFieldValues = {

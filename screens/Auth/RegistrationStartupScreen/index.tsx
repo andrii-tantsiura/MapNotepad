@@ -14,7 +14,7 @@ import {
   IconButtonStyles,
 } from "../../../constants/globalStyles";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
-import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
+import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import styles from "./styles";
 
 const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({

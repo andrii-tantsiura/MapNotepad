@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 import { DELETE_ICON, EDIT_ICON } from "../../../../../assets/icons";
 import { IconButton } from "../../../../../components/common";
-import { scaleSize } from "../../../../../utils/dimensions";
+import { scaleSize } from "../../../../../utils";
 import styles from "./styles";
 
 interface IPinActionMenuProps {

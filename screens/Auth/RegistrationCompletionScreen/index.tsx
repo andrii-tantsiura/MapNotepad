@@ -20,8 +20,8 @@ import { ValidationErrorMessages } from "../../../enums/validationMessages";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { createUserWithEmail } from "../../../utils/auth";
-import { PASSWORD_RULES } from "../../../utils/validationRules";
+import { createUserWithEmail } from "../../../utils";
+import { PASSWORD_RULES } from "../../../helpers";
 import styles from "./styles";
 
 const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({

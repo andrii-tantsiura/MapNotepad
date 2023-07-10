@@ -1,7 +1,7 @@
 import { StyleSheet, ViewStyle } from "react-native";
 
 import { CustomButtonStyle } from "../components/common";
-import { scaleSize } from "../utils/dimensions";
+import { scaleSize } from "../utils";
 import COLORS from "./colors";
 import { textStyle_i4, textStyle_i5 } from "./typography";
 
