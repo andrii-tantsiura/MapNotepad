@@ -9,7 +9,6 @@ const styles = StyleSheet.create({
     columnGap: scaleSize(8),
     justifyContent: "space-between",
     alignItems: "flex-start",
-    marginVertical: 6,
     borderWidth: 1,
     borderRadius: 2,
     borderColor: AppColors.systemLightGray,

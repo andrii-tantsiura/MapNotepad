@@ -25,7 +25,7 @@ export const InformativeTextInput: FC<IInformativeTextInputProps> = ({
   const { errors } = useFormState({ control: formController.control });
 
   return (
-    <>
+    <View style={style}>
       <View style={styles.headerContainer}>
         <Typography textAlign="left" style={textStyle_i7}>
           {title}
@@ -42,15 +42,12 @@ export const InformativeTextInput: FC<IInformativeTextInputProps> = ({
         name={name}
         formController={formController}
         rules={rules}
-        style={style}
         {...restProps}
       />
 
-      {errors[name]?.message && (
-        <Typography style={textStyle_i2}>
-          {String(errors[name]?.message)}
-        </Typography>
-      )}
-    </>
+      <Typography style={[textStyle_i2, styles.errorText]}>
+        {errors[name]?.message && String(errors[name]?.message)}
+      </Typography>
+    </View>
   );
 };
