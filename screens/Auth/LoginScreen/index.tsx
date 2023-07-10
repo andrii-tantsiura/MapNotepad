@@ -5,8 +5,8 @@ import { View } from "react-native";
 import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, ValidatedInputText } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants/globalStyles";
-import { ErrorMessages } from "../../../enums/errorMessages";
+import { CustomButtonStyles } from "../../../constants";
+import { ErrorMessages } from "../../../enums";
 import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
@@ -15,7 +15,7 @@ import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { loginWithEmail } from "../../../utils";
 import styles from "./styles";
 
-const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
+export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const isConnected = useContext(NetworkInfoContext);
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
@@ -104,5 +104,3 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
     </View>
   );
 };
-
-export default LoginScreen;

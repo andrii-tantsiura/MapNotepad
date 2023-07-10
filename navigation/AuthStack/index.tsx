@@ -2,10 +2,12 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 
 import { HeaderBackImage, HeaderTitle } from "../../components/sections";
-import LoginScreen from "../../screens/Auth/LoginScreen";
-import RegistrationCompletionScreen from "../../screens/Auth/RegistrationCompletionScreen";
-import RegistrationStartupScreen from "../../screens/Auth/RegistrationStartupScreen";
-import StartupScreen from "../../screens/Auth/StartupScreen";
+import {
+  LoginScreen,
+  RegistrationCompletionScreen,
+  RegistrationStartupScreen,
+  StartupScreen,
+} from "../../screens/Auth";
 import { AuthStackParamList } from "./types";
 
 const Stack = createStackNavigator<AuthStackParamList>();

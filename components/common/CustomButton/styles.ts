@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../constants/colors";
+import { AppColors } from "../../../constants";
 import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   disabled: {
-    backgroundColor: COLORS.lightDisabled,
+    backgroundColor: AppColors.lightDisabled,
   },
 });
 

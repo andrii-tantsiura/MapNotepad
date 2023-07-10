@@ -4,9 +4,9 @@ import {
   requestForegroundPermissionsAsync,
 } from "expo-location";
 import { useEffect, useState } from "react";
-
 import { LatLng } from "react-native-maps";
-import { ErrorMessages } from "../enums/errorMessages";
+
+import { ErrorMessages } from "../enums";
 
 const requestLocationPermissions = async (): Promise<void> => {
   const { status } = await requestForegroundPermissionsAsync();

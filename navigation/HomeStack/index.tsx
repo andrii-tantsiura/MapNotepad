@@ -1,8 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { HeaderBackImage, HeaderTitle } from "../../components/sections";
-import COLORS from "../../constants/colors";
-import { AddPinScreen } from "../../screens/Home/AddPinScreen";
+import { AppColors } from "../../constants";
+import { AddPinScreen } from "../../screens/Home";
 import TabsStack from "../TabStack";
 import { HomeStackParamList } from "./types";
 
@@ -15,7 +15,7 @@ const HomeStack: React.FC = () => (
       headerShadowVisible: false,
       headerTitleAlign: "center",
       headerStyle: {
-        backgroundColor: COLORS.systemWhite,
+        backgroundColor: AppColors.systemWhite,
       },
       headerTitle: HeaderTitle,
       headerBackImage: HeaderBackImage,

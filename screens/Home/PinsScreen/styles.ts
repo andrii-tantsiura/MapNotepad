@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
-import COLORS from "../../../constants/colors";
-import { IconButtonStyles } from "../../../constants/globalStyles";
+
+import { AppColors } from "../../../constants";
+import { IconButtonStyles } from "../../../constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ const styles = StyleSheet.create({
   },
   addPinButton: {
     ...IconButtonStyles.float_i1,
-    backgroundColor: COLORS.lightPrimary,
+    backgroundColor: AppColors.lightPrimary,
   },
 });
 

@@ -8,8 +8,11 @@ import {
 } from "../../../../../assets/icons";
 import { CustomButton, Typography } from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
-import { textStyle_i11, textStyle_i9 } from "../../../../../constants";
-import { ImageStyles } from "../../../../../constants/globalStyles";
+import {
+  ImageStyles,
+  textStyle_i11,
+  textStyle_i9,
+} from "../../../../../constants";
 import { Pin } from "../../../../../types/map";
 import styles from "./styles";
 

@@ -1,12 +1,13 @@
 import { UseControllerProps } from "react-hook-form";
+
 import {
   EMAIL_REGEX,
   LATITUDE_REGEX,
   LONGITUDE_REGEX,
   PASSWORD_REGEX,
   USERNAME_REGEX,
-} from "../constants/validationRegex";
-import { ValidationErrorMessages } from "../enums/validationMessages";
+} from "../constants";
+import { ValidationErrorMessages } from "../enums";
 
 type RulesType = UseControllerProps["rules"];
 

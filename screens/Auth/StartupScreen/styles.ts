@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
+
 import { scaleSize } from "../../../utils";
-import { ContainerStyles } from "../../../constants/globalStyles";
+import { ContainerStyles } from "../../../constants";
 
 const styles = StyleSheet.create({
   container: {

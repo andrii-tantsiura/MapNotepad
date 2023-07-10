@@ -3,12 +3,10 @@ import { useContext, useState } from "react";
 import { Image } from "react-native";
 
 import { MAP_ICON, PIN_ICON } from "../../assets/icons";
-import { ConfirmModal } from "../../components/modals/ConfirmModal";
+import { ConfirmModal } from "../../components/modals";
 import { SearchBar } from "../../components/sections";
-import COLORS from "../../constants/colors";
-import { ImageStyles } from "../../constants/globalStyles";
-import { MapScreen } from "../../screens/Home/MapScreen";
-import { PinsScreen } from "../../screens/Home/PinsScreen";
+import { AppColors, ImageStyles } from "../../constants";
+import { MapScreen, PinsScreen } from "../../screens/Home";
 import { AuthContext } from "../../store/AuthContextProvider";
 import styles from "./styles";
 import { TabStackParamList } from "./types";
@@ -38,7 +36,7 @@ const TabsStack: React.FC = () => {
       <Tabs.Navigator
         initialRouteName="Map"
         screenOptions={{
-          tabBarActiveBackgroundColor: COLORS.lightVariant,
+          tabBarActiveBackgroundColor: AppColors.lightVariant,
           tabBarLabelPosition: "beside-icon",
           tabBarLabelStyle: styles.tabBarLabel,
           header: () => (

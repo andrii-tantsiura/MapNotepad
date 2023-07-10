@@ -8,8 +8,8 @@ import MapView, {
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import { IconButtonStyles } from "../../../constants/globalStyles";
-import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
+import { IconButtonStyles } from "../../../constants";
+import { useCurrentLocation } from "../../../hooks";
 import { CustomButton } from "../../common";
 import styles from "./styles";
 

@@ -7,7 +7,7 @@ import {
   ViewProps,
 } from "react-native";
 
-import { ImageStyles } from "../../../constants/globalStyles";
+import { ImageStyles } from "../../../constants";
 import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 

@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../constants/colors";
+import { AppColors } from "../../../constants";
 import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     // ...FontSizes.i12,
     // ...FontWeights.medium,
-    color: COLORS.systemDarkGray,
+    color: AppColors.systemDarkGray,
   },
   inputContainer: {
     flexDirection: "row",
@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     height: scaleSize(40),
     borderWidth: 1,
     borderRadius: 2,
-    borderColor: COLORS.systemLightGray,
+    borderColor: AppColors.systemLightGray,
   },
   errorInputContainer: {
-    borderColor: COLORS.lightError,
+    borderColor: AppColors.lightError,
   },
   input: {
     flex: 1,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     height: scaleSize(40),
     // ...FontSizes.i14,
     // ...FontWeights.medium,
-    color: COLORS.systemBlack,
+    color: AppColors.systemBlack,
   },
   errorLabel: {
     marginTop: 4,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     // ...FontSizes.i10,
     // ...FontWeights.medium,
-    color: COLORS.lightError,
+    color: AppColors.lightError,
   },
   buttonsContainer: {
     marginLeft: 8,

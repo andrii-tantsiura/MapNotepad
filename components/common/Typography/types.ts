@@ -1,6 +1,6 @@
 import { TextStyle } from "react-native";
 
-import { IColors } from "../../../constants/colors";
+import { IAppColors } from "../../../constants";
 
 export interface IFontWeights {
   bold: string;
@@ -29,6 +29,6 @@ export interface ITypographyStyle
   extends Omit<TextStyle, "fontWeight" | "fontSize" | "color" | "lineHeight"> {
   fontWeight?: keyof IFontWeights;
   fontSize?: keyof IFontSizes;
-  color?: keyof IColors;
+  color?: keyof IAppColors;
   lineHeight?: keyof IFontHeights;
 }

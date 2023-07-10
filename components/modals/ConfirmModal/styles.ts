@@ -1,22 +1,21 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../constants/colors";
-import { ContainerStyles, ShadowStyles } from "../../../constants/globalStyles";
+import { AppColors, ContainerStyles, ShadowStyles } from "../../../constants";
 
 const styles = StyleSheet.create({
   dialogContainer: {
     ...ContainerStyles.fill_i1,
-    backgroundColor: COLORS.systemDarkGray80,
+    backgroundColor: AppColors.systemDarkGray80,
   },
   contentContainer: {
     margin: 32,
     paddingVertical: 16,
     paddingHorizontal: 24,
     rowGap: 10,
-    backgroundColor: COLORS.systemWhite,
+    backgroundColor: AppColors.systemWhite,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: COLORS.systemLightGray,
+    borderColor: AppColors.systemLightGray,
     ...ShadowStyles.shadow_i1,
   },
   buttonsContainer: {
@@ -25,12 +24,7 @@ const styles = StyleSheet.create({
     columnGap: 24,
     marginTop: 16,
   },
-  leftButton: {
-    // ...CustomButtonStyles.outline_i1,
-    width: "50%",
-  },
-  rightButton: {
-    // ...CustomButtonStyles.regular_i1,
+  buttonContainer: {
     width: "50%",
   },
 });

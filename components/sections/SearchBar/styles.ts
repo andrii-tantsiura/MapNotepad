@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../constants/colors";
+import { AppColors } from "../../../constants";
 import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
@@ -18,12 +18,12 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     // ...FontSizes.i12,
     // ...FontWeights.regular,
-    color: COLORS.systemGray,
+    color: AppColors.systemGray,
     paddingVertical: 3,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: COLORS.lightVariant,
-    backgroundColor: COLORS.lightVariant,
+    borderColor: AppColors.lightVariant,
+    backgroundColor: AppColors.lightVariant,
   },
 });
 export default styles;

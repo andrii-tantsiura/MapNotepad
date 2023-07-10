@@ -7,14 +7,14 @@ import { useSelector } from "react-redux";
 
 import { PLUS_ICON } from "../../../assets/icons";
 import { CustomButton } from "../../../components/common";
-import { ConfirmModal } from "../../../components/modals/ConfirmModal";
+import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import {
   deletePin,
   toggleFavoritePinStatus,
-} from "../../../store/redux/actions/pin.actions";
-import { selectPins } from "../../../store/redux/slices/pinsSlice";
+} from "../../../store/redux/actions";
+import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
 import {

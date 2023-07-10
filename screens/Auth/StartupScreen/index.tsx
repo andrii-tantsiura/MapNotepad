@@ -3,12 +3,11 @@ import { Image, View } from "react-native";
 
 import { ENTER_PAGE_PIC } from "../../../assets/icons";
 import { CustomButton, Typography } from "../../../components/common";
-import { textStyle_i1 } from "../../../constants";
-import { CustomButtonStyles } from "../../../constants/globalStyles";
+import { CustomButtonStyles, textStyle_i1 } from "../../../constants";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
 
-const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
+export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
   const loginHandler = () => {
     navigation.navigate("Login");
   };
@@ -47,5 +46,3 @@ const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
     </View>
   );
 };
-
-export default StartupScreen;

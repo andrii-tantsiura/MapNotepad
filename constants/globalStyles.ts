@@ -2,20 +2,20 @@ import { StyleSheet, ViewStyle } from "react-native";
 
 import { CustomButtonStyle } from "../components/common";
 import { scaleSize } from "../utils";
-import COLORS from "./colors";
+import { AppColors } from "./colors";
 import { textStyle_i4, textStyle_i5 } from "./typography";
 
 export const ShadowStyles = StyleSheet.create({
   shadow_i1: {
     elevation: 5,
-    shadowColor: COLORS.systemBlack,
+    shadowColor: AppColors.systemBlack,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
   },
   shadow_i2: {
     elevation: 6,
-    shadowColor: COLORS.systemBlack,
+    shadowColor: AppColors.systemBlack,
     shadowOffset: { width: 1, height: 3 },
     shadowOpacity: 0.6,
     shadowRadius: 4,
@@ -34,7 +34,7 @@ export const TextStyles = StyleSheet.create({
   header_i1: {
     // ...FontSizes.i16,
     // ...FontWeights.semiBold,
-    color: COLORS.systemBlack,
+    color: AppColors.systemBlack,
   },
 });
 
@@ -65,7 +65,7 @@ export const CustomButtonStyles: {
     containerStyle: {
       height: scaleSize(40),
       borderRadius: 2,
-      backgroundColor: COLORS.lightPrimary,
+      backgroundColor: AppColors.lightPrimary,
     },
     textStyle: textStyle_i4,
   },
@@ -74,8 +74,8 @@ export const CustomButtonStyles: {
       height: scaleSize(40),
       borderRadius: 2,
       borderWidth: 1,
-      borderColor: COLORS.lightPrimary,
-      backgroundColor: COLORS.systemWhite,
+      borderColor: AppColors.lightPrimary,
+      backgroundColor: AppColors.systemWhite,
     },
     textStyle: textStyle_i5,
   },
@@ -84,8 +84,8 @@ export const CustomButtonStyles: {
       height: scaleSize(40),
       borderRadius: 2,
       borderWidth: 1,
-      borderColor: COLORS.systemLightGray,
-      backgroundColor: COLORS.systemWhite,
+      borderColor: AppColors.systemLightGray,
+      backgroundColor: AppColors.systemWhite,
     },
     textStyle: textStyle_i5,
   },
@@ -94,7 +94,7 @@ export const CustomButtonStyles: {
 export const IconButtonStyles = StyleSheet.create({
   outline_i1: {
     ...baseButtonStyle,
-    borderColor: COLORS.systemLightGray,
+    borderColor: AppColors.systemLightGray,
   },
   float_i1: {
     position: "absolute",
@@ -106,7 +106,7 @@ export const IconButtonStyles = StyleSheet.create({
     width: scaleSize(46),
     height: scaleSize(46),
     borderRadius: 30,
-    backgroundColor: COLORS.systemWhite,
+    backgroundColor: AppColors.systemWhite,
     ...ShadowStyles.shadow_i2,
   },
 });

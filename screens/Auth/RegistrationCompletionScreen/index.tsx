@@ -6,13 +6,12 @@ import { View } from "react-native";
 import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, ValidatedInputText } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
+import { CustomButtonStyles, IconButtonStyles } from "../../../constants";
 import {
-  CustomButtonStyles,
-  IconButtonStyles,
-} from "../../../constants/globalStyles";
-import { ErrorMessages } from "../../../enums/errorMessages";
-import { FirebaseAuthErrorCodes } from "../../../enums/firebaseAuthErrorCodes";
-import { ValidationErrorMessages } from "../../../enums/validationMessages";
+  ErrorMessages,
+  FirebaseAuthErrorCodes,
+  ValidationErrorMessages,
+} from "../../../enums";
 import { PASSWORD_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
@@ -20,7 +19,7 @@ import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
 import { createUserWithEmail } from "../../../utils";
 import styles from "./styles";
 
-const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
+export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
 }: AuthScreenProps) => {
@@ -132,5 +131,3 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
     </View>
   );
 };
-
-export default RegistrationCompletionScreen;

@@ -5,15 +5,12 @@ import { View } from "react-native";
 import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, ValidatedInputText } from "../../../components/common";
 import { Separator } from "../../../components/sections";
-import {
-  CustomButtonStyles,
-  IconButtonStyles,
-} from "../../../constants/globalStyles";
+import { CustomButtonStyles, IconButtonStyles } from "../../../constants";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
 
-const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
+export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,
 }) => {
   const goToNextRegistrationStepHandler = (values: any) => {
@@ -79,5 +76,3 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
     </View>
   );
 };
-
-export default RegistrationStartupScreen;

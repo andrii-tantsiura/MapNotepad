@@ -1,5 +1,5 @@
 import { FIREBASE_API_KEY, post } from "../api/post";
-import { FirebaseAuthErrorMessages } from "../enums/firebaseAuthErrorMessages";
+import { FirebaseAuthErrorMessages } from "../enums";
 import {
   ISignInWithEmailPayload,
   ISignInWithEmailResponse,

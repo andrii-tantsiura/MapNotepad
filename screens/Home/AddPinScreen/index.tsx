@@ -12,7 +12,7 @@ import {
   Separator,
 } from "../../../components/sections";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import { addPin } from "../../../store/redux/actions/pin.actions";
+import { addPin } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
 import styles from "./styles";

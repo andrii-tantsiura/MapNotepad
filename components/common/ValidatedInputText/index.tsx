@@ -8,9 +8,13 @@ import {
 import { TextInput, TextInputProps, View } from "react-native";
 
 import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
-import { textStyle_i2, textStyle_i7, textStyle_i9 } from "../../../constants";
-import COLORS from "../../../constants/colors";
-import { ImageStyles } from "../../../constants/globalStyles";
+import {
+  AppColors,
+  ImageStyles,
+  textStyle_i2,
+  textStyle_i7,
+  textStyle_i9,
+} from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
 import { CustomButton } from "../CustomButton";
 import { Typography } from "../Typography";
@@ -34,7 +38,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   autoFocus,
   editable = true,
   autoCapitalize,
-  placeholderTextColor = COLORS.systemGray,
+  placeholderTextColor = AppColors.systemGray,
   secureTextEntry = false,
   keyboardType = "default",
   maxLength,

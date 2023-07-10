@@ -1,12 +1,12 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../../../constants/colors";
+import { AppColors } from "../../../../../constants";
 import { scaleSize } from "../../../../../utils";
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
-    backgroundColor: COLORS.systemWhite,
+    backgroundColor: AppColors.systemWhite,
   },
   content: {
     paddingVertical: 21,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     height: scaleSize(40),
     width: scaleSize(40),
     borderRadius: 6,
-    backgroundColor: COLORS.lightVariant,
+    backgroundColor: AppColors.lightVariant,
   },
 });
 
