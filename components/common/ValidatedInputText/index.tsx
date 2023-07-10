@@ -5,12 +5,15 @@ import {
   UseControllerProps,
   UseFormResetField,
 } from "react-hook-form";
-import { Text, TextInput, TextInputProps, View } from "react-native";
+import { TextInput, TextInputProps, View } from "react-native";
 
 import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
+import { textStyle_i2, textStyle_i7, textStyle_i9 } from "../../../constants";
 import COLORS from "../../../constants/colors";
+import { typographyStyleToTextStyle } from "../../../helpers";
 import { scaleSize } from "../../../utils/dimensions";
 import { IconButton } from "../IconButton";
+import { Typography } from "../Typography";
 import styles from "./styles";
 
 interface IValidatedInputTextProps extends TextInputProps {
@@ -56,10 +59,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         fieldState: { error },
       }) => (
         <>
-          {/* <Typography textAlign="left" textStyle={styles.titleLabel}>
-            {title}
-          </Typography> */}
-          <Text>{title}</Text>
+          <Typography style={textStyle_i7}>{title}</Typography>
 
           <View
             style={[
@@ -68,7 +68,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
             ]}
           >
             <TextInput
-              style={styles.input}
+              style={[styles.input, typographyStyleToTextStyle(textStyle_i9)]}
               editable={editable}
               maxLength={maxLength}
               secureTextEntry={secureTextEntry && isSecureText}
@@ -113,10 +113,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
             )}
           </View>
 
-          {/* <Typography textStyle={styles.errorLabel}>
-            {error?.message}
-          </Typography> */}
-          <Text>{error?.message}</Text>
+          <Typography style={textStyle_i2}>{error?.message}</Typography>
         </>
       )}
     />

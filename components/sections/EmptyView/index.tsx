@@ -1,6 +1,8 @@
 import { FC, ReactNode } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
+import { textStyle_i5 } from "../../../constants";
+import { Typography } from "../../common";
 import styles from "./styles";
 
 interface IEmptyViewProps {
@@ -9,7 +11,6 @@ interface IEmptyViewProps {
 
 export const EmptyView: FC<IEmptyViewProps> = ({ children }) => (
   <View style={styles.container}>
-    {/* <Typography color="lightPrimary">{children}</Typography> */}
-    <Text>{children}</Text>
+    <Typography style={textStyle_i5}>{children}</Typography>
   </View>
 );

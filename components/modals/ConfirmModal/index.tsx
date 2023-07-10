@@ -1,7 +1,8 @@
 import { FC } from "react";
-import { Modal, Text, View } from "react-native";
+import { Modal, View } from "react-native";
 
-import { CustomButton } from "../../common";
+import { textStyle_i6, textStyle_i9 } from "../../../constants";
+import { CustomButton, Typography } from "../../common";
 import styles from "./styles";
 
 interface IConfirmModalProps {
@@ -32,14 +33,9 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
   >
     <View style={styles.dialogContainer}>
       <View style={styles.contentContainer}>
-        {/* <Typography weight="semiBold" size="i12" color="systemBlack">
-          {title}
-        </Typography> */}
-        <Text>{title}</Text>
-        <Text>{description}</Text>
-        {/* <Typography size="i12" color="systemBlack">
-          {description}
-        </Typography> */}
+        <Typography style={textStyle_i6}>{title}</Typography>
+
+        <Typography style={textStyle_i9}>{description}</Typography>
 
         <View style={styles.buttonsContainer}>
           <CustomButton
