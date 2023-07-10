@@ -9,7 +9,10 @@ import {
   ValidatedInputText,
 } from "../../../components/common";
 import { Separator } from "../../../components/sections";
-import { IconButtonStyles } from "../../../constants/globalStyles";
+import {
+  CustomButtonStyles,
+  IconButtonStyles,
+} from "../../../constants/globalStyles";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
 import styles from "./styles";
@@ -64,6 +67,7 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
       <View style={styles.buttonsContainer}>
         <CustomButton
           disabled={!isValid}
+          style={CustomButtonStyles.simple_i1}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
         >
           Next

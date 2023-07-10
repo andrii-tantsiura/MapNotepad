@@ -1,49 +1,45 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import {
   Pressable,
   PressableStateCallbackType,
   StyleProp,
-  Text,
-  ViewStyle,
+  ViewProps,
 } from "react-native";
 
-import { CustomButtonStyles } from "../../../constants/globalStyles";
+import { Typography } from "../Typography";
+import { ITypographyStyle } from "../Typography/types";
 import styles from "./styles";
 
+export type CustomButtonStyle = {
+  container?: ViewProps["style"];
+  text?: StyleProp<ITypographyStyle>;
+};
+
 interface ICustomButtonProps {
-  children: ReactNode;
+  children: ViewProps["children"];
   disabled?: boolean;
-  style?: StyleProp<ViewStyle>;
-  pressedStyle?: ViewStyle;
-  disabledStyle?: ViewStyle;
-  onPress?: () => void;
+  style?: CustomButtonStyle;
+  onPress: () => void;
 }
 
 export const CustomButton: React.FC<ICustomButtonProps> = ({
-  disabled,
-  style = CustomButtonStyles.regular_i1,
-  pressedStyle = styles.pressed,
-  disabledStyle = styles.disabled,
   children,
+  disabled,
+  style: { container: containerStyle, text: textStyle } = {
+    text: {},
+    container: {},
+  },
   onPress,
 }) => {
   const getStyle = ({ pressed }: PressableStateCallbackType) => [
-    style,
-    disabled ? disabledStyle : pressed && pressedStyle,
+    styles.container,
+    containerStyle,
+    disabled ? styles.disabled : pressed && styles.pressed,
   ];
 
   return (
-    <Pressable disabled={disabled} onPress={onPress} style={getStyle}>
-      {/* <Typography
-        size={size}
-        weight={weight}
-        color={color}
-        textAlign={textAlign}
-        textStyle={textStyle}
-      >
-        {children}
-      </Typography> */}
-      <Text>{children}</Text>
+    <Pressable style={getStyle} disabled={disabled} onPress={onPress}>
+      <Typography style={textStyle}>{children}</Typography>
     </Pressable>
   );
 };

@@ -1,11 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import COLORS from "../../../constants/colors";
-import {
-  ContainerStyles,
-  CustomButtonStyles,
-  ShadowStyles,
-} from "../../../constants/globalStyles";
+import { ContainerStyles, ShadowStyles } from "../../../constants/globalStyles";
 
 const styles = StyleSheet.create({
   dialogContainer: {
@@ -30,11 +26,11 @@ const styles = StyleSheet.create({
     marginTop: 16,
   },
   leftButton: {
-    ...CustomButtonStyles.outline_i1,
+    // ...CustomButtonStyles.outline_i1,
     width: "50%",
   },
   rightButton: {
-    ...CustomButtonStyles.regular_i1,
+    // ...CustomButtonStyles.regular_i1,
     width: "50%",
   },
 });

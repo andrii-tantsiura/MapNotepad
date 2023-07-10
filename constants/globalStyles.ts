@@ -1,7 +1,9 @@
 import { StyleSheet, ViewStyle } from "react-native";
 
+import { CustomButtonStyle } from "../components/common";
 import { scaleSize } from "../utils/dimensions";
 import COLORS from "./colors";
+import { textStyle_i4, textStyle_i5 } from "./typography";
 
 export const ShadowStyles = StyleSheet.create({
   shadow_i1: {
@@ -52,17 +54,29 @@ const baseButtonStyle: ViewStyle = {
   borderColor: "transparent",
 };
 
-export const CustomButtonStyles = StyleSheet.create({
-  regular_i1: {
-    ...baseButtonStyle,
-    backgroundColor: COLORS.lightPrimary,
+export const CustomButtonStyles: {
+  [key: string]: CustomButtonStyle;
+} = {
+  simple_i1: {
+    container: {
+      height: scaleSize(40),
+      borderRadius: 2,
+      backgroundColor: COLORS.lightPrimary,
+    },
+    text: textStyle_i4,
   },
   outline_i1: {
-    ...baseButtonStyle,
-    backgroundColor: COLORS.systemWhite,
-    borderColor: COLORS.lightPrimary,
+    container: {
+      height: scaleSize(40),
+      borderRadius: 2,
+      borderWidth: 1,
+      borderColor: COLORS.lightPrimary,
+      backgroundColor: COLORS.systemWhite,
+    },
+    text: textStyle_i5,
   },
-});
+};
+
 export const IconButtonStyles = StyleSheet.create({
   outline_i1: {
     ...baseButtonStyle,

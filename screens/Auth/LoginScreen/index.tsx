@@ -9,7 +9,10 @@ import {
   ValidatedInputText,
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { IconButtonStyles } from "../../../constants/globalStyles";
+import {
+  CustomButtonStyles,
+  IconButtonStyles,
+} from "../../../constants/globalStyles";
 import { ErrorMessages } from "../../../enums/errorMessages";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
@@ -89,7 +92,11 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <CustomButton onPress={handleSubmit(submitHandler)} disabled={!isValid}>
+        <CustomButton
+          style={CustomButtonStyles.simple_i1}
+          onPress={handleSubmit(submitHandler)}
+          disabled={!isValid}
+        >
           Login
         </CustomButton>
 
