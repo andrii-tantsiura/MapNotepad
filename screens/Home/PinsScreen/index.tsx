@@ -9,6 +9,7 @@ import { PLUS_ICON } from "../../../assets/icons";
 import { CustomButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
+import { CustomButtonStyles } from "../../../constants";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import {
   deletePin,
@@ -133,7 +134,7 @@ export const PinsScreen: FC = () => {
       />
 
       <CustomButton
-        containerStyle={styles.addPinButton}
+        style={CustomButtonStyles.roundFloating_i2}
         imageSource={PLUS_ICON}
         onPress={addPinHandler}
       />

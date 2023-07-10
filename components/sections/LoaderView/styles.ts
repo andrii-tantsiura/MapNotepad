@@ -4,7 +4,7 @@ import { AppColors, ContainerStyles } from "../../../constants";
 
 const styles = StyleSheet.create({
   container: {
-    ...ContainerStyles.fill_i1,
+    ...ContainerStyles.i1,
     backgroundColor: AppColors.systemWhite,
     opacity: 0.8,
     padding: 32,

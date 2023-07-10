@@ -30,14 +30,14 @@ export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.simple_i1}
+          style={CustomButtonStyles.rectSolid_i1}
           onPress={loginHandler}
         >
           Log in
         </CustomButton>
 
         <CustomButton
-          style={CustomButtonStyles.outline_i1}
+          style={CustomButtonStyles.rectOutline_i1}
           onPress={createAccountHandler}
         >
           Create account

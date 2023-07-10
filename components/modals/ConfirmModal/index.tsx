@@ -43,7 +43,7 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
 
         <View style={styles.buttonsContainer}>
           <CustomButton
-            style={CustomButtonStyles.outline_i1}
+            style={CustomButtonStyles.rectOutline_i1}
             containerStyle={styles.buttonContainer}
             onPress={onCancel}
           >
@@ -51,7 +51,7 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
           </CustomButton>
 
           <CustomButton
-            style={CustomButtonStyles.simple_i1}
+            style={CustomButtonStyles.rectSolid_i1}
             containerStyle={styles.buttonContainer}
             onPress={onConfirm}
           >

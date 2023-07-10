@@ -98,14 +98,14 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
               <View style={styles.buttonsContainer}>
                 {secureTextEntry && (
                   <CustomButton
-                    iconStyle={ImageStyles.image_i2}
+                    iconStyle={ImageStyles.i2}
                     imageSource={passwordIcon}
                     onPress={toggleIsSecureText}
                   />
                 )}
 
                 <CustomButton
-                  iconStyle={ImageStyles.image_i2}
+                  iconStyle={ImageStyles.i2}
                   imageSource={CLEAR_ICON}
                   onPress={clearHandler}
                 />

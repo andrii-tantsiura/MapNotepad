@@ -6,7 +6,7 @@ import { View } from "react-native";
 import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, ValidatedInputText } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { CustomButtonStyles, IconButtonStyles } from "../../../constants";
+import { CustomButtonStyles } from "../../../constants";
 import {
   ErrorMessages,
   FirebaseAuthErrorCodes,
@@ -114,7 +114,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
       </View>
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.simple_i1}
+          style={CustomButtonStyles.rectSolid_i1}
           onPress={handleSubmit(createAccountHandler)}
           disabled={!isValid}
         >
@@ -124,7 +124,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         <Separator>or</Separator>
 
         <CustomButton
-          containerStyle={IconButtonStyles.outline_i1}
+          style={CustomButtonStyles.rectOutline_i2}
           imageSource={GOOGLE_ICON}
         />
       </View>

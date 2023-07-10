@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   logoContainer: {
-    ...ContainerStyles.fill_i1,
+    ...ContainerStyles.i1,
     rowGap: 16,
   },
   buttonsContainer: {

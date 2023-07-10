@@ -50,7 +50,7 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
         </Typography>
       )}
       {imageSource && (
-        <Image style={[ImageStyles.image_i1, iconStyle]} source={imageSource} />
+        <Image style={[ImageStyles.i1, iconStyle]} source={imageSource} />
       )}
     </Pressable>
   );

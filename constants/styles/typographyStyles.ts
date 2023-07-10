@@ -3,8 +3,8 @@ import {
   IFontSizes,
   IFontWeights,
   ITypographyStyle,
-} from "../components/common/Typography/types";
-import { scaleSize } from "../utils";
+} from "../../components/common/Typography/types";
+import { scaleSize } from "../../utils";
 
 export enum FontWeightAliases {
   Bold = "Montserrat-Bold",

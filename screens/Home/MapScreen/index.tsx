@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { CustomButton } from "../../../components/common";
-import { AppColors, IconButtonStyles } from "../../../constants";
+import { AppColors, CustomButtonStyles } from "../../../constants";
 import { useCurrentLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPins } from "../../../store/redux/slices";
@@ -64,7 +64,7 @@ export const MapScreen: FC<TabProps> = () => {
       </MapView>
 
       <CustomButton
-        containerStyle={IconButtonStyles.float_i1}
+        style={CustomButtonStyles.roundFloating_i1}
         imageSource={LOCATION_ICON}
         onPress={requestCurrentLocation}
       />

@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
-import { GOOGLE_ICON } from "../../../assets/icons";
+import { GOOGLE_ICON, LOCATION_ICON, PLUS_ICON } from "../../../assets/icons";
 import { CustomButton, ValidatedInputText } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
@@ -86,9 +86,8 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.simple_i1}
+          style={CustomButtonStyles.rectSolid_i1}
           onPress={handleSubmit(submitHandler)}
-          disabled={!isValid}
         >
           Login
         </CustomButton>
@@ -96,7 +95,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
         <Separator>or</Separator>
 
         <CustomButton
-          style={CustomButtonStyles.outline_i2}
+          style={CustomButtonStyles.rectOutline_i1}
           onPress={handleSubmit(submitHandler)}
           imageSource={GOOGLE_ICON}
         />

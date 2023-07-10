@@ -4,7 +4,7 @@ import { AppColors, ContainerStyles, ShadowStyles } from "../../../constants";
 
 const styles = StyleSheet.create({
   dialogContainer: {
-    ...ContainerStyles.fill_i1,
+    ...ContainerStyles.i1,
     backgroundColor: AppColors.systemDarkGray80,
   },
   contentContainer: {

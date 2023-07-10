@@ -55,7 +55,7 @@ const TabsStack: React.FC = () => {
           options={{
             tabBarIcon: () => (
               <Image
-                style={ImageStyles.image_i1}
+                style={ImageStyles.i1}
                 resizeMode="center"
                 source={MAP_ICON}
               />
@@ -69,7 +69,7 @@ const TabsStack: React.FC = () => {
           options={{
             tabBarIcon: () => (
               <Image
-                style={ImageStyles.image_i1}
+                style={ImageStyles.i1}
                 resizeMode="center"
                 source={PIN_ICON}
               />

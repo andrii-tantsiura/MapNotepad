@@ -8,7 +8,7 @@ import MapView, {
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import { IconButtonStyles } from "../../../constants";
+import { CustomButtonStyles } from "../../../constants";
 import { useCurrentLocation } from "../../../hooks";
 import { CustomButton } from "../../common";
 import styles from "./styles";
@@ -72,7 +72,7 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
       </MapView>
 
       <CustomButton
-        containerStyle={IconButtonStyles.float_i1}
+        style={CustomButtonStyles.roundFloating_i1}
         imageSource={LOCATION_ICON}
         onPress={pickCurrentLocationHandler}
       />

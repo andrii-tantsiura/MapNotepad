@@ -45,7 +45,7 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
           </View>
         </View>
 
-        <Image style={ImageStyles.image_i1} source={RIGHT_GRAY_ICON} />
+        <Image style={ImageStyles.i1} source={RIGHT_GRAY_ICON} />
       </View>
 
       <Separator />
