@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { Modal, View } from "react-native";
+import { Modal, Text, View } from "react-native";
 
-import { CustomButton, Typography } from "../../common";
+import { CustomButton } from "../../common";
 import styles from "./styles";
 
 interface IConfirmModalProps {
@@ -32,26 +32,27 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
   >
     <View style={styles.dialogContainer}>
       <View style={styles.contentContainer}>
-        <Typography weight="semiBold" size="i12" color="systemBlack">
+        {/* <Typography weight="semiBold" size="i12" color="systemBlack">
           {title}
-        </Typography>
-
-        <Typography size="i12" color="systemBlack">
+        </Typography> */}
+        <Text>{title}</Text>
+        <Text>{description}</Text>
+        {/* <Typography size="i12" color="systemBlack">
           {description}
-        </Typography>
+        </Typography> */}
 
         <View style={styles.buttonsContainer}>
           <CustomButton
             style={styles.leftButton}
-            size="i12"
-            color="lightPrimary"
+            // size="i12"
+            // color="lightPrimary"
             onPress={onCancel}
           >
             {cancelText}
           </CustomButton>
 
           <CustomButton
-            size="i12"
+            // size="i12"
             style={styles.rightButton}
             onPress={onConfirm}
           >

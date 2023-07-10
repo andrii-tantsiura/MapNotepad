@@ -5,13 +5,12 @@ import {
   UseControllerProps,
   UseFormResetField,
 } from "react-hook-form";
-import { TextInput, TextInputProps, View } from "react-native";
+import { Text, TextInput, TextInputProps, View } from "react-native";
 
 import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
 import COLORS from "../../../constants/colors";
 import { scaleSize } from "../../../utils/dimensions";
 import { IconButton } from "../IconButton";
-import { Typography } from "../Typography";
 import styles from "./styles";
 
 interface IValidatedInputTextProps extends TextInputProps {
@@ -57,9 +56,10 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         fieldState: { error },
       }) => (
         <>
-          <Typography textAlign="left" textStyle={styles.titleLabel}>
+          {/* <Typography textAlign="left" textStyle={styles.titleLabel}>
             {title}
-          </Typography>
+          </Typography> */}
+          <Text>{title}</Text>
 
           <View
             style={[
@@ -113,9 +113,10 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
             )}
           </View>
 
-          <Typography textStyle={styles.errorLabel}>
+          {/* <Typography textStyle={styles.errorLabel}>
             {error?.message}
-          </Typography>
+          </Typography> */}
+          <Text>{error?.message}</Text>
         </>
       )}
     />

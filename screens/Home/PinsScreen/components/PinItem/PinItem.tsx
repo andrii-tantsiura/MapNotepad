@@ -1,12 +1,12 @@
 import { FC } from "react";
-import { Image, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 import {
   LIKE_BLUE_ICON,
   LIKE_GRAY_ICON,
   RIGHT_GRAY_ICON,
 } from "../../../../../assets/icons";
-import { IconButton, Typography } from "../../../../../components/common";
+import { IconButton } from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
 import { ImageStyles } from "../../../../../constants/globalStyles";
 import { Pin } from "../../../../../types/map";
@@ -31,13 +31,20 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
           />
 
           <View style={styles.textLinesContainer}>
-            <Typography color="systemBlack">{data.label}</Typography>
+            {/* <Typography color="systemBlack">{data.label}</Typography> */}
+            <Text>{data.label}</Text>
+            <Text>{data.label}</Text>
 
-            <Typography weight="regular" size="i12" color="systemDarkGray">
+            {/* <Typography weight="regular" size="i12" color="systemDarkGray">
               {data.location.latitude}
               {", "}
               {data.location.longitude}
-            </Typography>
+            </Typography> */}
+            <Text>
+              {data.location.latitude}
+              {", "}
+              {data.location.longitude}
+            </Text>
           </View>
         </View>
 

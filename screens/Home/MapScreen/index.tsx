@@ -8,7 +8,6 @@ import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { IconButton } from "../../../components/common";
 import COLORS from "../../../constants/colors";
 import { IconButtonStyles } from "../../../constants/globalStyles";
-import { FontWeights } from "../../../constants/typography";
 import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPins } from "../../../store/redux/slices/pinsSlice";
@@ -45,7 +44,7 @@ export const MapScreen: FC<TabProps> = () => {
     <View style={styles.container}>
       <MapView
         clusterColor={COLORS.lightPrimary}
-        clusterFontFamily={FontWeights.regular.fontFamily}
+        // clusterFontFamily={FontWeights.regular.fontFamily}
         clusterTextColor={COLORS.systemWhite}
         style={styles.map}
         ref={mapViewRef}

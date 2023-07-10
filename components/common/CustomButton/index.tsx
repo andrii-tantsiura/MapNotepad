@@ -1,16 +1,17 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   Pressable,
   PressableStateCallbackType,
   StyleProp,
+  Text,
   ViewStyle,
 } from "react-native";
 
 import { CustomButtonStyles } from "../../../constants/globalStyles";
-import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
-interface ICustomButtonProps extends ITypographyProps {
+interface ICustomButtonProps {
+  children: ReactNode;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;
   pressedStyle?: ViewStyle;
@@ -19,12 +20,7 @@ interface ICustomButtonProps extends ITypographyProps {
 }
 
 export const CustomButton: React.FC<ICustomButtonProps> = ({
-  size = "i14",
-  weight = "semiBold",
-  color = "systemWhite",
-  textAlign = "center",
   disabled,
-  textStyle,
   style = CustomButtonStyles.regular_i1,
   pressedStyle = styles.pressed,
   disabledStyle = styles.disabled,
@@ -38,7 +34,7 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
 
   return (
     <Pressable disabled={disabled} onPress={onPress} style={getStyle}>
-      <Typography
+      {/* <Typography
         size={size}
         weight={weight}
         color={color}
@@ -46,7 +42,8 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
         textStyle={textStyle}
       >
         {children}
-      </Typography>
+      </Typography> */}
+      <Text>{children}</Text>
     </Pressable>
   );
 };

@@ -2,12 +2,11 @@ import { StyleSheet } from "react-native";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 
 import COLORS from "../../constants/colors";
-import { FontSizes, FontWeights } from "../../constants/typography";
 
 const styles = StyleSheet.create({
   tabBarLabel: {
-    ...FontSizes.i12,
-    ...FontWeights.semiBold,
+    // ...FontSizes.i12,
+    // ...FontWeights.semiBold,
     color: COLORS.lightPrimary,
   },
   searchBarContainer: {

@@ -1,7 +1,6 @@
 import React from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 
-import { Typography } from "../../common/Typography";
 import styles from "./styles";
 
 interface ISeparatorProps {
@@ -12,9 +11,10 @@ export const Separator: React.FC<ISeparatorProps> = ({ children }) => (
   <View style={styles.container}>
     <View style={styles.line}></View>
     {children && (
-      <Typography size="i12" weight="medium" color="systemLightGray">
-        {children}
-      </Typography>
+      // <Typography size="i12" weight="medium" color="systemLightGray">
+      //   {children}
+      // </Typography>
+      <Text>{children}</Text>
     )}
     <View style={styles.line}></View>
   </View>

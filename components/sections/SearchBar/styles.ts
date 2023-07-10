@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 import COLORS from "../../../constants/colors";
 import { scaleSize } from "../../../utils/dimensions";
-import { FontSizes, FontWeights } from "../../../constants/typography";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,8 +16,8 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: scaleSize(12),
     paddingLeft: 16,
-    ...FontSizes.i12,
-    ...FontWeights.regular,
+    // ...FontSizes.i12,
+    // ...FontWeights.regular,
     color: COLORS.systemGray,
     paddingVertical: 3,
     borderRadius: 4,

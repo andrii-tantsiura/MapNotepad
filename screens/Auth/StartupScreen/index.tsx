@@ -1,8 +1,8 @@
 import React from "react";
-import { Image, View } from "react-native";
+import { Image, Text, View } from "react-native";
 
 import { ENTER_PAGE_PIC } from "../../../assets/icons";
-import { CustomButton, Typography } from "../../../components/common";
+import { CustomButton } from "../../../components/common";
 import { CustomButtonStyles } from "../../../constants/globalStyles";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
@@ -25,16 +25,17 @@ const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
           source={ENTER_PAGE_PIC}
         />
 
-        <Typography size="i18" weight="bold" color="lightPrimary">
+        {/* <Typography size="i18" weight="bold" color="lightPrimary">
           MapNotepad
-        </Typography>
+        </Typography> */}
+        <Text>Map Notepad</Text>
       </View>
 
       <View style={styles.buttonsContainer}>
         <CustomButton onPress={loginHandler}>Log in</CustomButton>
 
         <CustomButton
-          color="lightPrimary"
+          // color="lightPrimary"
           style={CustomButtonStyles.outline_i1}
           onPress={createAccountHandler}
         >

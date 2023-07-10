@@ -2,14 +2,13 @@ import { StyleSheet } from "react-native";
 
 import COLORS from "../../../constants/colors";
 import { scaleSize } from "../../../utils/dimensions";
-import { FontSizes, FontWeights } from "../../../constants/typography";
 
 const styles = StyleSheet.create({
   titleLabel: {
     marginLeft: 12,
     marginBottom: 10,
-    ...FontSizes.i12,
-    ...FontWeights.medium,
+    // ...FontSizes.i12,
+    // ...FontWeights.medium,
     color: COLORS.systemDarkGray,
   },
   inputContainer: {
@@ -27,16 +26,16 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 12,
     height: scaleSize(40),
-    ...FontSizes.i14,
-    ...FontWeights.medium,
+    // ...FontSizes.i14,
+    // ...FontWeights.medium,
     color: COLORS.systemBlack,
   },
   errorLabel: {
     marginTop: 4,
     marginLeft: 12,
     marginBottom: 5,
-    ...FontSizes.i10,
-    ...FontWeights.medium,
+    // ...FontSizes.i10,
+    // ...FontWeights.medium,
     color: COLORS.lightError,
   },
   buttonsContainer: {
