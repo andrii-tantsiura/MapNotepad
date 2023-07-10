@@ -30,7 +30,7 @@ export const PinForm: FC<IPinFormProps> = ({ formController }) => {
   return (
     <View style={styles.container}>
       {!isManualCoordsEdit && (
-        <View>
+        <>
           <InformativeTextInput
             formController={formController}
             name="label"
@@ -45,7 +45,7 @@ export const PinForm: FC<IPinFormProps> = ({ formController }) => {
             title="Description"
             placeholder="Write a description"
           />
-        </View>
+        </>
       )}
 
       <View style={styles.coordinatesContainer}>
