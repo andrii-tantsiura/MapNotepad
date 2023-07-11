@@ -28,7 +28,6 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         latitude: "",
         longitude: "",
       },
-      mode: "onTouched",
     });
 
   const formController: IFormController = {

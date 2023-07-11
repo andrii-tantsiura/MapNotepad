@@ -24,13 +24,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    control,
-    trigger,
-    resetField,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm({
+  const { control, trigger, resetField, handleSubmit } = useForm({
     defaultValues: {
       email: route.params?.email ?? "",
       password: "",

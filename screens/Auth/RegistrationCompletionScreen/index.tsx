@@ -26,19 +26,11 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   const isConnected = useContext(NetworkInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    control,
-    resetField,
-    trigger,
-    watch,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm({
+  const { control, resetField, trigger, watch, handleSubmit } = useForm({
     defaultValues: {
       password: "",
       confirmPassword: "",
     },
-    mode: "onTouched",
   });
 
   const formController: IFormController = {
@@ -115,7 +107,6 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         <CustomButton
           style={CustomButtonStyles.rectSolid_i1}
           onPress={handleSubmit(createAccountHandler)}
-          disabled={!isValid}
         >
           Create account
         </CustomButton>

@@ -10,8 +10,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     columnGap: scaleSize(8),
   },
+  reversed: {
+    flexDirection: "row-reverse",
+  },
   pressed: {
-    opacity: 0.5,
+    opacity: 0.6,
   },
   disabled: {
     backgroundColor: AppColors.lightDisabled,

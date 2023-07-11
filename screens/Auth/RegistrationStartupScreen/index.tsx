@@ -24,18 +24,11 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
     });
   };
 
-  const {
-    control,
-    handleSubmit,
-    resetField,
-    trigger,
-    formState: { isValid },
-  } = useForm({
+  const { control, handleSubmit, resetField, trigger } = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
-    mode: "onTouched",
   });
 
   const formController: IFormController = {
@@ -68,7 +61,7 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          disabled={!isValid}
+          // disabled={!isValid}
           style={CustomButtonStyles.rectSolid_i1}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
         >
