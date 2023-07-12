@@ -22,14 +22,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
 
   const { control, watch, trigger, setValue, resetField, handleSubmit } =
-    useForm<PinFormFieldValues>({
-      defaultValues: {
-        label: "",
-        description: "",
-        latitude: "",
-        longitude: "",
-      },
-    });
+    useForm<PinFormFieldValues>();
 
   const formController: IFormController = {
     control,
@@ -45,24 +38,28 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     trigger("longitude");
   };
 
-  const coordinatesPickedHandler = (coordinates: LatLng) =>
-    setCoordinates(coordinates);
-
-  const savePinHandler = (values: PinFormFieldValues) => {
+  const savePinHandler = ({
+    label,
+    description,
+    latitude,
+    longitude,
+  }: PinFormFieldValues) => {
     const newPin: Pin = {
       id: Date.now().toString(),
-      label: values.label,
-      description: values.description,
+      label,
+      description,
       location: {
-        latitude: Number.parseFloat(values.latitude),
-        longitude: Number.parseFloat(values.longitude),
+        latitude: Number.parseFloat(latitude),
+        longitude: Number.parseFloat(longitude),
       },
       isFavorite: true,
     };
 
     dispatch(addPin(newPin));
 
-    navigation.goBack();
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
   };
 
   const latitude = Number.parseFloat(watch("latitude"));
@@ -80,7 +77,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         <SelectLocationView
           latitude={latitude}
           longitude={longitude}
-          onPickCoordinates={coordinatesPickedHandler}
+          onPickCoordinates={setCoordinates}
         />
       </View>
     </>

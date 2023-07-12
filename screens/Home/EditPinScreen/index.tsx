@@ -25,14 +25,7 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
   const pin = useSelector(selectPins).find((x) => x.id === route.params?.pinId);
 
   const { control, watch, trigger, setValue, resetField, handleSubmit } =
-    useForm<PinFormFieldValues>({
-      defaultValues: {
-        label: "",
-        description: "",
-        latitude: pin?.location.latitude.toString(),
-        longitude: pin?.location.longitude.toString(),
-      },
-    });
+    useForm<PinFormFieldValues>();
 
   const formController: IFormController = {
     control,
@@ -48,26 +41,30 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
     trigger("longitude");
   };
 
-  const coordinatesPickedHandler = (coordinates: LatLng) =>
-    setCoordinates(coordinates);
-
-  const savePinHandler = (values: PinFormFieldValues) => {
+  const savePinHandler = ({
+    label,
+    description,
+    latitude,
+    longitude,
+  }: PinFormFieldValues) => {
     if (pin) {
-      const newPin: Pin = {
+      const pinToUpdate: Pin = {
         id: pin.id,
-        label: values.label,
-        description: values.description,
+        label,
+        description,
         location: {
-          latitude: Number.parseFloat(values.latitude),
-          longitude: Number.parseFloat(values.longitude),
+          latitude: Number.parseFloat(latitude),
+          longitude: Number.parseFloat(longitude),
         },
         isFavorite: pin.isFavorite,
       };
 
-      dispatch(updatePin(newPin));
+      dispatch(updatePin(pinToUpdate));
     }
 
-    navigation.goBack();
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    }
   };
 
   const latitude = Number.parseFloat(watch("latitude"));
@@ -95,7 +92,7 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
           latitude={latitude}
           longitude={longitude}
           shouldRequestLocationInitially={false}
-          onPickCoordinates={coordinatesPickedHandler}
+          onPickCoordinates={setCoordinates}
         />
       </View>
     </>
