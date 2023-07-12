@@ -6,7 +6,7 @@ import "react-native-gesture-handler";
 import { Provider } from "react-redux";
 
 import { LoaderView } from "./components/sections";
-import { FontWeightAliases } from "./constants/typography";
+import { FontWeightAliases } from "./constants";
 import AppRoutes from "./navigation/App.routes";
 import { AuthContextProvider } from "./store/AuthContextProvider";
 import { NetworkInfoContext } from "./store/NetworkInfoContext";

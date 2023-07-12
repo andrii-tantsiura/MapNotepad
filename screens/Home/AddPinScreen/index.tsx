@@ -4,7 +4,7 @@ import { View } from "react-native";
 import { LatLng } from "react-native-maps";
 
 import { SAVE_ICON } from "../../../assets/icons";
-import { IconButton } from "../../../components/common";
+import { CustomButton, IFormController } from "../../../components/common";
 import {
   PinForm,
   PinFormFieldValues,
@@ -12,7 +12,7 @@ import {
   Separator,
 } from "../../../components/sections";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import { addPin } from "../../../store/redux/actions/pin.actions";
+import { addPin } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
 import styles from "./styles";
@@ -28,8 +28,13 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         latitude: "",
         longitude: "",
       },
-      mode: "onTouched",
     });
+
+  const formController: IFormController = {
+    control,
+    resetField,
+    trigger,
+  };
 
   const setCoordinates = ({ latitude, longitude }: LatLng) => {
     setValue("latitude", String(latitude));
@@ -65,9 +70,9 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton
-          style={{ marginRight: 12 }}
-          source={SAVE_ICON}
+        <CustomButton
+          containerStyle={{ marginRight: 12 }}
+          imageSource={SAVE_ICON}
           onPress={handleSubmit(savePinHandler)}
         />
       ),
@@ -79,7 +84,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
       <Separator />
 
       <View style={styles.container}>
-        <PinForm control={control} resetField={resetField} />
+        <PinForm formController={formController} />
 
         <SelectLocationView
           latitude={latitude}

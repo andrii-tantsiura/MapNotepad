@@ -3,11 +3,11 @@ import { Image, View } from "react-native";
 
 import { ENTER_PAGE_PIC } from "../../../assets/icons";
 import { CustomButton, Typography } from "../../../components/common";
-import { CustomButtonStyles } from "../../../constants/globalStyles";
+import { CustomButtonStyles, textStyle_i1 } from "../../../constants";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
 
-const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
+export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
   const loginHandler = () => {
     navigation.navigate("Login");
   };
@@ -25,17 +25,19 @@ const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
           source={ENTER_PAGE_PIC}
         />
 
-        <Typography size="i18" weight="bold" color="lightPrimary">
-          MapNotepad
-        </Typography>
+        <Typography style={textStyle_i1}>Map Notepad</Typography>
       </View>
 
       <View style={styles.buttonsContainer}>
-        <CustomButton onPress={loginHandler}>Log in</CustomButton>
+        <CustomButton
+          style={CustomButtonStyles.rectSolid_i1}
+          onPress={loginHandler}
+        >
+          Log in
+        </CustomButton>
 
         <CustomButton
-          color="lightPrimary"
-          style={CustomButtonStyles.outline_i1}
+          style={CustomButtonStyles.rectOutline_i1}
           onPress={createAccountHandler}
         >
           Create account
@@ -44,5 +46,3 @@ const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
     </View>
   );
 };
-
-export default StartupScreen;

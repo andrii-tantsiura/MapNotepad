@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
-import { scaleSize } from "../../../utils/dimensions";
-import { ContainerStyles } from "../../../constants/globalStyles";
+
+import { scaleSize } from "../../../utils";
+import { ContainerStyles } from "../../../constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -11,7 +12,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   logoContainer: {
-    ...ContainerStyles.fill_i1,
+    ...ContainerStyles.i1,
     rowGap: 16,
   },
   buttonsContainer: {

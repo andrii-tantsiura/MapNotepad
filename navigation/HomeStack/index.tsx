@@ -1,10 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { Image } from "react-native";
 
-import { LEFT_BLUE_ICON } from "../../assets/icons";
-import COLORS from "../../constants/colors";
-import { ImageStyles, TextStyles } from "../../constants/globalStyles";
-import { AddPinScreen } from "../../screens/Home/AddPinScreen";
+import { HeaderBackImage, HeaderTitle } from "../../components/sections";
+import { AppColors } from "../../constants";
+import { AddPinScreen } from "../../screens/Home";
 import TabsStack from "../TabStack";
 import { HomeStackParamList } from "./types";
 
@@ -17,12 +15,10 @@ const HomeStack: React.FC = () => (
       headerShadowVisible: false,
       headerTitleAlign: "center",
       headerStyle: {
-        backgroundColor: COLORS.systemWhite,
+        backgroundColor: AppColors.systemWhite,
       },
-      headerTitleStyle: TextStyles.header_i1,
-      headerBackImage: () => (
-        <Image style={ImageStyles.image_i1} source={LEFT_BLUE_ICON} />
-      ),
+      headerTitle: HeaderTitle,
+      headerBackImage: HeaderBackImage,
     }}
   >
     <Stack.Screen

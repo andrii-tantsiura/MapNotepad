@@ -1,20 +1,19 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../constants/colors";
-import { FontSizes, FontWeights } from "../../../constants/typography";
-import { ContainerStyles } from "../../../constants/globalStyles";
+import { AppColors, ContainerStyles, FontSizes } from "../../../constants";
+import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
   container: {
-    ...ContainerStyles.fill_i1,
-    backgroundColor: COLORS.systemWhite,
+    ...ContainerStyles.i1,
+    backgroundColor: AppColors.systemWhite,
     opacity: 0.8,
-    padding: 32,
+    padding: scaleSize(24),
   },
   message: {
-    ...FontSizes.i14,
-    color: COLORS.systemWhite,
-    marginBottom: 12,
+    fontSize: FontSizes.i12,
+    color: AppColors.systemWhite,
+    marginBottom: scaleSize(10),
   },
 });
 

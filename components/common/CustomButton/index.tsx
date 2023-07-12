@@ -1,52 +1,60 @@
 import React from "react";
 import {
+  Image,
+  ImageProps,
   Pressable,
   PressableStateCallbackType,
-  StyleProp,
-  ViewStyle,
+  ViewProps,
 } from "react-native";
 
-import { CustomButtonStyles } from "../../../constants/globalStyles";
+import { ImageStyles } from "../../../constants";
 import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
-interface ICustomButtonProps extends ITypographyProps {
+export type CustomButtonStyle = {
+  containerStyle?: ViewProps["style"];
+  textStyle?: ITypographyProps["style"];
+  iconStyle?: ImageProps["style"];
+};
+
+interface ICustomButtonProps extends CustomButtonStyle {
+  children?: ViewProps["children"];
+  imageSource?: ImageProps["source"];
   disabled?: boolean;
-  style?: StyleProp<ViewStyle>;
-  pressedStyle?: ViewStyle;
-  disabledStyle?: ViewStyle;
+  order?: "textIcon" | "iconText";
+  style?: CustomButtonStyle;
   onPress?: () => void;
 }
 
 export const CustomButton: React.FC<ICustomButtonProps> = ({
-  size = "i14",
-  weight = "semiBold",
-  color = "systemWhite",
-  textAlign = "center",
-  disabled,
-  textStyle,
-  style = CustomButtonStyles.regular_i1,
-  pressedStyle = styles.pressed,
-  disabledStyle = styles.disabled,
   children,
+  imageSource,
+  disabled,
+  order = "textIcon",
+  style,
+  containerStyle,
+  textStyle,
+  iconStyle,
   onPress,
 }) => {
   const getStyle = ({ pressed }: PressableStateCallbackType) => [
-    style,
-    disabled ? disabledStyle : pressed && pressedStyle,
+    styles.container,
+    order === "iconText" && styles.reversed,
+    style?.containerStyle,
+    containerStyle,
+    disabled ? styles.disabled : pressed && styles.pressed,
   ];
 
   return (
-    <Pressable disabled={disabled} onPress={onPress} style={getStyle}>
-      <Typography
-        size={size}
-        weight={weight}
-        color={color}
-        textAlign={textAlign}
-        textStyle={textStyle}
-      >
-        {children}
-      </Typography>
+    <Pressable style={getStyle} disabled={disabled} onPress={onPress}>
+      {children && (
+        <Typography style={[style?.textStyle, textStyle]}>
+          {children}
+        </Typography>
+      )}
+      {imageSource && (
+        <Image style={[ImageStyles.i1, iconStyle]} source={imageSource} />
+      )}
     </Pressable>
   );
 };

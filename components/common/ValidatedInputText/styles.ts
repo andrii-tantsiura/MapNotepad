@@ -1,51 +1,35 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../constants/colors";
-import { scaleSize } from "../../../utils/dimensions";
-import { FontSizes, FontWeights } from "../../../constants/typography";
+import { AppColors } from "../../../constants";
+import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
-  titleLabel: {
-    marginLeft: 12,
-    marginBottom: 10,
-    ...FontSizes.i12,
-    ...FontWeights.medium,
-    color: COLORS.systemDarkGray,
-  },
   inputContainer: {
     flexDirection: "row",
-    paddingRight: 12,
-    height: scaleSize(40),
+    columnGap: scaleSize(8),
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     borderWidth: 1,
     borderRadius: 2,
-    borderColor: COLORS.systemLightGray,
-  },
-  errorInputContainer: {
-    borderColor: COLORS.lightError,
+    borderColor: AppColors.systemLightGray,
   },
   input: {
     flex: 1,
-    paddingLeft: 12,
-    height: scaleSize(40),
-    ...FontSizes.i14,
-    ...FontWeights.medium,
-    color: COLORS.systemBlack,
+    paddingLeft: scaleSize(12),
+    height: scaleSize(41),
   },
-  errorLabel: {
-    marginTop: 4,
-    marginLeft: 12,
-    marginBottom: 5,
-    ...FontSizes.i10,
-    ...FontWeights.medium,
-    color: COLORS.lightError,
+  toggleHiddenButton: {
+    marginTop: 15,
   },
-  buttonsContainer: {
-    marginLeft: 8,
-    flexDirection: "row",
-    columnGap: 4,
+  clearButton: {
+    marginTop: 15,
+    marginRight: 14,
   },
-  button: {
-    justifyContent: "center",
+  focusedInputContainer: {
+    borderColor: AppColors.systemGray,
+  },
+  errorInputContainer: {
+    borderColor: AppColors.lightError,
   },
 });
 

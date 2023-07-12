@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import FlashMessage from "react-native-flash-message";
 
 import { LoaderView } from "../components/sections";
-import COLORS from "../constants/colors";
+import { AppColors } from "../constants";
 import { AuthContext } from "../store/AuthContextProvider";
 import AuthStack from "./AuthStack";
 import HomeStack from "./HomeStack";
@@ -13,7 +13,7 @@ const THEME = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: COLORS.systemWhite,
+    background: AppColors.systemWhite,
   },
 };
 

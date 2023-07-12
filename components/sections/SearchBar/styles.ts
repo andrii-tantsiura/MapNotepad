@@ -1,8 +1,7 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../constants/colors";
-import { scaleSize } from "../../../utils/dimensions";
-import { FontSizes, FontWeights } from "../../../constants/typography";
+import { AppColors } from "../../../constants";
+import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,14 +16,11 @@ const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: scaleSize(12),
     paddingLeft: 16,
-    ...FontSizes.i12,
-    ...FontWeights.regular,
-    color: COLORS.systemGray,
     paddingVertical: 3,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: COLORS.lightVariant,
-    backgroundColor: COLORS.lightVariant,
+    borderColor: AppColors.lightVariant,
+    backgroundColor: AppColors.lightVariant,
   },
 });
 export default styles;

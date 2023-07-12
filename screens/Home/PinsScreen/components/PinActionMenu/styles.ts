@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
-import COLORS from "../../../../../constants/colors";
-import { scaleSize } from "../../../../../utils/dimensions";
+import { AppColors } from "../../../../../constants";
+import { scaleSize } from "../../../../../utils";
 
 const styles = StyleSheet.create({
   hiddenActionMenu: {
@@ -12,12 +12,12 @@ const styles = StyleSheet.create({
   hiddenDeleteButton: {
     paddingVertical: scaleSize(24),
     paddingHorizontal: scaleSize(16),
-    backgroundColor: COLORS.lightError,
+    backgroundColor: AppColors.lightError,
   },
   hiddenEditButton: {
     paddingVertical: scaleSize(24),
     paddingHorizontal: scaleSize(16),
-    backgroundColor: COLORS.lightPrimary,
+    backgroundColor: AppColors.lightPrimary,
   },
 });
 

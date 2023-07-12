@@ -5,13 +5,11 @@ import { Marker, Region } from "react-native-maps";
 import { useSelector } from "react-redux";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import { IconButton } from "../../../components/common";
-import COLORS from "../../../constants/colors";
-import { IconButtonStyles } from "../../../constants/globalStyles";
-import { FontWeights } from "../../../constants/typography";
-import { useCurrentLocation } from "../../../hooks/useCurrentLocation";
+import { CustomButton } from "../../../components/common";
+import { AppColors, CustomButtonStyles } from "../../../constants";
+import { useCurrentLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
-import { selectPins } from "../../../store/redux/slices/pinsSlice";
+import { selectPins } from "../../../store/redux/slices";
 import styles from "./styles";
 
 const INITIAL_REGION = {
@@ -44,9 +42,9 @@ export const MapScreen: FC<TabProps> = () => {
   return (
     <View style={styles.container}>
       <MapView
-        clusterColor={COLORS.lightPrimary}
-        clusterFontFamily={FontWeights.regular.fontFamily}
-        clusterTextColor={COLORS.systemWhite}
+        clusterColor={AppColors.lightPrimary}
+        // clusterFontFamily={FontWeights.bold}
+        clusterTextColor={AppColors.systemWhite}
         style={styles.map}
         ref={mapViewRef}
         initialRegion={INITIAL_REGION}
@@ -65,9 +63,9 @@ export const MapScreen: FC<TabProps> = () => {
         ))}
       </MapView>
 
-      <IconButton
-        style={IconButtonStyles.float_i1}
-        source={LOCATION_ICON}
+      <CustomButton
+        style={CustomButtonStyles.roundFloating_i1}
+        imageSource={LOCATION_ICON}
         onPress={requestCurrentLocation}
       />
     </View>

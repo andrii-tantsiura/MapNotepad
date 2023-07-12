@@ -1,5 +1,4 @@
 import { FC, useState } from "react";
-import { Control, UseFormResetField } from "react-hook-form";
 import { View } from "react-native";
 
 import styles from "./styles";
@@ -8,8 +7,8 @@ import {
   LATITUDE_RULES,
   LONGITUDE_RULES,
   PIN_LABEL_RULES,
-} from "../../../utils/validationRules";
-import { ValidatedInputText } from "../../common";
+} from "../../../helpers";
+import { IFormController, InformativeTextInput } from "../../common";
 
 export type PinFormFieldValues = {
   label: string;
@@ -19,11 +18,10 @@ export type PinFormFieldValues = {
 };
 
 interface IPinFormProps {
-  control: Control<PinFormFieldValues, any>;
-  resetField: UseFormResetField<PinFormFieldValues>;
+  formController: IFormController;
 }
 
-export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
+export const PinForm: FC<IPinFormProps> = ({ formController }) => {
   const [isManualCoordsEdit, setIsManualCoordsEdit] = useState(false);
 
   const setManualCoordsEditHandler = () => setIsManualCoordsEdit(true);
@@ -32,31 +30,28 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
   return (
     <View style={styles.container}>
       {!isManualCoordsEdit && (
-        <View>
-          <ValidatedInputText
-            control={control}
-            resetField={resetField}
+        <>
+          <InformativeTextInput
+            formController={formController}
             name="label"
             rules={PIN_LABEL_RULES}
             title="Label"
             placeholder="Write a label"
           />
 
-          <ValidatedInputText
-            control={control}
-            resetField={resetField}
+          <InformativeTextInput
+            formController={formController}
             name="description"
             title="Description"
             placeholder="Write a description"
           />
-        </View>
+        </>
       )}
 
       <View style={styles.coordinatesContainer}>
         <View style={styles.coordinateContainer}>
-          <ValidatedInputText
-            control={control}
-            resetField={resetField}
+          <InformativeTextInput
+            formController={formController}
             name="longitude"
             keyboardType="numeric"
             title="Coordinates"
@@ -69,9 +64,8 @@ export const PinForm: FC<IPinFormProps> = ({ control, resetField }) => {
         </View>
 
         <View style={styles.coordinateContainer}>
-          <ValidatedInputText
-            control={control}
-            resetField={resetField}
+          <InformativeTextInput
+            formController={formController}
             name="latitude"
             rules={LATITUDE_RULES}
             keyboardType="numeric"

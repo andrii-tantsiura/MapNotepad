@@ -6,7 +6,7 @@ export enum ValidationErrorMessages {
   USERNAME_TOO_SHORT = "The name must be longer than 2 characters",
   USERNAME_TOO_LONG = "The name must be less than 50 characters long",
 
-  EMAIL_INVALID = "Email is invalid",
+  EMAIL_INVALID = "Wrong Email",
 
   PASSWORD_TOO_SHORT = "The password must consist of at least 8 characters",
   PASSWORD_MISMATCH = "Password mismatch",

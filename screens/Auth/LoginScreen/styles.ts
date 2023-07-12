@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
   container: {
@@ -7,11 +8,11 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   inputsContainer: {
-    rowGap: 4,
+    rowGap: scaleSize(8),
   },
   buttonsContainer: {
-    marginTop: 24,
-    rowGap: 16,
+    marginTop: scaleSize(26),
+    rowGap: scaleSize(16),
   },
 });
 
