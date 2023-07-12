@@ -1,18 +1,19 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors, ContainerStyles } from "../../../constants";
+import { AppColors, ContainerStyles, FontSizes } from "../../../constants";
+import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
   container: {
     ...ContainerStyles.i1,
     backgroundColor: AppColors.systemWhite,
     opacity: 0.8,
-    padding: 32,
+    padding: scaleSize(24),
   },
   message: {
-    // ...FontSizes.i14,
+    fontSize: FontSizes.i12,
     color: AppColors.systemWhite,
-    marginBottom: 12,
+    marginBottom: scaleSize(10),
   },
 });
 

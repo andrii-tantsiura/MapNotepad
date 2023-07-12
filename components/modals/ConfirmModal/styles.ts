@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import { AppColors, ContainerStyles, ShadowStyles } from "../../../constants";
+import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
   dialogContainer: {
@@ -8,10 +9,10 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.systemDarkGray80,
   },
   contentContainer: {
-    margin: 32,
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    rowGap: 10,
+    margin: scaleSize(24),
+    paddingVertical: scaleSize(16),
+    paddingHorizontal: scaleSize(20),
+    rowGap: scaleSize(8),
     backgroundColor: AppColors.systemWhite,
     borderRadius: 8,
     borderWidth: 1,
@@ -21,8 +22,8 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    columnGap: 24,
-    marginTop: 16,
+    columnGap: scaleSize(20),
+    marginTop: scaleSize(8),
   },
   buttonContainer: {
     width: "50%",
