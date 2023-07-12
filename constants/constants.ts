@@ -1,0 +1,2 @@
+export const DEFAULT_LATITUDE_DELTA = 0.025;
+export const DEFAULT_LONGITUDE_DELTA = 0.025;

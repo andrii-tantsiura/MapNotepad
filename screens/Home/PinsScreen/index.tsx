@@ -82,6 +82,8 @@ export const PinsScreen: FC = () => {
     row: RowMap<Pin>
   ) => {
     hidePinActionMenu(row, pin.id);
+
+    homeNavigation.navigate("EditPin", { pinId: pin.id });
   };
 
   const addPinHandler = () => homeNavigation.navigate("AddPin");
