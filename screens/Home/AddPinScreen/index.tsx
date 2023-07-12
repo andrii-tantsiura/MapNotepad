@@ -1,16 +1,17 @@
-import { FC, useLayoutEffect } from "react";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
 
 import { SAVE_ICON } from "../../../assets/icons";
-import { CustomButton, IFormController } from "../../../components/common";
+import { IFormController } from "../../../components/common";
 import {
   PinForm,
   PinFormFieldValues,
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
+import { useHeaderRightButton } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { addPin } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
@@ -67,17 +68,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const latitude = Number.parseFloat(watch("latitude"));
   const longitude = Number.parseFloat(watch("longitude"));
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <CustomButton
-          containerStyle={{ marginRight: 12 }}
-          imageSource={SAVE_ICON}
-          onPress={handleSubmit(savePinHandler)}
-        />
-      ),
-    });
-  }, []);
+  useHeaderRightButton(navigation, SAVE_ICON, handleSubmit(savePinHandler));
 
   return (
     <>
