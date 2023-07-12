@@ -1,45 +1,25 @@
 import React from "react";
-import { Text, TextProps, TextStyle } from "react-native";
+import { StyleProp, Text, TextProps, TextStyle } from "react-native";
 
-import COLORS, { IColors } from "../../../constants/colors";
-import {
-  FontSizes,
-  FontWeights,
-  IFontSizes,
-  IFontWeights,
-} from "../../../constants/typography";
+import { typographyStyleToTextStyle } from "../../../helpers";
+import { ITypographyStyle } from "./types";
 
-export interface ITypographyProps extends TextProps {
-  size?: keyof IFontSizes;
-  weight?: keyof IFontWeights;
-  color?: keyof IColors;
+export interface ITypographyProps extends Omit<TextProps, "style"> {
   textAlign?: TextStyle["textAlign"];
-  numberOfLines?: number;
-  textStyle?: TextStyle;
+  style?: StyleProp<ITypographyStyle>;
 }
 
 export const Typography: React.FC<ITypographyProps> = ({
-  size = "i14",
-  weight = "medium",
-  color = "systemWhite",
-  textAlign = "left",
-  numberOfLines = 1,
-  textStyle,
+  textAlign,
+  style,
   children,
   ...props
-}) => (
-  <Text
-    style={[
-      {
-        textAlign,
-        ...FontWeights[weight],
-        ...FontSizes[size],
-        color: COLORS[color],
-      },
-      textStyle,
-    ]}
-    {...props}
-  >
-    {children}
-  </Text>
-);
+}) => {
+  const textStyles = [typographyStyleToTextStyle(style), { textAlign }];
+
+  return (
+    <Text {...props} style={textStyles}>
+      {children}
+    </Text>
+  );
+};

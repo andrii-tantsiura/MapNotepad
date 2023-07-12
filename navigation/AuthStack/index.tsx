@@ -1,14 +1,13 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
-import { Image } from "react-native";
 
-import { LEFT_BLUE_ICON } from "../../assets/icons";
-import COLORS from "../../constants/colors";
-import { ImageStyles, TextStyles } from "../../constants/globalStyles";
-import LoginScreen from "../../screens/Auth/LoginScreen";
-import RegistrationCompletionScreen from "../../screens/Auth/RegistrationCompletionScreen";
-import RegistrationStartupScreen from "../../screens/Auth/RegistrationStartupScreen";
-import StartupScreen from "../../screens/Auth/StartupScreen";
+import { HeaderBackImage, HeaderTitle } from "../../components/sections";
+import {
+  LoginScreen,
+  RegistrationCompletionScreen,
+  RegistrationStartupScreen,
+  StartupScreen,
+} from "../../screens/Auth";
 import { AuthStackParamList } from "./types";
 
 const Stack = createStackNavigator<AuthStackParamList>();
@@ -19,13 +18,8 @@ const AuthStack: React.FC = () => (
     screenOptions={{
       headerShadowVisible: false,
       headerTitleAlign: "center",
-      headerStyle: {
-        backgroundColor: COLORS.systemWhite,
-      },
-      headerTitleStyle: TextStyles.header_i1,
-      headerBackImage: () => (
-        <Image style={ImageStyles.image_i1} source={LEFT_BLUE_ICON} />
-      ),
+      headerTitle: HeaderTitle,
+      headerBackImage: HeaderBackImage,
     }}
   >
     <Stack.Screen

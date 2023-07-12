@@ -5,16 +5,16 @@ import { View } from "react-native";
 import { GOOGLE_ICON } from "../../../assets/icons";
 import {
   CustomButton,
-  IconButton,
-  ValidatedInputText,
+  IFormController,
+  InformativeTextInput,
 } from "../../../components/common";
 import { Separator } from "../../../components/sections";
-import { IconButtonStyles } from "../../../constants/globalStyles";
+import { CustomButtonStyles } from "../../../constants";
+import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
-import { EMAIL_RULES, USERNAME_RULES } from "../../../utils/validationRules";
 import styles from "./styles";
 
-const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
+export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,
 }) => {
   const goToNextRegistrationStepHandler = (values: any) => {
@@ -24,34 +24,32 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
     });
   };
 
-  const {
-    control,
-    handleSubmit,
-    resetField,
-    formState: { isValid },
-  } = useForm({
+  const { control, handleSubmit, resetField, trigger } = useForm({
     defaultValues: {
       email: "",
       password: "",
     },
-    mode: "onTouched",
   });
+
+  const formController: IFormController = {
+    control,
+    resetField,
+    trigger,
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
+        <InformativeTextInput
+          formController={formController}
           name="name"
           rules={USERNAME_RULES}
           title="Name"
           placeholder="Enter name"
         />
 
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
+        <InformativeTextInput
+          formController={formController}
           name="email"
           rules={EMAIL_RULES}
           autoCapitalize="none"
@@ -63,7 +61,8 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          disabled={!isValid}
+          // disabled={!isValid}
+          style={CustomButtonStyles.rectSolid_i1}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
         >
           Next
@@ -71,10 +70,11 @@ const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
         <Separator>or</Separator>
 
-        <IconButton style={IconButtonStyles.outline_i1} source={GOOGLE_ICON} />
+        <CustomButton
+          style={CustomButtonStyles.rectOutline_i2}
+          imageSource={GOOGLE_ICON}
+        />
       </View>
     </View>
   );
 };
-
-export default RegistrationStartupScreen;

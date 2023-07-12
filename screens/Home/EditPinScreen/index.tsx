@@ -5,7 +5,7 @@ import { LatLng } from "react-native-maps";
 import { useSelector } from "react-redux";
 
 import { SAVE_ICON } from "../../../assets/icons";
-import { IconButton } from "../../../components/common";
+import { CustomButton, IFormController } from "../../../components/common";
 import {
   PinForm,
   PinFormFieldValues,
@@ -13,8 +13,8 @@ import {
   Separator,
 } from "../../../components/sections";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import { updatePin } from "../../../store/redux/actions/pin.actions";
-import { selectPins } from "../../../store/redux/slices/pinsSlice";
+import { updatePin } from "../../../store/redux/actions";
+import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
 import styles from "./styles";
@@ -33,6 +33,12 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
       },
       mode: "onTouched",
     });
+
+  const formController: IFormController = {
+    control,
+    trigger,
+    resetField,
+  };
 
   const setCoordinates = ({ latitude, longitude }: LatLng) => {
     setValue("latitude", String(latitude));
@@ -79,9 +85,9 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <IconButton
-          style={{ marginRight: 12 }}
-          source={SAVE_ICON}
+        <CustomButton
+          containerStyle={{ marginRight: 12 }}
+          imageSource={SAVE_ICON}
           onPress={handleSubmit(savePinHandler)}
         />
       ),
@@ -93,7 +99,7 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
       <Separator />
 
       <View style={styles.container}>
-        <PinForm control={control} resetField={resetField} />
+        <PinForm formController={formController} />
 
         <SelectLocationView
           latitude={latitude}

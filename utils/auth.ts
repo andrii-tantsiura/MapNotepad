@@ -1,5 +1,5 @@
 import { FIREBASE_API_KEY, post } from "../api/post";
-import { FirebaseAuthErrorMessages } from "../enums/firebaseAuthErrorMessages";
+import { FirebaseAuthErrorMessages } from "../enums";
 import {
   ISignInWithEmailPayload,
   ISignInWithEmailResponse,
@@ -7,7 +7,7 @@ import {
   ISignUpWithEmailResponse,
   LoginResult,
 } from "../types/auth";
-import { getEnumValue } from "./getEnumValue";
+import { getEnumValue } from "./enums";
 
 const AUTH_BASE_URL = "https://identitytoolkit.googleapis.com/v1/accounts:";
 const SIGN_UP_MODE = "signUp";

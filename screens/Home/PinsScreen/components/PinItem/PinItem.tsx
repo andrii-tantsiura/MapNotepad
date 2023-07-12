@@ -6,9 +6,13 @@ import {
   LIKE_GRAY_ICON,
   RIGHT_GRAY_ICON,
 } from "../../../../../assets/icons";
-import { IconButton, Typography } from "../../../../../components/common";
+import { CustomButton, Typography } from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
-import { ImageStyles } from "../../../../../constants/globalStyles";
+import {
+  ImageStyles,
+  textStyle_i11,
+  textStyle_i9,
+} from "../../../../../constants";
 import { Pin } from "../../../../../types/map";
 import styles from "./styles";
 
@@ -24,16 +28,16 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
     <View style={styles.container}>
       <View style={styles.content}>
         <View style={styles.infoContainer}>
-          <IconButton
-            style={styles.likeButton}
-            source={favoriteStatusIcon}
+          <CustomButton
+            containerStyle={styles.likeButton}
+            imageSource={favoriteStatusIcon}
             onPress={onPressFavoriteStatus}
           />
 
           <View style={styles.textLinesContainer}>
-            <Typography color="systemBlack">{data.label}</Typography>
+            <Typography style={textStyle_i9}>{data.label}</Typography>
 
-            <Typography weight="regular" size="i12" color="systemDarkGray">
+            <Typography style={textStyle_i11}>
               {data.location.latitude}
               {", "}
               {data.location.longitude}
@@ -41,7 +45,7 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
           </View>
         </View>
 
-        <Image style={ImageStyles.image_i1} source={RIGHT_GRAY_ICON} />
+        <Image style={ImageStyles.i1} source={RIGHT_GRAY_ICON} />
       </View>
 
       <Separator />

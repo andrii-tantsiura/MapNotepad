@@ -5,37 +5,37 @@ import { View } from "react-native";
 import { GOOGLE_ICON } from "../../../assets/icons";
 import {
   CustomButton,
-  IconButton,
-  ValidatedInputText,
+  IFormController,
+  InformativeTextInput,
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { IconButtonStyles } from "../../../constants/globalStyles";
-import { ErrorMessages } from "../../../enums/errorMessages";
+import { CustomButtonStyles } from "../../../constants";
+import { ErrorMessages } from "../../../enums";
+import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import { AuthContext } from "../../../store/AuthContextProvider";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { loginWithEmail } from "../../../utils/auth";
-import { EMAIL_RULES, PASSWORD_RULES } from "../../../utils/validationRules";
+import { loginWithEmail } from "../../../utils";
 import styles from "./styles";
 
-const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
+export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const isConnected = useContext(NetworkInfoContext);
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    control,
-    resetField,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm({
+  const { control, trigger, resetField, handleSubmit } = useForm({
     defaultValues: {
       email: route.params?.email ?? "",
       password: "",
     },
-    mode: "onTouched",
   });
+
+  const formController: IFormController = {
+    control,
+    resetField,
+    trigger,
+  };
 
   const submitHandler = async (values: any) => {
     if (isConnected) {
@@ -65,22 +65,20 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
-          name="email"
+        <InformativeTextInput
+          formController={formController}
           rules={EMAIL_RULES}
+          name="email"
           title="Email"
-          placeholder="Enter email"
           autoCapitalize="none"
+          placeholder="Enter email"
           keyboardType="email-address"
         />
 
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
-          name="password"
+        <InformativeTextInput
+          formController={formController}
           rules={PASSWORD_RULES}
+          name="password"
           title="Password"
           placeholder="Enter password"
           autoCapitalize="none"
@@ -89,16 +87,20 @@ const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
       </View>
 
       <View style={styles.buttonsContainer}>
-        <CustomButton onPress={handleSubmit(submitHandler)} disabled={!isValid}>
+        <CustomButton
+          style={CustomButtonStyles.rectSolid_i1}
+          onPress={handleSubmit(submitHandler)}
+        >
           Login
         </CustomButton>
 
         <Separator>or</Separator>
 
-        <IconButton style={IconButtonStyles.outline_i1} source={GOOGLE_ICON} />
+        <CustomButton
+          style={CustomButtonStyles.rectOutline_i2}
+          imageSource={GOOGLE_ICON}
+        />
       </View>
     </View>
   );
 };
-
-export default LoginScreen;

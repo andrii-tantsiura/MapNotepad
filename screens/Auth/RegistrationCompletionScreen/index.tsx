@@ -6,43 +6,38 @@ import { View } from "react-native";
 import { GOOGLE_ICON } from "../../../assets/icons";
 import {
   CustomButton,
-  IconButton,
-  ValidatedInputText,
+  IFormController,
+  InformativeTextInput,
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { IconButtonStyles } from "../../../constants/globalStyles";
-import { ErrorMessages } from "../../../enums/errorMessages";
-import { FirebaseAuthErrorCodes } from "../../../enums/firebaseAuthErrorCodes";
-import { ValidationErrorMessages } from "../../../enums/validationMessages";
+import { CustomButtonStyles } from "../../../constants";
+import { ErrorMessages, FirebaseAuthErrorCodes } from "../../../enums";
+import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { createUserWithEmail } from "../../../utils/auth";
-import { PASSWORD_RULES } from "../../../utils/validationRules";
+import { createUserWithEmail } from "../../../utils";
 import styles from "./styles";
 
-const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
+export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
 }: AuthScreenProps) => {
   const isConnected = useContext(NetworkInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    control,
-    resetField,
-    watch,
-    handleSubmit,
-    formState: { isValid },
-  } = useForm({
+  const { control, resetField, trigger, watch, handleSubmit } = useForm({
     defaultValues: {
       password: "",
       confirmPassword: "",
     },
-    mode: "onTouched",
   });
 
-  const watchedPassword = watch("password");
+  const formController: IFormController = {
+    control,
+    resetField,
+    trigger,
+  };
 
   const createAccountHandler = async (values: any) => {
     if (isConnected) {
@@ -87,47 +82,42 @@ const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.inputsContainer}>
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
-          name="password"
+        <InformativeTextInput
+          formController={formController}
           rules={PASSWORD_RULES}
+          name="password"
           secureTextEntry
           autoCapitalize="none"
           title="Password"
           placeholder="Create password"
         />
 
-        <ValidatedInputText
-          control={control}
-          resetField={resetField}
+        <InformativeTextInput
+          formController={formController}
+          rules={getConfirmPasswordRules(watch("password"))}
           name="confirmPassword"
-          rules={{
-            required: ValidationErrorMessages.REQUIRED,
-            validate: (value) =>
-              value === watchedPassword ||
-              ValidationErrorMessages.PASSWORD_MISMATCH,
-          }}
           secureTextEntry
           autoCapitalize="none"
           title="Confirm password"
           placeholder="Repeat password"
         />
       </View>
+
       <View style={styles.buttonsContainer}>
         <CustomButton
+          style={CustomButtonStyles.rectSolid_i1}
           onPress={handleSubmit(createAccountHandler)}
-          disabled={!isValid}
         >
           Create account
         </CustomButton>
 
         <Separator>or</Separator>
 
-        <IconButton style={IconButtonStyles.outline_i1} source={GOOGLE_ICON} />
+        <CustomButton
+          style={CustomButtonStyles.rectOutline_i2}
+          imageSource={GOOGLE_ICON}
+        />
       </View>
     </View>
   );
 };
-
-export default RegistrationCompletionScreen;

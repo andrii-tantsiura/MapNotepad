@@ -6,15 +6,16 @@ import { RowMap, SwipeListView } from "react-native-swipe-list-view";
 import { useSelector } from "react-redux";
 
 import { PLUS_ICON } from "../../../assets/icons";
-import { IconButton } from "../../../components/common";
-import { ConfirmModal } from "../../../components/modals/ConfirmModal";
+import { CustomButton } from "../../../components/common";
+import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
+import { CustomButtonStyles } from "../../../constants";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import {
   deletePin,
   toggleFavoritePinStatus,
-} from "../../../store/redux/actions/pin.actions";
-import { selectPins } from "../../../store/redux/slices/pinsSlice";
+} from "../../../store/redux/actions";
+import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { Pin } from "../../../types/map";
 import {
@@ -134,9 +135,9 @@ export const PinsScreen: FC = () => {
         rightOpenValue={-PIN_ACTION_MENU_WIDTH}
       />
 
-      <IconButton
-        style={styles.addPinButton}
-        source={PLUS_ICON}
+      <CustomButton
+        style={CustomButtonStyles.roundFloating_i2}
+        imageSource={PLUS_ICON}
         onPress={addPinHandler}
       />
     </View>
