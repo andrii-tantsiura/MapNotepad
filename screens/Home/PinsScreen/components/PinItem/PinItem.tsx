@@ -13,11 +13,11 @@ import {
   textStyle_i11,
   textStyle_i9,
 } from "../../../../../constants";
-import { Pin } from "../../../../../types/map";
+import { IPin } from "../../../../../types/map";
 import styles from "./styles";
 
 interface IPinItemProps {
-  data: Pin;
+  data: IPin;
   onPressFavoriteStatus: () => void;
 }
 

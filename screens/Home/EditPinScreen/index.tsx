@@ -17,7 +17,7 @@ import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { updatePin } from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
-import { Pin } from "../../../types/map";
+import { IPin } from "../../../types/map";
 import styles from "./styles";
 
 export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
@@ -48,7 +48,7 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
     longitude,
   }: PinFormFieldValues) => {
     if (pin) {
-      const pinToUpdate: Pin = {
+      const pinToUpdate: IPin = {
         id: pin.id,
         label,
         description,

@@ -17,7 +17,7 @@ import {
 } from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
-import { Pin } from "../../../types/map";
+import { IPin } from "../../../types/map";
 import {
   PIN_ACTION_MENU_WIDTH,
   PinActionMenu,
@@ -31,7 +31,7 @@ type HomeScreenNavigationProp = StackNavigationProp<
 >;
 
 const hidePinActionMenu = (
-  rowMap: RowMap<Pin> | undefined,
+  rowMap: RowMap<IPin> | undefined,
   pinKey: string | undefined
 ) => {
   if (pinKey) {
@@ -43,19 +43,19 @@ export const PinsScreen: FC = () => {
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
   const dispatch = useAppDispatch();
 
-  const [selectedPinRow, setSelectedPinRow] = useState<RowMap<Pin>>();
+  const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPin>>();
   const [selectedPinId, setSelectedPinId] = useState<string>();
   const [isRemovePinConfirmationShown, setIsRemovePinConfirmationVisible] =
     useState(false);
 
   const pins = useSelector(selectPins);
 
-  const toggleFavoriteStatusHandler = (pin: Pin) =>
+  const toggleFavoriteStatusHandler = (pin: IPin) =>
     dispatch(toggleFavoritePinStatus(pin.id));
 
   const deletePinHandler = (
-    { item: pin }: ListRenderItemInfo<Pin>,
-    row: RowMap<Pin>
+    { item: pin }: ListRenderItemInfo<IPin>,
+    row: RowMap<IPin>
   ) => {
     setSelectedPinId(pin.id);
     setSelectedPinRow(row);
@@ -78,8 +78,8 @@ export const PinsScreen: FC = () => {
   };
 
   const editPinHandler = (
-    { item: pin }: ListRenderItemInfo<Pin>,
-    row: RowMap<Pin>
+    { item: pin }: ListRenderItemInfo<IPin>,
+    row: RowMap<IPin>
   ) => {
     hidePinActionMenu(row, pin.id);
 
@@ -88,7 +88,7 @@ export const PinsScreen: FC = () => {
 
   const addPinHandler = () => homeNavigation.navigate("AddPin");
 
-  const renderPinItem = ({ item: pin }: ListRenderItemInfo<Pin>) => (
+  const renderPinItem = ({ item: pin }: ListRenderItemInfo<IPin>) => (
     <PinItem
       data={pin}
       onPressFavoriteStatus={() => toggleFavoriteStatusHandler(pin)}
@@ -96,8 +96,8 @@ export const PinsScreen: FC = () => {
   );
 
   const renderHiddenActionMenu = (
-    pin: ListRenderItemInfo<Pin>,
-    row: RowMap<Pin>
+    pin: ListRenderItemInfo<IPin>,
+    row: RowMap<IPin>
   ) => (
     <PinActionMenu
       onDelete={() => deletePinHandler(pin, row)}

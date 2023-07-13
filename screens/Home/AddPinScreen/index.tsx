@@ -13,9 +13,11 @@ import {
 } from "../../../components/sections";
 import { useHeaderRightButton } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
+import AlertService from "../../../services/AlertService";
+import PinsService from "../../../services/PinsService";
 import { addPin } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
-import { Pin } from "../../../types/map";
+import { IPin, IPinPayload } from "../../../types/map";
 import styles from "./styles";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
@@ -38,14 +40,13 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     trigger("longitude");
   };
 
-  const savePinHandler = ({
+  const savePinHandler = async ({
     label,
     description,
     latitude,
     longitude,
   }: PinFormFieldValues) => {
-    const newPin: Pin = {
-      id: Date.now().toString(),
+    const newPin: IPinPayload = {
       label,
       description,
       location: {
@@ -55,10 +56,21 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
       isFavorite: true,
     };
 
-    dispatch(addPin(newPin));
+    const createPinResult = await PinsService.createPin(newPin);
 
-    if (navigation.canGoBack()) {
-      navigation.goBack();
+    if (createPinResult.isSuccess && createPinResult.result) {
+      const localPin: IPin = {
+        id: createPinResult.result,
+        ...newPin,
+      };
+
+      dispatch(addPin(localPin));
+
+      if (navigation.canGoBack()) {
+        navigation.goBack();
+      }
+    } else {
+      AlertService.error(createPinResult.toString());
     }
   };
 

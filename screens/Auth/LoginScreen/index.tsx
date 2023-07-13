@@ -42,7 +42,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
     if (loginResult.isSuccess && loginResult.result) {
       authContext.authenticate(loginResult.result.idToken);
     } else {
-      AlertService.error(loginResult.getErrorDescription());
+      AlertService.error(loginResult.toString());
     }
 
     setIsLoading(false);
