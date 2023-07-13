@@ -17,7 +17,7 @@ import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { updatePin } from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
-import { IPin } from "../../../types/map";
+import { IPin } from "../../../types";
 import styles from "./styles";
 
 export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {

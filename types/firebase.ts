@@ -1,3 +1,5 @@
+import { LatLng } from "react-native-maps";
+
 export interface Error {
   [key: string]: string;
 }
@@ -34,4 +36,15 @@ export interface LoginResult {
   idToken?: string;
   errorCode?: string;
   errorMessage?: string;
+}
+
+export interface ICreatePinResponse extends ErrorResponse {
+  name: string;
+}
+
+export interface ICreatePinPayload {
+  location: LatLng;
+  label: string;
+  description?: string;
+  isFavorite?: boolean;
 }

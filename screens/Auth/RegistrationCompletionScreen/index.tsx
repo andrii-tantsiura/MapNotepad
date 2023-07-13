@@ -15,7 +15,7 @@ import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
-import { CreatePasswordForm } from "../../../types/forms";
+import { CreatePasswordForm } from "../../../types";
 import styles from "./styles";
 
 export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
@@ -61,7 +61,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         })
       );
     } else {
-      AlertService.error(registerResult.getErrorDescription());
+      AlertService.error(registerResult.toString());
     }
   };
 

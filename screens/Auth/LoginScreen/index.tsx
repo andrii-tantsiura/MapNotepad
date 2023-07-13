@@ -15,7 +15,7 @@ import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
 import { AuthContext } from "../../../store/AuthContextProvider";
-import { LoginForm } from "../../../types/forms";
+import { LoginForm } from "../../../types";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {

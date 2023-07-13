@@ -7,10 +7,3 @@ export interface IPin {
   description?: string;
   isFavorite?: boolean;
 }
-
-export interface IPinPayload {
-  location: LatLng;
-  label: string;
-  description?: string;
-  isFavorite?: boolean;
-}

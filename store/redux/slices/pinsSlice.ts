@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { IPin } from "../../../types/map";
+import { IPin } from "../../../types";
 import {
   addPin,
   deletePin,

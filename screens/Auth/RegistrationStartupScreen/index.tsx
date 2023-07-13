@@ -12,7 +12,7 @@ import { Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
-import { CreateUserForm } from "../../../types/forms";
+import { CreateUserForm } from "../../../types";
 import styles from "./styles";
 
 export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({

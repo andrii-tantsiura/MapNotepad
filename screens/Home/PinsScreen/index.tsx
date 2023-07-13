@@ -17,7 +17,7 @@ import {
 } from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
-import { IPin } from "../../../types/map";
+import { IPin } from "../../../types";
 import {
   PIN_ACTION_MENU_WIDTH,
   PinActionMenu,

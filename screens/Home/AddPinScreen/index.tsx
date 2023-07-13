@@ -17,7 +17,7 @@ import AlertService from "../../../services/AlertService";
 import PinsService from "../../../services/PinsService";
 import { addPin } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
-import { IPin, IPinPayload } from "../../../types/map";
+import { ICreatePinPayload, IPin } from "../../../types";
 import styles from "./styles";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
@@ -46,7 +46,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     latitude,
     longitude,
   }: PinFormFieldValues) => {
-    const newPin: IPinPayload = {
+    const newPin: ICreatePinPayload = {
       label,
       description,
       location: {
@@ -59,12 +59,12 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     const createPinResult = await PinsService.createPin(newPin);
 
     if (createPinResult.isSuccess && createPinResult.result) {
-      const localPin: IPin = {
-        id: createPinResult.result,
+      const pin: IPin = {
+        id: createPinResult.result.name,
         ...newPin,
       };
 
-      dispatch(addPin(localPin));
+      dispatch(addPin(pin));
 
       if (navigation.canGoBack()) {
         navigation.goBack();

@@ -13,7 +13,7 @@ import {
   textStyle_i11,
   textStyle_i9,
 } from "../../../../../constants";
-import { IPin } from "../../../../../types/map";
+import { IPin } from "../../../../../types";
 import styles from "./styles";
 
 interface IPinItemProps {

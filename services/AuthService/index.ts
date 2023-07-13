@@ -1,16 +1,18 @@
-// import { FIREBASE_API_KEY } from "../api/post";
+import { FIREBASE_API_KEY, FIREBASE_AUTH_API_URL } from "../../config";
 import { AOResult } from "../../helpers/AOResult";
 import {
   ISignInWithEmailPayload,
   ISignInWithEmailResponse,
   ISignUpWithEmailPayload,
   ISignUpWithEmailResponse,
-} from "../../types/firebase";
+} from "../../types";
 import { postToFirebase } from "../../utils";
-import {
-  LOGIN_WITH_EMAIL_URL,
-  REGISTER_WITH_EMAIL_URL,
-} from "../../utils/firebase/constants";
+
+export const LOGIN_WITH_EMAIL_URL =
+  FIREBASE_AUTH_API_URL + "signInWithPassword?key=" + FIREBASE_API_KEY;
+
+export const REGISTER_WITH_EMAIL_URL =
+  FIREBASE_AUTH_API_URL + "signUp?key=" + FIREBASE_API_KEY;
 
 class AuthService {
   registerWithEmail = async (
