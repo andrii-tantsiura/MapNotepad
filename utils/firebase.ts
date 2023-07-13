@@ -1,7 +1,9 @@
-import request, { AxiosResponse } from "axios";
+import axios, { AxiosResponse } from "axios";
 
-import { ExecuteAsync, FailureCallback } from "../helpers/AOResult";
+import { FIREBASE_DATABASE_API_URL } from "../config";
+import { AOResult, ExecuteAsync, FailureCallback } from "../helpers/AOResult";
 import { ErrorResponse } from "../types";
+import { getAxiosRequestConfig } from "./responseTransformers";
 
 export const postToFirebase = async <TPayload, TResponse extends ErrorResponse>(
   url: string,
@@ -11,14 +13,14 @@ export const postToFirebase = async <TPayload, TResponse extends ErrorResponse>(
     let response = {} as TResponse;
 
     try {
-      const { data } = await request.post<TPayload, AxiosResponse<TResponse>>(
+      const { data } = await axios.post<TPayload, AxiosResponse<TResponse>>(
         url,
         payload
       );
 
       response = data;
     } catch (err: any) {
-      if (request.isAxiosError<TResponse>(err) && err.response) {
+      if (axios.isAxiosError<TResponse>(err) && err.response) {
         const errorResponseData = err.response?.data as TResponse;
 
         console.log(errorResponseData);
@@ -32,3 +34,16 @@ export const postToFirebase = async <TPayload, TResponse extends ErrorResponse>(
     return response;
   });
 };
+
+export const getArrayFromFirebase = <T>(
+  path: string,
+  reviver?: (key: string, value: any) => any
+): Promise<AOResult<T[]>> =>
+  ExecuteAsync(async (onFailure: FailureCallback): Promise<T[]> => {
+    const response = await axios.get<T[]>(
+      FIREBASE_DATABASE_API_URL + path,
+      getAxiosRequestConfig<T>(reviver)
+    );
+
+    return response.data;
+  });

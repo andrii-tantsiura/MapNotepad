@@ -4,6 +4,7 @@ import { IPin } from "../../../types";
 import {
   addPin,
   deletePin,
+  setPins,
   toggleFavoritePinStatus,
   updatePin,
 } from "../actions/pin.actions";
@@ -39,6 +40,9 @@ const pinsSlice = createSlice({
       })
       .addCase(deletePin, (state, action) => {
         state.pins = state.pins.filter((x) => x.id !== action.payload);
+      })
+      .addCase(setPins, (state, action) => {
+        state.pins = action.payload;
       });
   },
 });

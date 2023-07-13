@@ -14,7 +14,10 @@ import {
 } from "../../../constants";
 import { useCurrentLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
+import PinsService from "../../../services/PinsService";
+import { setPins } from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
+import { useAppDispatch } from "../../../store/redux/store";
 import styles from "./styles";
 
 const INITIAL_REGION = {
@@ -25,11 +28,22 @@ const INITIAL_REGION = {
 };
 
 export const MapScreen: FC<TabProps> = () => {
+  const dispatch = useAppDispatch();
   const mapViewRef = useRef<MapView>(null);
   const [currentLocation, requestCurrentLocation] = useCurrentLocation(true);
 
   const pins = useSelector(selectPins);
   const favoritePins = pins.filter((x) => x.isFavorite);
+
+  useEffect(() => {
+    (async () => {
+      const getPinsResult = await PinsService.getPins();
+
+      if (getPinsResult.isSuccess && getPinsResult.result) {
+        dispatch(setPins(getPinsResult.result));
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     if (currentLocation) {
