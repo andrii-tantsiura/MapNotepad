@@ -10,24 +10,21 @@ import {
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { ErrorMessages } from "../../../enums";
 import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
+import AuthService from "../../../services/AuthService";
 import { AuthContext } from "../../../store/AuthContextProvider";
-import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { loginWithEmail } from "../../../utils";
+import { LoginForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
-  const isConnected = useContext(NetworkInfoContext);
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, trigger, resetField, handleSubmit } = useForm({
+  const { control, trigger, resetField, handleSubmit } = useForm<LoginForm>({
     defaultValues: {
-      email: route.params?.email ?? "",
-      password: "",
+      email: route.params?.email,
     },
   });
 
@@ -37,25 +34,18 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
     trigger,
   };
 
-  const submitHandler = async (values: any) => {
-    if (isConnected) {
-      setIsLoading(true);
+  const submitHandler = async ({ email, password }: LoginForm) => {
+    setIsLoading(true);
 
-      const { idToken, errorMessage } = await loginWithEmail(
-        values.email,
-        values.password
-      );
+    const loginResult = await AuthService.loginWithEmail(email, password);
 
-      setIsLoading(false);
-
-      if (idToken) {
-        authContext.authenticate(idToken);
-      } else if (errorMessage) {
-        AlertService.error(errorMessage);
-      }
+    if (loginResult.isSuccess && loginResult.result) {
+      authContext.authenticate(loginResult.result.idToken);
     } else {
-      AlertService.error(ErrorMessages.NO_INTERNET_CONNECTION);
+      AlertService.error(loginResult.getErrorDescription());
     }
+
+    setIsLoading(false);
   };
 
   if (isLoading) {

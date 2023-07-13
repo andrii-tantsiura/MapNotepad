@@ -1,5 +1,5 @@
 import { CommonActions } from "@react-navigation/native";
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
@@ -11,27 +11,21 @@ import {
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { ErrorMessages, FirebaseAuthErrorCodes } from "../../../enums";
 import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
-import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { createUserWithEmail } from "../../../utils";
+import AuthService from "../../../services/AuthService";
+import { CreatePasswordForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
 }: AuthScreenProps) => {
-  const isConnected = useContext(NetworkInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, resetField, trigger, watch, handleSubmit } = useForm({
-    defaultValues: {
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  const { control, resetField, trigger, watch, handleSubmit } =
+    useForm<CreatePasswordForm>();
 
   const formController: IFormController = {
     control,
@@ -39,39 +33,35 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
     trigger,
   };
 
-  const createAccountHandler = async (values: any) => {
-    if (isConnected) {
-      setIsLoading(true);
+  const createAccountHandler = async ({ password }: CreatePasswordForm) => {
+    setIsLoading(true);
 
-      const { errorCode, errorMessage } = await createUserWithEmail(
-        route.params?.email ?? "",
-        values.password
-      );
+    const registerResult = await AuthService.registerWithEmail(
+      route.params?.email ?? "",
+      password
+    );
 
-      setIsLoading(false);
+    setIsLoading(false);
 
-      if (errorMessage) {
-        if (errorCode === FirebaseAuthErrorCodes.EMAIL_EXISTS) {
-          navigation.goBack();
-        }
-
-        AlertService.error(errorMessage);
-      } else {
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [
-              { name: "Startup" },
-              {
-                name: "Login",
-                params: { email: route.params?.email },
+    if (registerResult.isSuccess && registerResult.result) {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {
+              name: "Startup",
+            },
+            {
+              name: "Login",
+              params: {
+                email: route.params?.email,
               },
-            ],
-          })
-        );
-      }
+            },
+          ],
+        })
+      );
     } else {
-      AlertService.error(ErrorMessages.NO_INTERNET_CONNECTION);
+      AlertService.error(registerResult.getErrorDescription());
     }
   };
 

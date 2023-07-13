@@ -12,24 +12,21 @@ import { Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
+import { CreateUserForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,
 }) => {
-  const goToNextRegistrationStepHandler = (values: any) => {
+  const goToNextRegistrationStepHandler = ({ name, email }: CreateUserForm) => {
     navigation.navigate("RegistrationCompletion", {
-      name: values.name,
-      email: values.email,
+      name,
+      email,
     });
   };
 
-  const { control, handleSubmit, resetField, trigger } = useForm({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+  const { control, handleSubmit, resetField, trigger } =
+    useForm<CreateUserForm>();
 
   const formController: IFormController = {
     control,

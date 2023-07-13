@@ -1,14 +1,14 @@
-export interface AuthErrorResponse {
+export interface Error {
+  [key: string]: string;
+}
+
+export interface ErrorResponse {
   error: {
-    // code: number;
-    // errors: AuthErrorDetail[];
+    code: number;
+    errors: Error[];
     message: string;
   };
 }
-
-// export interface AuthErrorDetail {
-//   [key: string]: string;
-// }
 
 export interface ISignUpWithEmailPayload {
   email: string;
@@ -18,7 +18,7 @@ export interface ISignUpWithEmailPayload {
 
 export interface ISignInWithEmailPayload extends ISignUpWithEmailPayload {}
 
-export interface ISignUpWithEmailResponse {
+export interface ISignUpWithEmailResponse extends ErrorResponse {
   idToken: string;
   email: string;
   refreshToken: string;
