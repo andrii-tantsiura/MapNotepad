@@ -1,13 +1,15 @@
 import { LatLng } from "react-native-maps";
 
-export interface Error {
+import { IPin } from "./map";
+
+export interface IError {
   [key: string]: string;
 }
 
-export interface ErrorResponse {
+export interface IErrorResponse {
   error: {
     code: number;
-    errors: Error[];
+    errors: IError[];
     message: string;
   };
 }
@@ -20,7 +22,7 @@ export interface ISignUpWithEmailPayload {
 
 export interface ISignInWithEmailPayload extends ISignUpWithEmailPayload {}
 
-export interface ISignUpWithEmailResponse extends ErrorResponse {
+export interface ISignUpWithEmailResponse extends IErrorResponse {
   idToken: string;
   email: string;
   refreshToken: string;
@@ -32,19 +34,23 @@ export interface ISignInWithEmailResponse extends ISignUpWithEmailResponse {
   registered: boolean;
 }
 
-export interface LoginResult {
+export interface ILoginResult {
   idToken?: string;
   errorCode?: string;
   errorMessage?: string;
 }
 
-export interface ICreatePinResponse extends ErrorResponse {
+export interface ICreatePinResponse extends IErrorResponse {
   name: string;
 }
 
-export interface ICreatePinPayload {
+export interface IPinPayload {
   location: LatLng;
   label: string;
   description?: string;
   isFavorite?: boolean;
+}
+
+export interface IPinsResponse extends IErrorResponse {
+  pins: IPin[];
 }

@@ -15,14 +15,14 @@ import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
 import { AuthContext } from "../../../store/AuthContextProvider";
-import { LoginForm } from "../../../types";
+import { ILoginForm } from "../../../types";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, trigger, resetField, handleSubmit } = useForm<LoginForm>({
+  const { control, trigger, resetField, handleSubmit } = useForm<ILoginForm>({
     defaultValues: {
       email: route.params?.email,
     },
@@ -34,7 +34,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
     trigger,
   };
 
-  const submitHandler = async ({ email, password }: LoginForm) => {
+  const submitHandler = async ({ email, password }: ILoginForm) => {
     setIsLoading(true);
 
     const loginResult = await AuthService.loginWithEmail(email, password);

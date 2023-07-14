@@ -14,6 +14,8 @@ import {
 } from "../../../components/sections";
 import { useHeaderRightButton } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
+import AlertService from "../../../services/AlertService";
+import PinsService from "../../../services/PinsService";
 import { updatePin } from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
@@ -41,7 +43,7 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
     trigger("longitude");
   };
 
-  const savePinHandler = ({
+  const savePinHandler = async ({
     label,
     description,
     latitude,
@@ -59,11 +61,17 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
         isFavorite: pin.isFavorite,
       };
 
-      dispatch(updatePin(pinToUpdate));
-    }
+      const updatePinResult = await PinsService.updatePin(pinToUpdate);
 
-    if (navigation.canGoBack()) {
-      navigation.goBack();
+      if (updatePinResult.isSuccess) {
+        dispatch(updatePin(pinToUpdate));
+
+        if (navigation.canGoBack()) {
+          navigation.goBack();
+        }
+      } else {
+        AlertService.error(updatePinResult.toString());
+      }
     }
   };
 

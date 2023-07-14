@@ -15,7 +15,7 @@ import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
-import { CreatePasswordForm } from "../../../types";
+import { ICreatePasswordForm } from "../../../types";
 import styles from "./styles";
 
 export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
@@ -25,7 +25,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   const [isLoading, setIsLoading] = useState(false);
 
   const { control, resetField, trigger, watch, handleSubmit } =
-    useForm<CreatePasswordForm>();
+    useForm<ICreatePasswordForm>();
 
   const formController: IFormController = {
     control,
@@ -33,7 +33,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
     trigger,
   };
 
-  const createAccountHandler = async ({ password }: CreatePasswordForm) => {
+  const createAccountHandler = async ({ password }: ICreatePasswordForm) => {
     setIsLoading(true);
 
     const registerResult = await AuthService.registerWithEmail(

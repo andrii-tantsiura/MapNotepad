@@ -2,17 +2,17 @@ interface BaseForm {
   [key: string]: string;
 }
 
-export interface LoginForm extends BaseForm {
+export interface ILoginForm extends BaseForm {
   email: string;
   password: string;
 }
 
-export interface CreateUserForm extends BaseForm {
+export interface ICreateUserForm extends BaseForm {
   name: string;
   email: string;
 }
 
-export interface CreatePasswordForm extends BaseForm {
+export interface ICreatePasswordForm extends BaseForm {
   password: string;
   confirmPassword: string;
 }

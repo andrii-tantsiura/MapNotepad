@@ -6,7 +6,7 @@ import {
   ISignUpWithEmailPayload,
   ISignUpWithEmailResponse,
 } from "../../types";
-import { postToFirebase } from "../../utils";
+import { requestWithPayload } from "../../utils";
 
 export const LOGIN_WITH_EMAIL_URL =
   FIREBASE_AUTH_API_URL + "signInWithPassword?key=" + FIREBASE_API_KEY;
@@ -25,10 +25,10 @@ class AuthService {
       returnSecureToken: true,
     };
 
-    return postToFirebase<ISignUpWithEmailPayload, ISignUpWithEmailResponse>(
-      REGISTER_WITH_EMAIL_URL,
-      payload
-    );
+    return requestWithPayload<
+      ISignUpWithEmailPayload,
+      ISignUpWithEmailResponse
+    >("post", REGISTER_WITH_EMAIL_URL, payload);
   };
 
   loginWithEmail = async (
@@ -41,10 +41,10 @@ class AuthService {
       returnSecureToken: true,
     };
 
-    return postToFirebase<ISignInWithEmailPayload, ISignInWithEmailResponse>(
-      LOGIN_WITH_EMAIL_URL,
-      payload
-    );
+    return requestWithPayload<
+      ISignInWithEmailPayload,
+      ISignInWithEmailResponse
+    >("post", LOGIN_WITH_EMAIL_URL, payload);
   };
 }
 

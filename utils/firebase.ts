@@ -1,49 +1,84 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { FIREBASE_DATABASE_API_URL } from "../config";
-import { AOResult, ExecuteAsync, FailureCallback } from "../helpers/AOResult";
-import { ErrorResponse } from "../types";
-import { getAxiosRequestConfig } from "./responseTransformers";
+import { ExecuteAsync, FailureCallback } from "../helpers/AOResult";
+import { IErrorResponse, IBaseModel } from "../types";
 
-export const postToFirebase = async <TPayload, TResponse extends ErrorResponse>(
-  url: string,
-  payload: TPayload
-) => {
-  return ExecuteAsync<TResponse>(async (onFailure: FailureCallback) => {
-    let response = {} as TResponse;
+interface IModels {
+  [index: string]: IBaseModel;
+}
 
-    try {
-      const { data } = await axios.post<TPayload, AxiosResponse<TResponse>>(
-        url,
-        payload
-      );
+function withFirebaseModelsToArray<T>(
+  reviver?: (key: string, value: any) => any
+) {
+  return function (response: AxiosResponse): Array<T> {
+    const models = JSON.parse(String(response), reviver) as IModels;
+    const array: Array<T> = [];
 
-      response = data;
-    } catch (err: any) {
-      if (axios.isAxiosError<TResponse>(err) && err.response) {
-        const errorResponseData = err.response?.data as TResponse;
+    for (const key in models) {
+      models[key].id = key;
 
-        console.log(errorResponseData);
-
-        onFailure(errorResponseData.error.message);
-      } else {
-        throw err;
-      }
+      array.push(models[key] as T);
     }
 
-    return response;
-  });
-};
+    return array;
+  };
+}
 
-export const getArrayFromFirebase = <T>(
-  path: string,
+export const createFirebaseRequestConfig = <T>(
   reviver?: (key: string, value: any) => any
-): Promise<AOResult<T[]>> =>
-  ExecuteAsync(async (onFailure: FailureCallback): Promise<T[]> => {
-    const response = await axios.get<T[]>(
-      FIREBASE_DATABASE_API_URL + path,
-      getAxiosRequestConfig<T>(reviver)
-    );
+): AxiosRequestConfig => ({
+  transformResponse: withFirebaseModelsToArray<T>(reviver),
+});
 
-    return response.data;
+const executeRequest = async <TResponse extends IErrorResponse>(
+  func: () => Promise<TResponse>
+) =>
+  ExecuteAsync(async (onFailure: FailureCallback) => {
+    {
+      let result = {} as TResponse;
+
+      try {
+        result = await func();
+      } catch (err: any) {
+        if (axios.isAxiosError<TResponse>(err) && err.response) {
+          const errorResponseData = err.response?.data as TResponse;
+
+          console.log(errorResponseData);
+
+          onFailure(errorResponseData.error.message ?? errorResponseData.error);
+        } else {
+          throw err;
+        }
+      }
+
+      return result;
+    }
+  });
+
+export const requestWithPayload = async <
+  TPayload,
+  TResponse extends IErrorResponse
+>(
+  httpMethod: "post" | "put",
+  url: string,
+  payload: TPayload
+) =>
+  executeRequest<TResponse>(async () => {
+    const { data } = await axios[httpMethod]<
+      TPayload,
+      AxiosResponse<TResponse>
+    >(url, payload);
+
+    return data;
+  });
+
+export const requestWithoutPayload = async <TResponse extends IErrorResponse>(
+  httpMethod: "get" | "delete",
+  url: string,
+  config?: AxiosRequestConfig
+) =>
+  executeRequest<TResponse>(async () => {
+    const { data } = await axios[httpMethod]<TResponse>(url, config);
+
+    return data;
   });

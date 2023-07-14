@@ -11,6 +11,8 @@ import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
+import AlertService from "../../../services/AlertService";
+import PinsService from "../../../services/PinsService";
 import {
   deletePin,
   toggleFavoritePinStatus,
@@ -50,8 +52,16 @@ export const PinsScreen: FC = () => {
 
   const pins = useSelector(selectPins);
 
-  const toggleFavoriteStatusHandler = (pin: IPin) =>
-    dispatch(toggleFavoritePinStatus(pin.id));
+  const toggleFavoriteStatusHandler = async (pin: IPin) => {
+    const toggleFavoritePinStatusResult =
+      await PinsService.toggleFavoritePinStatus(pin);
+
+    if (toggleFavoritePinStatusResult.isSuccess) {
+      dispatch(toggleFavoritePinStatus(pin.id));
+    } else {
+      AlertService.error(toggleFavoritePinStatusResult.toString());
+    }
+  };
 
   const deletePinHandler = (
     { item: pin }: ListRenderItemInfo<IPin>,
@@ -63,9 +73,15 @@ export const PinsScreen: FC = () => {
     setIsRemovePinConfirmationVisible(true);
   };
 
-  const confirmDeletePinHandler = () => {
+  const confirmDeletePinHandler = async () => {
     if (selectedPinId) {
-      dispatch(deletePin(selectedPinId ?? ""));
+      const deletePinResult = await PinsService.deletePin(selectedPinId);
+
+      if (deletePinResult.isSuccess) {
+        dispatch(deletePin(selectedPinId));
+      } else {
+        AlertService.error(deletePinResult.toString());
+      }
     }
 
     setIsRemovePinConfirmationVisible(false);

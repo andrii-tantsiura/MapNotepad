@@ -17,7 +17,7 @@ import AlertService from "../../../services/AlertService";
 import PinsService from "../../../services/PinsService";
 import { addPin } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
-import { ICreatePinPayload, IPin } from "../../../types";
+import { IPinPayload, IPin } from "../../../types";
 import styles from "./styles";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
@@ -46,7 +46,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     latitude,
     longitude,
   }: PinFormFieldValues) => {
-    const newPin: ICreatePinPayload = {
+    const newPin: IPinPayload = {
       label,
       description,
       location: {
