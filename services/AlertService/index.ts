@@ -3,7 +3,7 @@ import {
   showMessage as showFlashMessage,
 } from "react-native-flash-message";
 
-import { Flash_Message_Colors } from "../../constants";
+import { FlashMessageColors } from "../../constants";
 import styles from "./styles";
 
 const showMessage = (message: string, type: MessageType) =>
@@ -14,7 +14,7 @@ const showMessage = (message: string, type: MessageType) =>
     message,
     icon: type,
     position: "top",
-    backgroundColor: Flash_Message_Colors[type],
+    backgroundColor: FlashMessageColors[type],
   });
 
 class Alerter {
