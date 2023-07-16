@@ -1,5 +1,5 @@
 import { FIREBASE_API_KEY, FIREBASE_AUTH_API_URL } from "../../config";
-import { AOResult } from "../../helpers/AOResult";
+import { AwaitedResult } from "../../helpers/AOResult";
 import {
   ISignInWithEmailPayload,
   ISignInWithEmailResponse,
@@ -18,7 +18,7 @@ class AuthService {
   registerWithEmail = async (
     email: string,
     password: string
-  ): Promise<AOResult<ISignUpWithEmailResponse>> => {
+  ): AwaitedResult<ISignUpWithEmailResponse> => {
     const payload: ISignUpWithEmailPayload = {
       email,
       password,
@@ -34,7 +34,7 @@ class AuthService {
   loginWithEmail = async (
     email: string,
     password: string
-  ): Promise<AOResult<ISignInWithEmailResponse>> => {
+  ): AwaitedResult<ISignInWithEmailResponse> => {
     const payload: ISignInWithEmailPayload = {
       email,
       password,

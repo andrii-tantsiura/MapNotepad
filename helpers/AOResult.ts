@@ -42,13 +42,13 @@ export class AOResult<T> {
   }
 }
 
+export type AwaitedResult<T> = Promise<AOResult<T>>;
+
 export type FailureCallback = (message: string) => void;
 
 export type AsyncFunc<T> = (onFailure: FailureCallback) => Promise<T>;
 
-export async function ExecuteAsync<T>(
-  func: AsyncFunc<T>
-): Promise<AOResult<T>> {
+export async function ExecuteAsync<T>(func: AsyncFunc<T>): AwaitedResult<T> {
   const result = new AOResult<T>();
 
   let isOnFailureExecuted: boolean = false;

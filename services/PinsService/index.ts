@@ -1,5 +1,5 @@
 import { FIREBASE_DATABASE_API_URL } from "../../config";
-import { AOResult } from "../../helpers/AOResult";
+import { AwaitedResult } from "../../helpers/AOResult";
 import {
   ICreatePinResponse,
   IPin,
@@ -13,7 +13,7 @@ import {
 } from "../../utils";
 
 class PinsService {
-  createPin = async (pin: IPinPayload): Promise<AOResult<string>> => {
+  createPin = async (pin: IPinPayload): AwaitedResult<string> => {
     const result = await requestWithPayload<IPinPayload, ICreatePinResponse>(
       "post",
       FIREBASE_DATABASE_API_URL + "/pins.json",
@@ -23,7 +23,7 @@ class PinsService {
     return result.convertTo<string>(result.result?.name);
   };
 
-  updatePin = async (pin: IPin): Promise<AOResult<boolean>> => {
+  updatePin = async (pin: IPin): AwaitedResult<boolean> => {
     const { id, ...restFields } = pin;
 
     const pinPayload: IPinPayload = { ...restFields };
@@ -43,14 +43,14 @@ class PinsService {
     return this.updatePin(newPin);
   };
 
-  deletePin = async (pinId: string): Promise<AOResult<null>> => {
+  deletePin = async (pinId: string): AwaitedResult<null> => {
     return requestWithoutPayload(
       "delete",
       FIREBASE_DATABASE_API_URL + `/pins/${pinId}.json`
     );
   };
 
-  getPins = async (): Promise<AOResult<Array<IPin>>> => {
+  getPins = async (): AwaitedResult<Array<IPin>> => {
     const result = await requestWithoutPayload<IPinsResponse>(
       "get",
       FIREBASE_DATABASE_API_URL + "/pins.json",
