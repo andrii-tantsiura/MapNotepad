@@ -62,7 +62,6 @@ export const MapScreen: FC<TabProps> = () => {
     <View style={styles.container}>
       <MapView
         clusterColor={AppColors.lightPrimary}
-        // clusterFontFamily={FontWeights.bold}
         clusterTextColor={AppColors.systemWhite}
         style={styles.map}
         ref={mapViewRef}

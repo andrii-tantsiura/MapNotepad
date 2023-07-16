@@ -24,7 +24,8 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
   const { control, trigger, resetField, handleSubmit } = useForm<ILoginForm>({
     defaultValues: {
-      email: route.params?.email,
+      email: route.params?.email ?? "test@mail.comd",
+      password: "Test123@",
     },
   });
 

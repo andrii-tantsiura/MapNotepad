@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    // columnGap: 2,
   },
   text: {
     marginHorizontal: scaleSize(2),
