@@ -5,7 +5,7 @@ import FlashMessage from "react-native-flash-message";
 
 import { LoaderView } from "../components/sections";
 import { AppColors } from "../constants";
-import { AuthContext } from "../store/AuthContextProvider";
+import { AuthContext } from "../store/AuthProvider";
 import AuthStack from "./AuthStack";
 import HomeStack from "./HomeStack";
 

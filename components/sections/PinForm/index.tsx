@@ -10,13 +10,6 @@ import {
 } from "../../../helpers";
 import { IFormController, InformativeTextInput } from "../../common";
 
-export type PinFormFieldValues = {
-  label: string;
-  description: string;
-  latitude: string;
-  longitude: string;
-};
-
 interface IPinFormProps {
   formController: IFormController;
 }

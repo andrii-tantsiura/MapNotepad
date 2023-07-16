@@ -1,17 +1,13 @@
 import { CommonActions } from "@react-navigation/native";
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import {
-  CustomButton,
-  IFormController,
-  InformativeTextInput,
-} from "../../../components/common";
+import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
+import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
@@ -24,14 +20,8 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 }: AuthScreenProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, resetField, trigger, watch, handleSubmit } =
-    useForm<ICreatePasswordForm>();
-
-  const formController: IFormController = {
-    control,
-    resetField,
-    trigger,
-  };
+  const { formController, watch, handleSubmit } =
+    useHookForm<ICreatePasswordForm>();
 
   const createAccountHandler = async ({ password }: ICreatePasswordForm) => {
     setIsLoading(true);
@@ -61,7 +51,10 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         })
       );
     } else {
-      AlertService.error(registerResult.getMessage());
+      const message = registerResult.getMessage();
+      AlertService.error(message);
+
+      navigation.goBack();
     }
   };
 

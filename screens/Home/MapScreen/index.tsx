@@ -14,6 +14,7 @@ import {
 } from "../../../constants";
 import { useCurrentLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
+import AlertService from "../../../services/AlertService";
 import PinsService from "../../../services/PinsService";
 import { setPins } from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
@@ -41,6 +42,8 @@ export const MapScreen: FC<TabProps> = () => {
 
       if (getPinsResult.isSuccess && getPinsResult.result) {
         dispatch(setPins(getPinsResult.result));
+      } else {
+        AlertService.error(getPinsResult.getMessage());
       }
     })();
   }, []);

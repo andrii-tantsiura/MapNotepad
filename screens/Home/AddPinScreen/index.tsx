@@ -1,43 +1,35 @@
 import { FC } from "react";
-import { useForm } from "react-hook-form";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
 
 import { SAVE_ICON } from "../../../assets/icons";
-import { IFormController } from "../../../components/common";
 import {
   PinForm,
-  PinFormFieldValues,
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
 import { useHeaderRightButton } from "../../../hooks";
+import { useHookForm } from "../../../hooks/useHookForm";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import AlertService from "../../../services/AlertService";
 import PinsService from "../../../services/PinsService";
 import { addPin } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
-import { IPinPayload, IPin } from "../../../types";
+import { IPin, IPinForm, IPinPayload } from "../../../types";
 import styles from "./styles";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
 
-  const { control, watch, trigger, setValue, resetField, handleSubmit } =
-    useForm<PinFormFieldValues>();
-
-  const formController: IFormController = {
-    control,
-    resetField,
-    trigger,
-  };
+  const { formController, watch, setValue, handleSubmit } =
+    useHookForm<IPinForm>();
 
   const setCoordinates = ({ latitude, longitude }: LatLng) => {
     setValue("latitude", String(latitude));
     setValue("longitude", String(longitude));
 
-    trigger("latitude");
-    trigger("longitude");
+    formController.trigger("latitude");
+    formController.trigger("longitude");
   };
 
   const savePinHandler = async ({
@@ -45,7 +37,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     description,
     latitude,
     longitude,
-  }: PinFormFieldValues) => {
+  }: IPinForm) => {
     const newPin: IPinPayload = {
       label,
       description,

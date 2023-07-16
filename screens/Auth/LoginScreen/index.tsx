@@ -1,20 +1,16 @@
 import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import {
-  CustomButton,
-  IFormController,
-  InformativeTextInput,
-} from "../../../components/common";
+import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
+import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
-import { AuthContext } from "../../../store/AuthContextProvider";
+import { AuthContext } from "../../../store/AuthProvider";
 import { ILoginForm } from "../../../types";
 import styles from "./styles";
 
@@ -22,18 +18,11 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, trigger, resetField, handleSubmit } = useForm<ILoginForm>({
+  const { formController, handleSubmit } = useHookForm<ILoginForm>({
     defaultValues: {
-      email: route.params?.email ?? "test@mail.comd",
-      password: "Test123@",
+      email: route.params?.email,
     },
   });
-
-  const formController: IFormController = {
-    control,
-    resetField,
-    trigger,
-  };
 
   const submitHandler = async ({ email, password }: ILoginForm) => {
     setIsLoading(true);

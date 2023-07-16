@@ -20,6 +20,7 @@ import {
 import { selectPins } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { IPin } from "../../../types";
+import { hideActionMenu } from "../../../utils";
 import {
   PIN_ACTION_MENU_WIDTH,
   PinActionMenu,
@@ -31,15 +32,6 @@ type HomeScreenNavigationProp = StackNavigationProp<
   HomeStackParamList,
   "AddPin"
 >;
-
-const hidePinActionMenu = (
-  rowMap: RowMap<IPin> | undefined,
-  pinKey: string | undefined
-) => {
-  if (pinKey) {
-    rowMap?.[pinKey]?.closeRow();
-  }
-};
 
 export const PinsScreen: FC = () => {
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
@@ -93,14 +85,14 @@ export const PinsScreen: FC = () => {
   const cancelDeletePinHandler = () => {
     setIsRemovePinConfirmationVisible(false);
 
-    hidePinActionMenu(selectedPinRow, selectedPinId);
+    hideActionMenu(selectedPinRow, selectedPinId);
   };
 
   const editPinHandler = (
     { item: pin }: ListRenderItemInfo<IPin>,
     row: RowMap<IPin>
   ) => {
-    hidePinActionMenu(row, pin.id);
+    hideActionMenu(row, pin.id);
 
     homeNavigation.navigate("EditPin", { pinId: pin.id });
   };

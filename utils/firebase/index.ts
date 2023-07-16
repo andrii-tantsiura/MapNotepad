@@ -36,15 +36,15 @@ export const clarifyAOResultError = <T>(result: AOResult<T>): void => {
   let message: string | undefined;
 
   if (axios.isAxiosError(exception) && exception.response) {
-    const { status } = exception.response;
+    const { status, data } = exception.response;
 
     if (status === 400) {
-      if (exception.response.data) {
-        message = (exception.response.data as FirebaseError).error.message;
+      if (data) {
+        message = (data as FirebaseError).error.message;
       }
     } else if (status === 401) {
-      if (exception.response?.data?.error) {
-        message = (exception.response.data as UnauthorizedError).error;
+      if (data?.error) {
+        message = (data as UnauthorizedError).error;
       }
     }
   } else {

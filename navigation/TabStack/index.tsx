@@ -8,7 +8,7 @@ import { SearchBar } from "../../components/sections";
 import { AppColors, ImageStyles, textStyle_i3 } from "../../constants";
 import { typographyStyleToTextStyle } from "../../helpers";
 import { MapScreen, PinsScreen } from "../../screens/Home";
-import { AuthContext } from "../../store/AuthContextProvider";
+import { AuthContext } from "../../store/AuthProvider";
 import styles from "./styles";
 import { TabStackParamList } from "./types";
 
