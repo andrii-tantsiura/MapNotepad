@@ -61,7 +61,6 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          // disabled={!isValid}
           style={CustomButtonStyles.rectSolid_i1}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
         >

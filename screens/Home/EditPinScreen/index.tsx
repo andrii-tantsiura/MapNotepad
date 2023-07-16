@@ -70,7 +70,7 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
           navigation.goBack();
         }
       } else {
-        AlertService.error(updatePinResult.toString());
+        AlertService.error(updatePinResult.getMessage());
       }
     }
   };

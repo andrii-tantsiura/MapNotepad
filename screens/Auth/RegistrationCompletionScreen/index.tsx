@@ -61,7 +61,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         })
       );
     } else {
-      AlertService.error(registerResult.toString());
+      AlertService.error(registerResult.getMessage());
     }
   };
 

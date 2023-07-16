@@ -59,7 +59,7 @@ export const PinsScreen: FC = () => {
     if (toggleFavoritePinStatusResult.isSuccess) {
       dispatch(toggleFavoritePinStatus(pin.id));
     } else {
-      AlertService.error(toggleFavoritePinStatusResult.toString());
+      AlertService.error(toggleFavoritePinStatusResult.getMessage());
     }
   };
 
@@ -80,7 +80,7 @@ export const PinsScreen: FC = () => {
       if (deletePinResult.isSuccess) {
         dispatch(deletePin(selectedPinId));
       } else {
-        AlertService.error(deletePinResult.toString());
+        AlertService.error(deletePinResult.getMessage());
       }
     }
 

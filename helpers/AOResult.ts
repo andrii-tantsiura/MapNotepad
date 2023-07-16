@@ -23,7 +23,7 @@ export class AOResult<T> {
     this.exception = exception;
   }
 
-  toString() {
+  getMessage() {
     return (
       this.exception?.message ?? this.message ?? ErrorMessages.SOME_WENT_WRONG
     );
