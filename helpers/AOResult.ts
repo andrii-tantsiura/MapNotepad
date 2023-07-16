@@ -24,6 +24,17 @@ export class AOResult<T> {
     this.exception = exception;
   }
 
+  convertTo<TNewType>(data?: TNewType) {
+    let newResult = new AOResult<TNewType>();
+
+    newResult.result = data;
+    newResult.isSuccess = this.isSuccess;
+    newResult.exception = this.exception;
+    newResult.message = this.message;
+
+    return newResult;
+  }
+
   getMessage() {
     return (
       this.exception?.message ?? this.message ?? ErrorMessages.SOME_WENT_WRONG

@@ -13,14 +13,28 @@ import {
 } from "../../utils";
 
 class PinsService {
-  createPin = async (
-    pin: IPinPayload
-  ): Promise<AOResult<ICreatePinResponse>> => {
-    return requestWithPayload<IPinPayload, ICreatePinResponse>(
+  createPin = async (pin: IPinPayload): Promise<AOResult<string>> => {
+    const result = await requestWithPayload<IPinPayload, ICreatePinResponse>(
       "post",
       FIREBASE_DATABASE_API_URL + "/pins.json",
       pin
     );
+
+    return result.convertTo<string>(result.result?.name);
+  };
+
+  updatePin = async (pin: IPin): Promise<AOResult<boolean>> => {
+    const { id, ...restFields } = pin;
+
+    const pinPayload: IPinPayload = { ...restFields };
+
+    const result = await requestWithPayload(
+      "put",
+      FIREBASE_DATABASE_API_URL + `/pins/${pin.id}.json`,
+      pinPayload
+    );
+
+    return result.convertTo(Boolean(result.result));
   };
 
   toggleFavoritePinStatus = async (pin: IPin) => {
@@ -29,31 +43,21 @@ class PinsService {
     return this.updatePin(newPin);
   };
 
-  updatePin = async (pin: IPin): Promise<AOResult<ICreatePinResponse>> => {
-    const { id, ...restFields } = pin;
-
-    const pinPayload: IPinPayload = { ...restFields };
-
-    return requestWithPayload(
-      "put",
-      FIREBASE_DATABASE_API_URL + `/pins/${pin.id}.json`,
-      pinPayload
-    );
-  };
-
-  deletePin = async (pinId: string) => {
+  deletePin = async (pinId: string): Promise<AOResult<null>> => {
     return requestWithoutPayload(
       "delete",
       FIREBASE_DATABASE_API_URL + `/pins/${pinId}.json`
     );
   };
 
-  getPins = async () => {
-    return requestWithoutPayload<IPinsResponse>(
+  getPins = async (): Promise<AOResult<Array<IPin>>> => {
+    const result = await requestWithoutPayload<IPinsResponse>(
       "get",
       FIREBASE_DATABASE_API_URL + "/pins.json",
       createFirebaseRequestConfig()
     );
+
+    return result.convertTo(result.result);
   };
 }
 

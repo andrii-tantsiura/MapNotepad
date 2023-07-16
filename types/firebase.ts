@@ -39,6 +39,4 @@ export interface IPinPayload {
   isFavorite?: boolean;
 }
 
-export interface IPinsResponse {
-  pins: IPin[];
-}
+export type IPinsResponse = IPin[];

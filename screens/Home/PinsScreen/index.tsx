@@ -53,13 +53,16 @@ export const PinsScreen: FC = () => {
   const pins = useSelector(selectPins);
 
   const toggleFavoriteStatusHandler = async (pin: IPin) => {
-    const toggleFavoritePinStatusResult =
+    const toggleFavoriteStatusResult =
       await PinsService.toggleFavoritePinStatus(pin);
 
-    if (toggleFavoritePinStatusResult.isSuccess) {
+    if (
+      toggleFavoriteStatusResult.isSuccess &&
+      toggleFavoriteStatusResult.result
+    ) {
       dispatch(toggleFavoritePinStatus(pin.id));
     } else {
-      AlertService.error(toggleFavoritePinStatusResult.getMessage());
+      AlertService.error(toggleFavoriteStatusResult.getMessage());
     }
   };
 

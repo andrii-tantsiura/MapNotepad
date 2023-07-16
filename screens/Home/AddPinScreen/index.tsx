@@ -19,7 +19,6 @@ import { addPin } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
 import { IPinPayload, IPin } from "../../../types";
 import styles from "./styles";
-import { requestExceptionToMessage } from "../../../helpers";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
@@ -61,7 +60,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
 
     if (createPinResult.isSuccess && createPinResult.result) {
       const pin: IPin = {
-        id: createPinResult.result.name,
+        id: createPinResult.result,
         ...newPin,
       };
 
@@ -71,7 +70,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         navigation.goBack();
       }
     } else {
-      AlertService.error(requestExceptionToMessage(createPinResult.exception));
+      AlertService.error(createPinResult.getMessage());
     }
   };
 
