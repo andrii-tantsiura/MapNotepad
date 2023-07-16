@@ -1,4 +1,5 @@
 import { ErrorMessages } from "../enums";
+import { clarifyAOResultError } from "../utils/firebase";
 
 export class AOResult<T> {
   public isSuccess: boolean = false;
@@ -32,7 +33,7 @@ export class AOResult<T> {
 
 export type FailureCallback = (message: string) => void;
 
-type AsyncFunc<T> = (onFailure: FailureCallback) => Promise<T>;
+export type AsyncFunc<T> = (onFailure: FailureCallback) => Promise<T>;
 
 export async function ExecuteAsync<T>(
   func: AsyncFunc<T>
@@ -54,6 +55,18 @@ export async function ExecuteAsync<T>(
     }
   } catch (ex: any) {
     result.setException(ex);
+  }
+
+  return result;
+}
+
+export async function ExecuteAndClarifyErrorIfNeed<T>(
+  func: AsyncFunc<T>
+): Promise<AOResult<T>> {
+  const result = await ExecuteAsync(func);
+
+  if (!result.isSuccess) {
+    clarifyAOResultError(result);
   }
 
   return result;

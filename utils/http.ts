@@ -1,13 +1,13 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { ExecuteAsync } from "../helpers/AOResult";
+import { ExecuteAndClarifyErrorIfNeed } from "../helpers/AOResult";
 
 export const requestWithPayload = async <TPayload, TResponse>(
   httpMethod: "post" | "put",
   url: string,
   payload: TPayload
 ) =>
-  ExecuteAsync<TResponse>(async () => {
+  ExecuteAndClarifyErrorIfNeed<TResponse>(async () => {
     const { data } = await axios[httpMethod]<
       TPayload,
       AxiosResponse<TResponse>
@@ -21,7 +21,7 @@ export const requestWithoutPayload = async <TResponse>(
   url: string,
   config?: AxiosRequestConfig
 ) =>
-  ExecuteAsync<TResponse>(async () => {
+  ExecuteAndClarifyErrorIfNeed<TResponse>(async () => {
     const { data } = await axios[httpMethod]<TResponse>(url, config);
 
     return data;
