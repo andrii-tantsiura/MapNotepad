@@ -102,7 +102,7 @@ export const usePins = (): UsePinsReturn => {
     isPinsLoading,
     fetchPins,
     createPin,
-    updatePin: updatePin,
+    updatePin,
     togglePinFavoriteStatus,
     deletePin,
   };

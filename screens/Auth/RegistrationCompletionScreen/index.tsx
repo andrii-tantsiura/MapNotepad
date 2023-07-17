@@ -6,6 +6,7 @@ import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
+import { ErrorCodes } from "../../../enums";
 import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
 import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
@@ -55,7 +56,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
       AlertService.error(message);
 
-      if (message === "EMAIL_EXISTS") {
+      if (message === ErrorCodes.EMAIL_EXISTS) {
         navigation.goBack();
       }
     }

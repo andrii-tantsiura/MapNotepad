@@ -35,7 +35,7 @@ export class AOResult<T> {
     return newResult;
   }
 
-  getMessage() {
+  getMessage(): string {
     return (
       this.exception?.message ?? this.message ?? ErrorMessages.SOME_WENT_WRONG
     );
