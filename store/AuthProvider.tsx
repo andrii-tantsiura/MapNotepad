@@ -9,7 +9,7 @@ interface IAuthContextProps {
   fetchTokenFromStorageAsync: () => Promise<void>;
 }
 
-interface IAuthContextProviderProps {
+interface IAuthProviderProps {
   children: ReactNode;
 }
 
@@ -21,9 +21,7 @@ export const AuthContext = createContext<IAuthContextProps>({
   fetchTokenFromStorageAsync: () => new Promise<void>(() => {}),
 });
 
-export const AuthContextProvider: React.FC<IAuthContextProviderProps> = ({
-  children,
-}) => {
+export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
 
   const value: IAuthContextProps = {
@@ -33,17 +31,15 @@ export const AuthContextProvider: React.FC<IAuthContextProviderProps> = ({
       AsyncStorage.setItem("token", token ?? "");
       setToken(token);
     },
+
     fetchTokenFromStorageAsync: async () => {
-      return new Promise(async (resolve) => {
-        const storedToken = await AsyncStorage.getItem("token");
+      const storedToken = await AsyncStorage.getItem("token");
 
-        if (storedToken) {
-          setToken(storedToken);
-        }
-
-        resolve();
-      });
+      if (storedToken) {
+        setToken(storedToken);
+      }
     },
+
     logout: () => {
       AsyncStorage.removeItem("token");
       setToken(null);

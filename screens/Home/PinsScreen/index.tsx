@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useState } from "react";
 import { ListRenderItemInfo, View } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
 import { RowMap, SwipeListView } from "react-native-swipe-list-view";
 import { useSelector } from "react-redux";
 
@@ -10,14 +11,11 @@ import { CustomButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
+import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
-import {
-  deletePin,
-  toggleFavoritePinStatus,
-} from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
-import { useAppDispatch } from "../../../store/redux/store";
-import { Pin } from "../../../types/map";
+import { IPin } from "../../../types";
+import { hideActionMenu } from "../../../utils";
 import {
   PIN_ACTION_MENU_WIDTH,
   PinActionMenu,
@@ -30,32 +28,26 @@ type HomeScreenNavigationProp = StackNavigationProp<
   "AddPin"
 >;
 
-const hidePinActionMenu = (
-  rowMap: RowMap<Pin> | undefined,
-  pinKey: string | undefined
-) => {
-  if (pinKey) {
-    rowMap?.[pinKey]?.closeRow();
-  }
-};
-
 export const PinsScreen: FC = () => {
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
-  const dispatch = useAppDispatch();
 
-  const [selectedPinRow, setSelectedPinRow] = useState<RowMap<Pin>>();
+  const {
+    isPinsLoading,
+    fetchPins,
+    togglePinFavoriteStatus: toggleFavoriteStatus,
+    deletePin,
+  } = usePins();
+
+  const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPin>>();
   const [selectedPinId, setSelectedPinId] = useState<string>();
   const [isRemovePinConfirmationShown, setIsRemovePinConfirmationVisible] =
     useState(false);
 
   const pins = useSelector(selectPins);
 
-  const toggleFavoriteStatusHandler = (pin: Pin) =>
-    dispatch(toggleFavoritePinStatus(pin.id));
-
   const deletePinHandler = (
-    { item: pin }: ListRenderItemInfo<Pin>,
-    row: RowMap<Pin>
+    { item: pin }: ListRenderItemInfo<IPin>,
+    row: RowMap<IPin>
   ) => {
     setSelectedPinId(pin.id);
     setSelectedPinRow(row);
@@ -65,7 +57,7 @@ export const PinsScreen: FC = () => {
 
   const confirmDeletePinHandler = () => {
     if (selectedPinId) {
-      dispatch(deletePin(selectedPinId ?? ""));
+      deletePin(selectedPinId);
     }
 
     setIsRemovePinConfirmationVisible(false);
@@ -74,30 +66,30 @@ export const PinsScreen: FC = () => {
   const cancelDeletePinHandler = () => {
     setIsRemovePinConfirmationVisible(false);
 
-    hidePinActionMenu(selectedPinRow, selectedPinId);
+    hideActionMenu(selectedPinRow, selectedPinId);
   };
 
   const editPinHandler = (
-    { item: pin }: ListRenderItemInfo<Pin>,
-    row: RowMap<Pin>
+    { item: pin }: ListRenderItemInfo<IPin>,
+    row: RowMap<IPin>
   ) => {
-    hidePinActionMenu(row, pin.id);
+    hideActionMenu(row, pin.id);
 
     homeNavigation.navigate("EditPin", { pinId: pin.id });
   };
 
   const addPinHandler = () => homeNavigation.navigate("AddPin");
 
-  const renderPinItem = ({ item: pin }: ListRenderItemInfo<Pin>) => (
+  const renderPinItem = ({ item: pin }: ListRenderItemInfo<IPin>) => (
     <PinItem
       data={pin}
-      onPressFavoriteStatus={() => toggleFavoriteStatusHandler(pin)}
+      onPressFavoriteStatus={() => toggleFavoriteStatus(pin)}
     />
   );
 
   const renderHiddenActionMenu = (
-    pin: ListRenderItemInfo<Pin>,
-    row: RowMap<Pin>
+    pin: ListRenderItemInfo<IPin>,
+    row: RowMap<IPin>
   ) => (
     <PinActionMenu
       onDelete={() => deletePinHandler(pin, row)}
@@ -116,6 +108,9 @@ export const PinsScreen: FC = () => {
       />
 
       <SwipeListView
+        refreshControl={
+          <RefreshControl refreshing={isPinsLoading} onRefresh={fetchPins} />
+        }
         onRowOpen={(pinKey) => {
           setSelectedPinId(pinKey);
         }}

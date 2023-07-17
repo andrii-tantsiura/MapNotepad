@@ -1,14 +1,6 @@
-export interface AuthErrorResponse {
-  error: {
-    // code: number;
-    // errors: AuthErrorDetail[];
-    message: string;
-  };
-}
+import { LatLng } from "react-native-maps";
 
-// export interface AuthErrorDetail {
-//   [key: string]: string;
-// }
+import { IPin } from "./map";
 
 export interface ISignUpWithEmailPayload {
   email: string;
@@ -30,8 +22,16 @@ export interface ISignInWithEmailResponse extends ISignUpWithEmailResponse {
   registered: boolean;
 }
 
-export interface LoginResult {
+export interface ILoginResult {
   idToken?: string;
   errorCode?: string;
   errorMessage?: string;
 }
+
+export interface ICreatePinResponse {
+  name: string;
+}
+
+export interface IPinPayload extends Omit<IPin, "id"> {}
+
+export type IPinsResponse = IPin[];

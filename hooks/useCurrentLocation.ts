@@ -27,12 +27,14 @@ const getCurrentLocation = async (): Promise<LatLng> => {
   };
 };
 
+type UseCurrentLocationReturn = {
+  currentLocation: LatLng | undefined;
+  requestCurrentLocation: () => void;
+};
+
 export const useCurrentLocation = (
   shouldRequestLocationInitially: boolean = false
-): [
-  currentLocation: LatLng | undefined,
-  requestCurrentLocation: () => void
-] => {
+): UseCurrentLocationReturn => {
   const [currentLocation, setCurrentLocation] = useState<LatLng | undefined>();
   const [isRequestingLocation, setIsRequestingLocation] = useState(
     shouldRequestLocationInitially
@@ -59,5 +61,5 @@ export const useCurrentLocation = (
     setIsRequestingLocation(true);
   };
 
-  return [currentLocation, requestCurrentLocation];
+  return { currentLocation, requestCurrentLocation };
 };

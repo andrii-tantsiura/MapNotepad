@@ -31,11 +31,12 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   onPickCoordinates,
 }) => {
   const mapViewRef = useRef<MapView>(null);
-  const [currentLocation, requestCurrentLocation] = useCurrentLocation(
+  const { currentLocation, requestCurrentLocation } = useCurrentLocation(
     shouldRequestLocationInitially
   );
 
   const isCoordinatesValid = isFinite(latitude) && isFinite(longitude);
+
   const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
     onPickCoordinates(e.nativeEvent.coordinate);
   };
@@ -46,6 +47,19 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
 
   const pickCurrentLocationHandler = () => {
     requestCurrentLocation();
+  };
+
+  const mapViewReadyHandler = () => {
+    if (latitude && longitude) {
+      const region: Region = {
+        latitudeDelta: DEFAULT_LATITUDE_DELTA,
+        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
+        latitude: latitude,
+        longitude: longitude,
+      };
+
+      mapViewRef.current?.animateToRegion(region);
+    }
   };
 
   useEffect(() => {
@@ -62,19 +76,6 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
       mapViewRef.current?.animateToRegion(region);
     }
   }, [currentLocation]);
-
-  const mapViewReadyHandler = () => {
-    if (latitude && longitude) {
-      const region: Region = {
-        latitudeDelta: DEFAULT_LATITUDE_DELTA,
-        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
-        latitude: latitude,
-        longitude: longitude,
-      };
-
-      mapViewRef.current?.animateToRegion(region);
-    }
-  };
 
   return (
     <>

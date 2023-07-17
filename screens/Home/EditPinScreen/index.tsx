@@ -1,98 +1,64 @@
-import { FC, useEffect, useLayoutEffect } from "react";
-import { useForm } from "react-hook-form";
+import { FC, useEffect } from "react";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
-import { useSelector } from "react-redux";
 
 import { SAVE_ICON } from "../../../assets/icons";
-import { CustomButton, IFormController } from "../../../components/common";
 import {
   PinForm,
-  PinFormFieldValues,
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
+import { pinFormToPin } from "../../../helpers";
+import { useHeaderRightButton, useHookForm, usePins } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import { updatePin } from "../../../store/redux/actions";
-import { selectPins } from "../../../store/redux/slices";
-import { useAppDispatch } from "../../../store/redux/store";
-import { Pin } from "../../../types/map";
+import { IPin, IPinForm } from "../../../types";
 import styles from "./styles";
 
 export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
-  const dispatch = useAppDispatch();
-  const pin = useSelector(selectPins).find((x) => x.id === route.params?.pinId);
+  const { pins, updatePin } = usePins();
 
-  const { control, watch, trigger, setValue, resetField, handleSubmit } =
-    useForm<PinFormFieldValues>({
-      defaultValues: {
-        label: "",
-        description: "",
-        latitude: pin?.location.latitude.toString(),
-        longitude: pin?.location.longitude.toString(),
-      },
-      mode: "onTouched",
-    });
+  const editedPin = pins.find((x) => x.id === route.params?.pinId);
 
-  const formController: IFormController = {
-    control,
-    trigger,
-    resetField,
-  };
+  const { formController, watch, setValue, handleSubmit } =
+    useHookForm<IPinForm>();
 
   const setCoordinates = ({ latitude, longitude }: LatLng) => {
     setValue("latitude", String(latitude));
     setValue("longitude", String(longitude));
 
-    trigger("latitude");
-    trigger("longitude");
+    formController.trigger("latitude");
+    formController.trigger("longitude");
   };
 
-  const coordinatesPickedHandler = (coordinates: LatLng) =>
-    setCoordinates(coordinates);
-
-  const savePinHandler = (values: PinFormFieldValues) => {
-    if (pin) {
-      const newPin: Pin = {
-        id: pin.id,
-        label: values.label,
-        description: values.description,
-        location: {
-          latitude: Number.parseFloat(values.latitude),
-          longitude: Number.parseFloat(values.longitude),
-        },
-        isFavorite: pin.isFavorite,
+  const savePinHandler = async (pinForm: IPinForm) => {
+    if (editedPin) {
+      const pinToUpdate: IPin = {
+        ...pinFormToPin(pinForm),
+        id: editedPin.id,
+        isFavorite: editedPin.isFavorite,
       };
 
-      dispatch(updatePin(newPin));
-    }
+      const isPinUpdated = await updatePin(pinToUpdate);
 
-    navigation.goBack();
+      if (isPinUpdated && navigation.canGoBack()) {
+        navigation.goBack();
+      }
+    }
   };
 
   const latitude = Number.parseFloat(watch("latitude"));
   const longitude = Number.parseFloat(watch("longitude"));
 
   useEffect(() => {
-    if (pin) {
-      setValue("label", pin.label);
-      setValue("description", pin.description ?? "");
-      setValue("latitude", pin.location.latitude.toString());
-      setValue("longitude", pin.location.longitude.toString());
+    if (editedPin) {
+      setValue("label", editedPin.label);
+      setValue("description", editedPin.description ?? "");
+      setValue("latitude", editedPin.location.latitude.toString());
+      setValue("longitude", editedPin.location.longitude.toString());
     }
-  }, [pin]);
+  }, [editedPin]);
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <CustomButton
-          containerStyle={{ marginRight: 12 }}
-          imageSource={SAVE_ICON}
-          onPress={handleSubmit(savePinHandler)}
-        />
-      ),
-    });
-  }, []);
+  useHeaderRightButton(navigation, SAVE_ICON, handleSubmit(savePinHandler));
 
   return (
     <>
@@ -105,7 +71,7 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
           latitude={latitude}
           longitude={longitude}
           shouldRequestLocationInitially={false}
-          onPickCoordinates={coordinatesPickedHandler}
+          onPickCoordinates={setCoordinates}
         />
       </View>
     </>

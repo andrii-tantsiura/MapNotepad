@@ -1,77 +1,64 @@
 import { CommonActions } from "@react-navigation/native";
-import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import {
-  CustomButton,
-  IFormController,
-  InformativeTextInput,
-} from "../../../components/common";
+import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { ErrorMessages, FirebaseAuthErrorCodes } from "../../../enums";
+import { ErrorCodes } from "../../../enums";
 import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
+import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
-import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { createUserWithEmail } from "../../../utils";
+import AuthService from "../../../services/AuthService";
+import { ICreatePasswordForm } from "../../../types";
 import styles from "./styles";
 
 export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
 }: AuthScreenProps) => {
-  const isConnected = useContext(NetworkInfoContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, resetField, trigger, watch, handleSubmit } = useForm({
-    defaultValues: {
-      password: "",
-      confirmPassword: "",
-    },
-  });
+  const { formController, watch, handleSubmit } =
+    useHookForm<ICreatePasswordForm>();
 
-  const formController: IFormController = {
-    control,
-    resetField,
-    trigger,
-  };
+  const createAccountHandler = async ({ password }: ICreatePasswordForm) => {
+    setIsLoading(true);
 
-  const createAccountHandler = async (values: any) => {
-    if (isConnected) {
-      setIsLoading(true);
+    const registerResult = await AuthService.registerWithEmail(
+      route.params?.email ?? "",
+      password
+    );
 
-      const { errorCode, errorMessage } = await createUserWithEmail(
-        route.params?.email ?? "",
-        values.password
-      );
+    setIsLoading(false);
 
-      setIsLoading(false);
-
-      if (errorMessage) {
-        if (errorCode === FirebaseAuthErrorCodes.EMAIL_EXISTS) {
-          navigation.goBack();
-        }
-
-        AlertService.error(errorMessage);
-      } else {
-        navigation.dispatch(
-          CommonActions.reset({
-            index: 1,
-            routes: [
-              { name: "Startup" },
-              {
-                name: "Login",
-                params: { email: route.params?.email },
+    if (registerResult.isSuccess && registerResult.result) {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {
+              name: "Startup",
+            },
+            {
+              name: "Login",
+              params: {
+                email: route.params?.email,
               },
-            ],
-          })
-        );
-      }
+            },
+          ],
+        })
+      );
     } else {
-      AlertService.error(ErrorMessages.NO_INTERNET_CONNECTION);
+      const message = registerResult.getMessage();
+
+      AlertService.error(message);
+
+      if (message === ErrorCodes.EMAIL_EXISTS) {
+        navigation.goBack();
+      }
     }
   };
 

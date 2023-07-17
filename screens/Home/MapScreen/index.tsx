@@ -2,7 +2,6 @@ import { FC, useEffect, useRef } from "react";
 import { View } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker, Region } from "react-native-maps";
-import { useSelector } from "react-redux";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { CustomButton } from "../../../components/common";
@@ -12,9 +11,8 @@ import {
   DEFAULT_LATITUDE_DELTA,
   DEFAULT_LONGITUDE_DELTA,
 } from "../../../constants";
-import { useCurrentLocation } from "../../../hooks";
+import { useCurrentLocation, usePins } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
-import { selectPins } from "../../../store/redux/slices";
 import styles from "./styles";
 
 const INITIAL_REGION = {
@@ -26,9 +24,10 @@ const INITIAL_REGION = {
 
 export const MapScreen: FC<TabProps> = () => {
   const mapViewRef = useRef<MapView>(null);
-  const [currentLocation, requestCurrentLocation] = useCurrentLocation(true);
+  const { currentLocation, requestCurrentLocation } = useCurrentLocation(true);
 
-  const pins = useSelector(selectPins);
+  const { pins } = usePins();
+
   const favoritePins = pins.filter((x) => x.isFavorite);
 
   useEffect(() => {
@@ -48,7 +47,6 @@ export const MapScreen: FC<TabProps> = () => {
     <View style={styles.container}>
       <MapView
         clusterColor={AppColors.lightPrimary}
-        // clusterFontFamily={FontWeights.bold}
         clusterTextColor={AppColors.systemWhite}
         style={styles.map}
         ref={mapViewRef}

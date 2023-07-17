@@ -1,83 +1,47 @@
-import { FC, useLayoutEffect } from "react";
-import { useForm } from "react-hook-form";
+import { FC } from "react";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
 
 import { SAVE_ICON } from "../../../assets/icons";
-import { CustomButton, IFormController } from "../../../components/common";
 import {
   PinForm,
-  PinFormFieldValues,
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
+import { pinFormToPin } from "../../../helpers";
+import { useHeaderRightButton, useHookForm, usePins } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import { addPin } from "../../../store/redux/actions";
-import { useAppDispatch } from "../../../store/redux/store";
-import { Pin } from "../../../types/map";
+import { IPinForm } from "../../../types";
 import styles from "./styles";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
-  const dispatch = useAppDispatch();
+  const { createPin } = usePins();
 
-  const { control, watch, trigger, setValue, resetField, handleSubmit } =
-    useForm<PinFormFieldValues>({
-      defaultValues: {
-        label: "",
-        description: "",
-        latitude: "",
-        longitude: "",
-      },
-    });
-
-  const formController: IFormController = {
-    control,
-    resetField,
-    trigger,
-  };
+  const { formController, watch, setValue, handleSubmit } =
+    useHookForm<IPinForm>();
 
   const setCoordinates = ({ latitude, longitude }: LatLng) => {
     setValue("latitude", String(latitude));
     setValue("longitude", String(longitude));
 
-    trigger("latitude");
-    trigger("longitude");
+    formController.trigger("latitude");
+    formController.trigger("longitude");
   };
 
-  const coordinatesPickedHandler = (coordinates: LatLng) =>
-    setCoordinates(coordinates);
+  const savePinHandler = async (pinForm: IPinForm) => {
+    const newPin = pinFormToPin(pinForm);
 
-  const savePinHandler = (values: PinFormFieldValues) => {
-    const newPin: Pin = {
-      id: Date.now().toString(),
-      label: values.label,
-      description: values.description,
-      location: {
-        latitude: Number.parseFloat(values.latitude),
-        longitude: Number.parseFloat(values.longitude),
-      },
-      isFavorite: true,
-    };
+    const isPinCreated = await createPin(newPin);
 
-    dispatch(addPin(newPin));
-
-    navigation.goBack();
+    if (isPinCreated && navigation.canGoBack()) {
+      navigation.goBack();
+    }
   };
 
   const latitude = Number.parseFloat(watch("latitude"));
   const longitude = Number.parseFloat(watch("longitude"));
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerRight: () => (
-        <CustomButton
-          containerStyle={{ marginRight: 12 }}
-          imageSource={SAVE_ICON}
-          onPress={handleSubmit(savePinHandler)}
-        />
-      ),
-    });
-  }, []);
+  useHeaderRightButton(navigation, SAVE_ICON, handleSubmit(savePinHandler));
 
   return (
     <>
@@ -89,7 +53,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         <SelectLocationView
           latitude={latitude}
           longitude={longitude}
-          onPickCoordinates={coordinatesPickedHandler}
+          onPickCoordinates={setCoordinates}
         />
       </View>
     </>

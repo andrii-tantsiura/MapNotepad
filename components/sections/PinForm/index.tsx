@@ -10,26 +10,19 @@ import {
 } from "../../../helpers";
 import { IFormController, InformativeTextInput } from "../../common";
 
-export type PinFormFieldValues = {
-  label: string;
-  description: string;
-  latitude: string;
-  longitude: string;
-};
-
 interface IPinFormProps {
   formController: IFormController;
 }
 
 export const PinForm: FC<IPinFormProps> = ({ formController }) => {
-  const [isManualCoordsEdit, setIsManualCoordsEdit] = useState(false);
+  const [isManualCoordsEditing, setIsManualCoordsEditing] = useState(false);
 
-  const setManualCoordsEditHandler = () => setIsManualCoordsEdit(true);
-  const resetManualCoordsEditHandler = () => setIsManualCoordsEdit(false);
+  const setManualCoordsEditingHandler = () => setIsManualCoordsEditing(true);
+  const resetManualCoordsEditingHandler = () => setIsManualCoordsEditing(false);
 
   return (
     <View style={styles.container}>
-      {!isManualCoordsEdit && (
+      {!isManualCoordsEditing && (
         <>
           <InformativeTextInput
             formController={formController}
@@ -58,8 +51,8 @@ export const PinForm: FC<IPinFormProps> = ({ formController }) => {
             placeholder="Longitude"
             maxLength={10}
             rules={LONGITUDE_RULES}
-            onFocus={setManualCoordsEditHandler}
-            onSubmitEditing={resetManualCoordsEditHandler}
+            onFocus={setManualCoordsEditingHandler}
+            onSubmitEditing={resetManualCoordsEditingHandler}
           />
         </View>
 
@@ -71,8 +64,8 @@ export const PinForm: FC<IPinFormProps> = ({ formController }) => {
             keyboardType="numeric"
             maxLength={10}
             placeholder="Latitude"
-            onFocus={setManualCoordsEditHandler}
-            onSubmitEditing={resetManualCoordsEditHandler}
+            onFocus={setManualCoordsEditingHandler}
+            onSubmitEditing={resetManualCoordsEditingHandler}
           />
         </View>
       </View>

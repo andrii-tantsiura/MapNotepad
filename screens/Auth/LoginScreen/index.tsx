@@ -1,61 +1,41 @@
 import React, { useContext, useState } from "react";
-import { useForm } from "react-hook-form";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import {
-  CustomButton,
-  IFormController,
-  InformativeTextInput,
-} from "../../../components/common";
+import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { ErrorMessages } from "../../../enums";
 import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
+import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
-import { AuthContext } from "../../../store/AuthContextProvider";
-import { NetworkInfoContext } from "../../../store/NetworkInfoContext";
-import { loginWithEmail } from "../../../utils";
+import AuthService from "../../../services/AuthService";
+import { AuthContext } from "../../../store/AuthProvider";
+import { ILoginForm } from "../../../types";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
-  const isConnected = useContext(NetworkInfoContext);
   const authContext = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
 
-  const { control, trigger, resetField, handleSubmit } = useForm({
+  const { formController, handleSubmit } = useHookForm<ILoginForm>({
     defaultValues: {
-      email: route.params?.email ?? "",
-      password: "",
+      email: route.params?.email,
     },
   });
 
-  const formController: IFormController = {
-    control,
-    resetField,
-    trigger,
-  };
+  const submitHandler = async ({ email, password }: ILoginForm) => {
+    setIsLoading(true);
 
-  const submitHandler = async (values: any) => {
-    if (isConnected) {
-      setIsLoading(true);
+    const loginResult = await AuthService.loginWithEmail(email, password);
 
-      const { idToken, errorMessage } = await loginWithEmail(
-        values.email,
-        values.password
-      );
-
-      setIsLoading(false);
-
-      if (idToken) {
-        authContext.authenticate(idToken);
-      } else if (errorMessage) {
-        AlertService.error(errorMessage);
-      }
+    if (loginResult.isSuccess && loginResult.result) {
+      authContext.authenticate(loginResult.result.idToken);
     } else {
-      AlertService.error(ErrorMessages.NO_INTERNET_CONNECTION);
+      AlertService.error(loginResult.getMessage());
     }
+
+    setIsLoading(false);
   };
 
   if (isLoading) {

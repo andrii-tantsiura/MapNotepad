@@ -1,15 +1,23 @@
 import { createAction } from "@reduxjs/toolkit";
 
-import { Pin } from "../../../types/map";
+import { IPin } from "../../../types";
 import { withPayloadType } from "./types";
 
-export const addPin = createAction("addPin", withPayloadType<Pin>());
+export const setPinsAction = createAction("setPins", withPayloadType<IPin[]>());
 
-export const updatePin = createAction("updatePin", withPayloadType<Pin>());
+export const addPinAction = createAction("addPin", withPayloadType<IPin>());
 
-export const toggleFavoritePinStatus = createAction(
+export const updatePinAction = createAction(
+  "updatePin",
+  withPayloadType<IPin>()
+);
+
+export const toggleFavoritePinStatusAction = createAction(
   "toggleFavoritePinStatus",
   withPayloadType<string>()
 );
 
-export const deletePin = createAction("deletePin", withPayloadType<string>());
+export const deletePinAction = createAction(
+  "deletePin",
+  withPayloadType<string>()
+);

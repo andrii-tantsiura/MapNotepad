@@ -1,9 +1,10 @@
 import { LatLng } from "react-native-maps";
 
-export interface Pin {
-  id: string;
-  location: LatLng;
+import { IBaseModel } from "./baseModel";
+
+export interface IPin extends IBaseModel {
   label: string;
-  description?: string;
-  isFavorite?: boolean;
+  description: string;
+  location: LatLng;
+  isFavorite: boolean;
 }

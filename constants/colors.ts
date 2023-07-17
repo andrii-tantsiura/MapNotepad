@@ -61,7 +61,7 @@ export const AppColors: IAppColors = {
   info: "#4ea2e1",
 };
 
-export const Flash_Message_Colors: IFlashMessageColors = {
+export const FlashMessageColors: IFlashMessageColors = {
   info: AppColors.info,
   success: AppColors.lightSuccess,
   warning: AppColors.warning,
