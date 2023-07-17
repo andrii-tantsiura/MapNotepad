@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { IBaseModel } from "../../types";
 import { AOResult } from "../../helpers/AOResult";
 import { FirebaseError, UnauthorizedError } from "./types";
+import { ExtractErrorMessage } from "../../helpers/AOResult/types";
 
 interface IModels {
   [index: string]: IBaseModel;
@@ -31,8 +32,9 @@ export const createFirebaseRequestConfig = <T>(
   transformResponse: withFirebaseModelsToArray<T>(reviver),
 });
 
-export const clarifyAOResultError = <T>(result: AOResult<T>): void => {
-  const { exception } = result;
+export const extractErrorMessage: ExtractErrorMessage = (
+  exception: any
+): string | undefined => {
   let message: string | undefined;
 
   if (axios.isAxiosError(exception) && exception.response) {
@@ -51,5 +53,5 @@ export const clarifyAOResultError = <T>(result: AOResult<T>): void => {
     message = exception.message;
   }
 
-  result.setFailure(message ?? "Unknown error");
+  return message;
 };

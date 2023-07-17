@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useState } from "react";
 import { ListRenderItemInfo, View } from "react-native";
+import { RefreshControl } from "react-native-gesture-handler";
 import { RowMap, SwipeListView } from "react-native-swipe-list-view";
 import { useSelector } from "react-redux";
 
@@ -10,15 +11,9 @@ import { CustomButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
+import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
-import AlertService from "../../../services/AlertService";
-import PinsService from "../../../services/PinsService";
-import {
-  deletePin,
-  toggleFavoritePinStatus,
-} from "../../../store/redux/actions";
 import { selectPins } from "../../../store/redux/slices";
-import { useAppDispatch } from "../../../store/redux/store";
 import { IPin } from "../../../types";
 import { hideActionMenu } from "../../../utils";
 import {
@@ -35,7 +30,13 @@ type HomeScreenNavigationProp = StackNavigationProp<
 
 export const PinsScreen: FC = () => {
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
-  const dispatch = useAppDispatch();
+
+  const {
+    isPinsLoading,
+    fetchPins,
+    togglePinFavoriteStatus: toggleFavoriteStatus,
+    deletePin,
+  } = usePins();
 
   const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPin>>();
   const [selectedPinId, setSelectedPinId] = useState<string>();
@@ -43,20 +44,6 @@ export const PinsScreen: FC = () => {
     useState(false);
 
   const pins = useSelector(selectPins);
-
-  const toggleFavoriteStatusHandler = async (pin: IPin) => {
-    const toggleFavoriteStatusResult =
-      await PinsService.toggleFavoritePinStatus(pin);
-
-    if (
-      toggleFavoriteStatusResult.isSuccess &&
-      toggleFavoriteStatusResult.result
-    ) {
-      dispatch(toggleFavoritePinStatus(pin.id));
-    } else {
-      AlertService.error(toggleFavoriteStatusResult.getMessage());
-    }
-  };
 
   const deletePinHandler = (
     { item: pin }: ListRenderItemInfo<IPin>,
@@ -68,15 +55,9 @@ export const PinsScreen: FC = () => {
     setIsRemovePinConfirmationVisible(true);
   };
 
-  const confirmDeletePinHandler = async () => {
+  const confirmDeletePinHandler = () => {
     if (selectedPinId) {
-      const deletePinResult = await PinsService.deletePin(selectedPinId);
-
-      if (deletePinResult.isSuccess) {
-        dispatch(deletePin(selectedPinId));
-      } else {
-        AlertService.error(deletePinResult.getMessage());
-      }
+      deletePin(selectedPinId);
     }
 
     setIsRemovePinConfirmationVisible(false);
@@ -102,7 +83,7 @@ export const PinsScreen: FC = () => {
   const renderPinItem = ({ item: pin }: ListRenderItemInfo<IPin>) => (
     <PinItem
       data={pin}
-      onPressFavoriteStatus={() => toggleFavoriteStatusHandler(pin)}
+      onPressFavoriteStatus={() => toggleFavoriteStatus(pin)}
     />
   );
 
@@ -127,6 +108,9 @@ export const PinsScreen: FC = () => {
       />
 
       <SwipeListView
+        refreshControl={
+          <RefreshControl refreshing={isPinsLoading} onRefresh={fetchPins} />
+        }
         onRowOpen={(pinKey) => {
           setSelectedPinId(pinKey);
         }}

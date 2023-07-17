@@ -1,28 +1,29 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { ExecuteAndClarifyErrorIfNeed } from "../helpers/AOResult";
+import { ExecuteAsync } from "../helpers/AOResult";
+import { extractErrorMessage } from "./firebase";
 
 export const requestWithPayload = async <TPayload, TResponse>(
   httpMethod: "post" | "put",
   url: string,
   payload: TPayload
 ) =>
-  ExecuteAndClarifyErrorIfNeed<TResponse>(async () => {
+  ExecuteAsync<TResponse>(async () => {
     const { data } = await axios[httpMethod]<
       TPayload,
       AxiosResponse<TResponse>
     >(url, payload);
 
     return data;
-  });
+  }, extractErrorMessage);
 
 export const requestWithoutPayload = async <TResponse>(
   httpMethod: "get" | "delete",
   url: string,
   config?: AxiosRequestConfig
 ) =>
-  ExecuteAndClarifyErrorIfNeed<TResponse>(async () => {
+  ExecuteAsync<TResponse>(async () => {
     const { data } = await axios[httpMethod]<TResponse>(url, config);
 
     return data;
-  });
+  }, extractErrorMessage);

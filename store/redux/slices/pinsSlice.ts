@@ -2,11 +2,11 @@ import { createSlice } from "@reduxjs/toolkit";
 
 import { IPin } from "../../../types";
 import {
-  addPin,
-  deletePin,
-  setPins,
-  toggleFavoritePinStatus,
-  updatePin,
+  addPinAction,
+  deletePinAction,
+  setPinsAction,
+  toggleFavoritePinStatusAction,
+  updatePinAction,
 } from "../actions/pin.actions";
 import { RootStore } from "../store";
 
@@ -24,24 +24,24 @@ const pinsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(addPin, (state, action) => {
+      .addCase(addPinAction, (state, action) => {
         state.pins.push(action.payload);
       })
-      .addCase(toggleFavoritePinStatus, (state, action) => {
+      .addCase(toggleFavoritePinStatusAction, (state, action) => {
         state.pins = state.pins.map((item) =>
           action.payload === item.id
             ? { ...item, isFavorite: !item.isFavorite }
             : item
         );
       })
-      .addCase(updatePin, (state, action) => {
+      .addCase(updatePinAction, (state, action) => {
         const id = action.payload.id;
         state.pins = state.pins.map((x) => (x.id === id ? action.payload : x));
       })
-      .addCase(deletePin, (state, action) => {
+      .addCase(deletePinAction, (state, action) => {
         state.pins = state.pins.filter((x) => x.id !== action.payload);
       })
-      .addCase(setPins, (state, action) => {
+      .addCase(setPinsAction, (state, action) => {
         state.pins = action.payload;
       });
   },

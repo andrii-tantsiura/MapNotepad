@@ -1,7 +1,6 @@
 import { FC, useEffect } from "react";
 import { View } from "react-native";
 import { LatLng } from "react-native-maps";
-import { useSelector } from "react-redux";
 
 import { SAVE_ICON } from "../../../assets/icons";
 import {
@@ -9,19 +8,16 @@ import {
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
-import { useHeaderRightButton, useHookForm } from "../../../hooks";
+import { pinFormToPin } from "../../../helpers";
+import { useHeaderRightButton, useHookForm, usePins } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import AlertService from "../../../services/AlertService";
-import PinsService from "../../../services/PinsService";
-import { updatePin } from "../../../store/redux/actions";
-import { selectPins } from "../../../store/redux/slices";
-import { useAppDispatch } from "../../../store/redux/store";
 import { IPin, IPinForm } from "../../../types";
 import styles from "./styles";
 
 export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
-  const dispatch = useAppDispatch();
-  const pin = useSelector(selectPins).find((x) => x.id === route.params?.pinId);
+  const { pins, updatePin } = usePins();
+
+  const editedPin = pins.find((x) => x.id === route.params?.pinId);
 
   const { formController, watch, setValue, handleSubmit } =
     useHookForm<IPinForm>();
@@ -34,34 +30,18 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
     formController.trigger("longitude");
   };
 
-  const savePinHandler = async ({
-    label,
-    description,
-    latitude,
-    longitude,
-  }: IPinForm) => {
-    if (pin) {
+  const savePinHandler = async (pinForm: IPinForm) => {
+    if (editedPin) {
       const pinToUpdate: IPin = {
-        id: pin.id,
-        label,
-        description,
-        location: {
-          latitude: Number.parseFloat(latitude),
-          longitude: Number.parseFloat(longitude),
-        },
-        isFavorite: pin.isFavorite,
+        ...pinFormToPin(pinForm),
+        id: editedPin.id,
+        isFavorite: editedPin.isFavorite,
       };
 
-      const updatePinResult = await PinsService.updatePin(pinToUpdate);
+      const isPinUpdated = await updatePin(pinToUpdate);
 
-      if (updatePinResult.isSuccess) {
-        dispatch(updatePin(pinToUpdate));
-
-        if (navigation.canGoBack()) {
-          navigation.goBack();
-        }
-      } else {
-        AlertService.error(updatePinResult.getMessage());
+      if (isPinUpdated && navigation.canGoBack()) {
+        navigation.goBack();
       }
     }
   };
@@ -70,13 +50,13 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
   const longitude = Number.parseFloat(watch("longitude"));
 
   useEffect(() => {
-    if (pin) {
-      setValue("label", pin.label);
-      setValue("description", pin.description ?? "");
-      setValue("latitude", pin.location.latitude.toString());
-      setValue("longitude", pin.location.longitude.toString());
+    if (editedPin) {
+      setValue("label", editedPin.label);
+      setValue("description", editedPin.description ?? "");
+      setValue("latitude", editedPin.location.latitude.toString());
+      setValue("longitude", editedPin.location.longitude.toString());
     }
-  }, [pin]);
+  }, [editedPin]);
 
   useHeaderRightButton(navigation, SAVE_ICON, handleSubmit(savePinHandler));
 

@@ -1,5 +1,5 @@
 import { FIREBASE_DATABASE_API_URL } from "../../config";
-import { AwaitedResult } from "../../helpers/AOResult";
+import { AwaitedResult } from "../../helpers/AOResult/types";
 import {
   ICreatePinResponse,
   IPin,

@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image } from "react-native";
 
 import { MAP_ICON, PIN_ICON } from "../../assets/icons";
@@ -7,6 +7,7 @@ import { ConfirmModal } from "../../components/modals";
 import { SearchBar } from "../../components/sections";
 import { AppColors, ImageStyles, textStyle_i3 } from "../../constants";
 import { typographyStyleToTextStyle } from "../../helpers";
+import { usePins } from "../../hooks";
 import { MapScreen, PinsScreen } from "../../screens/Home";
 import { AuthContext } from "../../store/AuthProvider";
 import styles from "./styles";
@@ -17,7 +18,13 @@ const Tabs = createBottomTabNavigator<TabStackParamList>();
 const TabsStack: React.FC = () => {
   const authContext = useContext(AuthContext);
 
+  const { fetchPins } = usePins();
+
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
+
+  useEffect(() => {
+    fetchPins();
+  }, []);
 
   return (
     <>

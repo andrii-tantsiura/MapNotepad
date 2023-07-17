@@ -1,5 +1,5 @@
-import { ErrorMessages } from "../enums";
-import { clarifyAOResultError } from "../utils/firebase";
+import { ErrorMessages } from "../../enums";
+import { AsyncFunc, AwaitedResult, ExtractErrorMessage } from "./types";
 
 export class AOResult<T> {
   public isSuccess: boolean = false;
@@ -42,13 +42,10 @@ export class AOResult<T> {
   }
 }
 
-export type AwaitedResult<T> = Promise<AOResult<T>>;
-
-export type FailureCallback = (message: string) => void;
-
-export type AsyncFunc<T> = (onFailure: FailureCallback) => Promise<T>;
-
-export async function ExecuteAsync<T>(func: AsyncFunc<T>): AwaitedResult<T> {
+export async function ExecuteAsync<T>(
+  func: AsyncFunc<T>,
+  extractErrorMessage?: ExtractErrorMessage
+): AwaitedResult<T> {
   const result = new AOResult<T>();
 
   let isOnFailureExecuted: boolean = false;
@@ -65,19 +62,13 @@ export async function ExecuteAsync<T>(func: AsyncFunc<T>): AwaitedResult<T> {
       result.setSuccess(funcResult);
     }
   } catch (ex: any) {
-    result.setException(ex);
-  }
+    const extractedMessage = extractErrorMessage?.(ex);
 
-  return result;
-}
-
-export async function ExecuteAndClarifyErrorIfNeed<T>(
-  func: AsyncFunc<T>
-): Promise<AOResult<T>> {
-  const result = await ExecuteAsync(func);
-
-  if (!result.isSuccess) {
-    clarifyAOResultError(result);
+    if (extractedMessage) {
+      result.setFailure(extractedMessage);
+    } else {
+      result.setException(ex);
+    }
   }
 
   return result;

@@ -8,18 +8,14 @@ import {
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
-import { useHeaderRightButton } from "../../../hooks";
-import { useHookForm } from "../../../hooks/useHookForm";
+import { pinFormToPin } from "../../../helpers";
+import { useHeaderRightButton, useHookForm, usePins } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import AlertService from "../../../services/AlertService";
-import PinsService from "../../../services/PinsService";
-import { addPin } from "../../../store/redux/actions";
-import { useAppDispatch } from "../../../store/redux/store";
-import { IPin, IPinForm, IPinPayload } from "../../../types";
+import { IPinForm } from "../../../types";
 import styles from "./styles";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
-  const dispatch = useAppDispatch();
+  const { createPin } = usePins();
 
   const { formController, watch, setValue, handleSubmit } =
     useHookForm<IPinForm>();
@@ -32,37 +28,13 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
     formController.trigger("longitude");
   };
 
-  const savePinHandler = async ({
-    label,
-    description,
-    latitude,
-    longitude,
-  }: IPinForm) => {
-    const newPin: IPinPayload = {
-      label,
-      description,
-      location: {
-        latitude: Number.parseFloat(latitude),
-        longitude: Number.parseFloat(longitude),
-      },
-      isFavorite: true,
-    };
+  const savePinHandler = async (pinForm: IPinForm) => {
+    const newPin = pinFormToPin(pinForm);
 
-    const createPinResult = await PinsService.createPin(newPin);
+    const isPinCreated = await createPin(newPin);
 
-    if (createPinResult.isSuccess && createPinResult.result) {
-      const pin: IPin = {
-        id: createPinResult.result,
-        ...newPin,
-      };
-
-      dispatch(addPin(pin));
-
-      if (navigation.canGoBack()) {
-        navigation.goBack();
-      }
-    } else {
-      AlertService.error(createPinResult.getMessage());
+    if (isPinCreated && navigation.canGoBack()) {
+      navigation.goBack();
     }
   };
 

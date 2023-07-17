@@ -32,11 +32,6 @@ export interface ICreatePinResponse {
   name: string;
 }
 
-export interface IPinPayload {
-  location: LatLng;
-  label: string;
-  description?: string;
-  isFavorite?: boolean;
-}
+export interface IPinPayload extends Omit<IPin, "id"> {}
 
 export type IPinsResponse = IPin[];
