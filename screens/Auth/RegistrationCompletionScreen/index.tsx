@@ -52,9 +52,12 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
       );
     } else {
       const message = registerResult.getMessage();
+
       AlertService.error(message);
 
-      navigation.goBack();
+      if (message === "EMAIL_EXISTS") {
+        navigation.goBack();
+      }
     }
   };
 

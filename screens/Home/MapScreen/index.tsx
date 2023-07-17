@@ -31,7 +31,7 @@ const INITIAL_REGION = {
 export const MapScreen: FC<TabProps> = () => {
   const dispatch = useAppDispatch();
   const mapViewRef = useRef<MapView>(null);
-  const [currentLocation, requestCurrentLocation] = useCurrentLocation(true);
+  const { currentLocation, requestCurrentLocation } = useCurrentLocation(true);
 
   const pins = useSelector(selectPins);
   const favoritePins = pins.filter((x) => x.isFavorite);

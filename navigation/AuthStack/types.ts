@@ -4,7 +4,7 @@ export type AuthStackParamList = {
   Startup: undefined;
   RegistrationStartup: undefined;
   RegistrationCompletion: { name: string; email: string };
-  Login: { email: string | undefined } | undefined;
+  Login: { email: string } | undefined;
 };
 
 export type AuthScreenProps = StackScreenProps<AuthStackParamList>;

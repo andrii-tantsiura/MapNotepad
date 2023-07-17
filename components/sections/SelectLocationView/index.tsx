@@ -31,7 +31,7 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   onPickCoordinates,
 }) => {
   const mapViewRef = useRef<MapView>(null);
-  const [currentLocation, requestCurrentLocation] = useCurrentLocation(
+  const { currentLocation, requestCurrentLocation } = useCurrentLocation(
     shouldRequestLocationInitially
   );
 
