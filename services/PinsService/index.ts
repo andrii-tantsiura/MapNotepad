@@ -1,39 +1,18 @@
-import { createUrlWithAuth } from "../../helpers";
-import { AOResult } from "../../helpers/AOResult";
 import { AwaitedResult } from "../../helpers/AOResult/types";
-import {
-  ICreatePinResponse,
-  ICredentials,
-  IPin,
-  IPinPayload,
-  IPins,
-} from "../../types";
+import { ICreatePinResponse, IPin, IPinPayload, IPins } from "../../types";
 import {
   createFirebaseRequestConfig,
   requestWithPayload,
   requestWithoutPayload,
 } from "../../utils";
+import AuthenticatedService from "../AuthenticatedService";
 
-class PinsService {
-  public credentials: ICredentials | null = null;
-
-  tryRequestWithCredentials = async <TResult>(
-    request: (credentials: ICredentials) => AwaitedResult<TResult>
-  ) => {
-    let result = new AOResult<TResult>();
-
-    if (this.credentials) {
-      result = await request(this.credentials);
-    }
-
-    return result;
-  };
-
+class PinsService extends AuthenticatedService {
   createPin = async (pin: IPinPayload): AwaitedResult<string> =>
-    this.tryRequestWithCredentials(async (credentials) => {
+    this.executeAuthenticatedRequest(async (credentials) => {
       const result = await requestWithPayload<IPinPayload, ICreatePinResponse>(
         "post",
-        createUrlWithAuth("pins.json", credentials),
+        this.createAuthenticatedUrl("pins.json", credentials),
         pin
       );
 
@@ -41,11 +20,11 @@ class PinsService {
     });
 
   updatePin = async (pin: IPin): AwaitedResult<boolean> =>
-    this.tryRequestWithCredentials(async (credentials) => {
+    this.executeAuthenticatedRequest(async (credentials) => {
       const { id, ...restFields } = pin;
       const payload: IPinPayload = { ...restFields };
 
-      const url = createUrlWithAuth(`pins/${id}.json`, credentials);
+      const url = this.createAuthenticatedUrl(`pins/${id}.json`, credentials);
 
       const requestResult = await requestWithPayload<
         IPinPayload,
@@ -62,17 +41,20 @@ class PinsService {
   };
 
   deletePin = async (pinId: string): AwaitedResult<null> =>
-    this.tryRequestWithCredentials(async (credentials) => {
-      const url = createUrlWithAuth(`pins/${pinId}.json`, credentials);
+    this.executeAuthenticatedRequest(async (credentials) => {
+      const url = this.createAuthenticatedUrl(
+        `pins/${pinId}.json`,
+        credentials
+      );
 
       return requestWithoutPayload("delete", url);
     });
 
   getPins = async (): AwaitedResult<IPins> =>
-    this.tryRequestWithCredentials(async (credentials) => {
+    this.executeAuthenticatedRequest(async (credentials) => {
       return requestWithoutPayload<IPins>(
         "get",
-        createUrlWithAuth("pins.json", credentials),
+        this.createAuthenticatedUrl("pins.json", credentials),
         createFirebaseRequestConfig()
       );
     });
