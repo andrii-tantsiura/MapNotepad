@@ -1,4 +1,6 @@
 import { FIREBASE_API_KEY, FIREBASE_AUTH_API_URL } from "../../config";
+import { signInWithEmailResponseToCredentials } from "../../helpers";
+import { AOResult } from "../../helpers/AOResult";
 import { AwaitedResult } from "../../helpers/AOResult/types";
 
 import {
@@ -43,20 +45,20 @@ class AuthService {
       returnSecureToken: true,
     };
 
-    const result = await requestWithPayload<
+    const requestResult = await requestWithPayload<
       ISignInWithEmailPayload,
       ISignInWithEmailResponse
     >("post", LOGIN_WITH_EMAIL_URL, payload);
 
-    return result.data
-      ? result.convertTo<ICredentials>({
-          idToken: result.data?.idToken,
-          expirationDate: result.data.expiresIn,
-          refreshToken: result.data.refreshToken,
-          userId: result.data.localId,
-          email: result.data.email,
-        })
-      : result.convertTo();
+    let result = new AOResult<ICredentials>();
+
+    if (requestResult.isSuccess && requestResult.data) {
+      result = requestResult.convertTo<ICredentials>(
+        signInWithEmailResponseToCredentials(requestResult.data)
+      );
+    }
+
+    return result;
   };
 }
 

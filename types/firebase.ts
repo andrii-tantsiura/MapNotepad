@@ -4,7 +4,7 @@ export interface ICredentials {
   idToken: string;
   email: string;
   refreshToken: string;
-  expirationDate: string;
+  tokenLifeSpanInSeconds: string;
   userId: string;
 }
 

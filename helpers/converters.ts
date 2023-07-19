@@ -1,4 +1,9 @@
-import { IPin, IPinForm } from "../types";
+import {
+  ICredentials,
+  IPin,
+  IPinForm,
+  ISignInWithEmailResponse,
+} from "../types";
 
 export const pinFormToPin = ({
   label,
@@ -14,4 +19,14 @@ export const pinFormToPin = ({
     longitude: Number.parseFloat(longitude),
   },
   isFavorite: true,
+});
+
+export const signInWithEmailResponseToCredentials = (
+  data: ISignInWithEmailResponse
+): ICredentials => ({
+  idToken: data.idToken,
+  tokenLifeSpanInSeconds: data.expiresIn,
+  refreshToken: data.refreshToken,
+  userId: data.localId,
+  email: data.email,
 });

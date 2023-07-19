@@ -17,40 +17,43 @@ import {
 class PinsService {
   public credentials: ICredentials | null = null;
 
-  createPin = async (pin: IPinPayload): AwaitedResult<string> => {
-    let result = new AOResult<string>();
+  tryRequestWithCredentials = async <TResult>(
+    request: (credentials: ICredentials) => AwaitedResult<TResult>
+  ) => {
+    let result = new AOResult<TResult>();
 
     if (this.credentials) {
-      const requestResult = await requestWithPayload<
-        IPinPayload,
-        ICreatePinResponse
-      >("post", createUrlWithAuth("pins.json", this.credentials), pin);
-
-      result = requestResult.convertTo<string>(requestResult.data?.name);
+      result = await request(this.credentials);
     }
 
     return result;
   };
 
-  updatePin = async (pin: IPin): AwaitedResult<boolean> => {
-    let result = new AOResult<boolean>();
+  createPin = async (pin: IPinPayload): AwaitedResult<string> =>
+    this.tryRequestWithCredentials(async (credentials) => {
+      const result = await requestWithPayload<IPinPayload, ICreatePinResponse>(
+        "post",
+        createUrlWithAuth("pins.json", credentials),
+        pin
+      );
 
-    if (this.credentials) {
+      return result.convertTo<string>(result.data?.name);
+    });
+
+  updatePin = async (pin: IPin): AwaitedResult<boolean> =>
+    this.tryRequestWithCredentials(async (credentials) => {
       const { id, ...restFields } = pin;
       const payload: IPinPayload = { ...restFields };
 
-      const url = createUrlWithAuth(`pins/${id}.json`, this.credentials);
+      const url = createUrlWithAuth(`pins/${id}.json`, credentials);
 
       const requestResult = await requestWithPayload<
         IPinPayload,
         ICreatePinResponse
       >("put", url, payload);
 
-      result = requestResult.convertTo(Boolean(requestResult.data));
-    }
-
-    return result;
-  };
+      return requestResult.convertTo(Boolean(requestResult.data));
+    });
 
   toggleFavoritePinStatus = async (pin: IPin) => {
     const newPin = { ...pin, isFavorite: !pin.isFavorite };
@@ -58,31 +61,21 @@ class PinsService {
     return this.updatePin(newPin);
   };
 
-  deletePin = async (pinId: string): AwaitedResult<null> => {
-    let result = new AOResult();
+  deletePin = async (pinId: string): AwaitedResult<null> =>
+    this.tryRequestWithCredentials(async (credentials) => {
+      const url = createUrlWithAuth(`pins/${pinId}.json`, credentials);
 
-    if (this.credentials) {
-      const url = createUrlWithAuth(`pins/${pinId}.json`, this.credentials);
+      return requestWithoutPayload("delete", url);
+    });
 
-      result = await requestWithoutPayload("delete", url);
-    }
-
-    return result;
-  };
-
-  getPins = async (): AwaitedResult<IPins> => {
-    let result = new AOResult<IPins>();
-
-    if (this.credentials) {
-      result = await requestWithoutPayload<IPins>(
+  getPins = async (): AwaitedResult<IPins> =>
+    this.tryRequestWithCredentials(async (credentials) => {
+      return requestWithoutPayload<IPins>(
         "get",
-        createUrlWithAuth("pins.json", this.credentials),
+        createUrlWithAuth("pins.json", credentials),
         createFirebaseRequestConfig()
       );
-    }
-
-    return result;
-  };
+    });
 }
 
 export default new PinsService();

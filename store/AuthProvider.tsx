@@ -4,6 +4,14 @@ import { ReactNode, createContext, useState } from "react";
 import { StorageItems } from "../enums";
 import { ICredentials } from "../types";
 
+const credentialsKeys: StorageItems[] = [
+  StorageItems.ID_TOKEN,
+  StorageItems.EMAIL,
+  StorageItems.REFRESH_TOKEN,
+  StorageItems.EXPIRATION_DATE,
+  StorageItems.USER_ID,
+];
+
 interface IAuthContextProps {
   credentials: ICredentials | null;
   isAuthenticated: boolean;
@@ -35,7 +43,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
         [StorageItems.ID_TOKEN, credentials.idToken],
         [StorageItems.EMAIL, credentials.email],
         [StorageItems.REFRESH_TOKEN, credentials.refreshToken],
-        [StorageItems.EXPIRATION_DATE, credentials.expirationDate],
+        [StorageItems.EXPIRATION_DATE, credentials.tokenLifeSpanInSeconds],
         [StorageItems.USER_ID, credentials.userId],
       ];
 
@@ -45,33 +53,27 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     },
 
     fetchCredentialsFromAsyncStorage: async () => {
-      const values = await AsyncStorage.multiGet([
-        StorageItems.ID_TOKEN,
-        StorageItems.EMAIL,
-        StorageItems.REFRESH_TOKEN,
-        StorageItems.EXPIRATION_DATE,
-        StorageItems.USER_ID,
-      ]);
+      const values = await AsyncStorage.multiGet(credentialsKeys);
 
-      setCredentials({
-        idToken: values[0][1] ?? "",
-        email: values[1][1] ?? "",
-        refreshToken: values[2][1] ?? "",
-        expirationDate: values[3][1] ?? "",
-        userId: values[4][1] ?? "",
-      });
-
-      console.log("fetched credentials", credentials);
+      if (
+        values[0][1] &&
+        values[1][1] &&
+        values[2][1] &&
+        values[3][1] &&
+        values[4][1]
+      ) {
+        setCredentials({
+          idToken: values[0][1],
+          email: values[1][1],
+          refreshToken: values[2][1],
+          tokenLifeSpanInSeconds: values[3][1],
+          userId: values[4][1],
+        });
+      }
     },
 
     logout: async () => {
-      await AsyncStorage.multiRemove([
-        StorageItems.ID_TOKEN,
-        StorageItems.EMAIL,
-        StorageItems.REFRESH_TOKEN,
-        StorageItems.EXPIRATION_DATE,
-        StorageItems.USER_ID,
-      ]);
+      await AsyncStorage.multiRemove(credentialsKeys);
 
       setCredentials(null);
     },
