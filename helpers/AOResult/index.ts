@@ -1,15 +1,15 @@
 import { ErrorMessages } from "../../enums";
 import { AsyncFunc, AwaitedResult, ExtractErrorMessage } from "./types";
 
-export class AOResult<T> {
+export class AOResult<T = null> {
   public isSuccess: boolean = false;
-  public result?: T;
+  public data?: T;
   public exception?: any;
   public message?: string;
 
-  public setSuccess(result: T) {
+  public setSuccess(data: T) {
     this.isSuccess = true;
-    this.result = result;
+    this.data = data;
   }
 
   public setFailure(message: string) {
@@ -24,10 +24,10 @@ export class AOResult<T> {
     this.exception = exception;
   }
 
-  convertTo<TNewType>(data?: TNewType) {
+  convertTo<TNewType = undefined>(data?: TNewType) {
     let newResult = new AOResult<TNewType>();
 
-    newResult.result = data;
+    newResult.data = data;
     newResult.isSuccess = this.isSuccess;
     newResult.exception = this.exception;
     newResult.message = this.message;

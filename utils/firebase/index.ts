@@ -1,9 +1,9 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { IBaseModel } from "../../types";
-import { AOResult } from "../../helpers/AOResult";
-import { FirebaseError, UnauthorizedError } from "./types";
+import { HttpCodes } from "../../enums";
 import { ExtractErrorMessage } from "../../helpers/AOResult/types";
+import { IBaseModel } from "../../types";
+import { FirebaseError, UnauthorizedError } from "./types";
 
 interface IModels {
   [index: string]: IBaseModel;
@@ -35,23 +35,35 @@ export const createFirebaseRequestConfig = <T>(
 export const extractErrorMessage: ExtractErrorMessage = (
   exception: any
 ): string | undefined => {
-  let message: string | undefined;
+  let errorMessage: string | undefined;
 
   if (axios.isAxiosError(exception) && exception.response) {
     const { status, data } = exception.response;
 
-    if (status === 400) {
-      if (data) {
-        message = (data as FirebaseError).error.message;
-      }
-    } else if (status === 401) {
-      if (data?.error) {
-        message = (data as UnauthorizedError).error;
-      }
+    switch (status as HttpCodes) {
+      case HttpCodes.BAD_REQUEST:
+        if (data) {
+          errorMessage = (data as FirebaseError).error.message;
+        }
+        break;
+
+      case HttpCodes.UNAUTHORIZED:
+        if (data) {
+          if (data?.error) {
+            errorMessage = (data as UnauthorizedError).error;
+          } else {
+            errorMessage = data;
+          }
+        }
+        break;
+
+      default:
+        errorMessage = data;
+        break;
     }
   } else {
-    message = exception.message;
+    errorMessage = exception.message;
   }
 
-  return message;
+  return errorMessage;
 };

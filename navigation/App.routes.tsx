@@ -23,7 +23,7 @@ const AppRoutes: React.FC = () => {
 
   useEffect(() => {
     async function tryAuthenticate() {
-      await authContext.fetchTokenFromStorageAsync();
+      await authContext.fetchCredentialsFromAsyncStorage();
 
       setIsTryingAuthenticate(false);
     }

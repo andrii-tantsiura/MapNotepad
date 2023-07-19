@@ -1,6 +1,12 @@
-import { LatLng } from "react-native-maps";
-
 import { IPin } from "./map";
+
+export interface ICredentials {
+  idToken: string;
+  email: string;
+  refreshToken: string;
+  expirationDate: string;
+  userId: string;
+}
 
 export interface ISignUpWithEmailPayload {
   email: string;
@@ -33,5 +39,3 @@ export interface ICreatePinResponse {
 }
 
 export interface IPinPayload extends Omit<IPin, "id"> {}
-
-export type IPinsResponse = IPin[];

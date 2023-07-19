@@ -1,0 +1,7 @@
+export enum StorageItems {
+  ID_TOKEN = "@ID_TOKEN",
+  REFRESH_TOKEN = "@REFRESH_TOKEN",
+  EXPIRATION_DATE = "@EXPIRATION_DATE",
+  EMAIL = "@EMAIL",
+  USER_ID = "@USER_ID",
+}

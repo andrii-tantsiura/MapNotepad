@@ -1,10 +1,12 @@
-import { FIREBASE_DATABASE_API_URL } from "../../config";
+import { createUrlWithAuth } from "../../helpers";
+import { AOResult } from "../../helpers/AOResult";
 import { AwaitedResult } from "../../helpers/AOResult/types";
 import {
   ICreatePinResponse,
+  ICredentials,
   IPin,
   IPinPayload,
-  IPinsResponse,
+  IPins,
 } from "../../types";
 import {
   createFirebaseRequestConfig,
@@ -13,28 +15,41 @@ import {
 } from "../../utils";
 
 class PinsService {
-  createPin = async (pin: IPinPayload): AwaitedResult<string> => {
-    const result = await requestWithPayload<IPinPayload, ICreatePinResponse>(
-      "post",
-      FIREBASE_DATABASE_API_URL + "/pins.json",
-      pin
-    );
+  public credentials: ICredentials | null = null;
 
-    return result.convertTo<string>(result.result?.name);
+  createPin = async (pin: IPinPayload): AwaitedResult<string> => {
+    let result = new AOResult<string>();
+
+    if (this.credentials) {
+      const requestResult = await requestWithPayload<
+        IPinPayload,
+        ICreatePinResponse
+      >("post", createUrlWithAuth("pins.json", this.credentials), pin);
+
+      result = requestResult.convertTo<string>(requestResult.data?.name);
+    }
+
+    return result;
   };
 
   updatePin = async (pin: IPin): AwaitedResult<boolean> => {
-    const { id, ...restFields } = pin;
+    let result = new AOResult<boolean>();
 
-    const pinPayload: IPinPayload = { ...restFields };
+    if (this.credentials) {
+      const { id, ...restFields } = pin;
+      const payload: IPinPayload = { ...restFields };
 
-    const result = await requestWithPayload(
-      "put",
-      FIREBASE_DATABASE_API_URL + `/pins/${pin.id}.json`,
-      pinPayload
-    );
+      const url = createUrlWithAuth(`pins/${id}.json`, this.credentials);
 
-    return result.convertTo(Boolean(result.result));
+      const requestResult = await requestWithPayload<
+        IPinPayload,
+        ICreatePinResponse
+      >("put", url, payload);
+
+      result = requestResult.convertTo(Boolean(requestResult.data));
+    }
+
+    return result;
   };
 
   toggleFavoritePinStatus = async (pin: IPin) => {
@@ -44,20 +59,29 @@ class PinsService {
   };
 
   deletePin = async (pinId: string): AwaitedResult<null> => {
-    return requestWithoutPayload(
-      "delete",
-      FIREBASE_DATABASE_API_URL + `/pins/${pinId}.json`
-    );
+    let result = new AOResult();
+
+    if (this.credentials) {
+      const url = createUrlWithAuth(`pins/${pinId}.json`, this.credentials);
+
+      result = await requestWithoutPayload("delete", url);
+    }
+
+    return result;
   };
 
-  getPins = async (): AwaitedResult<Array<IPin>> => {
-    const result = await requestWithoutPayload<IPinsResponse>(
-      "get",
-      FIREBASE_DATABASE_API_URL + "/pins.json",
-      createFirebaseRequestConfig()
-    );
+  getPins = async (): AwaitedResult<IPins> => {
+    let result = new AOResult<IPins>();
 
-    return result.convertTo(result.result);
+    if (this.credentials) {
+      result = await requestWithoutPayload<IPins>(
+        "get",
+        createUrlWithAuth("pins.json", this.credentials),
+        createFirebaseRequestConfig()
+      );
+    }
+
+    return result;
   };
 }
 
