@@ -1,6 +1,5 @@
 import { FirebaseConfig } from "../../config";
 import { signInWithEmailResponseToCredentials } from "../../helpers";
-import { AOResult } from "../../helpers/AOResult";
 import { AwaitedResult } from "../../helpers/AOResult/types";
 
 import {
@@ -10,7 +9,7 @@ import {
   ISignUpWithEmailPayload,
   ISignUpWithEmailResponse,
 } from "../../types";
-import { requestWithPayload } from "../../utils";
+import ApiService from "../ApiService";
 
 const GOOGLE_IDENTITY_TOOLKIT_URL =
   "https://identitytoolkit.googleapis.com/v1/accounts:";
@@ -34,9 +33,9 @@ class AuthService {
       returnSecureToken: true,
     };
 
-    return requestWithPayload<
-      ISignUpWithEmailPayload,
-      ISignUpWithEmailResponse
+    return ApiService.request<
+      ISignUpWithEmailResponse,
+      ISignUpWithEmailPayload
     >("post", REGISTER_WITH_EMAIL_URL, payload);
   };
 
@@ -50,20 +49,16 @@ class AuthService {
       returnSecureToken: true,
     };
 
-    const requestResult = await requestWithPayload<
-      ISignInWithEmailPayload,
-      ISignInWithEmailResponse
+    const requestResult = await ApiService.request<
+      ISignInWithEmailResponse,
+      ISignInWithEmailPayload
     >("post", LOGIN_WITH_EMAIL_URL, payload);
 
-    let result = new AOResult<ICredentials>();
+    const credentials = requestResult.data
+      ? signInWithEmailResponseToCredentials(requestResult.data)
+      : undefined;
 
-    if (requestResult.isSuccess && requestResult.data) {
-      result = requestResult.convertTo<ICredentials>(
-        signInWithEmailResponseToCredentials(requestResult.data)
-      );
-    }
-
-    return result;
+    return requestResult.convertTo<ICredentials>(credentials);
   };
 }
 

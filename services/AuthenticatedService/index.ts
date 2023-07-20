@@ -3,7 +3,7 @@ import { AOResult } from "../../helpers/AOResult";
 import { AwaitedResult } from "../../helpers/AOResult/types";
 import { ICredentials } from "../../types";
 
-class AuthenticatedService {
+class AuthenticatedFirebaseService {
   public credentials: ICredentials | null = null;
 
   executeAuthenticatedRequest = async <TResult>(
@@ -22,4 +22,4 @@ class AuthenticatedService {
     `${FirebaseConfig.realtimeDbUrl}/${userId}/${path}?auth=${idToken}`;
 }
 
-export default AuthenticatedService;
+export default AuthenticatedFirebaseService;

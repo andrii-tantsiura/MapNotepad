@@ -1,16 +1,13 @@
 import { AwaitedResult } from "../../helpers/AOResult/types";
 import { ICreatePinResponse, IPin, IPinPayload, IPins } from "../../types";
-import {
-  createFirebaseRequestConfig,
-  requestWithPayload,
-  requestWithoutPayload,
-} from "../../utils";
-import AuthenticatedService from "../AuthenticatedService";
+import { createFirebaseRequestConfig } from "../../utils";
+import ApiService from "../ApiService";
+import AuthenticatedFirebaseService from "../AuthenticatedService";
 
-class PinsService extends AuthenticatedService {
+class PinsService extends AuthenticatedFirebaseService {
   createPin = async (pin: IPinPayload): AwaitedResult<string> =>
     this.executeAuthenticatedRequest(async (credentials) => {
-      const result = await requestWithPayload<IPinPayload, ICreatePinResponse>(
+      const result = await ApiService.request<ICreatePinResponse, IPinPayload>(
         "post",
         this.createAuthenticatedUrl("pins.json", credentials),
         pin
@@ -26,9 +23,9 @@ class PinsService extends AuthenticatedService {
 
       const url = this.createAuthenticatedUrl(`pins/${id}.json`, credentials);
 
-      const requestResult = await requestWithPayload<
-        IPinPayload,
-        ICreatePinResponse
+      const requestResult = await ApiService.request<
+        ICreatePinResponse,
+        IPinPayload
       >("put", url, payload);
 
       return requestResult.convertTo(Boolean(requestResult.data));
@@ -47,12 +44,12 @@ class PinsService extends AuthenticatedService {
         credentials
       );
 
-      return requestWithoutPayload("delete", url);
+      return ApiService.request("delete", url);
     });
 
   getPins = async (): AwaitedResult<IPins> =>
     this.executeAuthenticatedRequest(async (credentials) => {
-      return requestWithoutPayload<IPins>(
+      return ApiService.request<IPins>(
         "get",
         this.createAuthenticatedUrl("pins.json", credentials),
         createFirebaseRequestConfig()
