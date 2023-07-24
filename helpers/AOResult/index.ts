@@ -1,5 +1,5 @@
 import { ErrorMessages } from "../../enums";
-import { AsyncFunc, AwaitedResult, ExtractErrorMessage } from "./types";
+import { AsyncFunc, AwaitedResult } from "./types";
 
 export class AOResult<T = null> {
   public isSuccess: boolean = false;
@@ -42,10 +42,7 @@ export class AOResult<T = null> {
   }
 }
 
-export async function ExecuteAsync<T>(
-  func: AsyncFunc<T>,
-  extractErrorMessage?: ExtractErrorMessage
-): AwaitedResult<T> {
+export async function ExecuteAsync<T>(func: AsyncFunc<T>): AwaitedResult<T> {
   const result = new AOResult<T>();
 
   let isOnFailureExecuted: boolean = false;
@@ -62,13 +59,7 @@ export async function ExecuteAsync<T>(
       result.setSuccess(funcResult);
     }
   } catch (ex: any) {
-    const extractedMessage = extractErrorMessage?.(ex);
-
-    if (extractedMessage) {
-      result.setFailure(extractedMessage);
-    } else {
-      result.setException(ex);
-    }
+    result.setException(ex);
   }
 
   return result;

@@ -1,25 +1,12 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { ExecuteAsync } from "../../helpers/AOResult";
 import { AwaitedResult } from "../../helpers/AOResult/types";
-import { extractErrorMessage } from "../../utils";
 
-type HttpMethodWithPayload = "post" | "put";
-type HttpMethod = "get" | "delete";
+export type HttpMethodWithPayload = "post" | "put";
+export type HttpMethod = "get" | "delete";
 
 class ApiService {
-  private instance: AxiosInstance;
-
-  constructor() {
-    this.instance = axios.create({
-      baseURL: "https://api.example.com",
-      timeout: 10000,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  }
-
   request<TResponse, TPayload>(
     httpMethod: HttpMethodWithPayload,
     url: string,
@@ -35,10 +22,10 @@ class ApiService {
     url: string,
     payload?: TPayload,
     config?: AxiosRequestConfig
-  ) {
-    const func = payload
+  ): AwaitedResult<TResponse> {
+    const request = payload
       ? async () => {
-          const { data } = await this.instance[httpMethod]<
+          const { data } = await axios[httpMethod]<
             TPayload,
             AxiosResponse<TResponse>
           >(url, payload);
@@ -46,15 +33,12 @@ class ApiService {
           return data;
         }
       : async () => {
-          const { data } = await this.instance[httpMethod]<TResponse>(
-            url,
-            config
-          );
+          const { data } = await axios[httpMethod]<TResponse>(url, config);
 
           return data;
         };
 
-    return ExecuteAsync<TResponse>(func, extractErrorMessage);
+    return ExecuteAsync<TResponse>(request);
   }
 }
 

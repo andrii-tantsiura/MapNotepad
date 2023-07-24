@@ -9,6 +9,7 @@ import {
   ISignUpWithEmailPayload,
   ISignUpWithEmailResponse,
 } from "../../types";
+import { extractErrorMessageIfFailure } from "../../utils";
 import ApiService from "../ApiService";
 
 const GOOGLE_IDENTITY_TOOLKIT_URL =
@@ -33,10 +34,14 @@ class AuthService {
       returnSecureToken: true,
     };
 
-    return ApiService.request<
+    const requestResult = await ApiService.request<
       ISignUpWithEmailResponse,
       ISignUpWithEmailPayload
     >("post", REGISTER_WITH_EMAIL_URL, payload);
+
+    extractErrorMessageIfFailure(requestResult);
+
+    return requestResult;
   };
 
   loginWithEmail = async (
@@ -53,6 +58,8 @@ class AuthService {
       ISignInWithEmailResponse,
       ISignInWithEmailPayload
     >("post", LOGIN_WITH_EMAIL_URL, payload);
+
+    extractErrorMessageIfFailure(requestResult);
 
     const credentials = requestResult.data
       ? signInWithEmailResponseToCredentials(requestResult.data)
