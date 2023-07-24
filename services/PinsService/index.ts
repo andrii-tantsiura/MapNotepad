@@ -1,4 +1,4 @@
-import { AwaitedResult } from "../../helpers/AOResult/types";
+import { AsyncResult } from "../../helpers/AOResult/types";
 import {
   ICreatePinResponse,
   ICredentials,
@@ -15,13 +15,13 @@ export class PinsService {
     this.realtimeDBService.credentials = credentials;
   }
 
-  public getPins = async (): AwaitedResult<IPins> =>
+  public getPins = async (): AsyncResult<IPins> =>
     this.realtimeDBService.get<IPins>("pins.json");
 
-  public deletePin = async (pinId: string): AwaitedResult<null> =>
+  public deletePin = async (pinId: string): AsyncResult<null> =>
     this.realtimeDBService.delete(`pins/${pinId}.json`);
 
-  public createPin = async (pin: IPinPayload): AwaitedResult<string> => {
+  public createPin = async (pin: IPinPayload): AsyncResult<string> => {
     const result = await this.realtimeDBService.post<
       ICreatePinResponse,
       IPinPayload
@@ -30,7 +30,7 @@ export class PinsService {
     return result.convertTo<string>(result.data?.name);
   };
 
-  public updatePin = async (pin: IPin): AwaitedResult<boolean> => {
+  public updatePin = async (pin: IPin): AsyncResult<boolean> => {
     const result = await this.realtimeDBService.put<
       ICreatePinResponse,
       IPinPayload
@@ -39,7 +39,7 @@ export class PinsService {
     return result.convertTo(Boolean(result.data));
   };
 
-  toggleFavoritePinStatus = async (pin: IPin) => {
+  toggleFavoritePinStatus = async (pin: IPin): AsyncResult<boolean> => {
     const newPin = { ...pin, isFavorite: !pin.isFavorite };
 
     return this.updatePin(newPin);

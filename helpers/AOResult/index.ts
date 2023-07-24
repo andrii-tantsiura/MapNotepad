@@ -1,5 +1,5 @@
 import { ErrorMessages } from "../../enums";
-import { AsyncFunc, AwaitedResult } from "./types";
+import { AsyncFunc, AsyncResult } from "./types";
 
 export class AOResult<T = null> {
   public isSuccess: boolean = false;
@@ -42,7 +42,7 @@ export class AOResult<T = null> {
   }
 }
 
-export async function ExecuteAsync<T>(func: AsyncFunc<T>): AwaitedResult<T> {
+export async function ExecuteAsync<T>(func: AsyncFunc<T>): AsyncResult<T> {
   const result = new AOResult<T>();
 
   let isOnFailureExecuted: boolean = false;

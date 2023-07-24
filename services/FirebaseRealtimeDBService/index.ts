@@ -1,6 +1,6 @@
 import { FirebaseConfig } from "../../config";
 import { AOResult } from "../../helpers/AOResult";
-import { AwaitedResult } from "../../helpers/AOResult/types";
+import { AsyncResult } from "../../helpers/AOResult/types";
 import { ICredentials } from "../../types";
 import {
   createFirebaseRequestConfig,
@@ -10,7 +10,7 @@ import ApiService from "../ApiService";
 
 type AuthenticatedRequest = <TResult>(
   authenticatedUrl: string
-) => AwaitedResult<TResult>;
+) => AsyncResult<TResult>;
 
 export class FirebaseRealtimeDBService {
   public credentials: ICredentials | null = null;
@@ -23,7 +23,7 @@ export class FirebaseRealtimeDBService {
   private executeAuthenticatedRequest = async <TResult>(
     url: string,
     request: AuthenticatedRequest
-  ): AwaitedResult<TResult> => {
+  ): AsyncResult<TResult> => {
     let requestResult = new AOResult<TResult>();
 
     if (this.credentials) {
@@ -42,45 +42,41 @@ export class FirebaseRealtimeDBService {
     return requestResult;
   };
 
-  public get = async <TResponse>(url: string): AwaitedResult<TResponse> =>
+  public get = async <TResponse>(url: string): AsyncResult<TResponse> =>
     this.executeAuthenticatedRequest<TResponse>(
       url,
-      async (authenticatedUrl: string) => {
-        return ApiService.request(
+      async (authenticatedUrl: string) =>
+        ApiService.request(
           "get",
           authenticatedUrl,
           createFirebaseRequestConfig()
-        );
-      }
+        )
     );
 
-  public delete = async <TResponse>(url: string): AwaitedResult<TResponse> =>
+  public delete = async <TResponse>(url: string): AsyncResult<TResponse> =>
     this.executeAuthenticatedRequest<TResponse>(
       url,
-      async (authenticatedUrl: string) => {
-        return ApiService.request("delete", authenticatedUrl);
-      }
+      async (authenticatedUrl: string) =>
+        ApiService.request("delete", authenticatedUrl)
     );
 
   public put = async <TResponse, TPayload>(
     url: string,
     payload: TPayload
-  ): AwaitedResult<TResponse> =>
+  ): AsyncResult<TResponse> =>
     this.executeAuthenticatedRequest<TResponse>(
       url,
-      async (authenticatedUrl: string) => {
-        return ApiService.request("put", authenticatedUrl, payload);
-      }
+      async (authenticatedUrl: string) =>
+        ApiService.request("put", authenticatedUrl, payload)
     );
 
   public post = async <TResponse, TPayload>(
     url: string,
     payload: TPayload
-  ): AwaitedResult<TResponse> =>
+  ): AsyncResult<TResponse> =>
     this.executeAuthenticatedRequest<TResponse>(
       url,
-      async (authenticatedUrl: string) => {
-        return ApiService.request("post", authenticatedUrl, payload);
-      }
+      async (authenticatedUrl: string) =>
+        ApiService.request("post", authenticatedUrl, payload)
     );
 }

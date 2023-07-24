@@ -1,6 +1,6 @@
 import { FirebaseConfig } from "../../config";
 import { signInWithEmailResponseToCredentials } from "../../helpers";
-import { AwaitedResult } from "../../helpers/AOResult/types";
+import { AsyncResult } from "../../helpers/AOResult/types";
 
 import {
   ICredentials,
@@ -27,7 +27,7 @@ class AuthService {
   registerWithEmail = async (
     email: string,
     password: string
-  ): AwaitedResult<ISignUpWithEmailResponse> => {
+  ): AsyncResult<ISignUpWithEmailResponse> => {
     const payload: ISignUpWithEmailPayload = {
       email,
       password,
@@ -47,7 +47,7 @@ class AuthService {
   loginWithEmail = async (
     email: string,
     password: string
-  ): AwaitedResult<ICredentials | undefined> => {
+  ): AsyncResult<ICredentials | undefined> => {
     const payload: ISignInWithEmailPayload = {
       email,
       password,

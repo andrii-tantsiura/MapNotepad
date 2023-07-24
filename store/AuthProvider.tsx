@@ -38,7 +38,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
   const value: IAuthContextProps = {
     credentials,
     isAuthenticated: Boolean(credentials),
-    authenticate: async (credentials: ICredentials) => {
+    authenticate: async (credentials: ICredentials): Promise<void> => {
       const pairs: [string, string][] = [
         [StorageItems.ID_TOKEN, credentials.idToken],
         [StorageItems.EMAIL, credentials.email],
@@ -52,7 +52,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       setCredentials(credentials);
     },
 
-    fetchCredentialsFromAsyncStorage: async () => {
+    fetchCredentialsFromAsyncStorage: async (): Promise<void> => {
       const values = await AsyncStorage.multiGet(credentialsKeys);
 
       if (
@@ -72,7 +72,7 @@ export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       }
     },
 
-    logout: async () => {
+    logout: async (): Promise<void> => {
       await AsyncStorage.multiRemove(credentialsKeys);
 
       setCredentials(null);

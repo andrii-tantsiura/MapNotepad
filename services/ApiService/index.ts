@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { ExecuteAsync } from "../../helpers/AOResult";
-import { AwaitedResult } from "../../helpers/AOResult/types";
+import { AsyncResult } from "../../helpers/AOResult/types";
 
 export type HttpMethodWithPayload = "post" | "put";
 export type HttpMethod = "get" | "delete";
@@ -11,18 +11,18 @@ class ApiService {
     httpMethod: HttpMethodWithPayload,
     url: string,
     payload: TPayload
-  ): AwaitedResult<TResponse>;
+  ): AsyncResult<TResponse>;
   request<TResponse>(
     httpMethod: HttpMethod,
     url: string,
     config?: AxiosRequestConfig
-  ): AwaitedResult<TResponse>;
+  ): AsyncResult<TResponse>;
   request<TResponse, TPayload>(
     httpMethod: HttpMethod | HttpMethodWithPayload,
     url: string,
     payload?: TPayload,
     config?: AxiosRequestConfig
-  ): AwaitedResult<TResponse> {
+  ): AsyncResult<TResponse> {
     const request = payload
       ? async () => {
           const { data } = await axios[httpMethod]<
