@@ -1,9 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { IBaseModel } from "../../types";
 import { AOResult } from "../../helpers/AOResult";
+import { IBaseModel } from "../../types";
 import { FirebaseError, UnauthorizedError } from "./types";
-import { ExtractErrorMessage } from "../../helpers/AOResult/types";
 
 interface IModels {
   [index: string]: IBaseModel;
@@ -32,26 +31,26 @@ export const createFirebaseRequestConfig = <T>(
   transformResponse: withFirebaseModelsToArray<T>(reviver),
 });
 
-export const extractErrorMessage: ExtractErrorMessage = (
-  exception: any
-): string | undefined => {
-  let message: string | undefined;
+export const extractErrorMessageIfFailure = <T>(result: AOResult<T>): void => {
+  if (!result.isSuccess) {
+    const exception = result.exception;
+    let errorMessage: string | undefined;
 
-  if (axios.isAxiosError(exception) && exception.response) {
-    const { status, data } = exception.response;
+    if (axios.isAxiosError(exception) && exception.response) {
+      const { data } = exception.response;
 
-    if (status === 400) {
-      if (data) {
-        message = (data as FirebaseError).error.message;
-      }
-    } else if (status === 401) {
-      if (data?.error) {
-        message = (data as UnauthorizedError).error;
-      }
+      errorMessage =
+        (data as FirebaseError).error?.message ??
+        (data as UnauthorizedError).error ??
+        (data as any[])[0];
+    } else {
+      errorMessage = exception.message;
     }
-  } else {
-    message = exception.message;
-  }
 
-  return message;
+    errorMessage = errorMessage as string;
+
+    if (errorMessage) {
+      result.setFailure(errorMessage);
+    }
+  }
 };

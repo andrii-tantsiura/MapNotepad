@@ -1,9 +1,9 @@
 import { createAction } from "@reduxjs/toolkit";
 
-import { IPin } from "../../../types";
+import { IPin, IPins } from "../../../types";
 import { withPayloadType } from "./types";
 
-export const setPinsAction = createAction("setPins", withPayloadType<IPin[]>());
+export const setPinsAction = createAction("setPins", withPayloadType<IPins>());
 
 export const addPinAction = createAction("addPin", withPayloadType<IPin>());
 

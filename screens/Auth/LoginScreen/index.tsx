@@ -29,8 +29,8 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
     const loginResult = await AuthService.loginWithEmail(email, password);
 
-    if (loginResult.isSuccess && loginResult.result) {
-      authContext.authenticate(loginResult.result.idToken);
+    if (loginResult.isSuccess && loginResult.data) {
+      authContext.authenticate(loginResult.data);
     } else {
       AlertService.error(loginResult.getMessage());
     }

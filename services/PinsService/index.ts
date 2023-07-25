@@ -1,64 +1,47 @@
-import { FIREBASE_DATABASE_API_URL } from "../../config";
-import { AwaitedResult } from "../../helpers/AOResult/types";
+import { AsyncResult } from "../../helpers/AOResult/types";
 import {
   ICreatePinResponse,
+  ICredentials,
   IPin,
   IPinPayload,
-  IPinsResponse,
+  IPins,
 } from "../../types";
-import {
-  createFirebaseRequestConfig,
-  requestWithPayload,
-  requestWithoutPayload,
-} from "../../utils";
+import { FirebaseRealtimeDBService } from "../FirebaseRealtimeDBService";
 
-class PinsService {
-  createPin = async (pin: IPinPayload): AwaitedResult<string> => {
-    const result = await requestWithPayload<IPinPayload, ICreatePinResponse>(
-      "post",
-      FIREBASE_DATABASE_API_URL + "/pins.json",
-      pin
-    );
+export class PinsService {
+  private realtimeDBService = new FirebaseRealtimeDBService();
 
-    return result.convertTo<string>(result.result?.name);
+  constructor(credentials: ICredentials | null) {
+    this.realtimeDBService.credentials = credentials;
+  }
+
+  public getPins = async (): AsyncResult<IPins> =>
+    this.realtimeDBService.get<IPins>("pins.json");
+
+  public deletePin = async (pinId: string): AsyncResult<null> =>
+    this.realtimeDBService.delete(`pins/${pinId}.json`);
+
+  public createPin = async (pin: IPinPayload): AsyncResult<string> => {
+    const result = await this.realtimeDBService.post<
+      ICreatePinResponse,
+      IPinPayload
+    >("pins.json", pin);
+
+    return result.convertTo<string>(result.data?.name);
   };
 
-  updatePin = async (pin: IPin): AwaitedResult<boolean> => {
-    const { id, ...restFields } = pin;
+  public updatePin = async (pin: IPin): AsyncResult<boolean> => {
+    const result = await this.realtimeDBService.put<
+      ICreatePinResponse,
+      IPinPayload
+    >(`pins/${pin.id}.json`, pin);
 
-    const pinPayload: IPinPayload = { ...restFields };
-
-    const result = await requestWithPayload(
-      "put",
-      FIREBASE_DATABASE_API_URL + `/pins/${pin.id}.json`,
-      pinPayload
-    );
-
-    return result.convertTo(Boolean(result.result));
+    return result.convertTo(Boolean(result.data));
   };
 
-  toggleFavoritePinStatus = async (pin: IPin) => {
+  toggleFavoritePinStatus = async (pin: IPin): AsyncResult<boolean> => {
     const newPin = { ...pin, isFavorite: !pin.isFavorite };
 
     return this.updatePin(newPin);
   };
-
-  deletePin = async (pinId: string): AwaitedResult<null> => {
-    return requestWithoutPayload(
-      "delete",
-      FIREBASE_DATABASE_API_URL + `/pins/${pinId}.json`
-    );
-  };
-
-  getPins = async (): AwaitedResult<Array<IPin>> => {
-    const result = await requestWithoutPayload<IPinsResponse>(
-      "get",
-      FIREBASE_DATABASE_API_URL + "/pins.json",
-      createFirebaseRequestConfig()
-    );
-
-    return result.convertTo(result.result);
-  };
 }
-
-export default new PinsService();

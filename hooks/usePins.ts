@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
 
 import AlertService from "../services/AlertService";
-import PinsService from "../services/PinsService";
+import { AuthContext } from "../store/AuthProvider";
 import {
   addPinAction,
   deletePinAction,
@@ -12,10 +12,11 @@ import {
 } from "../store/redux/actions";
 import { selectPins } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
-import { IPin } from "../types";
+import { IPin, IPins } from "../types";
+import { usePinsService } from "./usePinsService";
 
 type UsePinsReturn = {
-  pins: Array<IPin>;
+  pins: IPins;
   isPinsLoading: boolean;
   fetchPins: () => void;
   createPin: (pin: IPin) => Promise<boolean>;
@@ -27,30 +28,34 @@ type UsePinsReturn = {
 export const usePins = (): UsePinsReturn => {
   const dispatch = useAppDispatch();
 
+  const { credentials } = useContext(AuthContext);
+
+  const pinsService = usePinsService(credentials);
+
   const pins = useSelector(selectPins);
   const [isPinsLoading, setIsPinsLoading] = useState<boolean>(false);
 
   const fetchPins = async () => {
     setIsPinsLoading(true);
 
-    const getPinsResult = await PinsService.getPins();
+    const getPinsResult = await pinsService.getPins();
 
     setIsPinsLoading(false);
 
-    if (getPinsResult.isSuccess && getPinsResult.result) {
-      dispatch(setPinsAction(getPinsResult.result));
+    if (getPinsResult.isSuccess && getPinsResult.data) {
+      dispatch(setPinsAction(getPinsResult.data));
     } else {
       AlertService.error(getPinsResult);
     }
   };
 
   const createPin = async (pin: IPin): Promise<boolean> => {
-    const createPinResult = await PinsService.createPin(pin);
+    const createPinResult = await pinsService.createPin(pin);
 
-    if (createPinResult.isSuccess && createPinResult.result) {
+    if (createPinResult.isSuccess && createPinResult.data) {
       const newPin: IPin = {
         ...pin,
-        id: createPinResult.result,
+        id: createPinResult.data,
       };
 
       dispatch(addPinAction(newPin));
@@ -62,7 +67,7 @@ export const usePins = (): UsePinsReturn => {
   };
 
   const updatePin = async (pin: IPin) => {
-    const updatePinResult = await PinsService.updatePin(pin);
+    const updatePinResult = await pinsService.updatePin(pin);
 
     if (updatePinResult.isSuccess) {
       dispatch(updatePinAction(pin));
@@ -75,11 +80,11 @@ export const usePins = (): UsePinsReturn => {
 
   const togglePinFavoriteStatus = async (pin: IPin) => {
     const toggleFavoriteStatusResult =
-      await PinsService.toggleFavoritePinStatus(pin);
+      await pinsService.toggleFavoritePinStatus(pin);
 
     if (
       toggleFavoriteStatusResult.isSuccess &&
-      toggleFavoriteStatusResult.result
+      toggleFavoriteStatusResult.data
     ) {
       dispatch(toggleFavoritePinStatusAction(pin.id));
     } else {
@@ -88,7 +93,7 @@ export const usePins = (): UsePinsReturn => {
   };
 
   const deletePin = async (pinId: string) => {
-    const deletePinResult = await PinsService.deletePin(pinId);
+    const deletePinResult = await pinsService.deletePin(pinId);
 
     if (deletePinResult.isSuccess) {
       dispatch(deletePinAction(pinId));

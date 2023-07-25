@@ -1,12 +1,23 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ReactNode, createContext, useState } from "react";
 
+import { StorageItems } from "../enums";
+import { ICredentials } from "../types";
+
+const credentialsKeys: StorageItems[] = [
+  StorageItems.ID_TOKEN,
+  StorageItems.EMAIL,
+  StorageItems.REFRESH_TOKEN,
+  StorageItems.EXPIRATION_DATE,
+  StorageItems.USER_ID,
+];
+
 interface IAuthContextProps {
-  token: string | null;
+  credentials: ICredentials | null;
   isAuthenticated: boolean;
-  authenticate: (token: string) => void;
+  authenticate: (credentials: ICredentials) => void;
   logout: () => void;
-  fetchTokenFromStorageAsync: () => Promise<void>;
+  fetchCredentialsFromAsyncStorage: () => Promise<void>;
 }
 
 interface IAuthProviderProps {
@@ -14,35 +25,57 @@ interface IAuthProviderProps {
 }
 
 export const AuthContext = createContext<IAuthContextProps>({
-  token: null,
+  credentials: null,
   isAuthenticated: false,
-  authenticate: (token: string) => {},
+  authenticate: (credentials: ICredentials) => {},
   logout: () => {},
-  fetchTokenFromStorageAsync: () => new Promise<void>(() => {}),
+  fetchCredentialsFromAsyncStorage: () => new Promise<void>(() => {}),
 });
 
 export const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const [credentials, setCredentials] = useState<ICredentials | null>(null);
 
   const value: IAuthContextProps = {
-    token: null,
-    isAuthenticated: Boolean(token),
-    authenticate: (token: string | null) => {
-      AsyncStorage.setItem("token", token ?? "");
-      setToken(token);
+    credentials,
+    isAuthenticated: Boolean(credentials),
+    authenticate: async (credentials: ICredentials): Promise<void> => {
+      const pairs: [string, string][] = [
+        [StorageItems.ID_TOKEN, credentials.idToken],
+        [StorageItems.EMAIL, credentials.email],
+        [StorageItems.REFRESH_TOKEN, credentials.refreshToken],
+        [StorageItems.EXPIRATION_DATE, credentials.tokenLifeSpanInSeconds],
+        [StorageItems.USER_ID, credentials.userId],
+      ];
+
+      await AsyncStorage.multiSet(pairs);
+
+      setCredentials(credentials);
     },
 
-    fetchTokenFromStorageAsync: async () => {
-      const storedToken = await AsyncStorage.getItem("token");
+    fetchCredentialsFromAsyncStorage: async (): Promise<void> => {
+      const values = await AsyncStorage.multiGet(credentialsKeys);
 
-      if (storedToken) {
-        setToken(storedToken);
+      if (
+        values[0][1] &&
+        values[1][1] &&
+        values[2][1] &&
+        values[3][1] &&
+        values[4][1]
+      ) {
+        setCredentials({
+          idToken: values[0][1],
+          email: values[1][1],
+          refreshToken: values[2][1],
+          tokenLifeSpanInSeconds: values[3][1],
+          userId: values[4][1],
+        });
       }
     },
 
-    logout: () => {
-      AsyncStorage.removeItem("token");
-      setToken(null);
+    logout: async (): Promise<void> => {
+      await AsyncStorage.multiRemove(credentialsKeys);
+
+      setCredentials(null);
     },
   };
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
