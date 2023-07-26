@@ -17,7 +17,11 @@ const THEME = {
   },
 };
 
-const AppRoutes: React.FC = () => {
+type AppRoutesProps = {
+  onReady: () => void;
+};
+
+const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
   const [isTryingAuthenticate, setIsTryingAuthenticate] = useState(true);
   const authContext = useContext(AuthContext);
 
@@ -37,7 +41,7 @@ const AppRoutes: React.FC = () => {
     <>
       <StatusBar style="auto" />
       <FlashMessage />
-      <NavigationContainer theme={THEME}>
+      <NavigationContainer theme={THEME} onReady={onReady}>
         {authContext.isAuthenticated ? <HomeStack /> : <AuthStack />}
       </NavigationContainer>
     </>
