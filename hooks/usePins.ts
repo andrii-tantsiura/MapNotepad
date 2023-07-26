@@ -1,8 +1,7 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
 import AlertService from "../services/AlertService";
-import { AuthContext } from "../store/AuthProvider";
 import {
   addPinAction,
   deletePinAction,
@@ -10,7 +9,7 @@ import {
   toggleFavoritePinStatusAction,
   updatePinAction,
 } from "../store/redux/actions";
-import { selectPins } from "../store/redux/slices";
+import { selectAuth, selectPins } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
 import { IPin, IPins } from "../types";
 import { usePinsService } from "./usePinsService";
@@ -28,7 +27,7 @@ type UsePinsReturn = {
 export const usePins = (): UsePinsReturn => {
   const dispatch = useAppDispatch();
 
-  const { credentials } = useContext(AuthContext);
+  const { credentials } = useSelector(selectAuth);
 
   const pinsService = usePinsService(credentials);
 

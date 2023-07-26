@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Image } from "react-native";
 
 import { MAP_ICON, PIN_ICON } from "../../assets/icons";
@@ -7,17 +7,15 @@ import { ConfirmModal } from "../../components/modals";
 import { SearchBar } from "../../components/sections";
 import { AppColors, ImageStyles, textStyle_i3 } from "../../constants";
 import { typographyStyleToTextStyle } from "../../helpers";
-import { usePins } from "../../hooks";
+import { useAuth, usePins } from "../../hooks";
 import { MapScreen, PinsScreen } from "../../screens/Home";
-import { AuthContext } from "../../store/AuthProvider";
 import styles from "./styles";
 import { TabStackParamList } from "./types";
 
 const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 const TabsStack: React.FC = () => {
-  const authContext = useContext(AuthContext);
-
+  const { logout } = useAuth();
   const { fetchPins } = usePins();
 
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
@@ -35,7 +33,7 @@ const TabsStack: React.FC = () => {
         visible={isLogoutDialogOpened}
         onConfirm={() => {
           setIsLogoutDialogOpened(false);
-          authContext.logout();
+          logout();
         }}
         onCancel={() => {
           setIsLogoutDialogOpened(false);

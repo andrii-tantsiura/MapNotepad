@@ -18,7 +18,7 @@ const initialState: InitialState = {
   pins: [],
 };
 
-const pinsSlice = createSlice({
+export const pinsSlice = createSlice({
   name: "pins",
   initialState: initialState,
   reducers: {},
@@ -48,5 +48,3 @@ const pinsSlice = createSlice({
 });
 
 export const selectPins = (state: RootStore) => state.pins.pins;
-
-export default pinsSlice;

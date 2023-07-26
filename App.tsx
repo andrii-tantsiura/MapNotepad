@@ -6,7 +6,6 @@ import { Provider } from "react-redux";
 import { FontWeightAliases } from "./constants";
 import { useSplashScreen } from "./hooks/";
 import AppRoutes from "./navigation/App.routes";
-import { AuthProvider } from "./store/AuthProvider";
 import store from "./store/redux/store";
 
 export default function App() {
@@ -22,11 +21,9 @@ export default function App() {
 
   return (
     <SplashScreenContainer>
-      <AuthProvider>
-        <Provider store={store}>
-          <AppRoutes onReady={onContentReady} />
-        </Provider>
-      </AuthProvider>
+      <Provider store={store}>
+        <AppRoutes onReady={onContentReady} />
+      </Provider>
     </SplashScreenContainer>
   );
 }
