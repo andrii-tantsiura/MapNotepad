@@ -1,34 +1,64 @@
-import { FC } from "react";
+import { FC, useRef, useState } from "react";
 import { TextInput, View, ViewStyle } from "react-native";
 
-import { EXIT_ICON, SETTINGS_ICON } from "../../../assets/icons";
-import { textStyle_i12 } from "../../../constants";
+import { CLEAR_ICON, EXIT_ICON, SETTINGS_ICON } from "../../../assets/icons";
+import { ImageStyles, textStyle_i13 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
 import { CustomButton } from "../../common";
 import { Separator } from "../Separator";
 import styles from "./styles";
 
 interface ISearchBarProps {
-  onRightButtonPress?: () => void;
+  value?: string;
   style?: ViewStyle;
+  onRightButtonPress?: () => void;
+  onChangeText: (text: string) => void;
 }
 
 export const SearchBar: FC<ISearchBarProps> = ({
   style,
+  value,
   onRightButtonPress,
-}) => (
-  <>
-    <View style={[styles.container, style]}>
-      <CustomButton imageSource={SETTINGS_ICON} />
+  onChangeText,
+}) => {
+  const textInputRef = useRef<TextInput | null>(null);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
-      <TextInput
-        style={[styles.input, typographyStyleToTextStyle(textStyle_i12)]}
-        placeholder="Search"
-      />
+  const clearHandler = () => {
+    onChangeText("");
+  };
 
-      <CustomButton imageSource={EXIT_ICON} onPress={onRightButtonPress} />
-    </View>
+  return (
+    <>
+      <View style={[styles.container, style]}>
+        <CustomButton imageSource={SETTINGS_ICON} />
 
-    <Separator />
-  </>
-);
+        <View style={styles.inputContainer}>
+          <TextInput
+            ref={textInputRef}
+            style={[styles.input, typographyStyleToTextStyle(textStyle_i13)]}
+            placeholder="Search"
+            value={value}
+            onBlur={() => setIsFocused(false)}
+            onFocus={() => setIsFocused(true)}
+            onChangeText={onChangeText}
+          />
+
+          {isFocused && (
+            <CustomButton
+              iconStyle={ImageStyles.i2}
+              imageSource={CLEAR_ICON}
+              onPress={clearHandler}
+            />
+          )}
+        </View>
+
+        {!isFocused && (
+          <CustomButton imageSource={EXIT_ICON} onPress={onRightButtonPress} />
+        )}
+      </View>
+
+      <Separator />
+    </>
+  );
+};

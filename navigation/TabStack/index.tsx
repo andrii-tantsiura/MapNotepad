@@ -9,16 +9,24 @@ import { AppColors, ImageStyles, textStyle_i3 } from "../../constants";
 import { typographyStyleToTextStyle } from "../../helpers";
 import { useAuth, usePins } from "../../hooks";
 import { MapScreen, PinsScreen } from "../../screens/Home";
+import { setPinsSearchQueryAction } from "../../store/redux/actions";
+import { useAppDispatch } from "../../store/redux/store";
 import styles from "./styles";
 import { TabStackParamList } from "./types";
 
 const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 const TabsStack: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { logout } = useAuth();
   const { fetchPins } = usePins();
-
+  const [pinsSearchQuery, setPinsSearchQuery] = useState<string>("");
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
+
+  const pinsSearchQueryChangeHandler = (text: string) => {
+    setPinsSearchQuery(text);
+    dispatch(setPinsSearchQueryAction(text));
+  };
 
   useEffect(() => {
     fetchPins();
@@ -49,6 +57,8 @@ const TabsStack: React.FC = () => {
           header: () => (
             <SearchBar
               style={styles.searchBarContainer}
+              value={pinsSearchQuery}
+              onChangeText={pinsSearchQueryChangeHandler}
               onRightButtonPress={() => {
                 setIsLogoutDialogOpened(true);
               }}

@@ -20,8 +20,6 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginAction, (state, action) => {
-        console.log("case login");
-
         state.credentials = action.payload;
         state.isAuthenticated = Boolean(action.payload);
       })

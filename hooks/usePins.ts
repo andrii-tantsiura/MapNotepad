@@ -18,6 +18,8 @@ type UsePinsReturn = {
   pins: IPins;
   isPinsLoading: boolean;
   fetchPins: () => void;
+  filterPinsBySearchQuery: (searchQuery: string) => IPins;
+  getPins: (predicate?: (value: IPin) => boolean) => IPins;
   createPin: (pin: IPin) => Promise<boolean>;
   updatePin: (pin: IPin) => Promise<boolean>;
   togglePinFavoriteStatus: (pin: IPin) => void;
@@ -28,10 +30,9 @@ export const usePins = (): UsePinsReturn => {
   const dispatch = useAppDispatch();
 
   const { credentials } = useSelector(selectAuth);
-
+  const pins = useSelector(selectPins);
   const pinsService = usePinsService(credentials);
 
-  const pins = useSelector(selectPins);
   const [isPinsLoading, setIsPinsLoading] = useState<boolean>(false);
 
   const fetchPins = async () => {
@@ -46,6 +47,35 @@ export const usePins = (): UsePinsReturn => {
     } else {
       AlertService.error(getPinsResult);
     }
+  };
+
+  const filterPinsBySearchQuery = (searchQuery: string): IPins => {
+    const keysWords = searchQuery
+      ?.trim()
+      .toLowerCase()
+      .split(/[\s,]+/)
+      .map((key) => key.trim());
+
+    return keysWords
+      ? pins.filter((pin) => {
+          const label = pin.label.toLowerCase();
+          const description = pin.description?.toLowerCase();
+          const latitude = pin.location.latitude.toString();
+          const longitude = pin.location.longitude.toString();
+
+          return keysWords.some(
+            (key) =>
+              label.includes(key) ||
+              description?.includes(key) ||
+              latitude.includes(key) ||
+              longitude.includes(key)
+          );
+        })
+      : pins;
+  };
+
+  const getPins = (predicate?: (value: IPin) => boolean): IPins => {
+    return predicate ? pins.filter(predicate) : pins;
   };
 
   const createPin = async (pin: IPin): Promise<boolean> => {
@@ -105,6 +135,8 @@ export const usePins = (): UsePinsReturn => {
     pins,
     isPinsLoading,
     fetchPins,
+    filterPinsBySearchQuery,
+    getPins,
     createPin,
     updatePin,
     togglePinFavoriteStatus,

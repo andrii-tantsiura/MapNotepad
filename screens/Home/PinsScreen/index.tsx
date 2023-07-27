@@ -13,7 +13,7 @@ import { EmptyView } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
-import { selectPins } from "../../../store/redux/slices";
+import { selectPinsSearch } from "../../../store/redux/slices";
 import { IPin } from "../../../types";
 import { hideActionMenu } from "../../../utils";
 import {
@@ -36,6 +36,8 @@ export const PinsScreen: FC = () => {
     fetchPins,
     togglePinFavoriteStatus: toggleFavoriteStatus,
     deletePin,
+    filterPinsBySearchQuery,
+    getPins,
   } = usePins();
 
   const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPin>>();
@@ -43,7 +45,9 @@ export const PinsScreen: FC = () => {
   const [isRemovePinConfirmationShown, setIsRemovePinConfirmationVisible] =
     useState(false);
 
-  const pins = useSelector(selectPins);
+  const { searchQuery } = useSelector(selectPinsSearch);
+
+  const pins = searchQuery ? filterPinsBySearchQuery(searchQuery) : getPins();
 
   const deletePinHandler = (
     { item: pin }: ListRenderItemInfo<IPin>,

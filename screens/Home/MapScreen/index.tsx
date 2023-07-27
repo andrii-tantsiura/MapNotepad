@@ -2,6 +2,7 @@ import { FC, useEffect, useRef } from "react";
 import { View } from "react-native";
 import MapView from "react-native-map-clustering";
 import { Marker, Region } from "react-native-maps";
+import { useSelector } from "react-redux";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { CustomButton } from "../../../components/common";
@@ -13,6 +14,7 @@ import {
 } from "../../../constants";
 import { useCurrentLocation, usePins } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
+import { selectPinsSearch } from "../../../store/redux/slices";
 import styles from "./styles";
 
 const INITIAL_REGION = {
@@ -25,10 +27,12 @@ const INITIAL_REGION = {
 export const MapScreen: FC<TabProps> = () => {
   const mapViewRef = useRef<MapView>(null);
   const { currentLocation, requestCurrentLocation } = useCurrentLocation(true);
+  const { filterPinsBySearchQuery, getPins } = usePins();
+  const { searchQuery } = useSelector(selectPinsSearch);
 
-  const { pins } = usePins();
-
-  const favoritePins = pins.filter((x) => x.isFavorite);
+  const pins = searchQuery
+    ? filterPinsBySearchQuery(searchQuery)
+    : getPins((x) => x.isFavorite);
 
   useEffect(() => {
     if (currentLocation) {
@@ -52,7 +56,7 @@ export const MapScreen: FC<TabProps> = () => {
         ref={mapViewRef}
         initialRegion={INITIAL_REGION}
       >
-        {favoritePins.map((pin, index) => (
+        {pins.map((pin, index) => (
           <Marker
             image={MARKER_ICON}
             key={index}
