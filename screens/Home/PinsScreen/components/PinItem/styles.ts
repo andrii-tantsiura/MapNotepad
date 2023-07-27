@@ -8,6 +8,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: AppColors.systemWhite,
   },
+  pressed: {
+    backgroundColor: AppColors.systemLightGray,
+  },
   content: {
     paddingVertical: 21,
     flexDirection: "row",

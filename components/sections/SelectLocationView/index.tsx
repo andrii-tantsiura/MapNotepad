@@ -4,15 +4,10 @@ import MapView, {
   MapPressEvent,
   Marker,
   MarkerDragStartEndEvent,
-  Region,
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import {
-  CustomButtonStyles,
-  DEFAULT_LATITUDE_DELTA,
-  DEFAULT_LONGITUDE_DELTA,
-} from "../../../constants";
+import { CustomButtonStyles, DEFAULT_REGION } from "../../../constants";
 import { useCurrentLocation } from "../../../hooks";
 import { CustomButton } from "../../common";
 import styles from "./styles";
@@ -21,16 +16,16 @@ interface ISelectLocationViewProps {
   latitude: number;
   longitude: number;
   shouldRequestLocationInitially?: boolean;
-  onPickCoordinates: (coordinate: LatLng) => void;
+  onPickLocation: (coordinate: LatLng) => void;
 }
 
 export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   latitude,
   longitude,
   shouldRequestLocationInitially = true,
-  onPickCoordinates,
+  onPickLocation,
 }) => {
-  const mapViewRef = useRef<MapView>(null);
+  const mapViewRef = useRef<MapView | null>(null);
   const { currentLocation, requestCurrentLocation } = useCurrentLocation(
     shouldRequestLocationInitially
   );
@@ -38,53 +33,31 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   const isCoordinatesValid = isFinite(latitude) && isFinite(longitude);
 
   const markerDraggedHandler = (e: MarkerDragStartEndEvent) => {
-    onPickCoordinates(e.nativeEvent.coordinate);
+    onPickLocation(e.nativeEvent.coordinate);
   };
 
   const mapPressedHandler = (e: MapPressEvent) => {
-    onPickCoordinates(e.nativeEvent.coordinate);
+    onPickLocation(e.nativeEvent.coordinate);
   };
 
   const pickCurrentLocationHandler = () => {
     requestCurrentLocation();
   };
 
-  const mapViewReadyHandler = () => {
-    if (latitude && longitude) {
-      const region: Region = {
-        latitudeDelta: DEFAULT_LATITUDE_DELTA,
-        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
-        latitude: latitude,
-        longitude: longitude,
-      };
-
-      mapViewRef.current?.animateToRegion(region);
-    }
-  };
-
   useEffect(() => {
     if (currentLocation) {
-      const region: Region = {
-        latitudeDelta: DEFAULT_LATITUDE_DELTA,
-        longitudeDelta: DEFAULT_LONGITUDE_DELTA,
-        latitude: currentLocation.latitude,
-        longitude: currentLocation.longitude,
-      };
+      onPickLocation(currentLocation);
 
-      onPickCoordinates(currentLocation);
-
-      mapViewRef.current?.animateToRegion(region);
+      mapViewRef.current?.animateToRegion({
+        ...DEFAULT_REGION,
+        ...currentLocation,
+      });
     }
   }, [currentLocation]);
 
   return (
     <>
-      <MapView
-        ref={mapViewRef}
-        style={styles.map}
-        onPress={mapPressedHandler}
-        onMapReady={mapViewReadyHandler}
-      >
+      <MapView style={styles.map} ref={mapViewRef} onPress={mapPressedHandler}>
         {isCoordinatesValid && (
           <Marker
             draggable

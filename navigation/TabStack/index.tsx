@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useEffect, useState } from "react";
 import { Image } from "react-native";
+import { useSelector } from "react-redux";
 
 import { MAP_ICON, PIN_ICON } from "../../assets/icons";
 import { ConfirmModal } from "../../components/modals";
@@ -10,6 +11,7 @@ import { typographyStyleToTextStyle } from "../../helpers";
 import { useAuth, usePins } from "../../hooks";
 import { MapScreen, PinsScreen } from "../../screens/Home";
 import { setPinsSearchQueryAction } from "../../store/redux/actions";
+import { selectPinsSearch } from "../../store/redux/slices";
 import { useAppDispatch } from "../../store/redux/store";
 import styles from "./styles";
 import { TabStackParamList } from "./types";
@@ -20,7 +22,10 @@ const TabsStack: React.FC = () => {
   const dispatch = useAppDispatch();
   const { logout } = useAuth();
   const { fetchPins } = usePins();
-  const [pinsSearchQuery, setPinsSearchQuery] = useState<string>("");
+  const { searchQuery } = useSelector(selectPinsSearch);
+  const [pinsSearchQuery, setPinsSearchQuery] = useState<string | undefined>(
+    searchQuery
+  );
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
 
   const pinsSearchQueryChangeHandler = (text: string) => {

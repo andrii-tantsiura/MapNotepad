@@ -4,11 +4,11 @@ import { setPinsSearchQueryAction } from "../actions";
 import { RootStore } from "../store";
 
 interface IInitialState {
-  searchQuery: string | null;
+  searchQuery: string | undefined;
 }
 
 const initialState: IInitialState = {
-  searchQuery: null,
+  searchQuery: undefined,
 };
 
 export const pinsSearchSlice = createSlice({

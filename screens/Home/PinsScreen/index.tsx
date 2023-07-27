@@ -13,6 +13,7 @@ import { EmptyView } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
+import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
 import { IPin } from "../../../types";
 import { hideActionMenu } from "../../../utils";
@@ -28,7 +29,7 @@ type HomeScreenNavigationProp = StackNavigationProp<
   "AddPin"
 >;
 
-export const PinsScreen: FC = () => {
+export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
@@ -48,6 +49,10 @@ export const PinsScreen: FC = () => {
   const { searchQuery } = useSelector(selectPinsSearch);
 
   const pins = searchQuery ? filterPinsBySearchQuery(searchQuery) : getPins();
+
+  const pinPressedHandler = (pin: IPin) => {
+    navigation.navigate("Map", { pin });
+  };
 
   const deletePinHandler = (
     { item: pin }: ListRenderItemInfo<IPin>,
@@ -86,7 +91,8 @@ export const PinsScreen: FC = () => {
 
   const renderPinItem = ({ item: pin }: ListRenderItemInfo<IPin>) => (
     <PinItem
-      data={pin}
+      pin={pin}
+      onPress={pinPressedHandler}
       onPressFavoriteStatus={() => toggleFavoriteStatus(pin)}
     />
   );
