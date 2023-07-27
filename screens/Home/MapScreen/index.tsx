@@ -15,6 +15,7 @@ import {
 import { useCurrentLocation, usePins } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
+import { PinsSearchResults } from "./components/PinsSearchResults";
 import styles from "./styles";
 
 const INITIAL_REGION = {
@@ -49,6 +50,8 @@ export const MapScreen: FC<TabProps> = () => {
 
   return (
     <View style={styles.container}>
+      {searchQuery && <PinsSearchResults pins={pins} />}
+
       <MapView
         clusterColor={AppColors.lightPrimary}
         clusterTextColor={AppColors.systemWhite}
