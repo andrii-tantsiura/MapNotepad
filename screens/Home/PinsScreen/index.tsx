@@ -125,7 +125,9 @@ export const PinsScreen: FC = () => {
         keyExtractor={({ id }) => id}
         contentContainerStyle={pins.length === 0 && styles.emptyListContainer}
         ListEmptyComponent={() => (
-          <EmptyView>There are no added pins yet</EmptyView>
+          <EmptyView>
+            {searchQuery ? "Nothing found" : "There are no added pins yet"}
+          </EmptyView>
         )}
         renderItem={renderPinItem}
         renderHiddenItem={renderHiddenActionMenu}
