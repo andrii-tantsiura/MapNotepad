@@ -1,7 +1,12 @@
 import { FC, useRef, useState } from "react";
 import { TextInput, View, ViewStyle } from "react-native";
 
-import { CLEAR_ICON, EXIT_ICON, SETTINGS_ICON } from "../../../assets/icons";
+import {
+  CLEAR_ICON,
+  EXIT_ICON,
+  LEFT_BLUE_ICON,
+  SETTINGS_ICON,
+} from "../../../assets/icons";
 import { ImageStyles, textStyle_i13 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
 import { CustomButton } from "../../common";
@@ -12,26 +17,52 @@ interface ISearchBarProps {
   value?: string;
   style?: ViewStyle;
   onRightButtonPress?: () => void;
-  onChangeText: (text: string) => void;
+  onTextChange: (text: string) => void;
+  onFocusChange: (isFocused: boolean) => void;
 }
 
 export const SearchBar: FC<ISearchBarProps> = ({
   style,
   value,
   onRightButtonPress,
-  onChangeText,
+  onTextChange,
+  onFocusChange,
 }) => {
   const textInputRef = useRef<TextInput | null>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  const clearHandler = () => {
-    onChangeText("");
+  const isSearchActive = isFocused || value;
+
+  const clearTextHandler = () => {
+    onTextChange("");
+  };
+
+  const endSearchHandler = () => {
+    textInputRef.current?.blur();
+    clearTextHandler();
+  };
+
+  const focusHandler = () => {
+    setIsFocused(true);
+    onFocusChange(true);
+  };
+
+  const blurHandler = () => {
+    setIsFocused(false);
+    onFocusChange(false);
   };
 
   return (
     <>
       <View style={[styles.container, style]}>
-        <CustomButton imageSource={SETTINGS_ICON} />
+        {isSearchActive ? (
+          <CustomButton
+            imageSource={LEFT_BLUE_ICON}
+            onPress={endSearchHandler}
+          />
+        ) : (
+          <CustomButton imageSource={SETTINGS_ICON} />
+        )}
 
         <View style={styles.inputContainer}>
           <TextInput
@@ -39,21 +70,21 @@ export const SearchBar: FC<ISearchBarProps> = ({
             style={[styles.input, typographyStyleToTextStyle(textStyle_i13)]}
             placeholder="Search"
             value={value}
-            onBlur={() => setIsFocused(false)}
-            onFocus={() => setIsFocused(true)}
-            onChangeText={onChangeText}
+            onBlur={blurHandler}
+            onFocus={focusHandler}
+            onChangeText={onTextChange}
           />
 
-          {isFocused && (
+          {isSearchActive && (
             <CustomButton
               iconStyle={ImageStyles.i2}
               imageSource={CLEAR_ICON}
-              onPress={clearHandler}
+              onPress={clearTextHandler}
             />
           )}
         </View>
 
-        {!isFocused && (
+        {!isSearchActive && (
           <CustomButton imageSource={EXIT_ICON} onPress={onRightButtonPress} />
         )}
       </View>

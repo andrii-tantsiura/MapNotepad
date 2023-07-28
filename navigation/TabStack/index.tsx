@@ -26,6 +26,8 @@ const TabsStack: React.FC = () => {
   const [pinsSearchQuery, setPinsSearchQuery] = useState<string | undefined>(
     searchQuery
   );
+
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
 
   const pinsSearchQueryChangeHandler = (text: string) => {
@@ -58,12 +60,16 @@ const TabsStack: React.FC = () => {
         screenOptions={{
           tabBarActiveBackgroundColor: AppColors.lightVariant,
           tabBarLabelPosition: "beside-icon",
+          tabBarStyle: {
+            display: isSearchFocused ? "none" : "flex",
+          },
           tabBarLabelStyle: typographyStyleToTextStyle(textStyle_i3),
           header: () => (
             <SearchBar
               style={styles.searchBarContainer}
               value={pinsSearchQuery}
-              onChangeText={pinsSearchQueryChangeHandler}
+              onFocusChange={setIsSearchFocused}
+              onTextChange={pinsSearchQueryChangeHandler}
               onRightButtonPress={() => {
                 setIsLogoutDialogOpened(true);
               }}
