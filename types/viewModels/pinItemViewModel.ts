@@ -1,8 +1,8 @@
 import { LatLng } from "react-native-maps";
 
-import { IBaseItemData } from "./baseItemData";
+import { IBaseItemViewModel } from "./baseItemViewModel";
 
-export interface IPinItemData extends IBaseItemData {
+export interface IPinItemViewModel extends IBaseItemViewModel {
   label: string;
   description: string;
   location: LatLng;

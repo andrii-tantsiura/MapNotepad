@@ -12,15 +12,15 @@ import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import {
-  pinItemDataToPinModel,
-  pinModelToPinItemData,
+  pinItemViewModelToModel,
+  pinModelToViewModel,
 } from "../../../converters";
 import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
 import { IPinModel } from "../../../types/models";
-import { IPinItemData } from "../../../types/ui";
+import { IPinItemViewModel } from "../../../types/viewModels";
 import { hideActionMenu } from "../../../utils";
 import {
   PIN_ACTION_MENU_WIDTH,
@@ -46,7 +46,8 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
     getPins,
   } = usePins();
 
-  const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPinItemData>>();
+  const [selectedPinRow, setSelectedPinRow] =
+    useState<RowMap<IPinItemViewModel>>();
   const [selectedPinId, setSelectedPinId] = useState<string>();
   const [isRemovePinConfirmationShown, setIsRemovePinConfirmationVisible] =
     useState(false);
@@ -54,23 +55,23 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const { searchQuery } = useSelector(selectPinsSearch);
 
   const pins = searchQuery ? filterPinsBySearchQuery(searchQuery) : getPins();
-  const displayedPins = pins.map((x) => pinModelToPinItemData(x));
+  const displayedPins = pins.map((x) => pinModelToViewModel(x));
 
-  const togglePinFavoriteStatusHandler = (pin: IPinItemData) => {
-    const pinData: IPinModel = pinItemDataToPinModel(pin);
+  const togglePinFavoriteStatusHandler = (pin: IPinItemViewModel) => {
+    const pinData: IPinModel = pinItemViewModelToModel(pin);
 
     togglePinFavoriteStatus(pinData);
   };
 
-  const pinPressedHandler = (pin: IPinItemData) => {
-    const pinData: IPinModel = pinItemDataToPinModel(pin);
+  const pinPressedHandler = (pin: IPinItemViewModel) => {
+    const pinData: IPinModel = pinItemViewModelToModel(pin);
 
     navigation.navigate("Map", { pin: pinData });
   };
 
   const deletePinHandler = (
-    { item: pin }: ListRenderItemInfo<IPinItemData>,
-    row: RowMap<IPinItemData>
+    { item: pin }: ListRenderItemInfo<IPinItemViewModel>,
+    row: RowMap<IPinItemViewModel>
   ) => {
     setSelectedPinId(pin.key);
     setSelectedPinRow(row);
@@ -93,8 +94,8 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   };
 
   const editPinHandler = (
-    { item: pin }: ListRenderItemInfo<IPinItemData>,
-    row: RowMap<IPinItemData>
+    { item: pin }: ListRenderItemInfo<IPinItemViewModel>,
+    row: RowMap<IPinItemViewModel>
   ) => {
     hideActionMenu(row, pin.key);
 
@@ -103,7 +104,9 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
 
   const addPinHandler = () => homeNavigation.navigate("AddPin");
 
-  const renderPinItem = ({ item: pin }: ListRenderItemInfo<IPinItemData>) => (
+  const renderPinItem = ({
+    item: pin,
+  }: ListRenderItemInfo<IPinItemViewModel>) => (
     <PinItem
       pin={pin}
       onPress={pinPressedHandler}
@@ -112,8 +115,8 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   );
 
   const renderHiddenActionMenu = (
-    pin: ListRenderItemInfo<IPinItemData>,
-    row: RowMap<IPinItemData>
+    pin: ListRenderItemInfo<IPinItemViewModel>,
+    row: RowMap<IPinItemViewModel>
   ) => (
     <PinActionMenu
       onDelete={() => deletePinHandler(pin, row)}

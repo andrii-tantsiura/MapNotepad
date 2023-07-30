@@ -1,7 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
 import { AOResult } from "../helpers/AOResult";
-import { FirebaseError, UnauthorizedError } from "../types/api/firebase";
+import {
+  ResponseError,
+  UnauthorizedResponseError,
+} from "../types/api/firebase";
 import { IBaseModel } from "../types/models";
 
 interface IFirebaseModels {
@@ -40,8 +43,8 @@ export const extractErrorMessageIfFailure = <T>(result: AOResult<T>): void => {
       const { data } = exception.response;
 
       errorMessage =
-        (data as FirebaseError).error?.message ??
-        (data as UnauthorizedError).error ??
+        (data as ResponseError).error?.message ??
+        (data as UnauthorizedResponseError).error ??
         (data as any[])[0];
     } else {
       errorMessage = exception.message;

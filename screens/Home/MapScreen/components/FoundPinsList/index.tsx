@@ -6,13 +6,13 @@ import {
   DISPLAYED_PINS_SEARCH_RESULTS_MAX_COUNT,
   textStyle_i13,
 } from "../../../../../constants";
-import { IPinItemData } from "../../../../../types/ui";
+import { IPinItemViewModel } from "../../../../../types/viewModels";
 import { FoundPin } from "../FoundPin";
 import styles from "./styles";
 
 type FoundPinsListProps = {
-  pins: Array<IPinItemData>;
-  onPinPressed: (pin: IPinItemData) => void;
+  pins: Array<IPinItemViewModel>;
+  onPinPressed: (pin: IPinItemViewModel) => void;
 };
 
 export const FoundPinsList: FC<FoundPinsListProps> = ({

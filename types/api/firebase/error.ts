@@ -1,8 +1,8 @@
-export type UnauthorizedError = {
+export type UnauthorizedResponseError = {
   error: string;
 };
 
-export type FirebaseError = {
+export type ResponseError = {
   error: {
     code: number;
     errors: Array<{ [key: string]: string }>;

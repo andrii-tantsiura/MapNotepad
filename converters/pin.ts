@@ -1,8 +1,8 @@
 import { IPinForm } from "../types/forms";
 import { IPinModel } from "../types/models";
-import { IPinItemData } from "../types/ui";
+import { IPinItemViewModel } from "../types/viewModels";
 
-export const pinFormToPinModel = (form: IPinForm): IPinModel => ({
+export const pinFormToModel = (form: IPinForm): IPinModel => ({
   id: "",
   label: form.label,
   description: form.description,
@@ -13,18 +13,22 @@ export const pinFormToPinModel = (form: IPinForm): IPinModel => ({
   isFavorite: true,
 });
 
-export const pinItemDataToPinModel = (pinUiModel: IPinItemData): IPinModel => ({
-  id: pinUiModel.key,
-  label: pinUiModel.label,
-  description: pinUiModel.description,
-  location: pinUiModel.location,
-  isFavorite: pinUiModel.isFavorite,
+export const pinItemViewModelToModel = (
+  pinItemViewModel: IPinItemViewModel
+): IPinModel => ({
+  id: pinItemViewModel.key,
+  label: pinItemViewModel.label,
+  description: pinItemViewModel.description,
+  location: pinItemViewModel.location,
+  isFavorite: pinItemViewModel.isFavorite,
 });
 
-export const pinModelToPinItemData = (pinUiModel: IPinModel): IPinItemData => ({
-  key: pinUiModel.id,
-  label: pinUiModel.label,
-  description: pinUiModel.description,
-  location: pinUiModel.location,
-  isFavorite: pinUiModel.isFavorite,
+export const pinModelToViewModel = (
+  pinModel: IPinModel
+): IPinItemViewModel => ({
+  key: pinModel.id,
+  label: pinModel.label,
+  description: pinModel.description,
+  location: pinModel.location,
+  isFavorite: pinModel.isFavorite,
 });
