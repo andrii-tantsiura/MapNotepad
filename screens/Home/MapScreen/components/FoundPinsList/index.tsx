@@ -1,5 +1,4 @@
-import { FC, memo, useState } from "react";
-import { View } from "react-native";
+import { FC, useState } from "react";
 import { FlatList } from "react-native-gesture-handler";
 
 import { Typography } from "../../../../../components/common";
@@ -11,12 +10,12 @@ import { IPin, IPins } from "../../../../../types";
 import { FoundPin } from "../FoundPin";
 import styles from "./styles";
 
-type PinSearchResultsProps = {
+type FoundPinsListProps = {
   pins: IPins;
   onPinPressed: (pin: IPin) => void;
 };
 
-export const FoundPinsList: FC<PinSearchResultsProps> = ({
+export const FoundPinsList: FC<FoundPinsListProps> = ({
   pins,
   onPinPressed,
 }) => {

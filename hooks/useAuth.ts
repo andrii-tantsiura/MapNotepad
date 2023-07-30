@@ -1,10 +1,11 @@
-import { useSelector } from "react-redux";
-import { selectAuth } from "../store/redux/slices";
-import { ICredentials } from "../types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
+
 import { StorageItems } from "../enums";
-import { useAppDispatch } from "../store/redux/store";
 import { loginAction, logoutAction } from "../store/redux/actions";
+import { selectAuth } from "../store/redux/slices";
+import { useAppDispatch } from "../store/redux/store";
+import { ICredentials } from "../types";
 
 const credentialsKeys: StorageItems[] = [
   StorageItems.ID_TOKEN,

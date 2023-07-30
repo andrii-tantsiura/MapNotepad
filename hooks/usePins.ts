@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
+import { textToKeywords } from "../helpers";
 import AlertService from "../services/AlertService";
 import {
   addPinAction,
@@ -50,11 +51,7 @@ export const usePins = (): UsePinsReturn => {
   };
 
   const filterPinsBySearchQuery = (searchQuery: string): IPins => {
-    const keysWords = searchQuery
-      ?.trim()
-      .toLowerCase()
-      .split(/[\s,]+/)
-      .map((key) => key.trim());
+    const keysWords = textToKeywords(searchQuery);
 
     return keysWords
       ? pins.filter((pin) => {
@@ -74,9 +71,8 @@ export const usePins = (): UsePinsReturn => {
       : pins;
   };
 
-  const getPins = (predicate?: (value: IPin) => boolean): IPins => {
-    return predicate ? pins.filter(predicate) : pins;
-  };
+  const getPins = (predicate?: (value: IPin) => boolean): IPins =>
+    predicate ? pins.filter(predicate) : pins;
 
   const createPin = async (pin: IPin): Promise<boolean> => {
     const createPinResult = await pinsService.createPin(pin);

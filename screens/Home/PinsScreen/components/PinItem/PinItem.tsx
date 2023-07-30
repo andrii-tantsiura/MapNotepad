@@ -31,7 +31,7 @@ export const PinItem: FC<IPinItemProps> = ({
 
   return (
     <Pressable
-      style={({ pressed }) => [styles.container, pressed && styles.pressed]}
+      style={styles.container}
       onPress={() => onPress(pin)}
     >
       <View style={styles.content}>
