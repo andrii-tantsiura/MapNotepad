@@ -1,9 +1,9 @@
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
-import { IPinData } from "../../types/data";
+import { IPinModel } from "../../types/models";
 
 export type TabStackParamList = {
-  Map: undefined | { pin: IPinData };
+  Map: undefined | { pin: IPinModel };
   Pins: undefined;
 };
 

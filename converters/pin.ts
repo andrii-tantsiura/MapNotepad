@@ -1,8 +1,8 @@
-import { IPinData } from "../types/data";
 import { IPinForm } from "../types/forms";
+import { IPinModel } from "../types/models";
 import { IPinItemData } from "../types/ui";
 
-export const pinFormToPinData = (form: IPinForm): IPinData => ({
+export const pinFormToPinModel = (form: IPinForm): IPinModel => ({
   id: "",
   label: form.label,
   description: form.description,
@@ -13,7 +13,7 @@ export const pinFormToPinData = (form: IPinForm): IPinData => ({
   isFavorite: true,
 });
 
-export const pinItemToPinData = (pinUiModel: IPinItemData): IPinData => ({
+export const pinItemDataToPinModel = (pinUiModel: IPinItemData): IPinModel => ({
   id: pinUiModel.key,
   label: pinUiModel.label,
   description: pinUiModel.description,
@@ -21,7 +21,7 @@ export const pinItemToPinData = (pinUiModel: IPinItemData): IPinData => ({
   isFavorite: pinUiModel.isFavorite,
 });
 
-export const pinDataToPinItem = (pinUiModel: IPinData): IPinItemData => ({
+export const pinModelToPinItemData = (pinUiModel: IPinModel): IPinItemData => ({
   key: pinUiModel.id,
   label: pinUiModel.label,
   description: pinUiModel.description,

@@ -8,11 +8,11 @@ import {
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
-import { pinFormToPinData } from "../../../converters";
+import { pinFormToPinModel } from "../../../converters";
 import { useHeaderRightButton, useHookForm, usePins } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { IPinForm } from "../../../types/forms";
-import { IPinData } from "../../../types/data";
+import { IPinModel } from "../../../types/models";
 import styles from "./styles";
 
 export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
@@ -33,8 +33,8 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
 
   const savePinHandler = async (pinForm: IPinForm) => {
     if (editedPin) {
-      const pinToUpdate: IPinData = {
-        ...pinFormToPinData(pinForm),
+      const pinToUpdate: IPinModel = {
+        ...pinFormToPinModel(pinForm),
         id: editedPin.id,
         isFavorite: editedPin.isFavorite,
       };

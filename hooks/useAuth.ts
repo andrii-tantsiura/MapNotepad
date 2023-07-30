@@ -5,7 +5,7 @@ import { StorageItems } from "../enums";
 import { loginAction, logoutAction } from "../store/redux/actions";
 import { selectAuth } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
-import { ICredentials } from "../types";
+import { ICredentialsModel } from "../types/models";
 
 const credentialsKeys: StorageItems[] = [
   StorageItems.ID_TOKEN,
@@ -16,9 +16,9 @@ const credentialsKeys: StorageItems[] = [
 ];
 
 type UseAuthReturn = {
-  credentials: ICredentials | null;
+  credentials: ICredentialsModel | null;
   isAuthenticated: boolean;
-  login: (credentials: ICredentials) => Promise<void>;
+  login: (credentials: ICredentialsModel) => Promise<void>;
   tryLoginFromWithSavedCredentials: () => Promise<void>;
   logout: () => Promise<void>;
 };
@@ -27,7 +27,7 @@ export const useAuth = (): UseAuthReturn => {
   const { isAuthenticated, credentials } = useSelector(selectAuth);
   const dispatch = useAppDispatch();
 
-  const login = async (credentials: ICredentials): Promise<void> => {
+  const login = async (credentials: ICredentialsModel): Promise<void> => {
     const pairs: [string, string][] = [
       [StorageItems.ID_TOKEN, credentials.idToken],
       [StorageItems.EMAIL, credentials.email],

@@ -1,7 +1,8 @@
 import { useMemo } from "react";
 
 import { PinsService } from "../services";
-import { ICredentials } from "../types";
+import { ICredentialsModel } from "../types/models";
 
-export const usePinsService = (credentials: ICredentials | null): PinsService =>
-  useMemo(() => new PinsService(credentials), [credentials]);
+export const usePinsService = (
+  credentials: ICredentialsModel | null
+): PinsService => useMemo(() => new PinsService(credentials), [credentials]);

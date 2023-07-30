@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import { textToKeywords } from "../helpers";
 import AlertService from "../services/AlertService";
 import {
   addPinAction,
@@ -12,18 +11,19 @@ import {
 } from "../store/redux/actions";
 import { selectAuth, selectPins } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
-import { IPinData, IPinDataArray } from "../types/data";
+import { IPinModelsArray, IPinModel } from "../types/models";
+import { stringToKeywords } from "../utils";
 import { usePinsService } from "./usePinsService";
 
 type UsePinsReturn = {
-  pins: IPinDataArray;
+  pins: IPinModelsArray;
   isPinsLoading: boolean;
   fetchPins: () => void;
-  filterPinsBySearchQuery: (searchQuery: string) => IPinDataArray;
-  getPins: (predicate?: (value: IPinData) => boolean) => IPinDataArray;
-  createPin: (pin: IPinData) => Promise<boolean>;
-  updatePin: (pin: IPinData) => Promise<boolean>;
-  togglePinFavoriteStatus: (pin: IPinData) => void;
+  filterPinsBySearchQuery: (searchQuery: string) => IPinModelsArray;
+  getPins: (predicate?: (value: IPinModel) => boolean) => IPinModelsArray;
+  createPin: (pin: IPinModel) => Promise<boolean>;
+  updatePin: (pin: IPinModel) => Promise<boolean>;
+  togglePinFavoriteStatus: (pin: IPinModel) => void;
   deletePin: (pinId: string) => void;
 };
 
@@ -50,8 +50,8 @@ export const usePins = (): UsePinsReturn => {
     }
   };
 
-  const filterPinsBySearchQuery = (searchQuery: string): IPinDataArray => {
-    const keywords = textToKeywords(searchQuery);
+  const filterPinsBySearchQuery = (searchQuery: string): IPinModelsArray => {
+    const keywords = stringToKeywords(searchQuery);
 
     return keywords
       ? pins.filter((pin) => {
@@ -71,14 +71,15 @@ export const usePins = (): UsePinsReturn => {
       : pins;
   };
 
-  const getPins = (predicate?: (value: IPinData) => boolean): IPinDataArray =>
-    predicate ? pins.filter(predicate) : pins;
+  const getPins = (
+    predicate?: (value: IPinModel) => boolean
+  ): IPinModelsArray => (predicate ? pins.filter(predicate) : pins);
 
-  const createPin = async (pin: IPinData): Promise<boolean> => {
+  const createPin = async (pin: IPinModel): Promise<boolean> => {
     const createPinResult = await pinsService.createPin(pin);
 
     if (createPinResult.isSuccess && createPinResult.data) {
-      const newPin: IPinData = {
+      const newPin: IPinModel = {
         ...pin,
         id: createPinResult.data,
       };
@@ -91,7 +92,7 @@ export const usePins = (): UsePinsReturn => {
     return createPinResult.isSuccess;
   };
 
-  const updatePin = async (pin: IPinData) => {
+  const updatePin = async (pin: IPinModel) => {
     const updatePinResult = await pinsService.updatePin(pin);
 
     if (updatePinResult.isSuccess) {
@@ -103,7 +104,7 @@ export const usePins = (): UsePinsReturn => {
     return updatePinResult.isSuccess;
   };
 
-  const togglePinFavoriteStatus = async (pin: IPinData) => {
+  const togglePinFavoriteStatus = async (pin: IPinModel) => {
     const toggleFavoriteStatusResult =
       await pinsService.toggleFavoritePinStatus(pin);
 

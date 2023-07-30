@@ -1,7 +1,7 @@
 import { FirebaseConfig } from "../../config";
 import { AOResult } from "../../helpers/AOResult";
 import { AsyncResult } from "../../helpers/AOResult/types";
-import { ICredentials } from "../../types";
+import { ICredentialsModel } from "../../types/models";
 import {
   createFirebaseRequestConfig,
   extractErrorMessageIfFailure,
@@ -13,11 +13,11 @@ type AuthenticatedRequest = <TResult>(
 ) => AsyncResult<TResult>;
 
 export class FirebaseRealtimeDBService {
-  public credentials: ICredentials | null = null;
+  public credentials: ICredentialsModel | null = null;
 
   private createAuthenticatedUrl = (
     path: string,
-    { idToken, userId }: ICredentials
+    { idToken, userId }: ICredentialsModel
   ) => `${FirebaseConfig.realtimeDbUrl}/${userId}/${path}?auth=${idToken}`;
 
   private executeAuthenticatedRequest = async <TResult>(

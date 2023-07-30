@@ -1,11 +1,3 @@
-export interface ICredentials {
-  idToken: string;
-  email: string;
-  refreshToken: string;
-  tokenLifeSpanInSeconds: string;
-  userId: string;
-}
-
 export interface ISignUpWithEmailPayload {
   email: string;
   password: string;

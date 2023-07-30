@@ -11,12 +11,15 @@ import { CustomButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { pinDataToPinItem, pinItemToPinData } from "../../../converters";
+import {
+  pinItemDataToPinModel,
+  pinModelToPinItemData,
+} from "../../../converters";
 import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
-import { IPinData } from "../../../types/data";
+import { IPinModel } from "../../../types/models";
 import { IPinItemData } from "../../../types/ui";
 import { hideActionMenu } from "../../../utils";
 import {
@@ -51,16 +54,16 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const { searchQuery } = useSelector(selectPinsSearch);
 
   const pins = searchQuery ? filterPinsBySearchQuery(searchQuery) : getPins();
-  const displayedPins = pins.map((x) => pinDataToPinItem(x));
+  const displayedPins = pins.map((x) => pinModelToPinItemData(x));
 
   const togglePinFavoriteStatusHandler = (pin: IPinItemData) => {
-    const pinData: IPinData = pinItemToPinData(pin);
+    const pinData: IPinModel = pinItemDataToPinModel(pin);
 
     togglePinFavoriteStatus(pinData);
   };
 
   const pinPressedHandler = (pin: IPinItemData) => {
-    const pinData: IPinData = pinItemToPinData(pin);
+    const pinData: IPinModel = pinItemDataToPinModel(pin);
 
     navigation.navigate("Map", { pin: pinData });
   };

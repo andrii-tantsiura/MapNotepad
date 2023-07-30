@@ -11,7 +11,7 @@ import {
   CustomButtonStyles,
   DEFAULT_REGION,
 } from "../../../constants";
-import { pinDataToPinItem } from "../../../converters";
+import { pinModelToPinItemData } from "../../../converters";
 import { useCurrentLocation, usePins } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
@@ -30,7 +30,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     ? filterPinsBySearchQuery(searchQuery)
     : getPins((x) => x.isFavorite);
 
-  const displayedPins = pins.map((x) => pinDataToPinItem(x));
+  const pinItemsSource = pins.map((x) => pinModelToPinItemData(x));
 
   const animateToLocation = (location: LatLng | undefined) => {
     if (location) {
@@ -61,7 +61,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     <View style={styles.container}>
       {searchQuery && (
         <FoundPinsList
-          pins={displayedPins}
+          pins={pinItemsSource}
           onPinPressed={onPinFoundPressHandler}
         />
       )}

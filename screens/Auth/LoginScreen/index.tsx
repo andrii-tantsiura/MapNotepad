@@ -19,7 +19,8 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
   const { formController, handleSubmit } = useHookForm<ILoginForm>({
     defaultValues: {
-      email: route.params?.email,
+      email: route.params?.email ?? "test@mail.com",
+      password: "Test123@",
     },
   });
 

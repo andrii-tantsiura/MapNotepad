@@ -1,18 +1,18 @@
 import { createAction } from "@reduxjs/toolkit";
 
-import { IPinData, IPinDataArray } from "../../../types/data";
+import { IPinModel, IPinModelsArray } from "../../../types/models";
 import { withPayload } from "./types";
 
 export const setPinsAction = createAction(
   "setPins",
-  withPayload<IPinDataArray>()
+  withPayload<IPinModelsArray>()
 );
 
-export const addPinAction = createAction("addPin", withPayload<IPinData>());
+export const addPinAction = createAction("addPin", withPayload<IPinModel>());
 
 export const updatePinAction = createAction(
   "updatePin",
-  withPayload<IPinData>()
+  withPayload<IPinModel>()
 );
 
 export const toggleFavoritePinStatusAction = createAction(
