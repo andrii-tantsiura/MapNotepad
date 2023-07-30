@@ -7,7 +7,7 @@ import {
   setPinsAction,
   toggleFavoritePinStatusAction,
   updatePinAction,
-} from "../actions/pin.actions";
+} from "../actions/pins.actions";
 import { RootStore } from "../store";
 
 type InitialState = {
@@ -18,7 +18,7 @@ const initialState: InitialState = {
   pins: [],
 };
 
-const pinsSlice = createSlice({
+export const pinsSlice = createSlice({
   name: "pins",
   initialState: initialState,
   reducers: {},
@@ -48,5 +48,3 @@ const pinsSlice = createSlice({
 });
 
 export const selectPins = (state: RootStore) => state.pins.pins;
-
-export default pinsSlice;

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Image, View } from "react-native";
+import { Image, Pressable, View } from "react-native";
 
 import {
   LIKE_BLUE_ICON,
@@ -17,15 +17,23 @@ import { IPin } from "../../../../../types";
 import styles from "./styles";
 
 interface IPinItemProps {
-  data: IPin;
+  pin: IPin;
+  onPress: (pin: IPin) => void;
   onPressFavoriteStatus: () => void;
 }
 
-export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
-  const favoriteStatusIcon = data.isFavorite ? LIKE_BLUE_ICON : LIKE_GRAY_ICON;
+export const PinItem: FC<IPinItemProps> = ({
+  pin,
+  onPress,
+  onPressFavoriteStatus,
+}) => {
+  const favoriteStatusIcon = pin.isFavorite ? LIKE_BLUE_ICON : LIKE_GRAY_ICON;
 
   return (
-    <View style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() => onPress(pin)}
+    >
       <View style={styles.content}>
         <View style={styles.infoContainer}>
           <CustomButton
@@ -35,12 +43,12 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
           />
 
           <View style={styles.textLinesContainer}>
-            <Typography style={textStyle_i9}>{data.label}</Typography>
+            <Typography style={textStyle_i9}>{pin.label}</Typography>
 
             <Typography style={textStyle_i11}>
-              {data.location.latitude}
+              {pin.location.latitude}
               {", "}
-              {data.location.longitude}
+              {pin.location.longitude}
             </Typography>
           </View>
         </View>
@@ -49,6 +57,6 @@ export const PinItem: FC<IPinItemProps> = ({ data, onPressFavoriteStatus }) => {
       </View>
 
       <Separator />
-    </View>
+    </Pressable>
   );
 };

@@ -71,7 +71,7 @@ export const EditPinScreen: FC<HomeScreenProps> = ({ navigation, route }) => {
           latitude={latitude}
           longitude={longitude}
           shouldRequestLocationInitially={false}
-          onPickCoordinates={setCoordinates}
+          onPickLocation={setCoordinates}
         />
       </View>
     </>

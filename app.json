@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "primaryColor": "#596EFB",
+    "primaryColor": "#FFFFFF",
     "githubUrl": "https://github.com/andreytantsyura/map-notepad",
     "splash": {
       "image": "./assets/splash.png",

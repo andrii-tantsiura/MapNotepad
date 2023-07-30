@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 
+import { textToKeywords } from "../helpers";
 import AlertService from "../services/AlertService";
-import { AuthContext } from "../store/AuthProvider";
 import {
   addPinAction,
   deletePinAction,
@@ -10,7 +10,7 @@ import {
   toggleFavoritePinStatusAction,
   updatePinAction,
 } from "../store/redux/actions";
-import { selectPins } from "../store/redux/slices";
+import { selectAuth, selectPins } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
 import { IPin, IPins } from "../types";
 import { usePinsService } from "./usePinsService";
@@ -19,6 +19,8 @@ type UsePinsReturn = {
   pins: IPins;
   isPinsLoading: boolean;
   fetchPins: () => void;
+  filterPinsBySearchQuery: (searchQuery: string) => IPins;
+  getPins: (predicate?: (value: IPin) => boolean) => IPins;
   createPin: (pin: IPin) => Promise<boolean>;
   updatePin: (pin: IPin) => Promise<boolean>;
   togglePinFavoriteStatus: (pin: IPin) => void;
@@ -28,11 +30,10 @@ type UsePinsReturn = {
 export const usePins = (): UsePinsReturn => {
   const dispatch = useAppDispatch();
 
-  const { credentials } = useContext(AuthContext);
-
+  const { credentials } = useSelector(selectAuth);
+  const pins = useSelector(selectPins);
   const pinsService = usePinsService(credentials);
 
-  const pins = useSelector(selectPins);
   const [isPinsLoading, setIsPinsLoading] = useState<boolean>(false);
 
   const fetchPins = async () => {
@@ -48,6 +49,30 @@ export const usePins = (): UsePinsReturn => {
       AlertService.error(getPinsResult);
     }
   };
+
+  const filterPinsBySearchQuery = (searchQuery: string): IPins => {
+    const keysWords = textToKeywords(searchQuery);
+
+    return keysWords
+      ? pins.filter((pin) => {
+          const label = pin.label.toLowerCase();
+          const description = pin.description?.toLowerCase();
+          const latitude = pin.location.latitude.toString();
+          const longitude = pin.location.longitude.toString();
+
+          return keysWords.some(
+            (key) =>
+              label.includes(key) ||
+              description?.includes(key) ||
+              latitude.includes(key) ||
+              longitude.includes(key)
+          );
+        })
+      : pins;
+  };
+
+  const getPins = (predicate?: (value: IPin) => boolean): IPins =>
+    predicate ? pins.filter(predicate) : pins;
 
   const createPin = async (pin: IPin): Promise<boolean> => {
     const createPinResult = await pinsService.createPin(pin);
@@ -106,6 +131,8 @@ export const usePins = (): UsePinsReturn => {
     pins,
     isPinsLoading,
     fetchPins,
+    filterPinsBySearchQuery,
+    getPins,
     createPin,
     updatePin,
     togglePinFavoriteStatus,

@@ -95,6 +95,13 @@ const textStyle_i8: ITypographyStyle = {
   color: "systemLightGray",
 };
 
+const textStyle_i13: ITypographyStyle = {
+  fontWeight: "medium",
+  fontSize: "i12",
+  lineHeight: "i18",
+  color: "systemBlack",
+};
+
 const textStyle_i9: ITypographyStyle = {
   fontWeight: "medium",
   fontSize: "i14",
@@ -137,4 +144,5 @@ export {
   textStyle_i10,
   textStyle_i11,
   textStyle_i12,
+  textStyle_i13,
 };

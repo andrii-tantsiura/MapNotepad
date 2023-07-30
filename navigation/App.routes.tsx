@@ -1,11 +1,11 @@
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import FlashMessage from "react-native-flash-message";
 
 import { LoaderView } from "../components/sections";
 import { AppColors } from "../constants";
-import { AuthContext } from "../store/AuthProvider";
+import { useAuth } from "../hooks";
 import AuthStack from "./AuthStack";
 import HomeStack from "./HomeStack";
 
@@ -17,13 +17,18 @@ const THEME = {
   },
 };
 
-const AppRoutes: React.FC = () => {
+type AppRoutesProps = {
+  onReady: () => void;
+};
+
+const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
   const [isTryingAuthenticate, setIsTryingAuthenticate] = useState(true);
-  const authContext = useContext(AuthContext);
+
+  const { isAuthenticated, tryLoginFromWithSavedCredentials } = useAuth();
 
   useEffect(() => {
     async function tryAuthenticate() {
-      await authContext.fetchCredentialsFromAsyncStorage();
+      await tryLoginFromWithSavedCredentials();
 
       setIsTryingAuthenticate(false);
     }
@@ -37,8 +42,8 @@ const AppRoutes: React.FC = () => {
     <>
       <StatusBar style="auto" />
       <FlashMessage />
-      <NavigationContainer theme={THEME}>
-        {authContext.isAuthenticated ? <HomeStack /> : <AuthStack />}
+      <NavigationContainer theme={THEME} onReady={onReady}>
+        {isAuthenticated ? <HomeStack /> : <AuthStack />}
       </NavigationContainer>
     </>
   );

@@ -53,7 +53,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
         <SelectLocationView
           latitude={latitude}
           longitude={longitude}
-          onPickCoordinates={setCoordinates}
+          onPickLocation={setCoordinates}
         />
       </View>
     </>

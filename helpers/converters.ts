@@ -30,3 +30,10 @@ export const signInWithEmailResponseToCredentials = (
   userId: data.localId,
   email: data.email,
 });
+
+export const textToKeywords = (text: string) =>
+  text
+    ?.trim()
+    .toLowerCase()
+    .split(/[\s,]+/)
+    .map((key) => key.trim());
