@@ -5,14 +5,14 @@ import { PIN_GRAY_ICON } from "../../../../../assets/icons";
 import { CustomButton, Typography } from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
 import { textStyle_i11, textStyle_i13 } from "../../../../../constants";
-import { IPin } from "../../../../../types";
+import { IPinItemData } from "../../../../../types/ui";
 import styles from "./styles";
 
 type FoundPinProps = {
-  pin: IPin;
+  pin: IPinItemData;
   isLastItem: boolean;
   onPinHeightChanged: (pinHeight: number) => void;
-  onPinPressed: (pin: IPin) => void;
+  onPinPressed: (pin: IPinItemData) => void;
 };
 
 export const FoundPin: FC<FoundPinProps> = React.memo(

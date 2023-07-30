@@ -13,13 +13,13 @@ import {
   textStyle_i11,
   textStyle_i9,
 } from "../../../../../constants";
-import { IPin } from "../../../../../types";
+import { IPinItemData } from "../../../../../types/ui";
 import styles from "./styles";
 
 interface IPinItemProps {
-  pin: IPin;
-  onPress: (pin: IPin) => void;
-  onPressFavoriteStatus: () => void;
+  pin: IPinItemData;
+  onPress: (pin: IPinItemData) => void;
+  onPressFavoriteStatus: (pin: IPinItemData) => void;
 }
 
 export const PinItem: FC<IPinItemProps> = ({
@@ -30,16 +30,13 @@ export const PinItem: FC<IPinItemProps> = ({
   const favoriteStatusIcon = pin.isFavorite ? LIKE_BLUE_ICON : LIKE_GRAY_ICON;
 
   return (
-    <Pressable
-      style={styles.container}
-      onPress={() => onPress(pin)}
-    >
+    <Pressable style={styles.container} onPress={() => onPress(pin)}>
       <View style={styles.content}>
         <View style={styles.infoContainer}>
           <CustomButton
             containerStyle={styles.likeButton}
             imageSource={favoriteStatusIcon}
-            onPress={onPressFavoriteStatus}
+            onPress={() => onPressFavoriteStatus(pin)}
           />
 
           <View style={styles.textLinesContainer}>

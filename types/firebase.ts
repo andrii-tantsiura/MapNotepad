@@ -1,5 +1,3 @@
-import { IPin } from "./map";
-
 export interface ICredentials {
   idToken: string;
   email: string;
@@ -33,9 +31,3 @@ export interface ILoginResult {
   errorCode?: string;
   errorMessage?: string;
 }
-
-export interface ICreatePinResponse {
-  name: string;
-}
-
-export interface IPinPayload extends Omit<IPin, "id"> {}

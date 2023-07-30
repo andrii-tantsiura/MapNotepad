@@ -1,14 +1,13 @@
 import { FC, useState } from "react";
 import { View } from "react-native";
 
-import styles from "./styles";
-
 import {
   LATITUDE_RULES,
   LONGITUDE_RULES,
   PIN_LABEL_RULES,
 } from "../../../helpers";
 import { IFormController, InformativeTextInput } from "../../common";
+import styles from "./styles";
 
 interface IPinFormProps {
   formController: IFormController;

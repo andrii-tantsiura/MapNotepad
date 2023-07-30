@@ -6,13 +6,13 @@ import {
   DISPLAYED_PINS_SEARCH_RESULTS_MAX_COUNT,
   textStyle_i13,
 } from "../../../../../constants";
-import { IPin, IPins } from "../../../../../types";
+import { IPinItemData } from "../../../../../types/ui";
 import { FoundPin } from "../FoundPin";
 import styles from "./styles";
 
 type FoundPinsListProps = {
-  pins: IPins;
-  onPinPressed: (pin: IPin) => void;
+  pins: Array<IPinItemData>;
+  onPinPressed: (pin: IPinItemData) => void;
 };
 
 export const FoundPinsList: FC<FoundPinsListProps> = ({
@@ -39,7 +39,6 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
           Nothing found
         </Typography>
       )}
-      keyExtractor={(pin) => pin.id}
       renderItem={({ item, index }) => (
         <FoundPin
           pin={item}

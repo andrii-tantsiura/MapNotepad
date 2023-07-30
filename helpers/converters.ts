@@ -1,25 +1,4 @@
-import {
-  ICredentials,
-  IPin,
-  IPinForm,
-  ISignInWithEmailResponse,
-} from "../types";
-
-export const pinFormToPin = ({
-  label,
-  description,
-  latitude,
-  longitude,
-}: IPinForm): IPin => ({
-  id: "",
-  label,
-  description,
-  location: {
-    latitude: Number.parseFloat(latitude),
-    longitude: Number.parseFloat(longitude),
-  },
-  isFavorite: true,
-});
+import { ICredentials, ISignInWithEmailResponse } from "../types";
 
 export const signInWithEmailResponseToCredentials = (
   data: ISignInWithEmailResponse

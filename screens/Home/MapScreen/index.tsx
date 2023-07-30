@@ -11,10 +11,11 @@ import {
   CustomButtonStyles,
   DEFAULT_REGION,
 } from "../../../constants";
+import { pinDataToPinItem } from "../../../converters";
 import { useCurrentLocation, usePins } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
-import { IPin } from "../../../types";
+import { IPinItemData } from "../../../types/ui";
 import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
@@ -29,6 +30,8 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     ? filterPinsBySearchQuery(searchQuery)
     : getPins((x) => x.isFavorite);
 
+  const displayedPins = pins.map((x) => pinDataToPinItem(x));
+
   const animateToLocation = (location: LatLng | undefined) => {
     if (location) {
       mapViewRef.current?.animateToRegion({
@@ -38,7 +41,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     }
   };
 
-  const onPinFoundPressHandler = (pin: IPin) => {
+  const onPinFoundPressHandler = (pin: IPinItemData) => {
     animateToLocation(pin.location);
   };
 
@@ -57,7 +60,10 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       {searchQuery && (
-        <FoundPinsList pins={pins} onPinPressed={onPinFoundPressHandler} />
+        <FoundPinsList
+          pins={displayedPins}
+          onPinPressed={onPinFoundPressHandler}
+        />
       )}
 
       <ClusteredMap

@@ -1,11 +1,11 @@
 import { AsyncResult } from "../../helpers/AOResult/types";
+import { ICredentials } from "../../types";
 import {
   ICreatePinResponse,
-  ICredentials,
-  IPin,
+  IGetPinsResponse,
   IPinPayload,
-  IPins,
-} from "../../types";
+} from "../../types/api/firebase";
+import { IPinData, IPinDataArray } from "../../types/data";
 import { FirebaseRealtimeDBService } from "../FirebaseRealtimeDBService";
 
 export class PinsService {
@@ -15,13 +15,18 @@ export class PinsService {
     this.realtimeDBService.credentials = credentials;
   }
 
-  public getPins = async (): AsyncResult<IPins> =>
-    this.realtimeDBService.get<IPins>("pins.json");
+  public getPins = async (): AsyncResult<IPinDataArray> => {
+    const getPinsResult = await this.realtimeDBService.get<IGetPinsResponse>(
+      "pins.json"
+    );
+
+    return getPinsResult;
+  };
 
   public deletePin = async (pinId: string): AsyncResult<null> =>
     this.realtimeDBService.delete(`pins/${pinId}.json`);
 
-  public createPin = async (pin: IPinPayload): AsyncResult<string> => {
+  public createPin = async (pin: IPinData): AsyncResult<string> => {
     const result = await this.realtimeDBService.post<
       ICreatePinResponse,
       IPinPayload
@@ -30,7 +35,7 @@ export class PinsService {
     return result.convertTo<string>(result.data?.name);
   };
 
-  public updatePin = async (pin: IPin): AsyncResult<boolean> => {
+  public updatePin = async (pin: IPinData): AsyncResult<boolean> => {
     const result = await this.realtimeDBService.put<
       ICreatePinResponse,
       IPinPayload
@@ -39,8 +44,8 @@ export class PinsService {
     return result.convertTo(Boolean(result.data));
   };
 
-  toggleFavoritePinStatus = async (pin: IPin): AsyncResult<boolean> => {
-    const newPin = { ...pin, isFavorite: !pin.isFavorite };
+  toggleFavoritePinStatus = async (pin: IPinData): AsyncResult<boolean> => {
+    const newPin: IPinData = { ...pin, isFavorite: !pin.isFavorite };
 
     return this.updatePin(newPin);
   };

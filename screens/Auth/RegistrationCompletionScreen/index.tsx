@@ -12,7 +12,7 @@ import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
-import { ICreatePasswordForm } from "../../../types";
+import { ICreatePasswordForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
