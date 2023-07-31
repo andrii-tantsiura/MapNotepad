@@ -17,7 +17,7 @@ type FoundPinProps = {
 
 export const FoundPin: FC<FoundPinProps> = React.memo(
   ({ pin, isLastItem, onHeightChange, onPress }) => {
-    const imageSource = pin.isFavorite ? PIN_GRAY_ICON : PIN_ICON;
+    const imageSource = pin.isFavorite ? PIN_ICON : PIN_GRAY_ICON;
 
     return (
       <TouchableOpacity

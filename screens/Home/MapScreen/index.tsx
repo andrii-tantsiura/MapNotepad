@@ -97,6 +97,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         style={styles.map}
         clusterColor={AppColors.lightPrimary}
         clusterTextColor={AppColors.systemWhite}
+        showsUserLocation
         initialRegion={DEFAULT_REGION}
         ref={mapViewRef}
       >

@@ -55,7 +55,13 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
 
   return (
     <>
-      <MapView style={styles.map} ref={mapViewRef} onPress={mapPressedHandler}>
+      <MapView
+        showsUserLocation
+        showsMyLocationButton={false}
+        style={styles.map}
+        ref={mapViewRef}
+        onPress={mapPressedHandler}
+      >
         {isCoordinatesValid && (
           <Marker
             draggable
