@@ -44,8 +44,8 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
         <FoundPin
           pin={item}
           isLastItem={index === pins.length - 1}
-          onPinHeightChanged={setPinHeight}
-          onPinPressed={onPinPressed}
+          onHeightChange={setPinHeight}
+          onPress={onPinPressed}
         />
       )}
     />
