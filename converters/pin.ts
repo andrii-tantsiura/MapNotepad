@@ -1,6 +1,6 @@
 import { IPinForm } from "../types/forms";
 import { IPinModel } from "../types/models";
-import { IMarkerItemViewModel, IPinItemViewModel } from "../types/viewModels";
+import { ICustomMarkerItemModel, IPinItemModel } from "../types/components";
 
 export const pinFormToModel = (form: IPinForm): IPinModel => ({
   id: "",
@@ -13,31 +13,27 @@ export const pinFormToModel = (form: IPinForm): IPinModel => ({
   isFavorite: true,
 });
 
-export const pinItemViewModelToModel = (
-  pinItemViewModel: IPinItemViewModel
-): IPinModel => ({
-  id: pinItemViewModel.key,
-  label: pinItemViewModel.label,
-  description: pinItemViewModel.description,
-  location: pinItemViewModel.location,
-  isFavorite: pinItemViewModel.isFavorite,
+export const pinItemModelToPinModel = (model: IPinItemModel): IPinModel => ({
+  id: model.key,
+  label: model.label,
+  description: model.description,
+  location: model.location,
+  isFavorite: model.isFavorite,
 });
 
-export const pinModelToViewModel = (
-  pinModel: IPinModel
-): IPinItemViewModel => ({
-  key: pinModel.id,
-  label: pinModel.label,
-  description: pinModel.description,
-  location: pinModel.location,
-  isFavorite: pinModel.isFavorite,
+export const pinModelToPinItemModel = (model: IPinModel): IPinItemModel => ({
+  key: model.id,
+  label: model.label,
+  description: model.description,
+  location: model.location,
+  isFavorite: model.isFavorite,
 });
 
-export const pinModelToMarkerViewModel = (
-  pinModel: IPinModel
-): IMarkerItemViewModel => ({
-  key: pinModel.id,
-  label: pinModel.label,
-  description: pinModel.description,
-  location: pinModel.location,
+export const pinModelToCustomMarkerModel = (
+  model: IPinModel
+): ICustomMarkerItemModel => ({
+  key: model.id,
+  label: model.label,
+  description: model.description,
+  location: model.location,
 });

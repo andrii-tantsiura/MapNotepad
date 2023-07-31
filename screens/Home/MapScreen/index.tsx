@@ -12,17 +12,17 @@ import {
   DEFAULT_REGION,
 } from "../../../constants";
 import {
-  pinModelToMarkerViewModel,
-  pinModelToViewModel,
+  pinModelToCustomMarkerModel,
+  pinModelToPinItemModel,
 } from "../../../converters";
 import { animateToLocation } from "../../../helpers/map";
 import { useCurrentLocation, usePins } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
 import {
-  IMarkerItemViewModel,
-  IPinItemViewModel,
-} from "../../../types/viewModels";
+  ICustomMarkerItemModel,
+  IPinItemModel,
+} from "../../../types/components";
 import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
@@ -41,16 +41,16 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     [searchQuery, pins]
   );
 
-  const pinViewModels = useMemo(
-    () => filteredPins.map((x) => pinModelToViewModel(x)),
+  const pinItemModels = useMemo(
+    () => filteredPins.map((x) => pinModelToPinItemModel(x)),
     [filteredPins]
   );
 
-  const markersViewModels: Array<IMarkerItemViewModel> = useMemo(
+  const markerItemModels: Array<ICustomMarkerItemModel> = useMemo(
     () =>
       filteredPins.map(
-        (pin): IMarkerItemViewModel => ({
-          ...pinModelToMarkerViewModel(pin),
+        (pin): ICustomMarkerItemModel => ({
+          ...pinModelToCustomMarkerModel(pin),
           icon: MARKER_ICON,
         })
       ),
@@ -58,7 +58,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   );
 
   const showMarkerCallout = (pinId: string) => {
-    markersViewModels.find((x) => pinId === x.key)?.showCallout?.();
+    markerItemModels.find((x) => pinId === x.key)?.showCallout?.();
   };
 
   const focusMarker = (location: LatLng, markerId: string) => {
@@ -66,7 +66,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     showMarkerCallout(markerId);
   };
 
-  const onPinFoundPressHandler = ({ location, key }: IPinItemViewModel) => {
+  const onPinFoundPressHandler = ({ location, key }: IPinItemModel) => {
     focusMarker(location, key);
   };
 
@@ -88,7 +88,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     <View style={styles.container}>
       {searchQuery && (
         <FoundPinsList
-          pins={pinViewModels}
+          pins={pinItemModels}
           onPinPressed={onPinFoundPressHandler}
         />
       )}
@@ -100,12 +100,8 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         initialRegion={DEFAULT_REGION}
         ref={mapViewRef}
       >
-        {markersViewModels.map((pin) => (
-          <CustomMarker
-            key={pin.key}
-            coordinate={pin.location}
-            viewModel={pin}
-          />
+        {markerItemModels.map((pin) => (
+          <CustomMarker key={pin.key} coordinate={pin.location} model={pin} />
         ))}
       </ClusteredMap>
 

@@ -13,13 +13,13 @@ import {
   textStyle_i11,
   textStyle_i9,
 } from "../../../../../constants";
-import { IPinItemViewModel } from "../../../../../types/viewModels";
+import { IPinItemModel } from "../../../../../types/components";
 import styles from "./styles";
 
 interface IPinItemProps {
-  pin: IPinItemViewModel;
-  onPress: (pin: IPinItemViewModel) => void;
-  onPressFavoriteStatus: (pin: IPinItemViewModel) => void;
+  pin: IPinItemModel;
+  onPress: (pin: IPinItemModel) => void;
+  onPressFavoriteStatus: (pin: IPinItemModel) => void;
 }
 
 export const PinItem: FC<IPinItemProps> = ({

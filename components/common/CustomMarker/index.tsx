@@ -1,29 +1,29 @@
 import React, { FC, useEffect, useRef } from "react";
 import { MapMarker, MapMarkerProps } from "react-native-maps";
 
-import { IMarkerItemViewModel } from "../../../types/viewModels";
+import { ICustomMarkerItemModel } from "../../../types/components";
 
 interface CustomMarkerProps extends MapMarkerProps {
-  viewModel: IMarkerItemViewModel;
+  model: ICustomMarkerItemModel;
 }
 
 export const CustomMarker: FC<CustomMarkerProps> = React.memo(
-  ({ viewModel, ...restProps }) => {
+  ({ model, ...restProps }) => {
     const ref = useRef<MapMarker | null>(null);
 
     useEffect(() => {
-      viewModel.showCallout = () => {
+      model.showCallout = () => {
         ref.current?.showCallout();
       };
-    }, [viewModel]);
+    }, [model]);
 
     return (
       <MapMarker
         {...restProps}
         ref={ref}
-        image={viewModel.icon}
-        title={viewModel.label}
-        description={viewModel.description}
+        image={model.icon}
+        title={model.label}
+        description={model.description}
       />
     );
   }

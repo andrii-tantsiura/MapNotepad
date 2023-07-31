@@ -1,7 +1,7 @@
 import { LatLng, MapMarkerProps } from "react-native-maps";
+import { IBaseItemModel } from "./baseItemModel";
 
-export interface IMarkerItemViewModel {
-  key: string;
+export interface ICustomMarkerItemModel extends IBaseItemModel {
   label: string;
   description?: string;
   location: LatLng;
