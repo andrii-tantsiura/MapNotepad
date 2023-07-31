@@ -101,7 +101,11 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         ref={mapViewRef}
       >
         {markersViewModels.map((pin) => (
-          <CustomMarker key={pin.key} viewModel={pin} />
+          <CustomMarker
+            key={pin.key}
+            coordinate={pin.location}
+            viewModel={pin}
+          />
         ))}
       </ClusteredMap>
 

@@ -3,7 +3,7 @@ import { MapMarker, MapMarkerProps } from "react-native-maps";
 
 import { IMarkerItemViewModel } from "../../../types/viewModels";
 
-interface CustomMarkerProps extends Partial<MapMarkerProps> {
+interface CustomMarkerProps extends MapMarkerProps {
   viewModel: IMarkerItemViewModel;
 }
 
@@ -24,7 +24,6 @@ export const CustomMarker: FC<CustomMarkerProps> = React.memo(
         image={viewModel.icon}
         title={viewModel.label}
         description={viewModel.description}
-        coordinate={viewModel.location}
       />
     );
   }
