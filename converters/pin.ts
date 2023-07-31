@@ -1,6 +1,6 @@
 import { IPinForm } from "../types/forms";
 import { IPinModel } from "../types/models";
-import { IPinItemViewModel } from "../types/viewModels";
+import { IMarkerItemViewModel, IPinItemViewModel } from "../types/viewModels";
 
 export const pinFormToModel = (form: IPinForm): IPinModel => ({
   id: "",
@@ -31,4 +31,13 @@ export const pinModelToViewModel = (
   description: pinModel.description,
   location: pinModel.location,
   isFavorite: pinModel.isFavorite,
+});
+
+export const pinModelToMarkerViewModel = (
+  pinModel: IPinModel
+): IMarkerItemViewModel => ({
+  key: pinModel.id,
+  label: pinModel.label,
+  description: pinModel.description,
+  location: pinModel.location,
 });

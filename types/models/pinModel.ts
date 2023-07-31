@@ -1,4 +1,5 @@
 import { LatLng } from "react-native-maps";
+
 import { IBaseModel } from "./baseModel";
 
 export interface IPinModel extends IBaseModel {

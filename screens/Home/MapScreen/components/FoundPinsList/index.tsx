@@ -33,6 +33,7 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
   return (
     <FlatList
       style={[styles.container, pinsListStyle]}
+      keyboardShouldPersistTaps="always"
       data={pins}
       ListEmptyComponent={() => (
         <Typography style={[textStyle_i13, styles.nothingFoundText]}>
