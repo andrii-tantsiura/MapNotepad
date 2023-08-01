@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
+import { PinsService } from "../services";
 import AlertService from "../services/AlertService";
+import { IPinsService } from "../services/PinsService/types";
 import {
   addPinAction,
   deletePinAction,
@@ -11,9 +13,8 @@ import {
 } from "../store/redux/actions";
 import { selectAuth, selectPins } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
-import { IPinModelsArray, IPinModel } from "../types/models";
+import { IPinModel, IPinModelsArray } from "../types/models";
 import { stringToKeywords } from "../utils";
-import { usePinsService } from "./usePinsService";
 
 type UsePinsReturn = {
   pins: IPinModelsArray;
@@ -32,7 +33,10 @@ export const usePins = (): UsePinsReturn => {
 
   const { credentials } = useSelector(selectAuth);
   const pins = useSelector(selectPins);
-  const pinsService = usePinsService(credentials);
+  const pinsService: IPinsService = useMemo(
+    () => new PinsService(credentials),
+    [credentials]
+  );
 
   const [isPinsLoading, setIsPinsLoading] = useState<boolean>(false);
 

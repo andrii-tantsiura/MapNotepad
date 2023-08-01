@@ -34,7 +34,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
     setIsLoading(false);
 
-    if (registerResult.isSuccess && registerResult.data) {
+    if (registerResult.isSuccess) {
       navigation.dispatch(
         CommonActions.reset({
           index: 1,

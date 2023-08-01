@@ -19,14 +19,14 @@ import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
-import { IPinModel } from "../../../types/models";
 import { IPinItemModel } from "../../../types/components";
+import { IPinModel } from "../../../types/models";
 import { hideActionMenu } from "../../../utils";
 import {
   PIN_ACTION_MENU_WIDTH,
   PinActionMenu,
 } from "./components/PinActionMenu";
-import { PinItem } from "./components/PinItem/PinItem";
+import { PinItem } from "./components/PinItem";
 import styles from "./styles";
 
 type HomeScreenNavigationProp = StackNavigationProp<

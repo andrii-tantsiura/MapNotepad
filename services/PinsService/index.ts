@@ -9,28 +9,24 @@ import {
   IPinModel,
   IPinModelsArray,
 } from "../../types/models";
-import { FirebaseRealtimeDBService } from "../FirebaseRealtimeDBService";
+import { FirebaseRestService } from "../FirebaseRestService";
+import { IPinsService } from "./types";
 
-export class PinsService {
-  private realtimeDBService = new FirebaseRealtimeDBService();
+export class PinsService implements IPinsService {
+  private _restService: FirebaseRestService;
 
   constructor(credentials: ICredentialsModel | null) {
-    this.realtimeDBService.credentials = credentials;
+    this._restService = new FirebaseRestService(credentials);
   }
 
-  public getPins = async (): AsyncResult<IPinModelsArray> => {
-    const getPinsResult = await this.realtimeDBService.get<IGetPinsResponse>(
-      "pins.json"
-    );
+  public getPins = async (): AsyncResult<IPinModelsArray> =>
+    this._restService.get<IGetPinsResponse>("pins.json");
 
-    return getPinsResult;
-  };
-
-  public deletePin = async (pinId: string): AsyncResult<null> =>
-    this.realtimeDBService.delete(`pins/${pinId}.json`);
+  public deletePin = async (pinId: string): AsyncResult<void> =>
+    this._restService.delete(`pins/${pinId}.json`);
 
   public createPin = async (pin: IPinModel): AsyncResult<string> => {
-    const result = await this.realtimeDBService.post<
+    const result = await this._restService.post<
       ICreatePinResponse,
       IPinPayload
     >("pins.json", pin);
@@ -39,10 +35,10 @@ export class PinsService {
   };
 
   public updatePin = async (pin: IPinModel): AsyncResult<boolean> => {
-    const result = await this.realtimeDBService.put<
-      ICreatePinResponse,
-      IPinPayload
-    >(`pins/${pin.id}.json`, pin);
+    const result = await this._restService.put<ICreatePinResponse, IPinPayload>(
+      `pins/${pin.id}.json`,
+      pin
+    );
 
     return result.convertTo(Boolean(result.data));
   };

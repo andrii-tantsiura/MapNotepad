@@ -29,6 +29,8 @@ export const PinItem: FC<IPinItemProps> = ({
 }) => {
   const favoriteStatusIcon = pin.isFavorite ? LIKE_BLUE_ICON : LIKE_GRAY_ICON;
 
+  const changeFavoriteStatusHandler = () => onPressFavoriteStatus(pin);
+
   return (
     <Pressable style={styles.container} onPress={() => onPress(pin)}>
       <View style={styles.content}>
@@ -36,7 +38,7 @@ export const PinItem: FC<IPinItemProps> = ({
           <CustomButton
             containerStyle={styles.likeButton}
             imageSource={favoriteStatusIcon}
-            onPress={() => onPressFavoriteStatus(pin)}
+            onPress={changeFavoriteStatusHandler}
           />
 
           <View style={styles.textLinesContainer}>

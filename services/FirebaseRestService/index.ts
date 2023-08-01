@@ -12,8 +12,12 @@ type AuthenticatedRequest = <TResult>(
   authenticatedUrl: string
 ) => AsyncResult<TResult>;
 
-export class FirebaseRealtimeDBService {
-  public credentials: ICredentialsModel | null = null;
+export class FirebaseRestService {
+  private _credentials: ICredentialsModel | null = null;
+
+  constructor(credentials: ICredentialsModel | null) {
+    this._credentials = credentials;
+  }
 
   private createAuthenticatedUrl = (
     path: string,
@@ -26,10 +30,10 @@ export class FirebaseRealtimeDBService {
   ): AsyncResult<TResult> => {
     let requestResult = new AOResult<TResult>();
 
-    if (this.credentials) {
+    if (this._credentials) {
       const authenticatedUrl = this.createAuthenticatedUrl(
         url,
-        this.credentials
+        this._credentials
       );
 
       requestResult = await request(authenticatedUrl);

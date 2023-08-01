@@ -26,7 +26,7 @@ class AuthService {
   registerWithEmail = async (
     email: string,
     password: string
-  ): AsyncResult<ISignUpWithEmailResponse> => {
+  ): AsyncResult<void> => {
     const payload: ISignUpWithEmailPayload = {
       email,
       password,
@@ -40,7 +40,7 @@ class AuthService {
 
     extractErrorMessageIfFailure(requestResult);
 
-    return requestResult;
+    return requestResult.convertTo();
   };
 
   loginWithEmail = async (
