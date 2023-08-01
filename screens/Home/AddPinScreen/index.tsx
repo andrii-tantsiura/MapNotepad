@@ -8,10 +8,10 @@ import {
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
-import { pinFormToPin } from "../../../helpers";
+import { pinFormToModel } from "../../../converters";
 import { useHeaderRightButton, useHookForm, usePins } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import { IPinForm } from "../../../types";
+import { IPinForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
@@ -29,7 +29,7 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   };
 
   const savePinHandler = async (pinForm: IPinForm) => {
-    const newPin = pinFormToPin(pinForm);
+    const newPin = pinFormToModel(pinForm);
 
     const isPinCreated = await createPin(newPin);
 

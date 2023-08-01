@@ -10,7 +10,7 @@ import { useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
-import { ILoginForm } from "../../../types";
+import { ILoginForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
@@ -19,7 +19,8 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
   const { formController, handleSubmit } = useHookForm<ILoginForm>({
     defaultValues: {
-      email: route.params?.email,
+      email: route.params?.email ?? "test@mail.com",
+      password: "Test123@",
     },
   });
 

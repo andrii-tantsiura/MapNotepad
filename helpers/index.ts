@@ -1,4 +1,4 @@
 // export * from "./axios";
-export * from "./converters";
+export * from "./map";
 export * from "./typography";
 export * from "./validationRules";

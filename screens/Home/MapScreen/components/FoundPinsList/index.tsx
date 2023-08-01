@@ -6,13 +6,13 @@ import {
   DISPLAYED_PINS_SEARCH_RESULTS_MAX_COUNT,
   textStyle_i13,
 } from "../../../../../constants";
-import { IPin, IPins } from "../../../../../types";
+import { IPinItemModel } from "../../../../../types/components";
 import { FoundPin } from "../FoundPin";
 import styles from "./styles";
 
 type FoundPinsListProps = {
-  pins: IPins;
-  onPinPressed: (pin: IPin) => void;
+  pins: Array<IPinItemModel>;
+  onPinPressed: (pin: IPinItemModel) => void;
 };
 
 export const FoundPinsList: FC<FoundPinsListProps> = ({
@@ -33,19 +33,19 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
   return (
     <FlatList
       style={[styles.container, pinsListStyle]}
+      keyboardShouldPersistTaps="always"
       data={pins}
       ListEmptyComponent={() => (
         <Typography style={[textStyle_i13, styles.nothingFoundText]}>
           Nothing found
         </Typography>
       )}
-      keyExtractor={(pin) => pin.id}
       renderItem={({ item, index }) => (
         <FoundPin
           pin={item}
           isLastItem={index === pins.length - 1}
-          onPinHeightChanged={setPinHeight}
-          onPinPressed={onPinPressed}
+          onHeightChange={setPinHeight}
+          onPress={onPinPressed}
         />
       )}
     />

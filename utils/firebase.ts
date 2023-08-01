@@ -1,10 +1,13 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { AOResult } from "../../helpers/AOResult";
-import { IBaseModel } from "../../types";
-import { FirebaseError, UnauthorizedError } from "./types";
+import { AOResult } from "../helpers/AOResult";
+import {
+  ResponseError,
+  UnauthorizedResponseError,
+} from "../types/api/firebase";
+import { IBaseModel } from "../types/models";
 
-interface IModels {
+interface IFirebaseModels {
   [index: string]: IBaseModel;
 }
 
@@ -12,7 +15,7 @@ function withFirebaseModelsToArray<T>(
   reviver?: (key: string, value: any) => any
 ) {
   return function (response: AxiosResponse): Array<T> {
-    const models = JSON.parse(String(response), reviver) as IModels;
+    const models = JSON.parse(String(response), reviver) as IFirebaseModels;
     const array: Array<T> = [];
 
     for (const key in models) {
@@ -40,8 +43,8 @@ export const extractErrorMessageIfFailure = <T>(result: AOResult<T>): void => {
       const { data } = exception.response;
 
       errorMessage =
-        (data as FirebaseError).error?.message ??
-        (data as UnauthorizedError).error ??
+        (data as ResponseError).error?.message ??
+        (data as UnauthorizedResponseError).error ??
         (data as any[])[0];
     } else {
       errorMessage = exception.message;

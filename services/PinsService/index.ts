@@ -1,28 +1,32 @@
 import { AsyncResult } from "../../helpers/AOResult/types";
 import {
   ICreatePinResponse,
-  ICredentials,
-  IPin,
+  IGetPinsResponse,
   IPinPayload,
-  IPins,
-} from "../../types";
-import { FirebaseRealtimeDBService } from "../FirebaseRealtimeDBService";
+} from "../../types/api/firebase";
+import {
+  ICredentialsModel,
+  IPinModel,
+  IPinModelsArray,
+} from "../../types/models";
+import { FirebaseRestService } from "../FirebaseRestService";
+import { IPinsService } from "./types";
 
-export class PinsService {
-  private realtimeDBService = new FirebaseRealtimeDBService();
+export class PinsService implements IPinsService {
+  private _restService: FirebaseRestService;
 
-  constructor(credentials: ICredentials | null) {
-    this.realtimeDBService.credentials = credentials;
+  constructor(credentials: ICredentialsModel | null) {
+    this._restService = new FirebaseRestService(credentials);
   }
 
-  public getPins = async (): AsyncResult<IPins> =>
-    this.realtimeDBService.get<IPins>("pins.json");
+  public getPins = async (): AsyncResult<IPinModelsArray> =>
+    this._restService.get<IGetPinsResponse>("pins.json");
 
-  public deletePin = async (pinId: string): AsyncResult<null> =>
-    this.realtimeDBService.delete(`pins/${pinId}.json`);
+  public deletePin = async (pinId: string): AsyncResult<void> =>
+    this._restService.delete(`pins/${pinId}.json`);
 
-  public createPin = async (pin: IPinPayload): AsyncResult<string> => {
-    const result = await this.realtimeDBService.post<
+  public createPin = async (pin: IPinModel): AsyncResult<string> => {
+    const result = await this._restService.post<
       ICreatePinResponse,
       IPinPayload
     >("pins.json", pin);
@@ -30,17 +34,17 @@ export class PinsService {
     return result.convertTo<string>(result.data?.name);
   };
 
-  public updatePin = async (pin: IPin): AsyncResult<boolean> => {
-    const result = await this.realtimeDBService.put<
-      ICreatePinResponse,
-      IPinPayload
-    >(`pins/${pin.id}.json`, pin);
+  public updatePin = async (pin: IPinModel): AsyncResult<boolean> => {
+    const result = await this._restService.put<ICreatePinResponse, IPinPayload>(
+      `pins/${pin.id}.json`,
+      pin
+    );
 
     return result.convertTo(Boolean(result.data));
   };
 
-  toggleFavoritePinStatus = async (pin: IPin): AsyncResult<boolean> => {
-    const newPin = { ...pin, isFavorite: !pin.isFavorite };
+  toggleFavoritePinStatus = async (pin: IPinModel): AsyncResult<boolean> => {
+    const newPin: IPinModel = { ...pin, isFavorite: !pin.isFavorite };
 
     return this.updatePin(newPin);
   };

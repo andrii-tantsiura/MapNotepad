@@ -1,7 +1,7 @@
 import { FirebaseConfig } from "../../config";
 import { AOResult } from "../../helpers/AOResult";
 import { AsyncResult } from "../../helpers/AOResult/types";
-import { ICredentials } from "../../types";
+import { ICredentialsModel } from "../../types/models";
 import {
   createFirebaseRequestConfig,
   extractErrorMessageIfFailure,
@@ -12,12 +12,16 @@ type AuthenticatedRequest = <TResult>(
   authenticatedUrl: string
 ) => AsyncResult<TResult>;
 
-export class FirebaseRealtimeDBService {
-  public credentials: ICredentials | null = null;
+export class FirebaseRestService {
+  private _credentials: ICredentialsModel | null = null;
+
+  constructor(credentials: ICredentialsModel | null) {
+    this._credentials = credentials;
+  }
 
   private createAuthenticatedUrl = (
     path: string,
-    { idToken, userId }: ICredentials
+    { idToken, userId }: ICredentialsModel
   ) => `${FirebaseConfig.realtimeDbUrl}/${userId}/${path}?auth=${idToken}`;
 
   private executeAuthenticatedRequest = async <TResult>(
@@ -26,10 +30,10 @@ export class FirebaseRealtimeDBService {
   ): AsyncResult<TResult> => {
     let requestResult = new AOResult<TResult>();
 
-    if (this.credentials) {
+    if (this._credentials) {
       const authenticatedUrl = this.createAuthenticatedUrl(
         url,
-        this.credentials
+        this._credentials
       );
 
       requestResult = await request(authenticatedUrl);

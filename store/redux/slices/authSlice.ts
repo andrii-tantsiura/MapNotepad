@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ICredentials } from "../../../types";
+
+import { ICredentialsModel } from "../../../types/models";
 import { loginAction, logoutAction } from "../actions/auth.actions";
 import { RootStore } from "../store";
 
 interface IInitialState {
-  credentials: ICredentials | null;
+  credentials: ICredentialsModel | null;
   isAuthenticated: boolean;
 }
 

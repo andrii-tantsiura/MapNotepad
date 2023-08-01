@@ -8,7 +8,7 @@ import { CustomButtonStyles } from "../../../constants";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
-import { ICreateUserForm } from "../../../types";
+import { ICreateUserForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({

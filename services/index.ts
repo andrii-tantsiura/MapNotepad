@@ -1,2 +1,2 @@
-export * from "./FirebaseRealtimeDBService";
+export * from "./FirebaseRestService";
 export * from "./PinsService";

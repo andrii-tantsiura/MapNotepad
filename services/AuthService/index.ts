@@ -1,14 +1,13 @@
 import { FirebaseConfig } from "../../config";
-import { signInWithEmailResponseToCredentials } from "../../helpers";
+import { signInWithEmailResponseToCredentialsModel } from "../../converters";
 import { AsyncResult } from "../../helpers/AOResult/types";
-
 import {
-  ICredentials,
   ISignInWithEmailPayload,
   ISignInWithEmailResponse,
   ISignUpWithEmailPayload,
   ISignUpWithEmailResponse,
-} from "../../types";
+} from "../../types/api/firebase";
+import { ICredentialsModel } from "../../types/models";
 import { extractErrorMessageIfFailure } from "../../utils";
 import ApiService from "../ApiService";
 
@@ -27,7 +26,7 @@ class AuthService {
   registerWithEmail = async (
     email: string,
     password: string
-  ): AsyncResult<ISignUpWithEmailResponse> => {
+  ): AsyncResult<void> => {
     const payload: ISignUpWithEmailPayload = {
       email,
       password,
@@ -41,13 +40,13 @@ class AuthService {
 
     extractErrorMessageIfFailure(requestResult);
 
-    return requestResult;
+    return requestResult.convertTo();
   };
 
   loginWithEmail = async (
     email: string,
     password: string
-  ): AsyncResult<ICredentials | undefined> => {
+  ): AsyncResult<ICredentialsModel | undefined> => {
     const payload: ISignInWithEmailPayload = {
       email,
       password,
@@ -62,10 +61,10 @@ class AuthService {
     extractErrorMessageIfFailure(requestResult);
 
     const credentials = requestResult.data
-      ? signInWithEmailResponseToCredentials(requestResult.data)
+      ? signInWithEmailResponseToCredentialsModel(requestResult.data)
       : undefined;
 
-    return requestResult.convertTo<ICredentials>(credentials);
+    return requestResult.convertTo<ICredentialsModel>(credentials);
   };
 }
 

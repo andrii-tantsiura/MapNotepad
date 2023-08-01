@@ -1,7 +1,7 @@
 import { UseFormProps, UseFormReturn, useForm } from "react-hook-form";
 
 import { IFormController } from "../components/common";
-import { IBaseForm } from "../types";
+import { IBaseForm } from "../types/forms";
 
 type UseHookFormReturn<T extends IBaseForm> = {
   formController: IFormController;

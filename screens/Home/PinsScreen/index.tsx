@@ -11,17 +11,22 @@ import { CustomButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
+import {
+  pinItemModelToPinModel,
+  pinModelToPinItemModel,
+} from "../../../converters";
 import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
-import { IPin } from "../../../types";
+import { IPinItemModel } from "../../../types/components";
+import { IPinModel } from "../../../types/models";
 import { hideActionMenu } from "../../../utils";
 import {
   PIN_ACTION_MENU_WIDTH,
   PinActionMenu,
 } from "./components/PinActionMenu";
-import { PinItem } from "./components/PinItem/PinItem";
+import { PinItem } from "./components/PinItem";
 import styles from "./styles";
 
 type HomeScreenNavigationProp = StackNavigationProp<
@@ -35,13 +40,13 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const {
     isPinsLoading,
     fetchPins,
-    togglePinFavoriteStatus: toggleFavoriteStatus,
+    togglePinFavoriteStatus,
     deletePin,
     filterPinsBySearchQuery,
     getPins,
   } = usePins();
 
-  const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPin>>();
+  const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPinItemModel>>();
   const [selectedPinId, setSelectedPinId] = useState<string>();
   const [isRemovePinConfirmationShown, setIsRemovePinConfirmationVisible] =
     useState(false);
@@ -49,16 +54,25 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const { searchQuery } = useSelector(selectPinsSearch);
 
   const pins = searchQuery ? filterPinsBySearchQuery(searchQuery) : getPins();
+  const displayedPins = pins.map((x) => pinModelToPinItemModel(x));
 
-  const pinPressedHandler = (pin: IPin) => {
-    navigation.navigate("Map", { pin });
+  const togglePinFavoriteStatusHandler = (pin: IPinItemModel) => {
+    const pinData: IPinModel = pinItemModelToPinModel(pin);
+
+    togglePinFavoriteStatus(pinData);
+  };
+
+  const pinPressedHandler = (pin: IPinItemModel) => {
+    const pinData: IPinModel = pinItemModelToPinModel(pin);
+
+    navigation.navigate("Map", { pin: pinData });
   };
 
   const deletePinHandler = (
-    { item: pin }: ListRenderItemInfo<IPin>,
-    row: RowMap<IPin>
+    { item: pin }: ListRenderItemInfo<IPinItemModel>,
+    row: RowMap<IPinItemModel>
   ) => {
-    setSelectedPinId(pin.id);
+    setSelectedPinId(pin.key);
     setSelectedPinRow(row);
 
     setIsRemovePinConfirmationVisible(true);
@@ -79,27 +93,27 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   };
 
   const editPinHandler = (
-    { item: pin }: ListRenderItemInfo<IPin>,
-    row: RowMap<IPin>
+    { item: pin }: ListRenderItemInfo<IPinItemModel>,
+    row: RowMap<IPinItemModel>
   ) => {
-    hideActionMenu(row, pin.id);
+    hideActionMenu(row, pin.key);
 
-    homeNavigation.navigate("EditPin", { pinId: pin.id });
+    homeNavigation.navigate("EditPin", { pinId: pin.key });
   };
 
   const addPinHandler = () => homeNavigation.navigate("AddPin");
 
-  const renderPinItem = ({ item: pin }: ListRenderItemInfo<IPin>) => (
+  const renderPinItem = ({ item: pin }: ListRenderItemInfo<IPinItemModel>) => (
     <PinItem
       pin={pin}
       onPress={pinPressedHandler}
-      onPressFavoriteStatus={() => toggleFavoriteStatus(pin)}
+      onPressFavoriteStatus={togglePinFavoriteStatusHandler}
     />
   );
 
   const renderHiddenActionMenu = (
-    pin: ListRenderItemInfo<IPin>,
-    row: RowMap<IPin>
+    pin: ListRenderItemInfo<IPinItemModel>,
+    row: RowMap<IPinItemModel>
   ) => (
     <PinActionMenu
       onDelete={() => deletePinHandler(pin, row)}
@@ -127,8 +141,7 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
         onRowClose={() => {
           setSelectedPinId("");
         }}
-        data={pins}
-        keyExtractor={({ id }) => id}
+        data={displayedPins}
         contentContainerStyle={pins.length === 0 && styles.emptyListContainer}
         ListEmptyComponent={() => (
           <EmptyView>

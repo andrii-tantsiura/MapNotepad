@@ -7,7 +7,8 @@ import MapView, {
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import { CustomButtonStyles, DEFAULT_REGION } from "../../../constants";
+import { CustomButtonStyles } from "../../../constants";
+import { animateToLocation } from "../../../helpers";
 import { useCurrentLocation } from "../../../hooks";
 import { CustomButton } from "../../common";
 import styles from "./styles";
@@ -48,16 +49,19 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
     if (currentLocation) {
       onPickLocation(currentLocation);
 
-      mapViewRef.current?.animateToRegion({
-        ...DEFAULT_REGION,
-        ...currentLocation,
-      });
+      animateToLocation(mapViewRef, currentLocation);
     }
   }, [currentLocation]);
 
   return (
     <>
-      <MapView style={styles.map} ref={mapViewRef} onPress={mapPressedHandler}>
+      <MapView
+        showsUserLocation
+        showsMyLocationButton={false}
+        style={styles.map}
+        ref={mapViewRef}
+        onPress={mapPressedHandler}
+      >
         {isCoordinatesValid && (
           <Marker
             draggable
