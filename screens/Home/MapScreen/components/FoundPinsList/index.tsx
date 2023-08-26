@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import { FlatList } from "react-native-gesture-handler";
 
 import { Typography } from "../../../../../components/common";
@@ -6,12 +6,20 @@ import {
   DISPLAYED_PINS_SEARCH_RESULTS_MAX_COUNT,
   textStyle_i13,
 } from "../../../../../constants";
+import { pinModelToPinItemModel } from "../../../../../converters";
 import { IPinItemModel } from "../../../../../types/components";
+import { IPinModelsArray } from "../../../../../types/models";
 import { FoundPin } from "../FoundPin";
 import styles from "./styles";
 
+const emptyListView = () => (
+  <Typography style={[textStyle_i13, styles.nothingFoundText]}>
+    Nothing found
+  </Typography>
+);
+
 type FoundPinsListProps = {
-  pins: Array<IPinItemModel>;
+  pins: IPinModelsArray;
   onPinPressed: (pin: IPinItemModel) => void;
 };
 
@@ -30,16 +38,17 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
     },
   ];
 
+  const foundPins: IPinItemModel[] = useMemo(
+    () => pins.map((x) => pinModelToPinItemModel(x)),
+    [pins]
+  );
+
   return (
     <FlatList
       style={[styles.container, pinsListStyle]}
       keyboardShouldPersistTaps="always"
-      data={pins}
-      ListEmptyComponent={() => (
-        <Typography style={[textStyle_i13, styles.nothingFoundText]}>
-          Nothing found
-        </Typography>
-      )}
+      data={foundPins}
+      ListEmptyComponent={emptyListView}
       renderItem={({ item, index }) => (
         <FoundPin
           pin={item}

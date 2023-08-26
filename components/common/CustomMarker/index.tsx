@@ -1,10 +1,10 @@
 import React, { FC, useEffect, useRef } from "react";
 import { MapMarker, MapMarkerProps } from "react-native-maps";
 
-import { ICustomMarkerItemModel } from "../../../types/components";
+import { ICustomMarkerModel } from "../../../types/components";
 
 interface CustomMarkerProps extends MapMarkerProps {
-  model: ICustomMarkerItemModel;
+  model: ICustomMarkerModel;
 }
 
 export const CustomMarker: FC<CustomMarkerProps> = React.memo(
@@ -12,9 +12,9 @@ export const CustomMarker: FC<CustomMarkerProps> = React.memo(
     const ref = useRef<MapMarker | null>(null);
 
     useEffect(() => {
-      model.showCallout = () => {
-        ref.current?.showCallout();
-      };
+      model.showCallout = ref.current?.showCallout;
+      model.hideCallout = ref.current?.hideCallout;
+      model.ref = ref;
     }, [model]);
 
     return (

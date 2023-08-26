@@ -1,6 +1,8 @@
 import { RefObject } from "react";
 import MapView, { LatLng } from "react-native-maps";
+
 import { DEFAULT_REGION } from "../constants";
+import { ICustomMarkerModel } from "../types/components";
 
 export const animateToLocation = (
   mapViewRef: RefObject<MapView | null>,
@@ -12,4 +14,22 @@ export const animateToLocation = (
       ...location,
     });
   }
+};
+
+export const withAnimateToLocation =
+  (mapViewRef: RefObject<MapView | null>) => (location: LatLng | undefined) =>
+    animateToLocation(mapViewRef, location);
+
+export const showMarkerCallout = (
+  markers: ICustomMarkerModel[],
+  pinId: string
+) => {
+  markers.find((x) => pinId === x.key)?.showCallout?.();
+};
+
+export const hideMarkerCallout = (
+  markers: ICustomMarkerModel[],
+  pinId: string
+) => {
+  markers.find((x) => pinId === x.key)?.hideCallout?.();
 };

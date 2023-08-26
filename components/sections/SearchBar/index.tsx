@@ -1,5 +1,6 @@
 import { FC, useRef, useState } from "react";
 import { TextInput, View, ViewStyle } from "react-native";
+import { useSelector } from "react-redux";
 
 import {
   CLEAR_ICON,
@@ -9,32 +10,36 @@ import {
 } from "../../../assets/icons";
 import { ImageStyles, textStyle_i13 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
+import { setPinsSearchQueryAction } from "../../../store/redux/actions";
+import { selectPinsSearch } from "../../../store/redux/slices";
+import { useAppDispatch } from "../../../store/redux/store";
 import { CustomButton } from "../../common";
 import { Separator } from "../Separator";
 import styles from "./styles";
 
 interface ISearchBarProps {
-  value?: string;
   style?: ViewStyle;
   onRightButtonPress?: () => void;
-  onTextChange: (text: string) => void;
-  onFocusChange: (isFocused: boolean) => void;
 }
 
 export const SearchBar: FC<ISearchBarProps> = ({
   style,
-  value,
   onRightButtonPress,
-  onTextChange,
-  onFocusChange,
 }) => {
+  const dispatch = useAppDispatch();
+  const { searchQuery } = useSelector(selectPinsSearch);
+
   const textInputRef = useRef<TextInput | null>(null);
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
-  const isSearchActive = isFocused || value;
+  const isSearchActive = isFocused || searchQuery;
+
+  const pinsSearchQueryChangeHandler = (text: string) => {
+    dispatch(setPinsSearchQueryAction(text));
+  };
 
   const clearTextHandler = () => {
-    onTextChange("");
+    pinsSearchQueryChangeHandler("");
   };
 
   const endSearchHandler = () => {
@@ -44,12 +49,10 @@ export const SearchBar: FC<ISearchBarProps> = ({
 
   const focusHandler = () => {
     setIsFocused(true);
-    onFocusChange(true);
   };
 
   const blurHandler = () => {
     setIsFocused(false);
-    onFocusChange(false);
   };
 
   return (
@@ -69,10 +72,10 @@ export const SearchBar: FC<ISearchBarProps> = ({
             ref={textInputRef}
             style={[styles.input, typographyStyleToTextStyle(textStyle_i13)]}
             placeholder="Search"
-            value={value}
+            value={searchQuery}
             onBlur={blurHandler}
             onFocus={focusHandler}
-            onChangeText={onTextChange}
+            onChangeText={pinsSearchQueryChangeHandler}
           />
 
           {isSearchActive && (

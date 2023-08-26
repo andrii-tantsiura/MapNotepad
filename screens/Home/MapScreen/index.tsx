@@ -1,39 +1,43 @@
-import React, { FC, useEffect, useMemo, useRef } from "react";
+import React, { FC, useEffect, useMemo, useRef, useState } from "react";
 import { View } from "react-native";
 import ClusteredMap from "react-native-map-clustering";
-import MapView, { LatLng } from "react-native-maps";
+import MapView from "react-native-maps";
 import { useSelector } from "react-redux";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { CustomButton, CustomMarker } from "../../../components/common";
+import { PinDetailsModal } from "../../../components/sections/PinDetails";
 import {
   AppColors,
   CustomButtonStyles,
   DEFAULT_REGION,
 } from "../../../constants";
 import {
+  customMarkerModelToPinModel,
   pinModelToCustomMarkerModel,
-  pinModelToPinItemModel,
 } from "../../../converters";
-import { animateToLocation } from "../../../helpers/map";
+import {
+  hideMarkerCallout,
+  showMarkerCallout,
+  withAnimateToLocation,
+} from "../../../helpers/map";
 import { useCurrentLocation, usePins } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { selectPinsSearch } from "../../../store/redux/slices";
-import {
-  ICustomMarkerItemModel,
-  IPinItemModel,
-} from "../../../types/components";
+import { ICustomMarkerModel, IPinItemModel } from "../../../types/components";
+import { IPinModel, IPinModelsArray } from "../../../types/models";
 import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   const mapViewRef = useRef<MapView | null>(null);
   const { currentLocation, requestCurrentLocation } = useCurrentLocation(true);
+  const [selectedPin, setSelectedPin] = useState<IPinModel | null>(null);
 
   const { filterPinsBySearchQuery, getPins, pins } = usePins();
   const { searchQuery } = useSelector(selectPinsSearch);
 
-  const filteredPins = useMemo(
+  const filteredPins: IPinModelsArray = useMemo(
     () =>
       searchQuery
         ? filterPinsBySearchQuery(searchQuery)
@@ -41,15 +45,10 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     [searchQuery, pins]
   );
 
-  const pinItemModels = useMemo(
-    () => filteredPins.map((x) => pinModelToPinItemModel(x)),
-    [filteredPins]
-  );
-
-  const markerItemModels: Array<ICustomMarkerItemModel> = useMemo(
+  const markers: ICustomMarkerModel[] = useMemo(
     () =>
       filteredPins.map(
-        (pin): ICustomMarkerItemModel => ({
+        (pin): ICustomMarkerModel => ({
           ...pinModelToCustomMarkerModel(pin),
           icon: MARKER_ICON,
         })
@@ -57,30 +56,42 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     [filteredPins]
   );
 
-  const showMarkerCallout = (pinId: string) => {
-    markerItemModels.find((x) => pinId === x.key)?.showCallout?.();
+  const animateToLocation = withAnimateToLocation(mapViewRef);
+
+  const showPinDetails = (pin: ICustomMarkerModel) => {
+    setSelectedPin(customMarkerModelToPinModel(pin));
   };
 
-  const focusMarker = (location: LatLng, markerId: string) => {
-    animateToLocation(mapViewRef, location);
-    showMarkerCallout(markerId);
+  const pinFoundPressedHandler = (pinItem: IPinItemModel) => {
+    animateToLocation(pinItem.location);
+    showPinDetails(pinItem);
   };
 
-  const onPinFoundPressHandler = ({ location, key }: IPinItemModel) => {
-    focusMarker(location, key);
+  const hidePinDetailsHandler = () => {
+    hideMarkerCallout(markers, selectedPin?.id ?? "");
+    setSelectedPin(null);
+  };
+
+  const regionChangeCompleteHandler = () => {
+    if (selectedPin) {
+      setTimeout(() => {
+        showMarkerCallout(markers, selectedPin.id);
+      }, 0);
+    }
   };
 
   useEffect(() => {
-    animateToLocation(mapViewRef, currentLocation);
+    animateToLocation(currentLocation);
   }, [currentLocation]);
 
   useEffect(() => {
     if (route.params?.pin) {
-      const { location, id } = route.params.pin;
+      const { pin, ...restParams } = route.params;
 
-      focusMarker(location, id);
+      setSelectedPin(pin);
+      animateToLocation(pin.location);
 
-      navigation.setParams(undefined);
+      navigation.setParams(restParams);
     }
   }, [route.params?.pin]);
 
@@ -88,8 +99,8 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     <View style={styles.container}>
       {searchQuery && (
         <FoundPinsList
-          pins={pinItemModels}
-          onPinPressed={onPinFoundPressHandler}
+          pins={filteredPins}
+          onPinPressed={pinFoundPressedHandler}
         />
       )}
 
@@ -101,9 +112,15 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         showsMyLocationButton={false}
         initialRegion={DEFAULT_REGION}
         ref={mapViewRef}
+        onRegionChangeComplete={regionChangeCompleteHandler}
       >
-        {markerItemModels.map((pin) => (
-          <CustomMarker key={pin.key} coordinate={pin.location} model={pin} />
+        {markers.map((pin) => (
+          <CustomMarker
+            key={pin.key}
+            model={pin}
+            coordinate={pin.location}
+            onPress={() => showPinDetails(pin)}
+          />
         ))}
       </ClusteredMap>
 
@@ -112,6 +129,10 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         imageSource={LOCATION_ICON}
         onPress={requestCurrentLocation}
       />
+
+      {selectedPin && (
+        <PinDetailsModal pin={selectedPin} onClose={hidePinDetailsHandler} />
+      )}
     </View>
   );
 };

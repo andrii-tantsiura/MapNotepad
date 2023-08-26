@@ -1,6 +1,6 @@
 import { IPinForm } from "../types/forms";
 import { IPinModel } from "../types/models";
-import { ICustomMarkerItemModel, IPinItemModel } from "../types/components";
+import { ICustomMarkerModel, IPinItemModel } from "../types/components";
 
 export const pinFormToModel = (form: IPinForm): IPinModel => ({
   id: "",
@@ -31,9 +31,19 @@ export const pinModelToPinItemModel = (model: IPinModel): IPinItemModel => ({
 
 export const pinModelToCustomMarkerModel = (
   model: IPinModel
-): ICustomMarkerItemModel => ({
+): ICustomMarkerModel => ({
   key: model.id,
   label: model.label,
   description: model.description,
   location: model.location,
+});
+
+export const customMarkerModelToPinModel = (
+  model: ICustomMarkerModel
+): IPinModel => ({
+  id: model.key,
+  label: model.label,
+  description: model.description,
+  location: model.location,
+  isFavorite: true,
 });
