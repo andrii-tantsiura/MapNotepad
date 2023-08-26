@@ -1,10 +1,11 @@
 import { FC } from "react";
 import { Modal, Pressable, View } from "react-native";
 
-import { Separator } from "../Separator";
 import { textStyle_i12, textStyle_i14, textStyle_i6 } from "../../../constants";
+import { formatCoordinate } from "../../../helpers/format";
 import { IPinModel } from "../../../types/models";
 import { Typography } from "../../common";
+import { Separator } from "../Separator";
 import styles from "./styles";
 
 type PinDetailsProps = {
@@ -28,7 +29,7 @@ export const PinDetailsModal: FC<PinDetailsProps> = ({ pin, onClose }) => (
           <Typography style={textStyle_i6}>{pin.label}</Typography>
 
           <Typography style={textStyle_i12}>
-            {pin.location.latitude + ", " + pin.location.longitude}
+            {formatCoordinate(pin.location)}
           </Typography>
         </View>
 

@@ -13,6 +13,7 @@ import {
   textStyle_i11,
   textStyle_i9,
 } from "../../../../../constants";
+import { formatCoordinate } from "../../../../../helpers/format";
 import { IPinItemModel } from "../../../../../types/components";
 import styles from "./styles";
 
@@ -45,9 +46,7 @@ export const PinItem: FC<IPinItemProps> = ({
             <Typography style={textStyle_i9}>{pin.label}</Typography>
 
             <Typography style={textStyle_i11}>
-              {pin.location.latitude}
-              {", "}
-              {pin.location.longitude}
+              {formatCoordinate(pin.location)}
             </Typography>
           </View>
         </View>
