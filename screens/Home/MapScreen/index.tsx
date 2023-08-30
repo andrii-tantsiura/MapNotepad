@@ -62,6 +62,14 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     setSelectedPin(customMarkerModelToPinModel(pin));
   };
 
+  const showSelectedMarkerCallout = async () => {
+    if (selectedPin) {
+      setTimeout(() => {
+        showMarkerCallout(markers, selectedPin.id);
+      }, 0);
+    }
+  };
+
   const pinFoundPressedHandler = (pinItem: IPinItemModel) => {
     animateToLocation(pinItem.location);
     showPinDetails(pinItem);
@@ -72,13 +80,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     setSelectedPin(null);
   };
 
-  const regionChangeCompleteHandler = () => {
-    if (selectedPin) {
-      setTimeout(() => {
-        showMarkerCallout(markers, selectedPin.id);
-      }, 0);
-    }
-  };
+  const regionChangeCompleteHandler = () => showSelectedMarkerCallout();
 
   useEffect(() => {
     animateToLocation(currentLocation);
@@ -94,6 +96,10 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
       navigation.setParams(restParams);
     }
   }, [route.params?.pin]);
+
+  useEffect(() => {
+    showSelectedMarkerCallout();
+  }, [selectedPin]);
 
   return (
     <View style={styles.container}>
