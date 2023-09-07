@@ -57,22 +57,20 @@ export const usePins = (): UsePinsReturn => {
   const filterPinsBySearchQuery = (searchQuery: string): IPinModelsArray => {
     const keywords = stringToKeywords(searchQuery);
 
-    return keywords
-      ? pins.filter((pin) => {
-          const label = pin.label.toLowerCase();
-          const description = pin.description?.toLowerCase();
-          const latitude = pin.location.latitude.toString();
-          const longitude = pin.location.longitude.toString();
+    return pins.filter((pin) => {
+      const label = pin.label.toLowerCase();
+      const description = pin.description?.toLowerCase();
+      const latitude = pin.location.latitude.toString();
+      const longitude = pin.location.longitude.toString();
 
-          return keywords.some(
-            (key) =>
-              label.includes(key) ||
-              description?.includes(key) ||
-              latitude.includes(key) ||
-              longitude.includes(key)
-          );
-        })
-      : pins;
+      return keywords.some(
+        (key) =>
+          label.includes(key) ||
+          description?.includes(key) ||
+          latitude.includes(key) ||
+          longitude.includes(key)
+      );
+    });
   };
 
   const getPins = (

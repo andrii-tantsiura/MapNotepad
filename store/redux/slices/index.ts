@@ -1,3 +1,3 @@
 export * from "./authSlice";
-export * from "./pinsSearchSlice";
+export * from "./searchSlice";
 export * from "./pinsSlice";

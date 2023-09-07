@@ -3,27 +3,28 @@ import { MapMarker, MapMarkerProps } from "react-native-maps";
 
 import { ICustomMarkerModel } from "../../../types/components";
 
-interface CustomMarkerProps extends MapMarkerProps {
-  model: ICustomMarkerModel;
+interface CustomMarkerProps extends Omit<MapMarkerProps, "onPress"> {
+  marker: ICustomMarkerModel;
+  onPress: (marker: ICustomMarkerModel) => void;
 }
 
 export const CustomMarker: FC<CustomMarkerProps> = React.memo(
-  ({ model, ...restProps }) => {
+  ({ marker, onPress, ...restProps }) => {
     const ref = useRef<MapMarker | null>(null);
 
     useEffect(() => {
-      model.showCallout = ref.current?.showCallout;
-      model.hideCallout = ref.current?.hideCallout;
-      model.ref = ref;
-    }, [model]);
+      marker.showCallout = ref.current?.showCallout;
+      marker.hideCallout = ref.current?.hideCallout;
+    }, [marker]);
 
     return (
       <MapMarker
         {...restProps}
         ref={ref}
-        image={model.icon}
-        title={model.label}
-        description={model.description}
+        image={marker.icon}
+        title={marker.label}
+        description={marker.description}
+        onPress={() => onPress(marker)}
       />
     );
   }

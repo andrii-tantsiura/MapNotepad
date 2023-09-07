@@ -8,7 +8,6 @@ export interface ICustomMarkerModel extends IBaseItemModel {
   description: string;
   location: LatLng;
   icon?: MapMarkerProps["icon"];
-  ref?: MutableRefObject<MapMarker | null>;
   showCallout?: () => void;
   hideCallout?: () => void;
 }

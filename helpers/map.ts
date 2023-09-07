@@ -16,10 +16,6 @@ export const animateToLocation = (
   }
 };
 
-export const withAnimateToLocation =
-  (mapViewRef: RefObject<MapView | null>) => (location: LatLng | undefined) =>
-    animateToLocation(mapViewRef, location);
-
 export const showMarkerCallout = (
   markers: ICustomMarkerModel[],
   pinId: string

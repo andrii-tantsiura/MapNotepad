@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from "react";
+import { FC, useEffect, useRef } from "react";
 import { TextInput, View, ViewStyle } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -10,8 +10,12 @@ import {
 } from "../../../assets/icons";
 import { ImageStyles, textStyle_i13 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
-import { setPinsSearchQueryAction } from "../../../store/redux/actions";
-import { selectPinsSearch } from "../../../store/redux/slices";
+import {
+  setSearchQueryAction,
+  startSearchAction,
+  stopSearchAction,
+} from "../../../store/redux/actions";
+import { selectSearch } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { CustomButton } from "../../common";
 import { Separator } from "../Separator";
@@ -27,41 +31,40 @@ export const SearchBar: FC<ISearchBarProps> = ({
   onRightButtonPress,
 }) => {
   const dispatch = useAppDispatch();
-  const { searchQuery } = useSelector(selectPinsSearch);
-
+  const { isActive, searchQuery } = useSelector(selectSearch);
   const textInputRef = useRef<TextInput | null>(null);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-
-  const isSearchActive = isFocused || searchQuery;
 
   const pinsSearchQueryChangeHandler = (text: string) => {
-    dispatch(setPinsSearchQueryAction(text));
+    dispatch(setSearchQueryAction(text));
   };
 
   const clearTextHandler = () => {
-    pinsSearchQueryChangeHandler("");
-  };
-
-  const endSearchHandler = () => {
-    textInputRef.current?.blur();
-    clearTextHandler();
+    dispatch(setSearchQueryAction(""));
   };
 
   const focusHandler = () => {
-    setIsFocused(true);
+    dispatch(startSearchAction());
   };
 
-  const blurHandler = () => {
-    setIsFocused(false);
+  const stopSearchHandler = () => {
+    textInputRef.current?.blur();
+
+    dispatch(stopSearchAction());
   };
+
+  useEffect(() => {
+    if (!isActive) {
+      textInputRef.current?.blur();
+    }
+  }, [isActive]);
 
   return (
     <>
       <View style={[styles.container, style]}>
-        {isSearchActive ? (
+        {isActive ? (
           <CustomButton
             imageSource={LEFT_BLUE_ICON}
-            onPress={endSearchHandler}
+            onPress={stopSearchHandler}
           />
         ) : (
           <CustomButton imageSource={SETTINGS_ICON} />
@@ -73,12 +76,11 @@ export const SearchBar: FC<ISearchBarProps> = ({
             style={[styles.input, typographyStyleToTextStyle(textStyle_i13)]}
             placeholder="Search"
             value={searchQuery}
-            onBlur={blurHandler}
             onFocus={focusHandler}
             onChangeText={pinsSearchQueryChangeHandler}
           />
 
-          {isSearchActive && (
+          {isActive && (
             <CustomButton
               iconStyle={ImageStyles.i2}
               imageSource={CLEAR_ICON}
@@ -87,7 +89,7 @@ export const SearchBar: FC<ISearchBarProps> = ({
           )}
         </View>
 
-        {!isSearchActive && (
+        {!isActive && (
           <CustomButton imageSource={EXIT_ICON} onPress={onRightButtonPress} />
         )}
       </View>

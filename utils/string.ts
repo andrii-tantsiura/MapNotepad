@@ -1,6 +1,7 @@
-export const stringToKeywords = (text: string) =>
+export const stringToKeywords = (text: string): string[] =>
   text
-    ?.trim()
+    .trim()
     .toLowerCase()
     .split(/[\s,]+/)
-    .map((key) => key.trim());
+    .map((key) => key.trim())
+    .filter((key) => key.length > 0);
