@@ -18,7 +18,9 @@ import {
 import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
+import { stopSearchAction } from "../../../store/redux/actions";
 import { selectSearch } from "../../../store/redux/slices";
+import { useAppDispatch } from "../../../store/redux/store";
 import { IPinItemModel } from "../../../types/components";
 import { IPinModel } from "../../../types/models";
 import { hideActionMenu } from "../../../utils";
@@ -35,6 +37,7 @@ type HomeScreenNavigationProp = StackNavigationProp<
 >;
 
 export const PinsScreen: FC<TabProps> = ({ navigation }) => {
+  const dispatch = useAppDispatch();
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
@@ -65,6 +68,8 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const pinPressedHandler = useCallback(
     (pin: IPinItemModel) => {
       const pinData: IPinModel = pinItemModelToPinModel(pin);
+
+      dispatch(stopSearchAction());
 
       navigation.navigate("Map", { pin: pinData });
     },

@@ -13,7 +13,7 @@ import { useSelector } from "react-redux";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
 import { CustomButton, CustomMarker } from "../../../components/common";
-import { PinDetailsModal } from "../../../components/sections/PinDetails";
+import { PinDetailsModal } from "../../../components/sections";
 import {
   AppColors,
   CustomButtonStyles,
@@ -21,6 +21,7 @@ import {
 } from "../../../constants";
 import {
   customMarkerModelToPinModel,
+  pinItemModelToPinModel,
   pinModelToCustomMarkerModel,
 } from "../../../converters";
 import {
@@ -44,7 +45,6 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   const mapViewRef = useRef<MapView | null>(null);
   const { currentLocation, requestCurrentLocation } = useCurrentLocation(true);
   const [selectedPin, setSelectedPin] = useState<IPinModel | null>(null);
-  const [isPinDetailsOpened, setIsPinDetailsOpened] = useState<boolean>(false);
 
   const { filterPinsBySearchQuery, getPins, pins } = usePins();
   const { searchQuery } = useSelector(selectSearch);
@@ -68,34 +68,37 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     [filteredPins]
   );
 
-  const selectMarkerHandler = useCallback((pin: ICustomMarkerModel) => {
+  const showPinDetails = (pin: IPinModel) => {
+    setSelectedPin(pin);
+
+    animateToLocation(mapViewRef, pin.location);
+    showMarkerCallout(markers, pin.id);
+  };
+
+  const markerPressHandler = useCallback((pin: ICustomMarkerModel) => {
     setSelectedPin(customMarkerModelToPinModel(pin));
   }, []);
 
-  const showSelectedMarkerCallout = () => {
+  const pinFoundPressHandler = useCallback(
+    (pinItem: IPinItemModel) => {
+      dispatch(stopSearchAction());
+
+      showPinDetails(pinItemModelToPinModel(pinItem));
+    },
+    [mapViewRef]
+  );
+
+  const hidePinDetailsHandler = () => {
+    hideMarkerCallout(markers, selectedPin?.id ?? "");
+    setSelectedPin(null);
+  };
+
+  const regionChangeCompleteHandler = () => {
     if (selectedPin) {
       setTimeout(() => {
         showMarkerCallout(markers, selectedPin.id);
       }, 0);
     }
-  };
-
-  const pinFoundPressedHandler = (pinItem: IPinItemModel) => {
-    animateToLocation(mapViewRef, pinItem.location);
-    selectMarkerHandler(pinItem);
-    showSelectedMarkerCallout();
-    dispatch(stopSearchAction());
-  };
-
-  const hidePinDetailsHandler = () => {
-    hideMarkerCallout(markers, selectedPin?.id ?? "");
-    setSelectedPin(null);
-    setIsPinDetailsOpened(false);
-  };
-
-  const regionChangeCompleteHandler = () => {
-    setIsPinDetailsOpened(Boolean(selectedPin));
-    showSelectedMarkerCallout();
   };
 
   useEffect(() => {
@@ -107,10 +110,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
       const { pin, ...restParams } = route.params;
       navigation.setParams(restParams);
 
-      dispatch(stopSearchAction());
-
-      setSelectedPin(pin);
-      animateToLocation(mapViewRef, pin.location);
+      showPinDetails(pin);
     }
   }, [route.params?.pin]);
 
@@ -119,7 +119,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
       {searchQuery && (
         <FoundPinsList
           pins={filteredPins}
-          onPinPressed={pinFoundPressedHandler}
+          onPinPressed={pinFoundPressHandler}
         />
       )}
 
@@ -129,6 +129,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         clusterTextColor={AppColors.systemWhite}
         showsUserLocation
         showsMyLocationButton={false}
+        moveOnMarkerPress={false}
         initialRegion={DEFAULT_REGION}
         ref={mapViewRef}
         onRegionChangeComplete={regionChangeCompleteHandler}
@@ -138,7 +139,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
             key={pin.key}
             marker={pin}
             coordinate={pin.location}
-            onPress={selectMarkerHandler}
+            onPress={markerPressHandler}
           />
         ))}
       </ClusteredMap>
@@ -149,7 +150,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         onPress={requestCurrentLocation}
       />
 
-      {isPinDetailsOpened && selectedPin && (
+      {selectedPin && (
         <PinDetailsModal pin={selectedPin} onClose={hidePinDetailsHandler} />
       )}
     </View>

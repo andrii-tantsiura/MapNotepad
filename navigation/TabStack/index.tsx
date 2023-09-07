@@ -46,7 +46,6 @@ const TabsStack: React.FC = () => {
           tabBarActiveBackgroundColor: AppColors.lightVariant,
           tabBarLabelPosition: "beside-icon",
           tabBarLabelStyle: typographyStyleToTextStyle(textStyle_i3),
-          tabBarHideOnKeyboard: true,
           header: () => (
             <SearchBar
               style={styles.searchBarContainer}

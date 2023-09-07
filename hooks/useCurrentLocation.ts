@@ -3,7 +3,7 @@ import {
   getCurrentPositionAsync,
   requestForegroundPermissionsAsync,
 } from "expo-location";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { LatLng } from "react-native-maps";
 
 import { ErrorMessages } from "../enums";
@@ -57,9 +57,9 @@ export const useCurrentLocation = (
     }
   }, [isRequestingLocation]);
 
-  const requestCurrentLocation = () => {
+  const requestCurrentLocation = useCallback(() => {
     setIsRequestingLocation(true);
-  };
+  }, [setIsRequestingLocation]);
 
   return { currentLocation, requestCurrentLocation };
 };
