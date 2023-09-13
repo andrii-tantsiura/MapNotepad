@@ -16,6 +16,7 @@ import LIKE_GRAY_ICON from "../../assets/icons/ic_like_gray.png";
 import LOCATION_ICON from "../../assets/icons/ic_location.png";
 import MAP_ICON from "../../assets/icons/ic_map.png";
 import MARKER_ICON from "../../assets/icons/ic_marker.png";
+import MARKER_GRAY_ICON from "../../assets/icons/ic_gray_marker.png";
 import PIN_ICON from "../../assets/icons/ic_pin.png";
 import PIN_GRAY_ICON from "../../assets/icons/ic_pin_gray.png";
 import PLUS_ICON from "../../assets/icons/ic_plus.png";
@@ -45,6 +46,7 @@ export {
   LOCATION_ICON,
   MAP_ICON,
   MARKER_ICON,
+  MARKER_GRAY_ICON,
   PIN_GRAY_ICON,
   PIN_ICON,
   PLUS_ICON,

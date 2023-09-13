@@ -14,14 +14,12 @@ import {
 import { selectAuth, selectPins } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
 import { IPinModel, IPinModelsArray } from "../types/models";
-import { stringToKeywords } from "../utils";
 
 type UsePinsReturn = {
   pins: IPinModelsArray;
   isPinsLoading: boolean;
   fetchPins: () => void;
-  filterPinsBySearchQuery: (searchQuery: string) => IPinModelsArray;
-  getPins: (predicate?: (value: IPinModel) => boolean) => IPinModelsArray;
+  getPinsBySearchQuery: (searchQuery: string) => IPinModelsArray;
   createPin: (pin: IPinModel) => Promise<boolean>;
   updatePin: (pin: IPinModel) => Promise<boolean>;
   togglePinFavoriteStatus: (pin: IPinModel) => void;
@@ -54,28 +52,8 @@ export const usePins = (): UsePinsReturn => {
     }
   };
 
-  const filterPinsBySearchQuery = (searchQuery: string): IPinModelsArray => {
-    const keywords = stringToKeywords(searchQuery);
-
-    return pins.filter((pin) => {
-      const label = pin.label.toLowerCase();
-      const description = pin.description?.toLowerCase();
-      const latitude = pin.location.latitude.toString();
-      const longitude = pin.location.longitude.toString();
-
-      return keywords.some(
-        (key) =>
-          label.includes(key) ||
-          description?.includes(key) ||
-          latitude.includes(key) ||
-          longitude.includes(key)
-      );
-    });
-  };
-
-  const getPins = (
-    predicate?: (value: IPinModel) => boolean
-  ): IPinModelsArray => (predicate ? pins.filter(predicate) : pins);
+  const getPinsBySearchQuery = (searchQuery: string): IPinModelsArray =>
+    pinsService.filterPinsBySearchQuery(pins, searchQuery);
 
   const createPin = async (pin: IPinModel): Promise<boolean> => {
     const createPinResult = await pinsService.createPin(pin);
@@ -134,8 +112,7 @@ export const usePins = (): UsePinsReturn => {
     pins,
     isPinsLoading,
     fetchPins,
-    filterPinsBySearchQuery,
-    getPins,
+    getPinsBySearchQuery,
     createPin,
     updatePin,
     togglePinFavoriteStatus,

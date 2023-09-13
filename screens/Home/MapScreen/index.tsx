@@ -1,17 +1,14 @@
-import React, {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import { View } from "react-native";
 import ClusteredMap from "react-native-map-clustering";
 import MapView from "react-native-maps";
 import { useSelector } from "react-redux";
 
-import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
+import {
+  LOCATION_ICON,
+  MARKER_GRAY_ICON,
+  MARKER_ICON,
+} from "../../../assets/icons";
 import { CustomButton, CustomMarker } from "../../../components/common";
 import { PinDetailsModal } from "../../../components/sections";
 import {
@@ -40,33 +37,16 @@ import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
-  const dispatch = useAppDispatch();
-
   const mapViewRef = useRef<MapView | null>(null);
   const { currentLocation, requestCurrentLocation } = useCurrentLocation(true);
-  const [selectedPin, setSelectedPin] = useState<IPinModel | null>(null);
 
-  const { filterPinsBySearchQuery, getPins, pins } = usePins();
+  const dispatch = useAppDispatch();
+  const { getPinsBySearchQuery, pins } = usePins();
   const { searchQuery } = useSelector(selectSearch);
 
-  const filteredPins: IPinModelsArray = useMemo(
-    () =>
-      searchQuery
-        ? filterPinsBySearchQuery(searchQuery)
-        : getPins((x) => x.isFavorite),
-    [searchQuery, pins]
-  );
-
-  const markers: ICustomMarkerModel[] = useMemo(
-    () =>
-      filteredPins.map(
-        (pin): ICustomMarkerModel => ({
-          ...pinModelToCustomMarkerModel(pin),
-          icon: MARKER_ICON,
-        })
-      ),
-    [filteredPins]
-  );
+  const [markers, setMarkers] = useState<ICustomMarkerModel[]>([]);
+  const [foundPins, setFoundPins] = useState<IPinModelsArray>([]);
+  const [selectedPin, setSelectedPin] = useState<IPinModel | null>(null);
 
   const showPinDetails = (pin: IPinModel) => {
     setSelectedPin(pin);
@@ -106,6 +86,21 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   }, [currentLocation]);
 
   useEffect(() => {
+    const markers = pins.map(
+      (pin): ICustomMarkerModel => ({
+        ...pinModelToCustomMarkerModel(pin),
+        icon: pin.isFavorite ? MARKER_ICON : MARKER_GRAY_ICON,
+      })
+    );
+
+    setMarkers(markers);
+  }, [pins]);
+
+  useEffect(() => {
+    setFoundPins(getPinsBySearchQuery(searchQuery));
+  }, [searchQuery, pins]);
+
+  useEffect(() => {
     if (route.params?.pin) {
       const { pin, ...restParams } = route.params;
       navigation.setParams(restParams);
@@ -117,10 +112,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       {searchQuery && (
-        <FoundPinsList
-          pins={filteredPins}
-          onPinPressed={pinFoundPressHandler}
-        />
+        <FoundPinsList pins={foundPins} onPinPressed={pinFoundPressHandler} />
       )}
 
       <ClusteredMap

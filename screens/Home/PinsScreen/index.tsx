@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { FC, useCallback, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { ListRenderItemInfo, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
 import { RowMap, SwipeListView } from "react-native-swipe-list-view";
@@ -41,23 +41,20 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
+    pins,
     isPinsLoading,
     fetchPins,
+    getPinsBySearchQuery,
     togglePinFavoriteStatus,
     deletePin,
-    filterPinsBySearchQuery,
-    getPins,
   } = usePins();
+  const { searchQuery } = useSelector(selectSearch);
 
   const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPinItemModel>>();
   const [selectedPinId, setSelectedPinId] = useState<string>();
+  const [pinsItems, setPinsList] = useState<IPinItemModel[]>([]);
   const [isRemovePinConfirmationShown, setIsRemovePinConfirmationVisible] =
     useState(false);
-
-  const { searchQuery } = useSelector(selectSearch);
-
-  const pins = searchQuery ? filterPinsBySearchQuery(searchQuery) : getPins();
-  const displayedPins = pins.map((x) => pinModelToPinItemModel(x));
 
   const togglePinFavoriteStatusHandler = useCallback((pin: IPinItemModel) => {
     const pinData: IPinModel = pinItemModelToPinModel(pin);
@@ -67,9 +64,9 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
 
   const pinPressedHandler = useCallback(
     (pin: IPinItemModel) => {
-      const pinData: IPinModel = pinItemModelToPinModel(pin);
-
       dispatch(stopSearchAction());
+
+      const pinData: IPinModel = pinItemModelToPinModel(pin);
 
       navigation.navigate("Map", { pin: pinData });
     },
@@ -132,6 +129,13 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
     []
   );
 
+  useEffect(() => {
+    const filteredPins = searchQuery ? getPinsBySearchQuery(searchQuery) : pins;
+    const newPinsList = filteredPins.map((x) => pinModelToPinItemModel(x));
+
+    setPinsList(newPinsList);
+  }, [pins, searchQuery]);
+
   return (
     <View style={styles.container}>
       <ConfirmModal
@@ -149,8 +153,10 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
         }
         onRowOpen={setSelectedPinId}
         onRowClose={setSelectedPinId}
-        data={displayedPins}
-        contentContainerStyle={pins.length === 0 && styles.emptyListContainer}
+        data={pinsItems}
+        contentContainerStyle={
+          pinsItems.length === 0 && styles.emptyListContainer
+        }
         ListEmptyComponent={() => (
           <EmptyView>
             {searchQuery ? "Nothing found" : "There are no added pins yet"}
