@@ -23,12 +23,13 @@ import {
 } from "../../../converters";
 import {
   animateToLocation,
-  hideMarkerCallout,
-  showMarkerCallout,
+  hideMarkerCalloutById,
+  showMarkerCalloutById,
 } from "../../../helpers/map";
-import { useCurrentLocation, usePins } from "../../../hooks";
+import { usePins, useUserLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { stopSearchAction } from "../../../store/redux/actions";
+import { setUserLocationAction } from "../../../store/redux/actions/userLocation.actions";
 import { selectSearch } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { ICustomMarkerModel, IPinItemModel } from "../../../types/components";
@@ -38,9 +39,9 @@ import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   const mapViewRef = useRef<MapView | null>(null);
-  const { currentLocation, requestCurrentLocation } = useCurrentLocation(true);
 
   const dispatch = useAppDispatch();
+  const { userLocation, requestUserLocation } = useUserLocation(true);
   const { getPinsBySearchQuery, pins } = usePins();
   const { searchQuery } = useSelector(selectSearch);
 
@@ -52,7 +53,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
     setSelectedPin(pin);
 
     animateToLocation(mapViewRef, pin.location);
-    showMarkerCallout(markers, pin.id);
+    showMarkerCalloutById(markers, pin.id);
   };
 
   const markerPressHandler = useCallback((pin: ICustomMarkerModel) => {
@@ -69,21 +70,22 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   );
 
   const hidePinDetailsHandler = () => {
-    hideMarkerCallout(markers, selectedPin?.id ?? "");
+    hideMarkerCalloutById(markers, selectedPin?.id ?? "");
     setSelectedPin(null);
   };
 
   const regionChangeCompleteHandler = () => {
     if (selectedPin) {
       setTimeout(() => {
-        showMarkerCallout(markers, selectedPin.id);
+        showMarkerCalloutById(markers, selectedPin.id);
       }, 0);
     }
   };
 
   useEffect(() => {
-    animateToLocation(mapViewRef, currentLocation);
-  }, [currentLocation]);
+    dispatch(setUserLocationAction(userLocation));
+    animateToLocation(mapViewRef, userLocation);
+  }, [userLocation]);
 
   useEffect(() => {
     const markers = pins.map(
@@ -117,12 +119,14 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
 
       <ClusteredMap
         style={styles.map}
+        initialRegion={
+          userLocation ? { ...DEFAULT_REGION, ...userLocation } : DEFAULT_REGION
+        }
         clusterColor={AppColors.lightPrimary}
         clusterTextColor={AppColors.systemWhite}
         showsUserLocation
         showsMyLocationButton={false}
         moveOnMarkerPress={false}
-        initialRegion={DEFAULT_REGION}
         ref={mapViewRef}
         onRegionChangeComplete={regionChangeCompleteHandler}
       >
@@ -139,7 +143,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
       <CustomButton
         style={CustomButtonStyles.roundFloating_i1}
         imageSource={LOCATION_ICON}
-        onPress={requestCurrentLocation}
+        onPress={requestUserLocation}
       />
 
       {selectedPin && (

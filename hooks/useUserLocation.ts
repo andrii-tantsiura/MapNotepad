@@ -5,8 +5,10 @@ import {
 } from "expo-location";
 import { useCallback, useEffect, useState } from "react";
 import { LatLng } from "react-native-maps";
+import { useSelector } from "react-redux";
 
 import { ErrorMessages } from "../enums";
+import { selectUserLocation } from "../store/redux/slices";
 
 const requestLocationPermissions = async (): Promise<void> => {
   const { status } = await requestForegroundPermissionsAsync();
@@ -28,38 +30,33 @@ const getCurrentLocation = async (): Promise<LatLng> => {
 };
 
 type UseCurrentLocationReturn = {
-  currentLocation: LatLng | undefined;
-  requestCurrentLocation: () => void;
+  userLocation: LatLng | null;
+  requestUserLocation: () => void;
 };
 
-export const useCurrentLocation = (
+export const useUserLocation = (
   shouldRequestLocationInitially: boolean = false
 ): UseCurrentLocationReturn => {
-  const [currentLocation, setCurrentLocation] = useState<LatLng | undefined>();
-  const [isRequestingLocation, setIsRequestingLocation] = useState(
-    shouldRequestLocationInitially
-  );
+  const location = useSelector(selectUserLocation);
+
+  const [userLocation, setUserLocation] = useState<LatLng | null>(location);
+
+  const requestUserLocation = useCallback(async () => {
+    try {
+      await requestLocationPermissions();
+      const location = await getCurrentLocation();
+
+      setUserLocation(location);
+    } catch (error) {
+      setUserLocation(null);
+    }
+  }, [setUserLocation]);
 
   useEffect(() => {
-    if (isRequestingLocation) {
-      (async () => {
-        try {
-          await requestLocationPermissions();
-          const location = await getCurrentLocation();
-
-          setCurrentLocation(location);
-        } catch (error) {
-          setCurrentLocation(undefined);
-        } finally {
-          setIsRequestingLocation(false);
-        }
-      })();
+    if (shouldRequestLocationInitially) {
+      requestUserLocation();
     }
-  }, [isRequestingLocation]);
+  }, [shouldRequestLocationInitially]);
 
-  const requestCurrentLocation = useCallback(() => {
-    setIsRequestingLocation(true);
-  }, [setIsRequestingLocation]);
-
-  return { currentLocation, requestCurrentLocation };
+  return { userLocation, requestUserLocation };
 };

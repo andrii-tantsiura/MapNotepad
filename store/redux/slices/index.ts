@@ -1,3 +1,4 @@
 export * from "./authSlice";
-export * from "./searchSlice";
 export * from "./pinsSlice";
+export * from "./searchSlice";
+export * from "./userLocationSlice";

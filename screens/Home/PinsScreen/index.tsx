@@ -103,7 +103,7 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   ) => {
     hideActionMenu(row, pin.key);
 
-    homeNavigation.navigate("EditPin", { pinId: pin.key });
+    homeNavigation.navigate("EditPin", { pin: pinItemModelToPinModel(pin) });
   };
 
   const addPinHandler = () => homeNavigation.navigate("AddPin");
