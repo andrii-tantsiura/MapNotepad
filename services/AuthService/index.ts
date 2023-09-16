@@ -14,12 +14,12 @@ import ApiService from "../ApiService";
 const GOOGLE_IDENTITY_TOOLKIT_URL =
   "https://identitytoolkit.googleapis.com/v1/accounts:";
 
-export const LOGIN_WITH_EMAIL_URL =
+const LOGIN_WITH_EMAIL_URL =
   GOOGLE_IDENTITY_TOOLKIT_URL +
   "signInWithPassword?key=" +
   FirebaseConfig.apiKey;
 
-export const REGISTER_WITH_EMAIL_URL =
+const REGISTER_WITH_EMAIL_URL =
   GOOGLE_IDENTITY_TOOLKIT_URL + "signUp?key=" + FirebaseConfig.apiKey;
 
 class AuthService {

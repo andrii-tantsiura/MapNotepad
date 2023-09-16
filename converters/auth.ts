@@ -8,5 +8,4 @@ export const signInWithEmailResponseToCredentialsModel = (
   tokenLifeSpanInSeconds: data.expiresIn,
   refreshToken: data.refreshToken,
   userId: data.localId,
-  email: data.email,
 });

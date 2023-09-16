@@ -6,10 +6,10 @@ import { loginAction, logoutAction } from "../store/redux/actions";
 import { selectAuth } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
 import { ICredentialsModel } from "../types/models";
+import AlertService from "../services/AlertService";
 
 const credentialsKeys: StorageItems[] = [
   StorageItems.ID_TOKEN,
-  StorageItems.EMAIL,
   StorageItems.REFRESH_TOKEN,
   StorageItems.EXPIRATION_DATE,
   StorageItems.USER_ID,
@@ -30,43 +30,45 @@ export const useAuth = (): UseAuthReturn => {
   const login = async (credentials: ICredentialsModel): Promise<void> => {
     const pairs: [string, string][] = [
       [StorageItems.ID_TOKEN, credentials.idToken],
-      [StorageItems.EMAIL, credentials.email],
       [StorageItems.REFRESH_TOKEN, credentials.refreshToken],
       [StorageItems.EXPIRATION_DATE, credentials.tokenLifeSpanInSeconds],
       [StorageItems.USER_ID, credentials.userId],
     ];
 
-    await AsyncStorage.multiSet(pairs);
+    try {
+      await AsyncStorage.multiSet(pairs);
+    } catch (e) {
+      AlertService.error("Cannot get auth data from storage");
+    }
 
     dispatch(loginAction(credentials));
   };
 
   const tryLoginFromWithSavedCredentials = async (): Promise<void> => {
-    const values = await AsyncStorage.multiGet(credentialsKeys);
+    try {
+      const values = await AsyncStorage.multiGet(credentialsKeys);
 
-    if (
-      values[0][1] &&
-      values[1][1] &&
-      values[2][1] &&
-      values[3][1] &&
-      values[4][1]
-    ) {
-      const credentials = {
-        idToken: values[0][1],
-        email: values[1][1],
-        refreshToken: values[2][1],
-        tokenLifeSpanInSeconds: values[3][1],
-        userId: values[4][1],
-      };
+      if (values[0][1] && values[1][1] && values[2][1] && values[3][1]) {
+        const credentials = {
+          idToken: values[0][1],
+          refreshToken: values[1][1],
+          tokenLifeSpanInSeconds: values[2][1],
+          userId: values[3][1],
+        };
 
-      dispatch(loginAction(credentials));
+        dispatch(loginAction(credentials));
+      }
+    } catch (e) {
+      AlertService.error("Cannot get auth data from storage");
     }
   };
 
   const logout = async (): Promise<void> => {
-    await AsyncStorage.multiRemove(credentialsKeys);
+    try {
+      await AsyncStorage.multiRemove(credentialsKeys);
 
-    dispatch(logoutAction());
+      dispatch(logoutAction());
+    } catch (e) {}
   };
 
   return {
