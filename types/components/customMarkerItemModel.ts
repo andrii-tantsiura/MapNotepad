@@ -1,10 +1,13 @@
-import { LatLng, MapMarkerProps } from "react-native-maps";
+import { MutableRefObject } from "react";
+import { LatLng, MapMarker, MapMarkerProps } from "react-native-maps";
+
 import { IBaseItemModel } from "./baseItemModel";
 
-export interface ICustomMarkerItemModel extends IBaseItemModel {
+export interface ICustomMarkerModel extends IBaseItemModel {
   label: string;
-  description?: string;
+  description: string;
   location: LatLng;
   icon?: MapMarkerProps["icon"];
   showCallout?: () => void;
+  hideCallout?: () => void;
 }

@@ -4,18 +4,20 @@ import MapView, {
   MapPressEvent,
   Marker,
   MarkerDragStartEndEvent,
+  Region,
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import { CustomButtonStyles } from "../../../constants";
+import { CustomButtonStyles, DEFAULT_REGION } from "../../../constants";
 import { animateToLocation } from "../../../helpers";
-import { useCurrentLocation } from "../../../hooks";
+import { useUserLocation } from "../../../hooks";
 import { CustomButton } from "../../common";
 import styles from "./styles";
 
 interface ISelectLocationViewProps {
   latitude: number;
   longitude: number;
+  initialRegion: Region;
   shouldRequestLocationInitially?: boolean;
   onPickLocation: (coordinate: LatLng) => void;
 }
@@ -23,11 +25,12 @@ interface ISelectLocationViewProps {
 export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   latitude,
   longitude,
+  initialRegion,
   shouldRequestLocationInitially = true,
   onPickLocation,
 }) => {
   const mapViewRef = useRef<MapView | null>(null);
-  const { currentLocation, requestCurrentLocation } = useCurrentLocation(
+  const { userLocation, requestUserLocation } = useUserLocation(
     shouldRequestLocationInitially
   );
 
@@ -41,21 +44,18 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
     onPickLocation(e.nativeEvent.coordinate);
   };
 
-  const pickCurrentLocationHandler = () => {
-    requestCurrentLocation();
-  };
-
   useEffect(() => {
-    if (currentLocation) {
-      onPickLocation(currentLocation);
+    if (userLocation) {
+      onPickLocation(userLocation);
 
-      animateToLocation(mapViewRef, currentLocation);
+      animateToLocation(mapViewRef, userLocation);
     }
-  }, [currentLocation]);
+  }, [userLocation]);
 
   return (
     <>
       <MapView
+        initialRegion={initialRegion}
         showsUserLocation
         showsMyLocationButton={false}
         style={styles.map}
@@ -78,7 +78,7 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
       <CustomButton
         style={CustomButtonStyles.roundFloating_i1}
         imageSource={LOCATION_ICON}
-        onPress={pickCurrentLocationHandler}
+        onPress={requestUserLocation}
       />
     </>
   );

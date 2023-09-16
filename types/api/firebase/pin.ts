@@ -12,7 +12,6 @@ export interface ICreatePinResponse {
 }
 
 export interface IPin {
-  id: string;
   label: string;
   description: string;
   location: LatLng;

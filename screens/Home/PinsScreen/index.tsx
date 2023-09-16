@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
-import React, { FC, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 import { ListRenderItemInfo, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
 import { RowMap, SwipeListView } from "react-native-swipe-list-view";
@@ -18,7 +18,9 @@ import {
 import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
-import { selectPinsSearch } from "../../../store/redux/slices";
+import { stopSearchAction } from "../../../store/redux/actions";
+import { selectSearch } from "../../../store/redux/slices";
+import { useAppDispatch } from "../../../store/redux/store";
 import { IPinItemModel } from "../../../types/components";
 import { IPinModel } from "../../../types/models";
 import { hideActionMenu } from "../../../utils";
@@ -35,38 +37,41 @@ type HomeScreenNavigationProp = StackNavigationProp<
 >;
 
 export const PinsScreen: FC<TabProps> = ({ navigation }) => {
+  const dispatch = useAppDispatch();
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
+    pins,
     isPinsLoading,
     fetchPins,
+    getPinsBySearchQuery,
     togglePinFavoriteStatus,
     deletePin,
-    filterPinsBySearchQuery,
-    getPins,
   } = usePins();
+  const { searchQuery } = useSelector(selectSearch);
 
   const [selectedPinRow, setSelectedPinRow] = useState<RowMap<IPinItemModel>>();
   const [selectedPinId, setSelectedPinId] = useState<string>();
+  const [pinsItems, setPinsList] = useState<IPinItemModel[]>([]);
   const [isRemovePinConfirmationShown, setIsRemovePinConfirmationVisible] =
     useState(false);
 
-  const { searchQuery } = useSelector(selectPinsSearch);
-
-  const pins = searchQuery ? filterPinsBySearchQuery(searchQuery) : getPins();
-  const displayedPins = pins.map((x) => pinModelToPinItemModel(x));
-
-  const togglePinFavoriteStatusHandler = (pin: IPinItemModel) => {
+  const togglePinFavoriteStatusHandler = useCallback((pin: IPinItemModel) => {
     const pinData: IPinModel = pinItemModelToPinModel(pin);
 
     togglePinFavoriteStatus(pinData);
-  };
+  }, []);
 
-  const pinPressedHandler = (pin: IPinItemModel) => {
-    const pinData: IPinModel = pinItemModelToPinModel(pin);
+  const pinPressedHandler = useCallback(
+    (pin: IPinItemModel) => {
+      dispatch(stopSearchAction());
 
-    navigation.navigate("Map", { pin: pinData });
-  };
+      const pinData: IPinModel = pinItemModelToPinModel(pin);
+
+      navigation.navigate("Map", { pin: pinData });
+    },
+    [navigation]
+  );
 
   const deletePinHandler = (
     { item: pin }: ListRenderItemInfo<IPinItemModel>,
@@ -98,28 +103,38 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   ) => {
     hideActionMenu(row, pin.key);
 
-    homeNavigation.navigate("EditPin", { pinId: pin.key });
+    homeNavigation.navigate("EditPin", { pin: pinItemModelToPinModel(pin) });
   };
 
   const addPinHandler = () => homeNavigation.navigate("AddPin");
 
-  const renderPinItem = ({ item: pin }: ListRenderItemInfo<IPinItemModel>) => (
-    <PinItem
-      pin={pin}
-      onPress={pinPressedHandler}
-      onPressFavoriteStatus={togglePinFavoriteStatusHandler}
-    />
+  const renderPinItem = useCallback(
+    ({ item: pin }: ListRenderItemInfo<IPinItemModel>) => (
+      <PinItem
+        pin={pin}
+        onPress={pinPressedHandler}
+        onPressFavoriteStatus={togglePinFavoriteStatusHandler}
+      />
+    ),
+    [pinPressedHandler, togglePinFavoriteStatus]
   );
 
-  const renderHiddenActionMenu = (
-    pin: ListRenderItemInfo<IPinItemModel>,
-    row: RowMap<IPinItemModel>
-  ) => (
-    <PinActionMenu
-      onDelete={() => deletePinHandler(pin, row)}
-      onEdit={() => editPinHandler(pin, row)}
-    />
+  const renderHiddenActionMenu = useCallback(
+    (pin: ListRenderItemInfo<IPinItemModel>, row: RowMap<IPinItemModel>) => (
+      <PinActionMenu
+        onDelete={() => deletePinHandler(pin, row)}
+        onEdit={() => editPinHandler(pin, row)}
+      />
+    ),
+    []
   );
+
+  useEffect(() => {
+    const filteredPins = searchQuery ? getPinsBySearchQuery(searchQuery) : pins;
+    const newPinsList = filteredPins.map((x) => pinModelToPinItemModel(x));
+
+    setPinsList(newPinsList);
+  }, [pins, searchQuery]);
 
   return (
     <View style={styles.container}>
@@ -132,17 +147,16 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
       />
 
       <SwipeListView
+        keyboardShouldPersistTaps="always"
         refreshControl={
           <RefreshControl refreshing={isPinsLoading} onRefresh={fetchPins} />
         }
-        onRowOpen={(pinKey) => {
-          setSelectedPinId(pinKey);
-        }}
-        onRowClose={() => {
-          setSelectedPinId("");
-        }}
-        data={displayedPins}
-        contentContainerStyle={pins.length === 0 && styles.emptyListContainer}
+        onRowOpen={setSelectedPinId}
+        onRowClose={setSelectedPinId}
+        data={pinsItems}
+        contentContainerStyle={
+          pinsItems.length === 0 && styles.emptyListContainer
+        }
         ListEmptyComponent={() => (
           <EmptyView>
             {searchQuery ? "Nothing found" : "There are no added pins yet"}
