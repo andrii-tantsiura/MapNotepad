@@ -24,11 +24,11 @@ type AppRoutesProps = {
 const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
   const [isTryingAuthenticate, setIsTryingAuthenticate] = useState(true);
 
-  const { isAuthenticated, tryLoginFromWithSavedCredentials } = useAuth();
+  const { isAuthenticated, loginWithSavedCredentials } = useAuth();
 
   useEffect(() => {
     async function tryAuthenticate() {
-      await tryLoginFromWithSavedCredentials();
+      await loginWithSavedCredentials();
 
       setIsTryingAuthenticate(false);
     }

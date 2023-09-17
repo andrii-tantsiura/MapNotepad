@@ -14,7 +14,7 @@ import { ILoginForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
-  const { login } = useAuth();
+  const { saveCredentialsToStorage } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
   const { formController, handleSubmit } = useHookForm<ILoginForm>({
@@ -30,7 +30,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
     const loginResult = await AuthService.loginWithEmail(email, password);
 
     if (loginResult.isSuccess && loginResult.data) {
-      login(loginResult.data);
+      saveCredentialsToStorage(loginResult.data);
     } else {
       AlertService.error(loginResult.getMessage());
     }

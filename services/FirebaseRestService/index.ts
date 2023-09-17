@@ -21,8 +21,8 @@ export class FirebaseRestService {
 
   private createAuthenticatedUrl = (
     path: string,
-    { idToken, userId }: ICredentialsModel
-  ) => `${FirebaseConfig.realtimeDbUrl}/${userId}/${path}?auth=${idToken}`;
+    { token, userId }: ICredentialsModel
+  ) => `${FirebaseConfig.realtimeDbUrl}/${userId}/${path}?auth=${token}`;
 
   private executeAuthenticatedRequest = async <TResult>(
     url: string,

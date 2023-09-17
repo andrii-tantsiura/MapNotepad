@@ -1,81 +1,85 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useSelector } from "react-redux";
 
 import { StorageItems } from "../enums";
+import AlertService from "../services/AlertService";
+import SecureStorage from "../services/SecureStorage";
 import { loginAction, logoutAction } from "../store/redux/actions";
 import { selectAuth } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
 import { ICredentialsModel } from "../types/models";
-import AlertService from "../services/AlertService";
-
-const credentialsKeys: StorageItems[] = [
-  StorageItems.ID_TOKEN,
-  StorageItems.REFRESH_TOKEN,
-  StorageItems.EXPIRATION_DATE,
-  StorageItems.USER_ID,
-];
 
 type UseAuthReturn = {
   credentials: ICredentialsModel | null;
   isAuthenticated: boolean;
-  login: (credentials: ICredentialsModel) => Promise<void>;
-  tryLoginFromWithSavedCredentials: () => Promise<void>;
+  saveCredentialsToStorage: (credentials: ICredentialsModel) => Promise<void>;
+  loginWithSavedCredentials: () => Promise<void>;
   logout: () => Promise<void>;
 };
 
 export const useAuth = (): UseAuthReturn => {
-  const { isAuthenticated, credentials } = useSelector(selectAuth);
   const dispatch = useAppDispatch();
+  const { isAuthenticated, credentials } = useSelector(selectAuth);
 
-  const login = async (credentials: ICredentialsModel): Promise<void> => {
-    const pairs: [string, string][] = [
-      [StorageItems.ID_TOKEN, credentials.idToken],
-      [StorageItems.REFRESH_TOKEN, credentials.refreshToken],
-      [StorageItems.EXPIRATION_DATE, credentials.tokenLifeSpanInSeconds],
-      [StorageItems.USER_ID, credentials.userId],
+  const saveCredentialsToStorage = async (
+    credentials: ICredentialsModel
+  ): Promise<void> => {
+    const keyValuePairs = [
+      { key: StorageItems.FIREBASE_USER_ID, value: credentials.userId },
+      { key: StorageItems.FIREBASE_TOKEN, value: credentials.token },
+      {
+        key: StorageItems.FIREBASE_REFRESH_TOKEN,
+        value: credentials.refreshToken,
+      },
+      {
+        key: StorageItems.FIREBASE_TOKEN_EXPIRATION_DATE,
+        value: credentials.expirationDate,
+      },
     ];
 
-    try {
-      await AsyncStorage.multiSet(pairs);
-    } catch (e) {
-      AlertService.error("Cannot get auth data from storage");
-    }
+    const result = await SecureStorage.multiSetAsync(keyValuePairs);
 
-    dispatch(loginAction(credentials));
+    if (result.isSuccess) {
+      dispatch(loginAction(credentials));
+    } else {
+      AlertService.error(result.getMessage());
+    }
   };
 
-  const tryLoginFromWithSavedCredentials = async (): Promise<void> => {
-    try {
-      const values = await AsyncStorage.multiGet(credentialsKeys);
+  const loginWithSavedCredentials = async (): Promise<void> => {
+    const result = await SecureStorage.multiGetAsync([
+      StorageItems.FIREBASE_USER_ID,
+      StorageItems.FIREBASE_TOKEN,
+      StorageItems.FIREBASE_REFRESH_TOKEN,
+      StorageItems.FIREBASE_TOKEN_EXPIRATION_DATE,
+    ]);
 
-      if (values[0][1] && values[1][1] && values[2][1] && values[3][1]) {
-        const credentials = {
-          idToken: values[0][1],
-          refreshToken: values[1][1],
-          tokenLifeSpanInSeconds: values[2][1],
-          userId: values[3][1],
-        };
+    if (result.isSuccess && result.data?.every((x) => x.value)) {
+      const credentials: ICredentialsModel = {
+        userId: result.data[0].value ?? "defaultUserId",
+        token: result.data[1].value ?? "defaultToken",
+        refreshToken: result.data[2].value ?? "defaultRefreshToken",
+        expirationDate: result.data[3].value ?? "defaultExpirationDate",
+      };
 
-        dispatch(loginAction(credentials));
-      }
-    } catch (e) {
-      AlertService.error("Cannot get auth data from storage");
+      dispatch(loginAction(credentials));
+    } else {
+      AlertService.error(result.getMessage());
     }
   };
 
   const logout = async (): Promise<void> => {
-    try {
-      await AsyncStorage.multiRemove(credentialsKeys);
+    for (const key of Object.keys(StorageItems)) {
+      await SecureStorage.deleteAsync(key);
+    }
 
-      dispatch(logoutAction());
-    } catch (e) {}
+    dispatch(logoutAction());
   };
 
   return {
     credentials,
     isAuthenticated,
-    login,
-    tryLoginFromWithSavedCredentials,
+    saveCredentialsToStorage,
+    loginWithSavedCredentials,
     logout,
   };
 };

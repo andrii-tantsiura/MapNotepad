@@ -1,17 +1,13 @@
-import { AsyncResult } from "../../helpers/AOResult/types";
+import { AsyncResult } from "../helpers/AOResult/types";
+import { IPinsService } from "../interfaces";
 import {
   ICreatePinResponse,
   IGetPinsResponse,
   IPinPayload,
-} from "../../types/api/firebase";
-import {
-  ICredentialsModel,
-  IPinModel,
-  IPinModelsArray,
-} from "../../types/models";
-import { stringToKeywords } from "../../utils";
-import { FirebaseRestService } from "../FirebaseRestService";
-import { IPinsService } from "./types";
+} from "../types/api/firebase";
+import { ICredentialsModel, IPinModel, IPinModelsArray } from "../types/models";
+import { stringToKeywords } from "../utils";
+import { FirebaseRestService } from "./FirebaseRestService";
 
 export class PinsService implements IPinsService {
   private _restService: FirebaseRestService;
