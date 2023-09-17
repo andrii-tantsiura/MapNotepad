@@ -1,4 +1,4 @@
-import { FirebaseConfig } from "../../config";
+import { FIREBASE_API_KEY } from "../../config";
 import { signInWithEmailResponseToCredentialsModel } from "../../converters";
 import { AsyncResult } from "../../helpers/AOResult/types";
 import {
@@ -15,12 +15,10 @@ const GOOGLE_IDENTITY_TOOLKIT_URL =
   "https://identitytoolkit.googleapis.com/v1/accounts:";
 
 const LOGIN_WITH_EMAIL_URL =
-  GOOGLE_IDENTITY_TOOLKIT_URL +
-  "signInWithPassword?key=" +
-  FirebaseConfig.apiKey;
+  GOOGLE_IDENTITY_TOOLKIT_URL + "signInWithPassword?key=" + FIREBASE_API_KEY;
 
 const REGISTER_WITH_EMAIL_URL =
-  GOOGLE_IDENTITY_TOOLKIT_URL + "signUp?key=" + FirebaseConfig.apiKey;
+  GOOGLE_IDENTITY_TOOLKIT_URL + "signUp?key=" + FIREBASE_API_KEY;
 
 class AuthService {
   registerWithEmail = async (
