@@ -5,10 +5,8 @@ export type Pair<T, U> = {
   value: U;
 };
 
-export interface IStorage {
-  setAsync: (key: string, value: string) => AsyncResult<void>;
+export interface IStorageService {
   multiSetAsync: (keyValuePairs: Pair<string, string>[]) => AsyncResult<void>;
-  getAsync: (key: string) => AsyncResult<string | null>;
   multiGetAsync: (keys: string[]) => AsyncResult<Pair<string, string | null>[]>;
-  deleteAsync: (key: string) => AsyncResult<void>;
+  multiDeleteAsync: (keys: string[]) => AsyncResult<void>;
 }

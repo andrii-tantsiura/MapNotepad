@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 import { StorageItems } from "../enums";
 import AlertService from "../services/AlertService";
-import SecureStorage from "../services/SecureStorage";
+import SecureStorageService from "../services/SecureStorageService";
 import { loginAction, logoutAction } from "../store/redux/actions";
 import { selectAuth } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
@@ -36,7 +36,7 @@ export const useAuth = (): UseAuthReturn => {
       },
     ];
 
-    const result = await SecureStorage.multiSetAsync(keyValuePairs);
+    const result = await SecureStorageService.multiSetAsync(keyValuePairs);
 
     if (result.isSuccess) {
       dispatch(loginAction(credentials));
@@ -46,7 +46,7 @@ export const useAuth = (): UseAuthReturn => {
   };
 
   const loginWithSavedCredentials = async (): Promise<void> => {
-    const result = await SecureStorage.multiGetAsync([
+    const result = await SecureStorageService.multiGetAsync([
       StorageItems.FIREBASE_USER_ID,
       StorageItems.FIREBASE_TOKEN,
       StorageItems.FIREBASE_REFRESH_TOKEN,
@@ -68,9 +68,7 @@ export const useAuth = (): UseAuthReturn => {
   };
 
   const logout = async (): Promise<void> => {
-    for (const key of Object.keys(StorageItems)) {
-      await SecureStorage.deleteAsync(key);
-    }
+    await SecureStorageService.multiDeleteAsync(Object.keys(StorageItems));
 
     dispatch(logoutAction());
   };

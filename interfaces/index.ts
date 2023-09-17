@@ -1,2 +1,2 @@
 export * from "./pinsService";
-export * from "./storage";
+export * from "./storageService";
