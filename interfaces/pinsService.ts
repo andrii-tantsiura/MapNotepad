@@ -1,5 +1,5 @@
-import { AsyncResult } from "../../helpers/AOResult/types";
-import { IPinModel, IPinModelsArray } from "../../types/models";
+import { AsyncResult } from "../helpers/AOResult/types";
+import { IPinModel, IPinModelsArray } from "../types/models";
 
 export interface IPinsService {
   getPins: () => AsyncResult<IPinModelsArray>;

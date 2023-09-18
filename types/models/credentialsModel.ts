@@ -1,7 +1,6 @@
 export interface ICredentialsModel {
   userId: string;
-  email: string;
-  idToken: string;
-  tokenLifeSpanInSeconds: string;
+  token: string;
   refreshToken: string;
+  expirationDate: string;
 }

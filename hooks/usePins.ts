@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { PinsService } from "../services";
+import { IPinsService } from "../interfaces";
 import AlertService from "../services/AlertService";
-import { IPinsService } from "../services/PinsService/types";
+import { PinsService } from "../services";
 import {
   addPinAction,
   deletePinAction,

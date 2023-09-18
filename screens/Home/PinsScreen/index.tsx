@@ -15,6 +15,7 @@ import {
   pinItemModelToPinModel,
   pinModelToPinItemModel,
 } from "../../../converters";
+import { hideActionMenu } from "../../../helpers";
 import { usePins } from "../../../hooks";
 import { HomeStackParamList } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
@@ -23,7 +24,6 @@ import { selectSearch } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { IPinItemModel } from "../../../types/components";
 import { IPinModel } from "../../../types/models";
-import { hideActionMenu } from "../../../utils";
 import {
   PIN_ACTION_MENU_WIDTH,
   PinActionMenu,

@@ -6,10 +6,10 @@ import {
   LONGITUDE_REGEX,
   PASSWORD_REGEX,
   USERNAME_REGEX,
-} from "../constants";
-import { ValidationErrorMessages } from "../enums";
+} from "../../constants";
+import { ValidationErrorMessages } from "../../enums";
 
-type RulesType = UseControllerProps["rules"];
+export type RulesType = UseControllerProps["rules"];
 
 export const USERNAME_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,
@@ -37,14 +37,6 @@ export const PASSWORD_RULES: RulesType = {
     message: ValidationErrorMessages.PASSWORD_INVALID,
   },
 };
-
-export const getConfirmPasswordRules = (
-  comparedPassword: string
-): RulesType => ({
-  required: ValidationErrorMessages.REQUIRED,
-  validate: (value) =>
-    value === comparedPassword || ValidationErrorMessages.PASSWORD_MISMATCH,
-});
 
 export const PIN_LABEL_RULES: RulesType = {
   required: ValidationErrorMessages.REQUIRED,

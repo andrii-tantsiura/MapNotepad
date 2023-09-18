@@ -25,7 +25,7 @@ import {
   animateToLocation,
   hideMarkerCalloutById,
   showMarkerCalloutById,
-} from "../../../helpers/map";
+} from "../../../helpers";
 import { usePins, useUserLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { stopSearchAction } from "../../../store/redux/actions";

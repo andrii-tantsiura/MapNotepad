@@ -1,11 +1,11 @@
-import { FirebaseConfig } from "../../config";
-import { AOResult } from "../../helpers/AOResult";
-import { AsyncResult } from "../../helpers/AOResult/types";
-import { ICredentialsModel } from "../../types/models";
+import { FIREBASE_DATABASE_URL } from "../../config";
 import {
   createFirebaseRequestConfig,
   extractErrorMessageIfFailure,
-} from "../../utils";
+} from "../../helpers";
+import { AOResult } from "../../helpers/AOResult";
+import { AsyncResult } from "../../helpers/AOResult/types";
+import { ICredentialsModel } from "../../types/models";
 import ApiService from "../ApiService";
 
 type AuthenticatedRequest = <TResult>(
@@ -21,8 +21,8 @@ export class FirebaseRestService {
 
   private createAuthenticatedUrl = (
     path: string,
-    { idToken, userId }: ICredentialsModel
-  ) => `${FirebaseConfig.realtimeDbUrl}/${userId}/${path}?auth=${idToken}`;
+    { token, userId }: ICredentialsModel
+  ) => `${FIREBASE_DATABASE_URL}/${userId}/${path}?auth=${token}`;
 
   private executeAuthenticatedRequest = async <TResult>(
     url: string,

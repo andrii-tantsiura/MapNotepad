@@ -1,6 +1,7 @@
-import { FIREBASE_API_KEY, FIREBASE_DATABASE_URL } from "@env";
+import {
+  FIREBASE_API_KEY as firebaseApiKey,
+  FIREBASE_DATABASE_URL as firebaseDatabaseUrl,
+} from "@env";
 
-export const FirebaseConfig = {
-  apiKey: FIREBASE_API_KEY,
-  realtimeDbUrl: FIREBASE_DATABASE_URL,
-};
+export const FIREBASE_API_KEY = firebaseApiKey;
+export const FIREBASE_DATABASE_URL = firebaseDatabaseUrl;

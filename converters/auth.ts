@@ -4,9 +4,8 @@ import { ICredentialsModel } from "../types/models";
 export const signInWithEmailResponseToCredentialsModel = (
   data: ISignInWithEmailResponse
 ): ICredentialsModel => ({
-  idToken: data.idToken,
-  tokenLifeSpanInSeconds: data.expiresIn,
+  token: data.idToken,
+  expirationDate: data.expiresIn,
   refreshToken: data.refreshToken,
   userId: data.localId,
-  email: data.email,
 });
