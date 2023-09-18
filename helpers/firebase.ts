@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 
-import { AOResult } from "../helpers/AOResult";
+import { AOResult } from "./AOResult";
 import {
   ResponseError,
   UnauthorizedResponseError,

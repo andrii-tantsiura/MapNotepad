@@ -1,11 +1,11 @@
 import { FIREBASE_DATABASE_URL } from "../../config";
-import { AOResult } from "../../helpers/AOResult";
-import { AsyncResult } from "../../helpers/AOResult/types";
-import { ICredentialsModel } from "../../types/models";
 import {
   createFirebaseRequestConfig,
   extractErrorMessageIfFailure,
-} from "../../utils";
+} from "../../helpers";
+import { AOResult } from "../../helpers/AOResult";
+import { AsyncResult } from "../../helpers/AOResult/types";
+import { ICredentialsModel } from "../../types/models";
 import ApiService from "../ApiService";
 
 type AuthenticatedRequest = <TResult>(

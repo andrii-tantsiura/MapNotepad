@@ -8,7 +8,7 @@ import {
   ISignUpWithEmailResponse,
 } from "../../types/api/firebase";
 import { ICredentialsModel } from "../../types/models";
-import { extractErrorMessageIfFailure } from "../../utils";
+import { extractErrorMessageIfFailure } from "../../helpers";
 import ApiService from "../ApiService";
 
 const GOOGLE_IDENTITY_TOOLKIT_URL =
