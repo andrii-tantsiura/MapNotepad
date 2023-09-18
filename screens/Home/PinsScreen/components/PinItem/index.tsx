@@ -13,7 +13,7 @@ import {
   textStyle_i11,
   textStyle_i9,
 } from "../../../../../constants";
-import { formatCoordinate } from "../../../../../helpers/format";
+import { formatCoordinate } from "../../../../../helpers";
 import { IPinItemModel } from "../../../../../types/components";
 import styles from "./styles";
 

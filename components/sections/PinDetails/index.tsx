@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Modal, Pressable, View } from "react-native";
 
 import { textStyle_i12, textStyle_i14, textStyle_i6 } from "../../../constants";
-import { formatCoordinate } from "../../../helpers/format";
+import { formatCoordinate } from "../../../helpers";
 import { IPinModel } from "../../../types/models";
 import { Typography } from "../../common";
 import { Separator } from "../Separator";
