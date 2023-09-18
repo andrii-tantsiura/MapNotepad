@@ -1,4 +1,3 @@
-import { CommonActions } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View } from "react-native";
 
@@ -8,7 +7,7 @@ import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
 import { ErrorCodes } from "../../../enums";
 import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
-import { useHookForm } from "../../../hooks";
+import { useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
@@ -20,6 +19,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   route,
 }: AuthScreenProps) => {
   const [isLoading, setIsLoading] = useState(false);
+  const { saveCredentialsToStorage } = useAuth();
 
   const { formController, watch, handleSubmit } =
     useHookForm<ICreatePasswordForm>();
@@ -34,23 +34,8 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
     setIsLoading(false);
 
-    if (registerResult.isSuccess) {
-      navigation.dispatch(
-        CommonActions.reset({
-          index: 1,
-          routes: [
-            {
-              name: "Startup",
-            },
-            {
-              name: "Login",
-              params: {
-                email: route.params?.email,
-              },
-            },
-          ],
-        })
-      );
+    if (registerResult.isSuccess && registerResult.data) {
+      saveCredentialsToStorage(registerResult.data);
     } else {
       const message = registerResult.getMessage();
 

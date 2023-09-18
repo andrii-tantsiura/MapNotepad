@@ -1,5 +1,8 @@
 import { FIREBASE_API_KEY } from "../../config";
-import { signInWithEmailResponseToCredentialsModel } from "../../converters";
+import {
+  signInWithEmailResponseToCredentialsModel,
+  signUpWithEmailResponseToCredentialsModel,
+} from "../../converters";
 import { AsyncResult } from "../../helpers/AOResult/types";
 import {
   ISignInWithEmailPayload,
@@ -21,10 +24,10 @@ const REGISTER_WITH_EMAIL_URL =
   GOOGLE_IDENTITY_TOOLKIT_URL + "signUp?key=" + FIREBASE_API_KEY;
 
 class AuthService {
-  registerWithEmail = async (
+  public registerWithEmail = async (
     email: string,
     password: string
-  ): AsyncResult<void> => {
+  ): AsyncResult<ICredentialsModel | undefined> => {
     const payload: ISignUpWithEmailPayload = {
       email,
       password,
@@ -38,10 +41,14 @@ class AuthService {
 
     extractErrorMessageIfFailure(requestResult);
 
-    return requestResult.convertTo();
+    const credentials = requestResult.data
+      ? signUpWithEmailResponseToCredentialsModel(requestResult.data)
+      : undefined;
+
+    return requestResult.convertTo<ICredentialsModel>(credentials);
   };
 
-  loginWithEmail = async (
+  public loginWithEmail = async (
     email: string,
     password: string
   ): AsyncResult<ICredentialsModel | undefined> => {
