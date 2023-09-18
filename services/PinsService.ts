@@ -2,8 +2,7 @@ import { AsyncResult } from "../helpers/AOResult/types";
 import { IPinsService } from "../interfaces";
 import {
   ICreatePinResponse,
-  IGetPinsResponse,
-  IPinPayload,
+  IPinPayload
 } from "../types/api/firebase";
 import { ICredentialsModel, IPinModel, IPinModelsArray } from "../types/models";
 import { stringToKeywords } from "../utils";
@@ -17,7 +16,7 @@ export class PinsService implements IPinsService {
   }
 
   public getPins = async (): AsyncResult<IPinModelsArray> =>
-    this._restService.get<IGetPinsResponse>("pins.json");
+    this._restService.get<IPinModelsArray>("pins.json");
 
   filterPinsBySearchQuery = (
     pins: IPinModelsArray,

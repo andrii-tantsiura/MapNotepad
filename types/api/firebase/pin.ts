@@ -17,5 +17,3 @@ export interface IPin {
   location: LatLng;
   isFavorite: boolean;
 }
-
-export interface IGetPinsResponse extends Array<IPin> {}
