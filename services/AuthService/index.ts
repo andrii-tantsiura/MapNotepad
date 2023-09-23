@@ -1,48 +1,30 @@
-import { FIREBASE_API_KEY } from "../../config";
 import {
-  signInWithEmailResponseToCredentialsModel,
-  signUpWithEmailResponseToCredentialsModel,
-} from "../../converters";
-import { AsyncResult } from "../../helpers/AOResult/types";
-import {
-  ISignInWithEmailPayload,
-  ISignInWithEmailResponse,
-  ISignUpWithEmailPayload,
-  ISignUpWithEmailResponse,
-} from "../../types/api/firebase";
-import { ICredentialsModel } from "../../types/models";
+  UserCredential,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { FirebaseAuth } from "../../FirebaseConfig";
 import { extractErrorMessageIfFailure } from "../../helpers";
-import ApiService from "../ApiService";
-
-const GOOGLE_IDENTITY_TOOLKIT_URL =
-  "https://identitytoolkit.googleapis.com/v1/accounts:";
-
-const LOGIN_WITH_EMAIL_URL =
-  GOOGLE_IDENTITY_TOOLKIT_URL + "signInWithPassword?key=" + FIREBASE_API_KEY;
-
-const REGISTER_WITH_EMAIL_URL =
-  GOOGLE_IDENTITY_TOOLKIT_URL + "signUp?key=" + FIREBASE_API_KEY;
+import { ExecuteAsync } from "../../helpers/AOResult";
+import { AsyncResult } from "../../helpers/AOResult/types";
+import { ICredentialsModel } from "../../types/models";
 
 class AuthService {
   public registerWithEmail = async (
     email: string,
     password: string
   ): AsyncResult<ICredentialsModel | undefined> => {
-    const payload: ISignUpWithEmailPayload = {
-      email,
-      password,
-      returnSecureToken: true,
-    };
-
-    const requestResult = await ApiService.request<
-      ISignUpWithEmailResponse,
-      ISignUpWithEmailPayload
-    >("post", REGISTER_WITH_EMAIL_URL, payload);
+    const requestResult = await ExecuteAsync<UserCredential>(async () =>
+      createUserWithEmailAndPassword(FirebaseAuth, email, password)
+    );
 
     extractErrorMessageIfFailure(requestResult);
 
     const credentials = requestResult.data
-      ? signUpWithEmailResponseToCredentialsModel(requestResult.data)
+      ? {
+          userId: requestResult.data.user.uid,
+          token: await requestResult.data.user.getIdToken(), // TODO: replace token usage with database
+        }
       : undefined;
 
     return requestResult.convertTo<ICredentialsModel>(credentials);
@@ -52,21 +34,17 @@ class AuthService {
     email: string,
     password: string
   ): AsyncResult<ICredentialsModel | undefined> => {
-    const payload: ISignInWithEmailPayload = {
-      email,
-      password,
-      returnSecureToken: true,
-    };
-
-    const requestResult = await ApiService.request<
-      ISignInWithEmailResponse,
-      ISignInWithEmailPayload
-    >("post", LOGIN_WITH_EMAIL_URL, payload);
+    const requestResult = await ExecuteAsync<UserCredential>(async () =>
+      signInWithEmailAndPassword(FirebaseAuth, email, password)
+    );
 
     extractErrorMessageIfFailure(requestResult);
 
     const credentials = requestResult.data
-      ? signInWithEmailResponseToCredentialsModel(requestResult.data)
+      ? {
+          userId: requestResult.data.user.uid,
+          token: await requestResult.data.user.getIdToken(), // TODO: replace token usage with database
+        }
       : undefined;
 
     return requestResult.convertTo<ICredentialsModel>(credentials);

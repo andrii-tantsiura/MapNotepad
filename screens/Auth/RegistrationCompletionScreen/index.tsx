@@ -19,7 +19,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   route,
 }: AuthScreenProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { saveCredentialsToStorage } = useAuth();
+  const { setCredentials } = useAuth();
 
   const { formController, watch, handleSubmit } =
     useHookForm<ICreatePasswordForm>();
@@ -35,7 +35,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
     setIsLoading(false);
 
     if (registerResult.isSuccess && registerResult.data) {
-      saveCredentialsToStorage(registerResult.data);
+      setCredentials(registerResult.data);
     } else {
       const message = registerResult.getMessage();
 
