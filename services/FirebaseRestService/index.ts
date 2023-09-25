@@ -1,4 +1,4 @@
-import { FIREBASE_DATABASE_URL } from "../../config";
+import { FirebaseConfig } from "../../FirebaseConfig";
 import {
   createFirebaseRequestConfig,
   extractErrorMessageIfFailure,
@@ -22,7 +22,7 @@ export class FirebaseRestService {
   private createAuthenticatedUrl = (
     path: string,
     { token, userId }: ICredentialsModel
-  ) => `${FIREBASE_DATABASE_URL}/${userId}/${path}?auth=${token}`;
+  ) => `${FirebaseConfig.databaseURL}/${userId}/${path}?auth=${token}`;
 
   private executeAuthenticatedRequest = async <TResult>(
     url: string,

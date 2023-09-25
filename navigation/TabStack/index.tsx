@@ -15,7 +15,7 @@ import { TabStackParamList } from "./types";
 const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 const TabsStack: React.FC = () => {
-  const { logout } = useAuth();
+  const { signOut } = useAuth();
   const { fetchPins } = usePins();
 
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
@@ -33,7 +33,7 @@ const TabsStack: React.FC = () => {
         visible={isLogoutDialogOpened}
         onConfirm={() => {
           setIsLogoutDialogOpened(false);
-          logout();
+          signOut();
         }}
         onCancel={() => {
           setIsLogoutDialogOpened(false);
