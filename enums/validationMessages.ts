@@ -16,9 +16,4 @@ export enum ValidationErrorMessages {
   LATITUDE_INVALID = "Incorrect latitude",
   PIN_LABEL_TOO_SHORT = "The label must be longer than 2 characters",
   PIN_LABEL_TOO_LONG = "The label must be less than 40 characters long",
-  // TODO: add additional hints to the password
-  // PASSWORD_MUST_CONTAIN_SPECIAL_CHAR = "The password must contain at least one special character",
-  // PASSWORD_MUST_CONTAIN_DIGIT = "Password should have at least one digit",
-  // PASSWORD_MUST_CONTAIN_UPPERCASE_LETTER = "The password must contain at least one uppercase letter",
-  // PASSWORD_MUST_CONTAIN_LOWERCASE_LETTER = "The password must contain at least one lowercase letter",
 }

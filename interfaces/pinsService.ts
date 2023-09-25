@@ -1,12 +1,12 @@
 import { AsyncResult } from "../helpers/AOResult/types";
-import { IPinModel, IPinModelsArray } from "../types/models";
+import { IPinModel } from "../types/models";
 
 export interface IPinsService {
-  getPins: () => AsyncResult<IPinModelsArray>;
+  getPins: () => AsyncResult<Array<IPinModel>>;
   filterPinsBySearchQuery: (
-    pins: IPinModelsArray,
+    pins: Array<IPinModel>,
     searchQuery: string
-  ) => IPinModelsArray;
+  ) => Array<IPinModel>;
   deletePin: (pinId: string) => AsyncResult<void>;
   createPin: (pin: IPinModel) => AsyncResult<string>;
   updatePin: (pin: IPinModel) => AsyncResult<void>;

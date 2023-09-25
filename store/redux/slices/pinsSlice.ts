@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { IPinModelsArray } from "../../../types/models";
+import { IPinModel } from "../../../types/models";
 import {
   addPinAction,
   deletePinAction,
@@ -11,7 +11,7 @@ import {
 import { RootStore } from "../store";
 
 type InitialState = {
-  pins: IPinModelsArray;
+  pins: Array<IPinModel>;
 };
 
 const initialState: InitialState = {

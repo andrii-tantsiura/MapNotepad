@@ -10,7 +10,7 @@ import {
 } from "../../../../../constants";
 import { pinModelToPinItemModel } from "../../../../../converters";
 import { IPinItemModel } from "../../../../../types/components";
-import { IPinModelsArray } from "../../../../../types/models";
+import { IPinModel } from "../../../../../types/models";
 import { FoundPin } from "../FoundPin";
 import { FOUND_PIN_HEIGHT } from "../FoundPin/styles";
 import styles from "./styles";
@@ -22,7 +22,7 @@ const emptyListView = () => (
 );
 
 type FoundPinsListProps = {
-  pins: IPinModelsArray;
+  pins: Array<IPinModel>;
   onPinPressed: (pin: IPinItemModel) => void;
 };
 

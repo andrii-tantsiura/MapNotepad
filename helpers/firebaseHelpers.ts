@@ -32,13 +32,9 @@ export const extractErrorMessageIfFailure = <T>(result: AOResult<T>): void => {
         (data as UnauthorizedResponseError).error ??
         (data as any[])[0];
     } else {
-      errorMessage = exception.message;
+      errorMessage = exception.code ?? exception.message;
     }
 
-    errorMessage = errorMessage as string;
-
-    if (errorMessage) {
-      result.setFailure(errorMessage);
-    }
+    result.setFailure(errorMessage);
   }
 };

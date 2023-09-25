@@ -13,13 +13,13 @@ import {
 } from "../store/redux/actions";
 import { selectAuth, selectPins } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
-import { IPinModel, IPinModelsArray } from "../types/models";
+import { IPinModel } from "../types/models";
 
 type UsePinsReturn = {
-  pins: IPinModelsArray;
+  pins: Array<IPinModel>;
   isPinsLoading: boolean;
   fetchPins: () => void;
-  getPinsBySearchQuery: (searchQuery: string) => IPinModelsArray;
+  getPinsBySearchQuery: (searchQuery: string) => Array<IPinModel>;
   createPin: (pin: IPinModel) => Promise<boolean>;
   updatePin: (pin: IPinModel) => Promise<boolean>;
   togglePinFavoriteStatus: (pin: IPinModel) => void;
@@ -52,7 +52,7 @@ export const usePins = (): UsePinsReturn => {
     }
   };
 
-  const getPinsBySearchQuery = (searchQuery: string): IPinModelsArray =>
+  const getPinsBySearchQuery = (searchQuery: string): Array<IPinModel> =>
     pinsService.filterPinsBySearchQuery(pins, searchQuery);
 
   const createPin = async (pin: IPinModel): Promise<boolean> => {

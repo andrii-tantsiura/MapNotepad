@@ -33,7 +33,7 @@ import { setUserLocationAction } from "../../../store/redux/actions/userLocation
 import { selectSearch } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { ICustomMarkerModel, IPinItemModel } from "../../../types/components";
-import { IPinModel, IPinModelsArray } from "../../../types/models";
+import { IPinModel } from "../../../types/models";
 import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
@@ -46,7 +46,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
   const { searchQuery } = useSelector(selectSearch);
 
   const [markers, setMarkers] = useState<ICustomMarkerModel[]>([]);
-  const [foundPins, setFoundPins] = useState<IPinModelsArray>([]);
+  const [foundPins, setFoundPins] = useState<Array<IPinModel>>([]);
   const [selectedPin, setSelectedPin] = useState<IPinModel | null>(null);
 
   const showPinDetails = (pin: IPinModel) => {

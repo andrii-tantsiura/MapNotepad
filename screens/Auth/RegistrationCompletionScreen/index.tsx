@@ -5,7 +5,7 @@ import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { ErrorCodes } from "../../../enums";
+import { FirebaseErrorCodes } from "../../../enums";
 import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
 import { useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
@@ -41,7 +41,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
       AlertService.error(message);
 
-      if (message === ErrorCodes.EMAIL_EXISTS) {
+      if (message === FirebaseErrorCodes.EMAIL_ALREADY_IN_USE) {
         navigation.goBack();
       }
     }

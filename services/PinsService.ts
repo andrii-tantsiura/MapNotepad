@@ -2,7 +2,7 @@ import { pinModelToPinPayload } from "../converters";
 import { AsyncResult } from "../helpers/AOResult/types";
 import { IFirebaseRestService, IPinsService } from "../interfaces";
 import { IPinPayload } from "../types/api/firebase";
-import { ICredentialsModel, IPinModel, IPinModelsArray } from "../types/models";
+import { ICredentialsModel, IPinModel } from "../types/models";
 import { stringToKeywords } from "../utils";
 import { FirebaseDatabaseService } from "./FirebaseDatabaseService";
 
@@ -15,13 +15,13 @@ export class PinsService implements IPinsService {
     );
   }
 
-  public getPins = async (): AsyncResult<IPinModelsArray> =>
+  public getPins = async (): AsyncResult<Array<IPinModel>> =>
     this._restService.get<IPinModel>("pins/");
 
   filterPinsBySearchQuery = (
-    pins: IPinModelsArray,
+    pins: Array<IPinModel>,
     searchQuery: string
-  ): IPinModelsArray => {
+  ): Array<IPinModel> => {
     const keywords = stringToKeywords(searchQuery);
 
     return pins.filter((pin) => {
