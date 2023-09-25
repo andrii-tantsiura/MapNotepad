@@ -9,6 +9,6 @@ export interface IPinsService {
   ) => IPinModelsArray;
   deletePin: (pinId: string) => AsyncResult<void>;
   createPin: (pin: IPinModel) => AsyncResult<string>;
-  updatePin: (pin: IPinModel) => AsyncResult<boolean>;
-  toggleFavoritePinStatus: (pin: IPinModel) => AsyncResult<boolean>;
+  updatePin: (pin: IPinModel) => AsyncResult<void>;
+  toggleFavoritePinStatus: (pin: IPinModel) => AsyncResult<void>;
 }

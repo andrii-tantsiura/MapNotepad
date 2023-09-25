@@ -23,7 +23,6 @@ class AuthService {
     const credentials = requestResult.data
       ? {
           userId: requestResult.data.user.uid,
-          token: await requestResult.data.user.getIdToken(), // TODO: replace token usage with database
         }
       : undefined;
 
@@ -43,7 +42,6 @@ class AuthService {
     const credentials = requestResult.data
       ? {
           userId: requestResult.data.user.uid,
-          token: await requestResult.data.user.getIdToken(), // TODO: replace token usage with database
         }
       : undefined;
 

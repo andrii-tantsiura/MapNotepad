@@ -1,5 +1,4 @@
-import { MutableRefObject } from "react";
-import { LatLng, MapMarker, MapMarkerProps } from "react-native-maps";
+import { LatLng, MapMarkerProps } from "react-native-maps";
 
 import { IBaseItemModel } from "./baseItemModel";
 

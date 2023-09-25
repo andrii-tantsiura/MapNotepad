@@ -1,38 +1,23 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
+import axios from "axios";
 
-import { AOResult } from "./AOResult";
 import {
+  IFirebaseNodes,
   ResponseError,
   UnauthorizedResponseError,
 } from "../types/api/firebase";
-import { IBaseModel } from "../types/models";
+import { AOResult } from "./AOResult";
 
-interface IFirebaseModels {
-  [index: string]: IBaseModel;
-}
+export const firebaseNodesToArray = <T>(nodes: IFirebaseNodes): Array<T> => {
+  const array: T[] = [];
 
-function withFirebaseModelsToArray<T>(
-  reviver?: (key: string, value: any) => any
-) {
-  return function (response: AxiosResponse): Array<T> {
-    const models = JSON.parse(String(response), reviver) as IFirebaseModels;
-    const array: Array<T> = [];
+  for (let key in nodes) {
+    nodes[key].id = key;
 
-    for (const key in models) {
-      models[key].id = key;
+    array.push(nodes[key] as T);
+  }
 
-      array.push(models[key] as T);
-    }
-
-    return array;
-  };
-}
-
-export const createFirebaseRequestConfig = <T>(
-  reviver?: (key: string, value: any) => any
-): AxiosRequestConfig => ({
-  transformResponse: withFirebaseModelsToArray<T>(reviver),
-});
+  return array;
+};
 
 export const extractErrorMessageIfFailure = <T>(result: AOResult<T>): void => {
   if (!result.isSuccess) {

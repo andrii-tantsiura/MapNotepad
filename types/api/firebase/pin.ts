@@ -7,10 +7,6 @@ export interface IPinPayload {
   isFavorite: boolean;
 }
 
-export interface ICreatePinResponse {
-  name: string;
-}
-
 export interface IPin {
   label: string;
   description: string;

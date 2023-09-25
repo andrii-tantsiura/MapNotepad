@@ -17,7 +17,6 @@ export const useFirebaseLogin = (): UseLoginReturn => {
       if (user) {
         setCredentials({
           userId: user.uid,
-          token: await user.getIdToken(),
         });
       }
 

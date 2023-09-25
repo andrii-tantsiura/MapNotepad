@@ -8,6 +8,7 @@ import {
   SelectLocationView,
   Separator,
 } from "../../../components/sections";
+import { DEFAULT_REGION } from "../../../constants";
 import { pinFormToModel } from "../../../converters";
 import {
   useHeaderRightButton,
@@ -18,7 +19,6 @@ import {
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
 import { IPinForm } from "../../../types/forms";
 import styles from "./styles";
-import { DEFAULT_REGION } from "../../../constants";
 
 export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const { createPin } = usePins();
@@ -26,7 +26,13 @@ export const AddPinScreen: FC<HomeScreenProps> = ({ navigation }) => {
   const { userLocation } = useUserLocation();
 
   const { formController, watch, setValue, handleSubmit } =
-    useHookForm<IPinForm>();
+    useHookForm<IPinForm>({
+      defaultValues: {
+        latitude: "",
+        longitude: "",
+        description: "",
+      },
+    });
 
   const setCoordinates = ({ latitude, longitude }: LatLng) => {
     setValue("latitude", String(latitude));

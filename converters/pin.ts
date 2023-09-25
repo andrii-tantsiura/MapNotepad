@@ -1,6 +1,7 @@
+import { IPinPayload } from "../types/api/firebase";
+import { ICustomMarkerModel, IPinItemModel } from "../types/components";
 import { IPinForm } from "../types/forms";
 import { IPinModel } from "../types/models";
-import { ICustomMarkerModel, IPinItemModel } from "../types/components";
 
 export const pinFormToModel = (form: IPinForm): IPinModel => ({
   id: "",
@@ -15,6 +16,13 @@ export const pinFormToModel = (form: IPinForm): IPinModel => ({
 
 export const pinItemModelToPinModel = (model: IPinItemModel): IPinModel => ({
   id: model.key,
+  label: model.label,
+  description: model.description,
+  location: model.location,
+  isFavorite: model.isFavorite,
+});
+
+export const pinModelToPinPayload = (model: IPinModel): IPinPayload => ({
   label: model.label,
   description: model.description,
   location: model.location,
