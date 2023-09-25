@@ -2,8 +2,8 @@ import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { IPinsService } from "../interfaces";
-import AlertService from "../services/AlertService";
 import { PinsService } from "../services";
+import AlertService from "../services/AlertService";
 import {
   addPinAction,
   deletePinAction,
@@ -13,13 +13,13 @@ import {
 } from "../store/redux/actions";
 import { selectAuth, selectPins } from "../store/redux/slices";
 import { useAppDispatch } from "../store/redux/store";
-import { IPinModel, IPinModelsArray } from "../types/models";
+import { IPinModel } from "../types/models";
 
 type UsePinsReturn = {
-  pins: IPinModelsArray;
+  pins: Array<IPinModel>;
   isPinsLoading: boolean;
   fetchPins: () => void;
-  getPinsBySearchQuery: (searchQuery: string) => IPinModelsArray;
+  getPinsBySearchQuery: (searchQuery: string) => Array<IPinModel>;
   createPin: (pin: IPinModel) => Promise<boolean>;
   updatePin: (pin: IPinModel) => Promise<boolean>;
   togglePinFavoriteStatus: (pin: IPinModel) => void;
@@ -41,70 +41,66 @@ export const usePins = (): UsePinsReturn => {
   const fetchPins = async () => {
     setIsPinsLoading(true);
 
-    const getPinsResult = await pinsService.getPins();
+    const result = await pinsService.getPins();
 
     setIsPinsLoading(false);
 
-    if (getPinsResult.isSuccess && getPinsResult.data) {
-      dispatch(setPinsAction(getPinsResult.data));
+    if (result.isSuccess && result.data) {
+      dispatch(setPinsAction(result.data));
     } else {
-      AlertService.error(getPinsResult);
+      AlertService.error(result.getMessage());
     }
   };
 
-  const getPinsBySearchQuery = (searchQuery: string): IPinModelsArray =>
+  const getPinsBySearchQuery = (searchQuery: string): Array<IPinModel> =>
     pinsService.filterPinsBySearchQuery(pins, searchQuery);
 
   const createPin = async (pin: IPinModel): Promise<boolean> => {
-    const createPinResult = await pinsService.createPin(pin);
+    const result = await pinsService.createPin(pin);
 
-    if (createPinResult.isSuccess && createPinResult.data) {
+    if (result.isSuccess && result.data) {
       const newPin: IPinModel = {
         ...pin,
-        id: createPinResult.data,
+        id: result.data,
       };
 
       dispatch(addPinAction(newPin));
     } else {
-      AlertService.error(createPinResult);
+      AlertService.error(result.getMessage());
     }
 
-    return createPinResult.isSuccess;
+    return result.isSuccess;
   };
 
   const updatePin = async (pin: IPinModel) => {
-    const updatePinResult = await pinsService.updatePin(pin);
+    const result = await pinsService.updatePin(pin);
 
-    if (updatePinResult.isSuccess) {
+    if (result.isSuccess) {
       dispatch(updatePinAction(pin));
     } else {
-      AlertService.error(updatePinResult);
+      AlertService.error(result.getMessage());
     }
 
-    return updatePinResult.isSuccess;
+    return result.isSuccess;
   };
 
   const togglePinFavoriteStatus = async (pin: IPinModel) => {
-    const toggleFavoriteStatusResult =
-      await pinsService.toggleFavoritePinStatus(pin);
+    const result = await pinsService.toggleFavoritePinStatus(pin);
 
-    if (
-      toggleFavoriteStatusResult.isSuccess &&
-      toggleFavoriteStatusResult.data
-    ) {
+    if (result.isSuccess) {
       dispatch(toggleFavoritePinStatusAction(pin.id));
     } else {
-      AlertService.error(toggleFavoriteStatusResult);
+      AlertService.error(result.getMessage());
     }
   };
 
   const deletePin = async (pinId: string) => {
-    const deletePinResult = await pinsService.deletePin(pinId);
+    const result = await pinsService.deletePin(pinId);
 
-    if (deletePinResult.isSuccess) {
+    if (result.isSuccess) {
       dispatch(deletePinAction(pinId));
     } else {
-      AlertService.error(deletePinResult);
+      AlertService.error(result.getMessage());
     }
   };
 

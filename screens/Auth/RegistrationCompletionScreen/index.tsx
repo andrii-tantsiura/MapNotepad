@@ -5,12 +5,17 @@ import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { ErrorCodes } from "../../../enums";
-import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
+import { FirebaseErrorMessages } from "../../../enums";
+import {
+  PASSWORD_RULES,
+  extractErrorMessage,
+  getConfirmPasswordRules,
+} from "../../../helpers";
 import { useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
+import FirebaseErrorTranslator from "../../../services/ErrorTranslator/FirebaseErrorTranslator";
 import { ICreatePasswordForm } from "../../../types/forms";
 import styles from "./styles";
 
@@ -19,7 +24,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   route,
 }: AuthScreenProps) => {
   const [isLoading, setIsLoading] = useState(false);
-  const { saveCredentialsToStorage } = useAuth();
+  const { setCredentials } = useAuth();
 
   const { formController, watch, handleSubmit } =
     useHookForm<ICreatePasswordForm>();
@@ -35,13 +40,13 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
     setIsLoading(false);
 
     if (registerResult.isSuccess && registerResult.data) {
-      saveCredentialsToStorage(registerResult.data);
+      setCredentials(registerResult.data);
     } else {
-      const message = registerResult.getMessage();
+      const errorMessage = extractErrorMessage(registerResult);
 
-      AlertService.error(message);
+      AlertService.warning(FirebaseErrorTranslator.translate(errorMessage));
 
-      if (message === ErrorCodes.EMAIL_EXISTS) {
+      if (errorMessage === FirebaseErrorMessages.EMAIL_ALREADY_IN_USE) {
         navigation.goBack();
       }
     }

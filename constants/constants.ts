@@ -8,3 +8,5 @@ export const DEFAULT_REGION: Region = {
 };
 
 export const DISPLAYED_PINS_SEARCH_RESULTS_MAX_COUNT = 3;
+
+export const ALERT_DISPLAY_DURATION_IN_MS = 3000;

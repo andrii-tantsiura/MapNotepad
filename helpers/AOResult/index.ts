@@ -12,7 +12,7 @@ export class AOResult<T = null> {
     this.data = data;
   }
 
-  public setFailure(message: string) {
+  public setFailure(message: string | undefined) {
     this.isSuccess = false;
     this.message = message;
     this.exception = undefined;

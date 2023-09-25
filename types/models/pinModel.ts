@@ -8,5 +8,3 @@ export interface IPinModel extends IBaseModel {
   location: LatLng;
   isFavorite: boolean;
 }
-
-export interface IPinModelsArray extends Array<IPinModel> {}

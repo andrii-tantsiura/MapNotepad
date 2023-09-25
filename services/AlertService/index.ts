@@ -3,11 +3,13 @@ import {
   showMessage as showFlashMessage,
 } from "react-native-flash-message";
 
-import { FlashMessageColors } from "../../constants";
+import {
+  ALERT_DISPLAY_DURATION_IN_MS,
+  FlashMessageColors,
+} from "../../constants";
 import styles from "./styles";
-import { AOResult } from "../../helpers/AOResult";
 
-const showMessage = (message: string, type: MessageType) =>
+const showMessage = (message: string, type: MessageType, duration: number) =>
   showFlashMessage({
     style: styles.container,
     titleStyle: styles.title,
@@ -16,20 +18,31 @@ const showMessage = (message: string, type: MessageType) =>
     icon: type,
     position: "top",
     backgroundColor: FlashMessageColors[type],
+    duration: duration,
   });
 
-class Alerter {
-  info = (message: string) => showMessage(message, "info");
-  success = (message: string) => showMessage(message, "success");
-  warning = (message: string) => showMessage(message, "warning");
-  error(message: string): void;
-  error(message: AOResult<any>): void;
-  error(message?: any) {
-    const text: string =
-      message instanceof AOResult ? message.getMessage() : message;
+class AlertService {
+  public info = (
+    message: string,
+    duration: number = ALERT_DISPLAY_DURATION_IN_MS
+  ) => showMessage(message, "info", duration);
 
-    showMessage(text, "danger");
+  public success = (
+    message: string,
+    duration: number = ALERT_DISPLAY_DURATION_IN_MS
+  ) => showMessage(message, "success", duration);
+
+  public warning = (
+    message: string,
+    duration: number = ALERT_DISPLAY_DURATION_IN_MS
+  ) => showMessage(message, "warning", duration);
+
+  public error(
+    message: string,
+    duration: number = ALERT_DISPLAY_DURATION_IN_MS
+  ) {
+    showMessage(message, "danger", duration);
   }
 }
 
-export default new Alerter();
+export default new AlertService();

@@ -1,2 +1,2 @@
+export * from "./firebaseRestService";
 export * from "./pinsService";
-export * from "./storageService";

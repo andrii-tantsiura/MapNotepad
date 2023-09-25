@@ -1,11 +1,10 @@
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
-import { useEffect, useState } from "react";
 import FlashMessage from "react-native-flash-message";
 
 import { LoaderView } from "../components/sections";
 import { AppColors } from "../constants";
-import { useAuth } from "../hooks";
+import { useFirebaseLogin } from "../hooks";
 import AuthStack from "./AuthStack";
 import HomeStack from "./HomeStack";
 
@@ -22,21 +21,9 @@ type AppRoutesProps = {
 };
 
 const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
-  const [isTryingAuthenticate, setIsTryingAuthenticate] = useState(true);
+  const { isLoginInProcess, isAuthenticated } = useFirebaseLogin();
 
-  const { isAuthenticated, loginWithSavedCredentials } = useAuth();
-
-  useEffect(() => {
-    async function tryAuthenticate() {
-      await loginWithSavedCredentials();
-
-      setIsTryingAuthenticate(false);
-    }
-
-    tryAuthenticate();
-  }, []);
-
-  return isTryingAuthenticate ? (
+  return isLoginInProcess ? (
     <LoaderView />
   ) : (
     <>
