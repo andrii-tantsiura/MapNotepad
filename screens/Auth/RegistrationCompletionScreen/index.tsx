@@ -5,12 +5,17 @@ import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { FirebaseErrorCodes } from "../../../enums";
-import { PASSWORD_RULES, getConfirmPasswordRules } from "../../../helpers";
+import { FirebaseErrorMessages } from "../../../enums";
+import {
+  PASSWORD_RULES,
+  extractErrorMessage,
+  getConfirmPasswordRules,
+} from "../../../helpers";
 import { useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
+import FirebaseErrorTranslator from "../../../services/ErrorTranslator/FirebaseErrorTranslator";
 import { ICreatePasswordForm } from "../../../types/forms";
 import styles from "./styles";
 
@@ -37,11 +42,11 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
     if (registerResult.isSuccess && registerResult.data) {
       setCredentials(registerResult.data);
     } else {
-      const message = registerResult.getMessage();
+      const errorMessage = extractErrorMessage(registerResult);
 
-      AlertService.error(message);
+      AlertService.warning(FirebaseErrorTranslator.translate(errorMessage));
 
-      if (message === FirebaseErrorCodes.EMAIL_ALREADY_IN_USE) {
+      if (errorMessage === FirebaseErrorMessages.EMAIL_ALREADY_IN_USE) {
         navigation.goBack();
       }
     }

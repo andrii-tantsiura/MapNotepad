@@ -4,7 +4,7 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { FirebaseAuth } from "../../FirebaseConfig";
-import { extractErrorMessageIfFailure } from "../../helpers";
+import { ErrorMessages } from "../../enums";
 import { ExecuteAsync } from "../../helpers/AOResult";
 import { AsyncResult } from "../../helpers/AOResult/types";
 import { ICredentialsModel } from "../../types/models";
@@ -18,15 +18,9 @@ class AuthService {
       createUserWithEmailAndPassword(FirebaseAuth, email, password)
     );
 
-    extractErrorMessageIfFailure(requestResult);
-
-    const credentials = requestResult.data
-      ? {
-          userId: requestResult.data.user.uid,
-        }
-      : undefined;
-
-    return requestResult.convertTo<ICredentialsModel>(credentials);
+    return requestResult.convertTo<ICredentialsModel>({
+      userId: requestResult.data?.user.uid ?? ErrorMessages.UNDEFINED_USER_ID,
+    });
   };
 
   public loginWithEmail = async (
@@ -37,15 +31,9 @@ class AuthService {
       signInWithEmailAndPassword(FirebaseAuth, email, password)
     );
 
-    extractErrorMessageIfFailure(requestResult);
-
-    const credentials = requestResult.data
-      ? {
-          userId: requestResult.data.user.uid,
-        }
-      : undefined;
-
-    return requestResult.convertTo<ICredentialsModel>(credentials);
+    return requestResult.convertTo<ICredentialsModel>({
+      userId: requestResult.data?.user.uid ?? ErrorMessages.UNDEFINED_USER_ID,
+    });
   };
 }
 

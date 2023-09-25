@@ -8,6 +8,8 @@ import { LatLng } from "react-native-maps";
 import { useSelector } from "react-redux";
 
 import { ErrorMessages } from "../enums";
+import { ExecuteAsync } from "../helpers/AOResult";
+import AlertService from "../services/AlertService";
 import { selectUserLocation } from "../store/redux/slices";
 
 const requestLocationPermissions = async (): Promise<void> => {
@@ -42,13 +44,14 @@ export const useUserLocation = (
   const [userLocation, setUserLocation] = useState<LatLng | null>(location);
 
   const requestUserLocation = useCallback(async () => {
-    try {
-      await requestLocationPermissions();
+    const permissionResult = await ExecuteAsync(requestLocationPermissions);
+
+    if (permissionResult.isSuccess) {
       const location = await getCurrentLocation();
 
       setUserLocation(location);
-    } catch (error) {
-      setUserLocation(null);
+    } else {
+      AlertService.info(permissionResult.getMessage());
     }
   }, [setUserLocation]);
 

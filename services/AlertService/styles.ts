@@ -8,10 +8,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderBottomLeftRadius: 12,
     borderBottomRightRadius: 12,
+    paddingTop: 32,
+    paddingBottom: 16,
   },
   title: {
     textAlign: "center",
-    fontSize: FontSizes.i12,
+    fontSize: FontSizes.i14,
     fontFamily: FontWeights.medium,
     color: AppColors.systemWhite,
   },

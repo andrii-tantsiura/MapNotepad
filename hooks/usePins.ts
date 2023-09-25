@@ -48,7 +48,7 @@ export const usePins = (): UsePinsReturn => {
     if (result.isSuccess && result.data) {
       dispatch(setPinsAction(result.data));
     } else {
-      AlertService.error(result);
+      AlertService.error(result.getMessage());
     }
   };
 
@@ -66,7 +66,7 @@ export const usePins = (): UsePinsReturn => {
 
       dispatch(addPinAction(newPin));
     } else {
-      AlertService.error(result);
+      AlertService.error(result.getMessage());
     }
 
     return result.isSuccess;
@@ -78,7 +78,7 @@ export const usePins = (): UsePinsReturn => {
     if (result.isSuccess) {
       dispatch(updatePinAction(pin));
     } else {
-      AlertService.error(result);
+      AlertService.error(result.getMessage());
     }
 
     return result.isSuccess;
@@ -90,7 +90,7 @@ export const usePins = (): UsePinsReturn => {
     if (result.isSuccess) {
       dispatch(toggleFavoritePinStatusAction(pin.id));
     } else {
-      AlertService.error(result);
+      AlertService.error(result.getMessage());
     }
   };
 
@@ -100,7 +100,7 @@ export const usePins = (): UsePinsReturn => {
     if (result.isSuccess) {
       dispatch(deletePinAction(pinId));
     } else {
-      AlertService.error(result);
+      AlertService.error(result.getMessage());
     }
   };
 

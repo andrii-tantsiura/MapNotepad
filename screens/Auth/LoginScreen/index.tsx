@@ -5,11 +5,16 @@ import { GOOGLE_ICON } from "../../../assets/icons";
 import { CustomButton, InformativeTextInput } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { EMAIL_RULES, PASSWORD_RULES } from "../../../helpers";
+import {
+  EMAIL_RULES,
+  PASSWORD_RULES,
+  extractErrorMessage,
+} from "../../../helpers";
 import { useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
+import FirebaseErrorTranslator from "../../../services/ErrorTranslator/FirebaseErrorTranslator";
 import { ILoginForm } from "../../../types/forms";
 import styles from "./styles";
 
@@ -32,7 +37,9 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
     if (loginResult.isSuccess && loginResult.data) {
       setCredentials(loginResult.data);
     } else {
-      AlertService.error(loginResult.getMessage());
+      const error = extractErrorMessage(loginResult);
+
+      AlertService.error(FirebaseErrorTranslator.translate(error));
     }
 
     setIsLoading(false);
