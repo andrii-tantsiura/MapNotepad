@@ -2,7 +2,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import { HeaderBackImage, HeaderTitle } from "../../components/sections";
 import { AppColors } from "../../constants";
-import { AddPinScreen, EditPinScreen } from "../../screens/Home";
+import {
+  AddPinScreen,
+  EditPinScreen,
+  SettingsScreen,
+} from "../../screens/Home";
 import TabsStack from "../TabStack";
 import { HomeStackParamList } from "./types";
 
@@ -44,6 +48,8 @@ const HomeStack: React.FC = () => (
         title: "Edit pin",
       }}
     />
+
+    <Stack.Screen name="Settings" component={SettingsScreen} />
   </Stack.Navigator>
 );
 

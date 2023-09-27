@@ -23,11 +23,13 @@ import styles from "./styles";
 
 interface ISearchBarProps {
   style?: ViewStyle;
+  onLeftButtonPress?: () => void;
   onRightButtonPress?: () => void;
 }
 
 export const SearchBar: FC<ISearchBarProps> = ({
   style,
+  onLeftButtonPress,
   onRightButtonPress,
 }) => {
   const dispatch = useAppDispatch();
@@ -67,7 +69,10 @@ export const SearchBar: FC<ISearchBarProps> = ({
             onPress={stopSearchHandler}
           />
         ) : (
-          <CustomButton imageSource={SETTINGS_ICON} />
+          <CustomButton
+            imageSource={SETTINGS_ICON}
+            onPress={onLeftButtonPress}
+          />
         )}
 
         <View style={styles.inputContainer}>

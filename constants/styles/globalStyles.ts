@@ -18,6 +18,13 @@ export const ShadowStyles = StyleSheet.create({
     shadowOpacity: 0.6,
     shadowRadius: 4,
   },
+  shadow_i3: {
+    elevation: 5,
+    shadowColor: AppColors.systemBlack,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+  },
 });
 
 export const ContainerStyles = StyleSheet.create({

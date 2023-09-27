@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { ListRenderItemInfo, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
@@ -17,7 +16,7 @@ import {
 } from "../../../converters";
 import { hideActionMenu } from "../../../helpers";
 import { usePins } from "../../../hooks";
-import { HomeStackParamList } from "../../../navigation/HomeStack/types";
+import { HomeScreenNavigationProp } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { stopSearchAction } from "../../../store/redux/actions";
 import { selectSearch } from "../../../store/redux/slices";
@@ -30,11 +29,6 @@ import {
 } from "./components/PinActionMenu";
 import { PinItem } from "./components/PinItem";
 import styles from "./styles";
-
-type HomeScreenNavigationProp = StackNavigationProp<
-  HomeStackParamList,
-  "AddPin"
->;
 
 export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
