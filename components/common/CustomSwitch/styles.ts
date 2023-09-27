@@ -2,27 +2,21 @@ import { StyleSheet } from "react-native";
 
 import { AppColors } from "../../../constants";
 import { ShadowStyles } from "../../../constants/styles";
-import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
-  track: {
-    height: scaleSize(22),
-    width: scaleSize(36),
-    padding: scaleSize(1),
-    borderRadius: 13,
+  container: {
+    width: 36,
+    height: 22,
+    borderRadius: 30,
     backgroundColor: AppColors.systemLightGray,
+    justifyContent: "center",
   },
-
-  thumb: {
-    height: scaleSize(20),
-    width: scaleSize(20),
-    borderRadius: 50,
+  circle: {
+    height: 20,
+    width: 20,
+    borderRadius: 30,
     backgroundColor: AppColors.systemWhite,
     ...ShadowStyles.shadow_i3,
-  },
-  thumbToggled: {
-    alignSelf: "flex-end",
-    backgroundColor: AppColors.lightPrimary,
   },
 });
 

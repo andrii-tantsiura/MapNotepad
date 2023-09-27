@@ -18,7 +18,7 @@ export const SettingsScreen: FC<HomeScreenProps> = () => {
         <Typography style={styles.optionTitle}>Dark theme</Typography>
 
         <CustomSwitch
-          value={isDarkThemeSelected}
+          isActive={isDarkThemeSelected}
           onValueChanged={setIsDarkThemeSelected}
         />
       </View>
