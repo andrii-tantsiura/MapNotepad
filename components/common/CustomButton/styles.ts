@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   disabled: {
-    backgroundColor: AppColors.lightDisabled,
+    backgroundColor: AppColors.disabled,
   },
 });
 

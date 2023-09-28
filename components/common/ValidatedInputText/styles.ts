@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors } from "../../../constants";
+import { AppColors, AppPalette } from "../../../constants";
 import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     borderWidth: 1,
     borderRadius: 2,
-    borderColor: AppColors.systemLightGray,
+    borderColor: AppPalette.systemLightGray,
   },
   input: {
     flex: 1,
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     borderColor: AppColors.systemGray,
   },
   errorInputContainer: {
-    borderColor: AppColors.lightError,
+    borderColor: AppColors.error,
   },
 });
 

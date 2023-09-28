@@ -10,7 +10,7 @@ interface ILoaderView {
 
 export const LoaderView: React.FC<ILoaderView> = ({
   message = "Loading...",
-  spinnerColor = AppColors.darkPrimary,
+  spinnerColor = AppColors.primary,
 }) => (
   <View style={styles.container}>
     <Text style={styles.message}>{message}</Text>

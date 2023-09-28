@@ -6,7 +6,7 @@ import { scaleSize } from "../../../../../utils";
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 16,
-    backgroundColor: AppColors.systemWhite,
+    backgroundColor: AppColors.background,
   },
   content: {
     paddingVertical: 21,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     height: scaleSize(40),
     width: scaleSize(40),
     borderRadius: 6,
-    backgroundColor: AppColors.lightVariant,
+    backgroundColor: AppColors.variant,
   },
 });
 

@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 1,
     width: "100%",
-    backgroundColor: AppColors.systemWhite,
+    backgroundColor: AppColors.background,
   },
   pinItem: {
     flexDirection: "row",

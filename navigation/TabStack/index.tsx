@@ -46,7 +46,8 @@ const TabsStack: React.FC = () => {
       <Tabs.Navigator
         initialRouteName="Map"
         screenOptions={{
-          tabBarActiveBackgroundColor: AppColors.lightVariant,
+          tabBarActiveBackgroundColor: AppColors.variant,
+          tabBarInactiveBackgroundColor: AppColors.background,
           tabBarLabelPosition: "beside-icon",
           tabBarLabelStyle: typographyStyleToTextStyle(textStyle_i3),
           header: () => (

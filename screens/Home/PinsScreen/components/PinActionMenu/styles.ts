@@ -12,12 +12,12 @@ const styles = StyleSheet.create({
   hiddenDeleteButton: {
     paddingVertical: scaleSize(24),
     paddingHorizontal: scaleSize(16),
-    backgroundColor: AppColors.lightError,
+    backgroundColor: AppColors.error,
   },
   hiddenEditButton: {
     paddingVertical: scaleSize(24),
     paddingHorizontal: scaleSize(16),
-    backgroundColor: AppColors.lightPrimary,
+    backgroundColor: AppColors.primary,
   },
 });
 

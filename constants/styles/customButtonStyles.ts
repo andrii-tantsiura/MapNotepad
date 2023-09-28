@@ -26,7 +26,7 @@ const roundButtonStyle: ViewStyle = {
   width: scaleSize(46),
   height: scaleSize(46),
   borderRadius: 30,
-  backgroundColor: AppColors.systemWhite,
+  backgroundColor: AppColors.background,
   ...ShadowStyles.shadow_i2,
 };
 
@@ -35,21 +35,21 @@ const baseButtonStyle: ViewStyle = {
   borderWidth: 1,
   borderRadius: 4,
   borderColor: "transparent",
-  backgroundColor: AppColors.systemWhite,
+  backgroundColor: AppColors.background,
 };
 
 export const CustomButtonStyles: CustomButtonStyles = {
   rectSolid_i1: {
     containerStyle: {
       ...baseButtonStyle,
-      backgroundColor: AppColors.lightPrimary,
+      backgroundColor: AppColors.primary,
     },
     textStyle: textStyle_i4,
   },
   rectOutline_i1: {
     containerStyle: {
       ...baseButtonStyle,
-      borderColor: AppColors.lightPrimary,
+      borderColor: AppColors.primary,
     },
     textStyle: textStyle_i5,
   },
@@ -70,7 +70,7 @@ export const CustomButtonStyles: CustomButtonStyles = {
     containerStyle: {
       ...floatingButtonStyle,
       ...roundButtonStyle,
-      backgroundColor: AppColors.lightPrimary,
+      backgroundColor: AppColors.primary,
     },
   },
 };

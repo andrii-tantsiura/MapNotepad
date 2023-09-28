@@ -19,7 +19,7 @@ const HomeStack: React.FC = () => (
       headerShadowVisible: false,
       headerTitleAlign: "center",
       headerStyle: {
-        backgroundColor: AppColors.systemWhite,
+        backgroundColor: AppColors.background,
       },
       headerTitle: HeaderTitle,
       headerBackImage: HeaderBackImage,

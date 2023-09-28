@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
   line: {
     flex: 1,
     height: 1,
-    backgroundColor: AppColors.systemLightGray,
+    backgroundColor: AppColors.variant,
   },
 });
 

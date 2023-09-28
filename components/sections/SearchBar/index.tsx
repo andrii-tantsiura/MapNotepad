@@ -8,7 +8,7 @@ import {
   LEFT_BLUE_ICON,
   SETTINGS_ICON,
 } from "../../../assets/icons";
-import { ImageStyles, textStyle_i13 } from "../../../constants";
+import { AppPalette, ImageStyles, textStyle_i13 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
 import {
   setSearchQueryAction,
@@ -80,6 +80,7 @@ export const SearchBar: FC<ISearchBarProps> = ({
             ref={textInputRef}
             style={[styles.input, typographyStyleToTextStyle(textStyle_i13)]}
             placeholder="Search"
+            placeholderTextColor={AppPalette.systemGray}
             value={searchQuery}
             onFocus={focusHandler}
             onChangeText={pinsSearchQueryChangeHandler}

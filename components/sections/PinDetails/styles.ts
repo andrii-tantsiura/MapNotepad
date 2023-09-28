@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     paddingTop: scaleSize(16),
     paddingBottom: scaleSize(24),
     rowGap: scaleSize(16),
-    backgroundColor: AppColors.systemWhite,
+    backgroundColor: AppColors.background,
   },
   header: { rowGap: 4 },
 });

@@ -9,7 +9,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { AppColors } from "../../../constants";
+import { AppColors, AppPalette } from "../../../constants";
 import styles from "./styles";
 
 interface ICustomSwitchProps {
@@ -28,8 +28,8 @@ const activeCirclePosition =
 
 export const CustomSwitch: FC<ICustomSwitchProps> = ({
   isActive = false,
-  inactiveColor = AppColors.systemLightGray,
-  activeColor = AppColors.lightPrimary,
+  inactiveColor = AppPalette.systemLightGray,
+  activeColor = AppColors.primary,
   onValueChanged = () => {},
 }) => {
   const progress = useDerivedValue(() =>

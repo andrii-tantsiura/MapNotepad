@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: FontSizes.i14,
     fontFamily: FontWeights.medium,
-    color: AppColors.systemWhite,
+    color: AppColors.background,
   },
 });
 

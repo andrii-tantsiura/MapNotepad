@@ -13,10 +13,10 @@ const styles = StyleSheet.create({
     paddingVertical: scaleSize(16),
     paddingHorizontal: scaleSize(20),
     rowGap: scaleSize(8),
-    backgroundColor: AppColors.systemWhite,
+    backgroundColor: AppColors.background,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: AppColors.systemLightGray,
+    borderColor: AppColors.background,
     ...ShadowStyles.shadow_i1,
   },
   buttonsContainer: {

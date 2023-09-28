@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors } from "../../../constants";
+import { AppColors, AppPalette } from "../../../constants";
 import { ShadowStyles } from "../../../constants/styles";
 
 const styles = StyleSheet.create({
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     width: 36,
     height: 22,
     borderRadius: 30,
-    backgroundColor: AppColors.systemLightGray,
+    backgroundColor: AppPalette.systemLightGray,
     justifyContent: "center",
   },
   circle: {

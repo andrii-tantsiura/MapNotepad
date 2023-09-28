@@ -81,8 +81,8 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         const textInputProps: TextInputProps = {
           ...restProps,
           style: textStyles,
-          cursorColor: AppColors.lightPrimary,
-          selectionColor: AppColors.lightPrimary,
+          cursorColor: AppColors.primary,
+          selectionColor: AppColors.primary,
           placeholderTextColor: placeholderTextColor,
           secureTextEntry: isTextHidden,
           value: value,

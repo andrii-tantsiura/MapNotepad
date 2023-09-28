@@ -1,4 +1,4 @@
-export interface IAppColors {
+export interface IAppPalette {
   lightPrimary: string;
   lightDisabled: string;
   lightHoveredFocused: string;
@@ -25,6 +25,25 @@ export interface IAppColors {
   info: string;
 }
 
+export interface IAppColors {
+  primary: string;
+  background: string;
+  disabled: string;
+  pressed: string;
+  variant: string;
+  systemWhite: string;
+  systemLightGray: string;
+  systemDarkGray80: string;
+  systemGray: string;
+  systemDarkGray: string;
+  systemBlack: string;
+  error: string;
+  confirm: string;
+  success: string;
+  warning: string;
+  info: string;
+}
+
 interface IFlashMessageColors {
   info: string;
   success: string;
@@ -34,7 +53,7 @@ interface IFlashMessageColors {
   default: string;
 }
 
-export const AppColors: IAppColors = {
+export const AppPalette: IAppPalette = {
   lightPrimary: "#596EFB",
   lightDisabled: "#C7CDF5",
   lightHoveredFocused: "#273BC6",
@@ -61,11 +80,51 @@ export const AppColors: IAppColors = {
   info: "#4ea2e1",
 };
 
+export const LightAppColors: IAppColors = {
+  primary: AppPalette.lightPrimary,
+  background: AppPalette.systemWhite,
+  disabled: AppPalette.lightDisabled,
+  pressed: AppPalette.lightPressed,
+  variant: AppPalette.lightVariant,
+  systemWhite: AppPalette.systemWhite,
+  systemLightGray: AppPalette.systemDarkGray,
+  systemGray: AppPalette.systemGray,
+  systemDarkGray: AppPalette.systemDarkGray,
+  systemDarkGray80: AppPalette.systemDarkGray80,
+  systemBlack: AppPalette.systemBlack,
+  error: AppPalette.lightError,
+  confirm: AppPalette.lightConfirm,
+  success: AppPalette.lightSuccess,
+  warning: AppPalette.warning,
+  info: AppPalette.info,
+};
+
+export const DarkAppColors: IAppColors = {
+  primary: AppPalette.darkPrimary,
+  background: AppPalette.systemBlack,
+  disabled: AppPalette.darkDisabled,
+  pressed: AppPalette.darkPressed,
+  variant: AppPalette.darkVariant,
+  systemWhite: AppPalette.systemWhite,
+  systemLightGray: AppPalette.systemDarkGray,
+  systemGray: AppPalette.systemGray,
+  systemDarkGray: AppPalette.systemDarkGray,
+  systemDarkGray80: AppPalette.systemDarkGray80,
+  systemBlack: AppPalette.systemBlack,
+  error: AppPalette.darkError,
+  confirm: AppPalette.darkConfirm,
+  success: AppPalette.darkSuccess,
+  warning: AppPalette.warning,
+  info: AppPalette.info,
+};
+
+export const AppColors: IAppColors = LightAppColors;
+
 export const FlashMessageColors: IFlashMessageColors = {
   info: AppColors.info,
-  success: AppColors.lightSuccess,
+  success: AppColors.success,
   warning: AppColors.warning,
-  danger: AppColors.lightError,
-  none: AppColors.darkDisabled,
-  default: AppColors.darkDisabled,
+  danger: AppColors.error,
+  none: AppColors.warning,
+  default: AppColors.warning,
 };
