@@ -1,4 +1,8 @@
-import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
+import {
+  DefaultTheme,
+  NavigationContainer,
+  Theme,
+} from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import FlashMessage from "react-native-flash-message";
 
@@ -8,7 +12,7 @@ import { useFirebaseLogin } from "../hooks";
 import AuthStack from "./AuthStack";
 import HomeStack from "./HomeStack";
 
-const THEME = {
+const THEME: Theme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
