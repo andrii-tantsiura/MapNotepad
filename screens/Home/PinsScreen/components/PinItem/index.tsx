@@ -14,6 +14,7 @@ import {
   textStyle_i9,
 } from "../../../../../constants";
 import { formatCoordinate } from "../../../../../helpers";
+import { useAppTheme } from "../../../../../hooks";
 import { IPinItemModel } from "../../../../../types/components";
 import styles from "./styles";
 
@@ -26,15 +27,22 @@ interface IPinItemProps {
 export const PinItem: FC<IPinItemProps> = React.memo(
   ({ pin, onPress, onPressFavoriteStatus }) => {
     const favoriteStatusIcon = pin.isFavorite ? LIKE_BLUE_ICON : LIKE_GRAY_ICON;
+    const { appColors } = useAppTheme();
 
     const changeFavoriteStatusHandler = () => onPressFavoriteStatus(pin);
 
     return (
-      <Pressable style={styles.container} onPress={() => onPress(pin)}>
+      <Pressable
+        style={[styles.container, { backgroundColor: appColors.background }]}
+        onPress={() => onPress(pin)}
+      >
         <View style={styles.content}>
           <View style={styles.infoContainer}>
             <CustomButton
-              containerStyle={styles.likeButton}
+              containerStyle={[
+                styles.likeButton,
+                { backgroundColor: appColors.variant },
+              ]}
               imageSource={favoriteStatusIcon}
               onPress={changeFavoriteStatusHandler}
             />

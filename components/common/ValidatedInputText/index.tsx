@@ -16,8 +16,9 @@ import {
 } from "react-native";
 
 import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
-import { AppColors, ImageStyles, textStyle_i9 } from "../../../constants";
+import { AppPalette, ImageStyles, textStyle_i9 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
+import { useAppTheme } from "../../../hooks";
 import { CustomButton } from "../CustomButton";
 import { ITypographyStyle } from "../Typography/types";
 import styles from "./styles";
@@ -44,11 +45,12 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   style,
   textInputStyle,
   textStyle = textStyle_i9,
-  placeholderTextColor = AppColors.systemGray,
+  placeholderTextColor = AppPalette.systemGray,
   onFocus,
   secureTextEntry,
   ...restProps
 }) => {
+  const { appColors } = useAppTheme();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isTextHidden, setIsTextHidden] = useState(secureTextEntry);
 
@@ -57,7 +59,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   const textStyles = [
     styles.input,
     textInputStyle,
-    typographyStyleToTextStyle(textStyle),
+    typographyStyleToTextStyle(textStyle, appColors),
   ];
 
   const toggleIsTextHidden = () => {
@@ -81,8 +83,8 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         const textInputProps: TextInputProps = {
           ...restProps,
           style: textStyles,
-          cursorColor: AppColors.primary,
-          selectionColor: AppColors.primary,
+          cursorColor: appColors.primary,
+          selectionColor: appColors.primary,
           placeholderTextColor: placeholderTextColor,
           secureTextEntry: isTextHidden,
           value: value,
@@ -100,7 +102,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         const containerStyle = [
           styles.inputContainer,
           style,
-          (Boolean(error) && styles.errorInputContainer) ||
+          (Boolean(error) && { backgroundColor: appColors.error }) ||
             (isFocused && styles.focusedInputContainer),
         ];
 

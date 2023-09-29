@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors, FontSizes, FontWeights } from "../../constants";
+import { AppPalette, FontSizes, FontWeights } from "../../constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: FontSizes.i14,
     fontFamily: FontWeights.medium,
-    color: AppColors.background,
+    color: AppPalette.systemWhite,
   },
 });
 

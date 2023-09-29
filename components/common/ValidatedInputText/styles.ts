@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors, AppPalette } from "../../../constants";
+import { AppPalette } from "../../../constants";
 import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
@@ -26,10 +26,7 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   focusedInputContainer: {
-    borderColor: AppColors.systemGray,
-  },
-  errorInputContainer: {
-    borderColor: AppColors.error,
+    borderColor: AppPalette.systemGray,
   },
 });
 

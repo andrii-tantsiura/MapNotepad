@@ -6,9 +6,9 @@ import { Image } from "react-native";
 import { MAP_ICON, PIN_ICON } from "../../assets/icons";
 import { ConfirmModal } from "../../components/modals";
 import { SearchBar } from "../../components/sections";
-import { AppColors, ImageStyles, textStyle_i3 } from "../../constants";
+import { ImageStyles, textStyle_i3 } from "../../constants";
 import { typographyStyleToTextStyle } from "../../helpers";
-import { useAuth, usePins } from "../../hooks";
+import { useAppTheme, useAuth, usePins } from "../../hooks";
 import { MapScreen, PinsScreen } from "../../screens/Home";
 import { HomeScreenNavigationProp } from "../HomeStack/types";
 import styles from "./styles";
@@ -18,6 +18,7 @@ const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 const TabsStack: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
+  const { appColors } = useAppTheme();
 
   const { signOut } = useAuth();
   const { fetchPins } = usePins();
@@ -46,10 +47,9 @@ const TabsStack: React.FC = () => {
       <Tabs.Navigator
         initialRouteName="Map"
         screenOptions={{
-          tabBarActiveBackgroundColor: AppColors.variant,
-          tabBarInactiveBackgroundColor: AppColors.background,
+          tabBarActiveBackgroundColor: appColors.variant,
           tabBarLabelPosition: "beside-icon",
-          tabBarLabelStyle: typographyStyleToTextStyle(textStyle_i3),
+          tabBarLabelStyle: typographyStyleToTextStyle(textStyle_i3, appColors),
           header: () => (
             <SearchBar
               style={styles.searchBarContainer}

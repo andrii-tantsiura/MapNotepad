@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors, AppPalette } from "../../../constants";
+import { AppPalette } from "../../../constants";
 import { ShadowStyles } from "../../../constants/styles";
 
 const styles = StyleSheet.create({
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     height: 20,
     width: 20,
     borderRadius: 30,
-    backgroundColor: AppColors.systemWhite,
+    backgroundColor: AppPalette.systemWhite,
     ...ShadowStyles.shadow_i3,
   },
 });

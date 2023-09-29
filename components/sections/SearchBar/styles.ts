@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors } from "../../../constants";
 import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
@@ -24,8 +23,6 @@ const styles = StyleSheet.create({
     paddingRight: 8,
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: AppColors.variant,
-    backgroundColor: AppColors.variant,
   },
 });
 export default styles;

@@ -2,7 +2,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useLayoutEffect } from "react";
 import { ImageProps } from "react-native";
 
-import { CustomButton } from "../components/common";
+import { CustomButton } from "../components/common/CustomButton";
 import { HomeStackParamList } from "../navigation/HomeStack/types";
 import { scaleSize } from "../utils";
 

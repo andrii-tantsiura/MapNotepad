@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { HeaderBackImage, HeaderTitle } from "../../components/sections";
-import { AppColors } from "../../constants";
+import { useAppTheme } from "../../hooks";
 import {
   AddPinScreen,
   EditPinScreen,
@@ -12,45 +12,49 @@ import { HomeStackParamList } from "./types";
 
 const Stack = createStackNavigator<HomeStackParamList>();
 
-const HomeStack: React.FC = () => (
-  <Stack.Navigator
-    initialRouteName="Tabs"
-    screenOptions={{
-      headerShadowVisible: false,
-      headerTitleAlign: "center",
-      headerStyle: {
-        backgroundColor: AppColors.background,
-      },
-      headerTitle: HeaderTitle,
-      headerBackImage: HeaderBackImage,
-    }}
-  >
-    <Stack.Screen
-      name="Tabs"
-      component={TabsStack}
-      options={{
-        headerShown: false,
-      }}
-    />
+const HomeStack: React.FC = () => {
+  const { appColors } = useAppTheme();
 
-    <Stack.Screen
-      name="AddPin"
-      component={AddPinScreen}
-      options={{
-        title: "Add pin",
+  return (
+    <Stack.Navigator
+      initialRouteName="Tabs"
+      screenOptions={{
+        headerShadowVisible: false,
+        headerTitleAlign: "center",
+        headerStyle: {
+          backgroundColor: appColors.background,
+        },
+        headerTitle: HeaderTitle,
+        headerBackImage: HeaderBackImage,
       }}
-    />
+    >
+      <Stack.Screen
+        name="Tabs"
+        component={TabsStack}
+        options={{
+          headerShown: false,
+        }}
+      />
 
-    <Stack.Screen
-      name="EditPin"
-      component={EditPinScreen}
-      options={{
-        title: "Edit pin",
-      }}
-    />
+      <Stack.Screen
+        name="AddPin"
+        component={AddPinScreen}
+        options={{
+          title: "Add pin",
+        }}
+      />
 
-    <Stack.Screen name="Settings" component={SettingsScreen} />
-  </Stack.Navigator>
-);
+      <Stack.Screen
+        name="EditPin"
+        component={EditPinScreen}
+        options={{
+          title: "Edit pin",
+        }}
+      />
+
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+    </Stack.Navigator>
+  );
+};
 
 export default HomeStack;

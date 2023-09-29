@@ -29,7 +29,6 @@ interface ICustomButtonProps extends CustomButtonStyle {
 export const CustomButton: React.FC<ICustomButtonProps> = ({
   children,
   imageSource,
-  disabled,
   order = "textIcon",
   style,
   containerStyle,
@@ -42,11 +41,11 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
     order === "iconText" && styles.reversed,
     style?.containerStyle,
     containerStyle,
-    disabled ? styles.disabled : pressed && styles.pressed,
+    pressed && styles.pressed,
   ];
 
   return (
-    <Pressable style={getStyle} disabled={disabled} onPress={onPress}>
+    <Pressable style={getStyle} onPress={onPress}>
       {children && (
         <Typography style={[style?.textStyle, textStyle]}>
           {children}

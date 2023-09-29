@@ -11,11 +11,7 @@ import {
 } from "../../../assets/icons";
 import { CustomButton, CustomMarker } from "../../../components/common";
 import { PinDetailsModal } from "../../../components/sections";
-import {
-  AppColors,
-  CustomButtonStyles,
-  DEFAULT_REGION,
-} from "../../../constants";
+import { CustomButtonStyles, DEFAULT_REGION } from "../../../constants";
 import {
   customMarkerModelToPinModel,
   pinItemModelToPinModel,
@@ -26,7 +22,7 @@ import {
   hideMarkerCalloutById,
   showMarkerCalloutById,
 } from "../../../helpers";
-import { usePins, useUserLocation } from "../../../hooks";
+import { useAppTheme, usePins, useUserLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { stopSearchAction } from "../../../store/redux/actions";
 import { setUserLocationAction } from "../../../store/redux/actions/userLocation.actions";
@@ -38,6 +34,7 @@ import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
+  const { appColors } = useAppTheme();
   const mapViewRef = useRef<MapView | null>(null);
 
   const dispatch = useAppDispatch();
@@ -122,8 +119,8 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         initialRegion={
           userLocation ? { ...DEFAULT_REGION, ...userLocation } : DEFAULT_REGION
         }
-        clusterColor={AppColors.primary}
-        clusterTextColor={AppColors.variant}
+        clusterColor={appColors.primary}
+        clusterTextColor={appColors.variant}
         showsUserLocation
         showsMyLocationButton={false}
         moveOnMarkerPress={false}

@@ -124,13 +124,11 @@ export const DarkAppColors: IAppColors = {
   info: AppPalette.info,
 };
 
-export const AppColors: IAppColors = LightAppColors;
-
 export const FlashMessageColors: IFlashMessageColors = {
-  info: AppColors.info,
-  success: AppColors.success,
-  warning: AppColors.warning,
-  danger: AppColors.error,
-  none: AppColors.warning,
-  default: AppColors.warning,
+  info: AppPalette.info,
+  success: AppPalette.lightSuccess,
+  warning: AppPalette.warning,
+  danger: AppPalette.lightError,
+  none: AppPalette.warning,
+  default: AppPalette.warning,
 };

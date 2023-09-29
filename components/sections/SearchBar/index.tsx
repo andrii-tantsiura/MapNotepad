@@ -10,6 +10,7 @@ import {
 } from "../../../assets/icons";
 import { AppPalette, ImageStyles, textStyle_i13 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
+import { useAppTheme } from "../../../hooks";
 import {
   setSearchQueryAction,
   startSearchAction,
@@ -32,6 +33,8 @@ export const SearchBar: FC<ISearchBarProps> = ({
   onLeftButtonPress,
   onRightButtonPress,
 }) => {
+  const { appColors } = useAppTheme();
+
   const dispatch = useAppDispatch();
   const { isActive, searchQuery } = useSelector(selectSearch);
   const textInputRef = useRef<TextInput | null>(null);
@@ -75,10 +78,21 @@ export const SearchBar: FC<ISearchBarProps> = ({
           />
         )}
 
-        <View style={styles.inputContainer}>
+        <View
+          style={[
+            styles.inputContainer,
+            {
+              backgroundColor: appColors.variant,
+              borderColor: appColors.variant,
+            },
+          ]}
+        >
           <TextInput
             ref={textInputRef}
-            style={[styles.input, typographyStyleToTextStyle(textStyle_i13)]}
+            style={[
+              styles.input,
+              typographyStyleToTextStyle(textStyle_i13, appColors),
+            ]}
             placeholder="Search"
             placeholderTextColor={AppPalette.systemGray}
             value={searchQuery}

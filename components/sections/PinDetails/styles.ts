@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors } from "../../../constants";
 import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
@@ -19,7 +18,6 @@ const styles = StyleSheet.create({
     paddingTop: scaleSize(16),
     paddingBottom: scaleSize(24),
     rowGap: scaleSize(16),
-    backgroundColor: AppColors.background,
   },
   header: { rowGap: 4 },
 });

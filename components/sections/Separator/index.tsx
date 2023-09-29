@@ -2,6 +2,7 @@ import React from "react";
 import { View } from "react-native";
 
 import { textStyle_i8 } from "../../../constants";
+import { useAppTheme } from "../../../hooks";
 import { Typography } from "../../common";
 import styles from "./styles";
 
@@ -9,14 +10,18 @@ interface ISeparatorProps {
   children?: React.ReactNode;
 }
 
-export const Separator: React.FC<ISeparatorProps> = ({ children }) => (
-  <View style={styles.container}>
-    <View style={styles.line} />
+export const Separator: React.FC<ISeparatorProps> = ({ children }) => {
+  const { appColors } = useAppTheme();
 
-    {children && (
-      <Typography style={[textStyle_i8, styles.text]}>{children}</Typography>
-    )}
+  return (
+    <View style={styles.container}>
+      <View style={[styles.line, { backgroundColor: appColors.variant }]} />
 
-    <View style={styles.line} />
-  </View>
-);
+      {children && (
+        <Typography style={[textStyle_i8, styles.text]}>{children}</Typography>
+      )}
+
+      <View style={[styles.line, { backgroundColor: appColors.variant }]} />
+    </View>
+  );
+};

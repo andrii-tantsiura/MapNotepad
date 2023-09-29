@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors } from "../../../../../constants";
+import { AppPalette } from "../../../../../constants";
 import { scaleSize } from "../../../../../utils";
 
 const styles = StyleSheet.create({
@@ -12,12 +12,12 @@ const styles = StyleSheet.create({
   hiddenDeleteButton: {
     paddingVertical: scaleSize(24),
     paddingHorizontal: scaleSize(16),
-    backgroundColor: AppColors.error,
+    backgroundColor: AppPalette.lightError,
   },
   hiddenEditButton: {
     paddingVertical: scaleSize(24),
     paddingHorizontal: scaleSize(16),
-    backgroundColor: AppColors.primary,
+    backgroundColor: AppPalette.lightPrimary,
   },
 });
 

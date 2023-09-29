@@ -2,7 +2,7 @@ import { ViewStyle } from "react-native";
 
 import { CustomButtonStyle } from "../../components/common";
 import { scaleSize } from "../../utils";
-import { AppColors } from "../colors";
+import { AppPalette } from "../colors";
 import { ShadowStyles } from "./globalStyles";
 import { textStyle_i4, textStyle_i5 } from "./typographyStyles";
 
@@ -26,7 +26,7 @@ const roundButtonStyle: ViewStyle = {
   width: scaleSize(46),
   height: scaleSize(46),
   borderRadius: 30,
-  backgroundColor: AppColors.background,
+  backgroundColor: AppPalette.systemWhite,
   ...ShadowStyles.shadow_i2,
 };
 
@@ -35,28 +35,28 @@ const baseButtonStyle: ViewStyle = {
   borderWidth: 1,
   borderRadius: 4,
   borderColor: "transparent",
-  backgroundColor: AppColors.background,
+  backgroundColor: AppPalette.systemWhite,
 };
 
 export const CustomButtonStyles: CustomButtonStyles = {
   rectSolid_i1: {
     containerStyle: {
       ...baseButtonStyle,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppPalette.lightPrimary,
     },
     textStyle: textStyle_i4,
   },
   rectOutline_i1: {
     containerStyle: {
       ...baseButtonStyle,
-      borderColor: AppColors.primary,
+      borderColor: AppPalette.lightPrimary,
     },
     textStyle: textStyle_i5,
   },
   rectOutline_i2: {
     containerStyle: {
       ...baseButtonStyle,
-      borderColor: AppColors.systemLightGray,
+      borderColor: AppPalette.systemLightGray,
     },
     textStyle: textStyle_i5,
   },
@@ -70,7 +70,7 @@ export const CustomButtonStyles: CustomButtonStyles = {
     containerStyle: {
       ...floatingButtonStyle,
       ...roundButtonStyle,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppPalette.lightPrimary,
     },
   },
 };
