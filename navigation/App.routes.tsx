@@ -27,20 +27,13 @@ const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
   const [theme, setTheme] = useState<Theme>();
 
   useEffect(() => {
-    const isLightTheme = appTheme === AppThemes.Light;
-
     setTheme({
       ...DefaultTheme,
       colors: {
         ...DefaultTheme.colors,
-        card: isLightTheme
-          ? LightAppColors.background
-          : DarkAppColors.background,
-        notification: "red",
+        card: AppColors.background,
         text: AppColors.systemGray,
-        background: isLightTheme
-          ? LightAppColors.systemWhite
-          : DarkAppColors.systemBlack,
+        background: AppColors.background,
       },
     });
   }, [appTheme]);

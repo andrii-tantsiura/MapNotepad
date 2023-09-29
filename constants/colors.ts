@@ -26,6 +26,8 @@ export interface IAppPalette {
 }
 
 export interface IAppColors {
+  primaryText: string;
+  secondaryText: string;
   primary: string;
   background: string;
   disabled: string;
@@ -82,6 +84,8 @@ export const AppPalette: IAppPalette = {
 
 export const LightAppColors: IAppColors = {
   primary: AppPalette.lightPrimary,
+  primaryText: AppPalette.systemBlack,
+  secondaryText: AppPalette.systemDarkGray,
   background: AppPalette.systemWhite,
   disabled: AppPalette.lightDisabled,
   pressed: AppPalette.lightPressed,
@@ -101,6 +105,8 @@ export const LightAppColors: IAppColors = {
 
 export const DarkAppColors: IAppColors = {
   primary: AppPalette.darkPrimary,
+  primaryText: AppPalette.systemWhite,
+  secondaryText: AppPalette.systemLightGray,
   background: AppPalette.systemBlack,
   disabled: AppPalette.darkDisabled,
   pressed: AppPalette.darkPressed,

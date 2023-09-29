@@ -32,7 +32,7 @@ export const InformativeTextInput: FC<IInformativeTextInputProps> = ({
         </Typography>
 
         {!rules?.required && (
-          <Typography textAlign="left" style={textStyle_i10}>
+          <Typography textAlign="left" style={textStyle_i7}>
             (optional)
           </Typography>
         )}
