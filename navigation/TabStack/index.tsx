@@ -66,7 +66,10 @@ const TabsStack: React.FC = () => {
           component={MapScreen}
           options={{
             tabBarIcon: () => (
-              <Image style={ImageStyles.i1} source={MAP_ICON} />
+              <Image
+                style={[ImageStyles.i1, { tintColor: appColors.primary }]}
+                source={MAP_ICON}
+              />
             ),
           }}
         />
@@ -76,7 +79,10 @@ const TabsStack: React.FC = () => {
           component={PinsScreen}
           options={{
             tabBarIcon: () => (
-              <Image style={ImageStyles.i1} source={PIN_ICON} />
+              <Image
+                style={[ImageStyles.i1, { tintColor: appColors.primary }]}
+                source={PIN_ICON}
+              />
             ),
           }}
         />

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import { ImageStyles } from "../../../constants";
+import { useAppTheme } from "../../../hooks/useAppTheme";
 import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
@@ -36,6 +37,8 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
   iconStyle,
   onPress,
 }) => {
+  const { appColors } = useAppTheme();
+
   const getStyle = ({ pressed }: PressableStateCallbackType) => [
     styles.container,
     order === "iconText" && styles.reversed,
@@ -52,7 +55,10 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
         </Typography>
       )}
       {imageSource && (
-        <Image style={[ImageStyles.i1, iconStyle]} source={imageSource} />
+        <Image
+          style={[ImageStyles.i1, { tintColor: appColors.primary }, iconStyle]}
+          source={imageSource}
+        />
       )}
     </Pressable>
   );

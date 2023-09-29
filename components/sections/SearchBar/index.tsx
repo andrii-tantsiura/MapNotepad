@@ -95,6 +95,8 @@ export const SearchBar: FC<ISearchBarProps> = ({
             ]}
             placeholder="Search"
             placeholderTextColor={AppPalette.systemGray}
+            cursorColor={appColors.primary}
+            selectionColor={appColors.primary}
             value={searchQuery}
             onFocus={focusHandler}
             onChangeText={pinsSearchQueryChangeHandler}
