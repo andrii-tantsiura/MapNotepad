@@ -1,3 +1,5 @@
+import { AppThemes } from "../enums";
+
 export interface IAppPalette {
   lightPrimary: string;
   lightDisabled: string;
@@ -122,6 +124,11 @@ export const DarkAppColors: IAppColors = {
   success: AppPalette.darkSuccess,
   warning: AppPalette.warning,
   info: AppPalette.info,
+};
+
+export const AppColorsMapper = {
+  [AppThemes.Light]: LightAppColors,
+  [AppThemes.Dark]: DarkAppColors,
 };
 
 export const FlashMessageColors: IFlashMessageColors = {

@@ -15,15 +15,22 @@ export const SettingsScreen: FC<HomeScreenProps> = () => {
   const dispatch = useAppDispatch();
   const { appTheme } = useSelector(selectSettings);
 
-  const changeThemeHandler = () => {
-    const theme =
-      appTheme === AppThemes.Dark ? AppThemes.Light : AppThemes.Dark;
-
+  const changeThemeHandler = (theme: AppThemes) =>
     dispatch(setAppThemeAction(theme));
-  };
 
   return (
     <View style={styles.container}>
+      <Separator />
+
+      <View style={styles.optionContainer}>
+        <Typography style={styles.optionTitle}>Light theme</Typography>
+
+        <CustomSwitch
+          isActive={appTheme === AppThemes.Light}
+          onValueChanged={() => changeThemeHandler(AppThemes.Light)}
+        />
+      </View>
+
       <Separator />
 
       <View style={styles.optionContainer}>
@@ -31,7 +38,7 @@ export const SettingsScreen: FC<HomeScreenProps> = () => {
 
         <CustomSwitch
           isActive={appTheme === AppThemes.Dark}
-          onValueChanged={changeThemeHandler}
+          onValueChanged={() => changeThemeHandler(AppThemes.Dark)}
         />
       </View>
 
