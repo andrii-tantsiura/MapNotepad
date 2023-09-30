@@ -18,7 +18,7 @@ import {
 import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
 import { AppPalette, ImageStyles, textStyle_i9 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
-import { useAppTheme } from "../../../hooks";
+import { useAppTheme } from "../../../hooks/useAppTheme";
 import { IconButton } from "../IconButton";
 import { ITypographyStyle } from "../Typography/types";
 import styles from "./styles";

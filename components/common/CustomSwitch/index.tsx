@@ -9,7 +9,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 
-import { useAppTheme } from "../../../hooks";
+import { useAppTheme } from "../../../hooks/useAppTheme";
 import styles from "./styles";
 
 interface ICustomSwitchProps {

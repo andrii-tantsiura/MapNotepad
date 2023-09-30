@@ -2,8 +2,8 @@ import React from "react";
 import { View } from "react-native";
 
 import { textStyle_i8 } from "../../../constants";
-import { useAppTheme } from "../../../hooks";
-import { Typography } from "../../common";
+import { useAppTheme } from "../../../hooks/useAppTheme";
+import { Typography } from "../../common/Typography";
 import styles from "./styles";
 
 interface ISeparatorProps {

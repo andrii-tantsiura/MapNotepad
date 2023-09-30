@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { FlatList } from "react-native-gesture-handler";
 
 import { SwitchOption } from "../SwitchOption";
-import { Separator } from "../../sections";
+import { Separator } from "../../sections/Separator";
 
 interface IOption<T> {
   title: string;
