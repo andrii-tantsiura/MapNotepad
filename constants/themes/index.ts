@@ -54,6 +54,7 @@ export const LightAppTheme: IAppTheme = {
     warning: AppPalette.warning,
     info: AppPalette.info,
   },
+  statusBrStyle: "dark",
 };
 
 export const DarkAppTheme: IAppTheme = {
@@ -77,6 +78,7 @@ export const DarkAppTheme: IAppTheme = {
     warning: AppPalette.warning,
     info: AppPalette.info,
   },
+  statusBrStyle: "light",
 };
 
 export const ThemeSourceMapper: IThemeSourceMapper = {

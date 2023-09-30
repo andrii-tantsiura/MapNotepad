@@ -1,3 +1,4 @@
+import { StatusBarStyle } from "expo-status-bar";
 import { AppThemes } from "../../enums";
 
 export interface IAppPalette {
@@ -50,6 +51,7 @@ export interface IAppColors {
 
 export interface IAppTheme {
   colors: IAppColors;
+  statusBrStyle: StatusBarStyle;
 }
 
 export interface IThemeSourceMapper extends Record<AppThemes, IAppTheme> {}
