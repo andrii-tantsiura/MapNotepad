@@ -29,7 +29,7 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   shouldRequestLocationInitially = true,
   onPickLocation,
 }) => {
-  const { appColors } = useAppTheme();
+  const { appColors, mapStyles } = useAppTheme();
   const mapViewRef = useRef<MapView | null>(null);
   const { userLocation, requestUserLocation } = useUserLocation(
     shouldRequestLocationInitially
@@ -56,10 +56,11 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   return (
     <>
       <MapView
+        style={styles.map}
+        customMapStyle={mapStyles}
         initialRegion={initialRegion}
         showsUserLocation
         showsMyLocationButton={false}
-        style={styles.map}
         ref={mapViewRef}
         onPress={mapPressedHandler}
       >

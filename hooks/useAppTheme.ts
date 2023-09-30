@@ -1,4 +1,5 @@
 import { StatusBarStyle } from "expo-status-bar";
+import { MapStyleElement } from "react-native-maps";
 import { useSelector } from "react-redux";
 
 import { IAppColors } from "../constants/themes/types";
@@ -9,17 +10,19 @@ type UseAppThemeReturn = {
   currentTheme: AppThemes;
   appColors: IAppColors;
   statusBarStyle: StatusBarStyle;
+  mapStyles: MapStyleElement[];
 };
 
 export const useAppTheme = (): UseAppThemeReturn => {
   const {
     currentTheme,
-    themeSource: { colors, statusBrStyle },
+    themeResource: { colors, statusBarStyle, mapStyles },
   } = useSelector(selectSettings);
 
   return {
     currentTheme,
     appColors: colors,
-    statusBarStyle: statusBrStyle,
+    statusBarStyle: statusBarStyle,
+    mapStyles: mapStyles,
   };
 };

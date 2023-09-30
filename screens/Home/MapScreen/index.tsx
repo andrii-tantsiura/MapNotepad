@@ -35,7 +35,7 @@ import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
-  const { appColors } = useAppTheme();
+  const { appColors, mapStyles } = useAppTheme();
   const mapViewRef = useRef<MapView | null>(null);
 
   const dispatch = useAppDispatch();
@@ -117,6 +117,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
 
       <ClusteredMap
         style={styles.map}
+        customMapStyle={mapStyles}
         initialRegion={
           userLocation ? { ...DEFAULT_REGION, ...userLocation } : DEFAULT_REGION
         }

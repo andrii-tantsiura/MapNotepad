@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { LightAppTheme, ThemeSourceMapper } from "../../../constants";
-import { IAppTheme } from "../../../constants/themes/types";
+import { LightThemeResource, ThemeResourceMapper } from "../../../constants";
+import { IThemeResource } from "../../../constants/themes/types";
 import { AppThemes } from "../../../enums";
 import { setAppThemeAction } from "../actions/settings.action";
 import { RootStore } from "../store";
 
 interface IInitialState {
   currentTheme: AppThemes;
-  themeSource: IAppTheme;
+  themeResource: IThemeResource;
 }
 
 const initialState: IInitialState = {
   currentTheme: AppThemes.Light,
-  themeSource: LightAppTheme,
+  themeResource: LightThemeResource,
 };
 
 export const settingsSlice = createSlice({
@@ -23,7 +23,7 @@ export const settingsSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(setAppThemeAction, (state, action) => {
       state.currentTheme = action.payload;
-      state.themeSource = ThemeSourceMapper[action.payload];
+      state.themeResource = ThemeResourceMapper[action.payload];
     });
   },
 });

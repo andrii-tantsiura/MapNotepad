@@ -1,9 +1,10 @@
 import { AppThemes } from "../../enums";
+import { NightMapStyles } from "../customMapStyles";
 import {
   IAppPalette,
-  IAppTheme,
+  IThemeResource,
   IFlashMessageColors,
-  IThemeSourceMapper,
+  IThemeResourceMapper,
 } from "./types";
 
 export const AppPalette: IAppPalette = {
@@ -33,7 +34,7 @@ export const AppPalette: IAppPalette = {
   info: "#4ea2e1",
 };
 
-export const LightAppTheme: IAppTheme = {
+export const LightThemeResource: IThemeResource = {
   colors: {
     primary: AppPalette.lightPrimary,
     primaryText: AppPalette.systemBlack,
@@ -54,10 +55,11 @@ export const LightAppTheme: IAppTheme = {
     warning: AppPalette.warning,
     info: AppPalette.info,
   },
-  statusBrStyle: "dark",
+  statusBarStyle: "dark",
+  mapStyles: [],
 };
 
-export const DarkAppTheme: IAppTheme = {
+export const DarkThemeResource: IThemeResource = {
   colors: {
     primary: AppPalette.darkPrimary,
     primaryText: AppPalette.systemWhite,
@@ -78,12 +80,13 @@ export const DarkAppTheme: IAppTheme = {
     warning: AppPalette.warning,
     info: AppPalette.info,
   },
-  statusBrStyle: "light",
+  statusBarStyle: "light",
+  mapStyles: NightMapStyles,
 };
 
-export const ThemeSourceMapper: IThemeSourceMapper = {
-  [AppThemes.Light]: LightAppTheme,
-  [AppThemes.Dark]: DarkAppTheme,
+export const ThemeResourceMapper: IThemeResourceMapper = {
+  [AppThemes.Light]: LightThemeResource,
+  [AppThemes.Dark]: DarkThemeResource,
 };
 
 export const FlashMessageColors: IFlashMessageColors = {

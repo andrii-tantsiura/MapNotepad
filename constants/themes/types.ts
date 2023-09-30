@@ -1,4 +1,6 @@
 import { StatusBarStyle } from "expo-status-bar";
+import { MapStyleElement } from "react-native-maps";
+
 import { AppThemes } from "../../enums";
 
 export interface IAppPalette {
@@ -49,12 +51,14 @@ export interface IAppColors {
   info: string;
 }
 
-export interface IAppTheme {
+export interface IThemeResource {
   colors: IAppColors;
-  statusBrStyle: StatusBarStyle;
+  statusBarStyle: StatusBarStyle;
+  mapStyles: MapStyleElement[];
 }
 
-export interface IThemeSourceMapper extends Record<AppThemes, IAppTheme> {}
+export interface IThemeResourceMapper
+  extends Record<AppThemes, IThemeResource> {}
 
 export interface IFlashMessageColors {
   info: string;
