@@ -1,6 +1,6 @@
 import { TextStyle } from "react-native";
 
-import { IAppColors } from "../../../constants";
+import { IAppColors } from "../../../constants/themes/types";
 
 export interface IFontWeights {
   bold: string;

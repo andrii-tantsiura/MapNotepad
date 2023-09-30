@@ -1,6 +1,6 @@
 import { ActivityIndicator, Text, View } from "react-native";
 
-import { IAppColors } from "../../../constants";
+import { IAppColors } from "../../../constants/themes/types";
 import { useAppTheme } from "../../../hooks";
 import styles from "./styles";
 

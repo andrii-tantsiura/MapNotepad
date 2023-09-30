@@ -1,7 +1,8 @@
 import { StyleProp, TextStyle } from "react-native";
 
 import { ITypographyStyle } from "../components/common/Typography/types";
-import { FontHeights, FontSizes, FontWeights, IAppColors } from "../constants";
+import { FontHeights, FontSizes, FontWeights } from "../constants";
+import { IAppColors } from "../constants/themes/types";
 
 export const typographyStyleToTextStyle = (
   style: StyleProp<ITypographyStyle>,

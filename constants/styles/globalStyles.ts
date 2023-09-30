@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import { scaleSize } from "../../utils";
-import { AppPalette } from "../colors";
+import { AppPalette } from "../themes";
 
 export const ShadowStyles = StyleSheet.create({
   shadow_i1: {

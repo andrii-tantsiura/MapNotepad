@@ -1,22 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import {
-  AppColorsMapper,
-  IAppColors,
-  LightAppColors,
-} from "../../../constants";
+import { LightAppTheme, ThemeSourceMapper } from "../../../constants";
+import { IAppTheme } from "../../../constants/themes/types";
 import { AppThemes } from "../../../enums";
 import { setAppThemeAction } from "../actions/settings.action";
 import { RootStore } from "../store";
 
 interface IInitialState {
-  appTheme: AppThemes;
-  appColors: IAppColors;
+  currentTheme: AppThemes;
+  themeSource: IAppTheme;
 }
 
 const initialState: IInitialState = {
-  appTheme: AppThemes.Light,
-  appColors: LightAppColors,
+  currentTheme: AppThemes.Light,
+  themeSource: LightAppTheme,
 };
 
 export const settingsSlice = createSlice({
@@ -25,8 +22,8 @@ export const settingsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(setAppThemeAction, (state, action) => {
-      state.appTheme = action.payload;
-      state.appColors = AppColorsMapper[action.payload];
+      state.currentTheme = action.payload;
+      state.themeSource = ThemeSourceMapper[action.payload];
     });
   },
 });

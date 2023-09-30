@@ -1,9 +1,16 @@
 import { useSelector } from "react-redux";
 
 import { selectSettings } from "../store/redux/slices/settingsSlice";
+import { AppThemes } from "../enums";
+import { IAppColors } from "../constants/themes/types";
 
-export const useAppTheme = () => {
-  const { appTheme, appColors } = useSelector(selectSettings);
+type UseAppThemeReturn = {
+  currentTheme: AppThemes;
+  appColors: IAppColors;
+};
 
-  return { appTheme, appColors };
+export const useAppTheme = (): UseAppThemeReturn => {
+  const { currentTheme, themeSource } = useSelector(selectSettings);
+
+  return { currentTheme, appColors: themeSource.colors };
 };

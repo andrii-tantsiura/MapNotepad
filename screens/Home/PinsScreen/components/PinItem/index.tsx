@@ -1,11 +1,7 @@
 import React, { FC } from "react";
 import { Image, Pressable, View } from "react-native";
 
-import {
-  LIKE_BLUE_ICON,
-  LIKE_GRAY_ICON,
-  RIGHT_GRAY_ICON,
-} from "../../../../../assets/icons";
+import { LIKE_BLUE_ICON, RIGHT_GRAY_ICON } from "../../../../../assets/icons";
 import { IconButton, Typography } from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
 import {

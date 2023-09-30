@@ -9,8 +9,5 @@ interface HeaderBackImageProps {
 }
 
 export const HeaderBackImage: FC<HeaderBackImageProps> = ({ tintColor }) => (
-  <Image
-    style={[ImageStyles.i1, { tintColor: tintColor }]}
-    source={LEFT_BLUE_ICON}
-  />
+  <Image style={[ImageStyles.i1, { tintColor }]} source={LEFT_BLUE_ICON} />
 );
