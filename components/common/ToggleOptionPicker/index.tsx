@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { FlatList } from "react-native-gesture-handler";
 
 import { SwitchOption } from "../SwitchOption";
+import { Separator } from "../../sections";
 
 interface IOption<T> {
   title: string;
@@ -24,6 +25,8 @@ export const ToggleOptionPicker: FC<IToggleOptionPickerProps<any>> = ({
   <FlatList
     data={items}
     key={value.toString()}
+    ItemSeparatorComponent={Separator}
+    ListFooterComponent={Separator}
     renderItem={({ item }) => (
       <SwitchOption
         title={item.title}

@@ -2,16 +2,21 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import { CustomButton, InformativeTextInput } from "../../../components/common";
+import {
+  CustomButton,
+  IconButton,
+  InformativeTextInput,
+} from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
+import { globalIconButtonStyles } from "../../../constants/styles";
 import { FirebaseErrorMessages } from "../../../enums";
 import {
   PASSWORD_RULES,
   extractErrorMessage,
   getConfirmPasswordRules,
 } from "../../../helpers";
-import { useAuth, useHookForm } from "../../../hooks";
+import { useAppTheme, useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
@@ -23,6 +28,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
 }: AuthScreenProps) => {
+  const { appColors } = useAppTheme();
   const [isLoading, setIsLoading] = useState(false);
   const { setCredentials } = useAuth();
 
@@ -90,8 +96,11 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
         <Separator>or</Separator>
 
-        <CustomButton
-          style={CustomButtonStyles.rectOutline_i2}
+        <IconButton
+          style={[
+            globalIconButtonStyles.outline,
+            { borderColor: appColors.primary },
+          ]}
           imageSource={GOOGLE_ICON}
         />
       </View>

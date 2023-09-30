@@ -9,9 +9,10 @@ import {
   MARKER_GRAY_ICON,
   MARKER_ICON,
 } from "../../../assets/icons";
-import { CustomButton, CustomMarker } from "../../../components/common";
+import { CustomMarker, IconButton } from "../../../components/common";
 import { PinDetailsModal } from "../../../components/sections";
-import { CustomButtonStyles, DEFAULT_REGION } from "../../../constants";
+import { DEFAULT_REGION } from "../../../constants";
+import { globalIconButtonStyles } from "../../../constants/styles";
 import {
   customMarkerModelToPinModel,
   pinItemModelToPinModel,
@@ -137,8 +138,12 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         ))}
       </ClusteredMap>
 
-      <CustomButton
-        style={CustomButtonStyles.roundFloating_i1}
+      <IconButton
+        style={[
+          globalIconButtonStyles.floating,
+          { backgroundColor: appColors.background },
+        ]}
+        imageStyle={{ tintColor: appColors.primary }}
         imageSource={LOCATION_ICON}
         onPress={requestUserLocation}
       />

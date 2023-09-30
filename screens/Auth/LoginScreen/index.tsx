@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import { CustomButton, InformativeTextInput } from "../../../components/common";
+import {
+  CustomButton,
+  IconButton,
+  InformativeTextInput,
+} from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
+import { globalIconButtonStyles } from "../../../constants/styles";
 import {
   EMAIL_RULES,
   PASSWORD_RULES,
   extractErrorMessage,
 } from "../../../helpers";
-import { useAuth, useHookForm } from "../../../hooks";
+import { useAppTheme, useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
@@ -19,6 +24,8 @@ import { ILoginForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
+  const { appColors } = useAppTheme();
+
   const { setCredentials } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -83,8 +90,11 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
         <Separator>or</Separator>
 
-        <CustomButton
-          style={CustomButtonStyles.rectOutline_i2}
+        <IconButton
+          style={[
+            globalIconButtonStyles.outline,
+            { borderColor: appColors.primary },
+          ]}
           imageSource={GOOGLE_ICON}
         />
       </View>

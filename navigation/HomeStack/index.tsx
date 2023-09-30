@@ -25,7 +25,9 @@ const HomeStack: React.FC = () => {
           backgroundColor: appColors.background,
         },
         headerTitle: HeaderTitle,
-        headerBackImage: HeaderBackImage,
+        headerBackImage: () => (
+          <HeaderBackImage tintColor={appColors.primary} />
+        ),
       }}
     >
       <Stack.Screen

@@ -18,7 +18,7 @@ import {
 } from "../../../store/redux/actions";
 import { selectSearch } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
-import { CustomButton } from "../../common";
+import { IconButton } from "../../common";
 import { Separator } from "../Separator";
 import styles from "./styles";
 
@@ -34,6 +34,8 @@ export const SearchBar: FC<ISearchBarProps> = ({
   onRightButtonPress,
 }) => {
   const { appColors } = useAppTheme();
+
+  const iconsTintColor = { tintColor: appColors.primary };
 
   const dispatch = useAppDispatch();
   const { isActive, searchQuery } = useSelector(selectSearch);
@@ -67,12 +69,14 @@ export const SearchBar: FC<ISearchBarProps> = ({
     <>
       <View style={[styles.container, style]}>
         {isActive ? (
-          <CustomButton
+          <IconButton
+            imageStyle={[ImageStyles.i1, iconsTintColor]}
             imageSource={LEFT_BLUE_ICON}
             onPress={stopSearchHandler}
           />
         ) : (
-          <CustomButton
+          <IconButton
+            imageStyle={iconsTintColor}
             imageSource={SETTINGS_ICON}
             onPress={onLeftButtonPress}
           />
@@ -103,8 +107,8 @@ export const SearchBar: FC<ISearchBarProps> = ({
           />
 
           {isActive && (
-            <CustomButton
-              iconStyle={ImageStyles.i2}
+            <IconButton
+              imageStyle={[ImageStyles.i2, iconsTintColor]}
               imageSource={CLEAR_ICON}
               onPress={clearTextHandler}
             />
@@ -112,7 +116,11 @@ export const SearchBar: FC<ISearchBarProps> = ({
         </View>
 
         {!isActive && (
-          <CustomButton imageSource={EXIT_ICON} onPress={onRightButtonPress} />
+          <IconButton
+            imageStyle={iconsTintColor}
+            imageSource={EXIT_ICON}
+            onPress={onRightButtonPress}
+          />
         )}
       </View>
 

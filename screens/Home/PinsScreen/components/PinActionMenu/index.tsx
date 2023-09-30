@@ -2,7 +2,7 @@ import { FC } from "react";
 import { View } from "react-native";
 
 import { DELETE_ICON, EDIT_ICON } from "../../../../../assets/icons";
-import { CustomButton } from "../../../../../components/common";
+import { IconButton } from "../../../../../components/common";
 import { scaleSize } from "../../../../../utils";
 import styles from "./styles";
 
@@ -18,14 +18,14 @@ export const PinActionMenu: FC<IPinActionMenuProps> = ({
   onEdit,
 }) => (
   <View style={styles.hiddenActionMenu}>
-    <CustomButton
-      containerStyle={styles.hiddenDeleteButton}
+    <IconButton
+      style={[styles.hiddenButtonContainer, styles.hiddenDeleteButton]}
       imageSource={DELETE_ICON}
       onPress={onDelete}
     />
 
-    <CustomButton
-      containerStyle={styles.hiddenEditButton}
+    <IconButton
+      style={[styles.hiddenButtonContainer, styles.hiddenEditButton]}
       imageSource={EDIT_ICON}
       onPress={onEdit}
     />

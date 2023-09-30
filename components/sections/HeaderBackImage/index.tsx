@@ -4,6 +4,13 @@ import { Image } from "react-native";
 import { LEFT_BLUE_ICON } from "../../../assets/icons";
 import { ImageStyles } from "../../../constants";
 
-export const HeaderBackImage: FC = () => (
-  <Image style={ImageStyles.i1} source={LEFT_BLUE_ICON} />
+interface HeaderBackImageProps {
+  tintColor: string;
+}
+
+export const HeaderBackImage: FC<HeaderBackImageProps> = ({ tintColor }) => (
+  <Image
+    style={[ImageStyles.i1, { tintColor: tintColor }]}
+    source={LEFT_BLUE_ICON}
+  />
 );

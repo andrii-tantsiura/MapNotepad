@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 
 import { AppPalette } from "../../../../../constants";
 import { scaleSize } from "../../../../../utils";
+8;
 
 const styles = StyleSheet.create({
   hiddenActionMenu: {
@@ -9,14 +10,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "flex-end",
   },
-  hiddenDeleteButton: {
-    paddingVertical: scaleSize(24),
+  hiddenButtonContainer: {
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: scaleSize(16),
+  },
+  hiddenDeleteButton: {
     backgroundColor: AppPalette.lightError,
   },
   hiddenEditButton: {
-    paddingVertical: scaleSize(24),
-    paddingHorizontal: scaleSize(16),
     backgroundColor: AppPalette.lightPrimary,
   },
 });

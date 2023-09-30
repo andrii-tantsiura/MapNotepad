@@ -19,7 +19,7 @@ import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
 import { AppPalette, ImageStyles, textStyle_i9 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
 import { useAppTheme } from "../../../hooks";
-import { CustomButton } from "../CustomButton";
+import { IconButton } from "../IconButton";
 import { ITypographyStyle } from "../Typography/types";
 import styles from "./styles";
 
@@ -111,18 +111,16 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
             <TextInput {...textInputProps} />
 
             {secureTextEntry && value && (
-              <CustomButton
-                containerStyle={styles.toggleHiddenButton}
-                iconStyle={ImageStyles.i2}
+              <IconButton
+                imageStyle={ImageStyles.i2}
                 imageSource={passwordIcon}
                 onPress={toggleIsTextHidden}
               />
             )}
 
             {value && (
-              <CustomButton
-                containerStyle={styles.clearButton}
-                iconStyle={ImageStyles.i2}
+              <IconButton
+                imageStyle={ImageStyles.i2}
                 imageSource={CLEAR_ICON}
                 onPress={clearTextHandler}
               />

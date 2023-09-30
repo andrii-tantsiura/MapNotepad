@@ -6,16 +6,16 @@ import { RowMap, SwipeListView } from "react-native-swipe-list-view";
 import { useSelector } from "react-redux";
 
 import { PLUS_ICON } from "../../../assets/icons";
-import { CustomButton } from "../../../components/common";
+import { IconButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants";
+import { globalIconButtonStyles } from "../../../constants/styles";
 import {
   pinItemModelToPinModel,
   pinModelToPinItemModel,
 } from "../../../converters";
 import { hideActionMenu } from "../../../helpers";
-import { usePins } from "../../../hooks";
+import { useAppTheme, usePins } from "../../../hooks";
 import { HomeScreenNavigationProp } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { stopSearchAction } from "../../../store/redux/actions";
@@ -32,6 +32,7 @@ import styles from "./styles";
 
 export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
+  const { appColors } = useAppTheme();
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
@@ -163,8 +164,11 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
         rightOpenValue={-PIN_ACTION_MENU_WIDTH}
       />
 
-      <CustomButton
-        style={CustomButtonStyles.roundFloating_i2}
+      <IconButton
+        style={[
+          globalIconButtonStyles.floating,
+          { backgroundColor: appColors.primary },
+        ]}
         imageSource={PLUS_ICON}
         onPress={addPinHandler}
       />
