@@ -9,7 +9,10 @@ import {
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { globalIconButtonStyles } from "../../../constants/styles";
+import {
+  globalIconButtonStyles,
+  textStyle_i4,
+} from "../../../constants/styles";
 import {
   EMAIL_RULES,
   PASSWORD_RULES,
@@ -82,7 +85,11 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.rectSolid_i1}
+          style={[
+            CustomButtonStyles.base,
+            { backgroundColor: appColors.primary },
+          ]}
+          textStyle={textStyle_i4}
           onPress={handleSubmit(submitHandler)}
         >
           Login

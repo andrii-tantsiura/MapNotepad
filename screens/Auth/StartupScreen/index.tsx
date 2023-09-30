@@ -3,11 +3,19 @@ import { Image, View } from "react-native";
 
 import { ENTER_PAGE_PIC } from "../../../assets/icons";
 import { CustomButton, Typography } from "../../../components/common";
-import { CustomButtonStyles, textStyle_i1 } from "../../../constants";
+import {
+  CustomButtonStyles,
+  textStyle_i1,
+  textStyle_i4,
+  textStyle_i5,
+} from "../../../constants";
+import { useAppTheme } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
 
 export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
+  const { appColors } = useAppTheme();
+
   const loginHandler = () => {
     navigation.navigate("Login");
   };
@@ -30,14 +38,25 @@ export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.rectSolid_i1}
+          style={[
+            CustomButtonStyles.base,
+            { backgroundColor: appColors.primary },
+          ]}
+          textStyle={textStyle_i4}
           onPress={loginHandler}
         >
           Log in
         </CustomButton>
 
         <CustomButton
-          style={CustomButtonStyles.rectOutline_i1}
+          style={[
+            CustomButtonStyles.base,
+            {
+              backgroundColor: appColors.background,
+              borderColor: appColors.primary,
+            },
+          ]}
+          textStyle={textStyle_i5}
           onPress={createAccountHandler}
         >
           Create account

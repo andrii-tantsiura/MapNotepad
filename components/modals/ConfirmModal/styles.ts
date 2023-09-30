@@ -23,9 +23,6 @@ const styles = StyleSheet.create({
     columnGap: scaleSize(20),
     marginTop: scaleSize(8),
   },
-  buttonContainer: {
-    width: "50%",
-  },
 });
 
 export default styles;

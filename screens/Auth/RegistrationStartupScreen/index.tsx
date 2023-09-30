@@ -9,7 +9,11 @@ import {
 } from "../../../components/common";
 import { Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { globalIconButtonStyles } from "../../../constants/styles";
+import {
+  globalIconButtonStyles,
+  textStyle_i1,
+  textStyle_i4,
+} from "../../../constants/styles";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import { useAppTheme, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
@@ -62,7 +66,11 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.rectSolid_i1}
+          style={[
+            CustomButtonStyles.base,
+            { backgroundColor: appColors.primary },
+          ]}
+          textStyle={textStyle_i4}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
         >
           Next

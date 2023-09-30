@@ -3,6 +3,8 @@ import { Modal, View } from "react-native";
 
 import {
   CustomButtonStyles,
+  textStyle_i4,
+  textStyle_i5,
   textStyle_i6,
   textStyle_i9,
 } from "../../../constants";
@@ -44,8 +46,8 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
           style={[
             styles.contentContainer,
             {
-              backgroundColor: appColors.background,
-              borderColor: appColors.background,
+              backgroundColor: appColors.variant,
+              borderColor: appColors.variant,
             },
           ]}
         >
@@ -55,16 +57,28 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
 
           <View style={styles.buttonsContainer}>
             <CustomButton
-              style={CustomButtonStyles.rectOutline_i1}
-              containerStyle={styles.buttonContainer}
+              style={[
+                CustomButtonStyles.base,
+                {
+                  width: "50%",
+                  borderColor: appColors.primary,
+                },
+              ]}
+              textStyle={textStyle_i5}
               onPress={onCancel}
             >
               {cancelText}
             </CustomButton>
 
             <CustomButton
-              style={CustomButtonStyles.rectSolid_i1}
-              containerStyle={styles.buttonContainer}
+              style={[
+                CustomButtonStyles.base,
+                {
+                  width: "50%",
+                  backgroundColor: appColors.primary,
+                },
+              ]}
+              textStyle={textStyle_i4}
               onPress={onConfirm}
             >
               {confirmText}

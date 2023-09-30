@@ -9,7 +9,10 @@ import {
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import { globalIconButtonStyles } from "../../../constants/styles";
+import {
+  globalIconButtonStyles,
+  textStyle_i4,
+} from "../../../constants/styles";
 import { FirebaseErrorMessages } from "../../../enums";
 import {
   PASSWORD_RULES,
@@ -88,7 +91,11 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.rectSolid_i1}
+          style={[
+            CustomButtonStyles.base,
+            { backgroundColor: appColors.primary },
+          ]}
+          textStyle={textStyle_i4}
           onPress={handleSubmit(createAccountHandler)}
         >
           Create account

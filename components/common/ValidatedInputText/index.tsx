@@ -80,6 +80,11 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         field: { value, onChange, onBlur },
         fieldState: { error },
       }) => {
+        const iconButtonStyle = [
+          ImageStyles.i2,
+          { tintColor: appColors.primary },
+        ];
+
         const textInputProps: TextInputProps = {
           ...restProps,
           style: textStyles,
@@ -112,7 +117,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
 
             {secureTextEntry && value && (
               <IconButton
-                imageStyle={ImageStyles.i2}
+                imageStyle={iconButtonStyle}
                 imageSource={passwordIcon}
                 onPress={toggleIsTextHidden}
               />
@@ -120,7 +125,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
 
             {value && (
               <IconButton
-                imageStyle={ImageStyles.i2}
+                imageStyle={iconButtonStyle}
                 imageSource={CLEAR_ICON}
                 onPress={clearTextHandler}
               />
