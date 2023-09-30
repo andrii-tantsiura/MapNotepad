@@ -1,13 +1,14 @@
 import React, { FC } from "react";
 import { Image, TouchableOpacity, View } from "react-native";
 
-import { PIN_GRAY_ICON, PIN_ICON } from "../../../../../assets/icons";
-import { CustomButton, Typography } from "../../../../../components/common";
+import { PIN_ICON } from "../../../../../assets/icons";
+import { Typography } from "../../../../../components/common";
 import {
   ImageStyles,
   textStyle_i11,
   textStyle_i13,
 } from "../../../../../constants";
+import { useAppTheme } from "../../../../../hooks";
 import { IPinItemModel } from "../../../../../types/components";
 import styles from "./styles";
 
@@ -17,11 +18,17 @@ type FoundPinProps = {
 };
 
 export const FoundPin: FC<FoundPinProps> = React.memo(({ pin, onPress }) => {
-  const imageSource = pin.isFavorite ? PIN_ICON : PIN_GRAY_ICON;
+  const { appColors } = useAppTheme();
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(pin)}>
-      <Image style={ImageStyles.i1} source={imageSource} />
+      <Image
+        style={[
+          ImageStyles.i1,
+          { tintColor: pin.isFavorite ? appColors.primary : appColors.variant },
+        ]}
+        source={PIN_ICON}
+      />
 
       <View>
         <Typography
