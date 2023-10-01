@@ -31,7 +31,7 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  const { appColors, getColorStyle } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
 
   return (
     <Modal

@@ -19,7 +19,7 @@ type AppRoutesProps = {
 const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
   const { isLoginInProcess, isAuthenticated } = useFirebaseLogin();
 
-  const { currentTheme, appColors, statusBarStyle } = useAppTheme();
+  const { appColors, statusBarStyle } = useAppTheme();
 
   const [theme, setTheme] = useState<Theme>();
 
@@ -33,7 +33,7 @@ const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
         background: appColors.background,
       },
     });
-  }, [appColors, currentTheme]);
+  }, [appColors]);
 
   return isLoginInProcess ? (
     <LoaderView />

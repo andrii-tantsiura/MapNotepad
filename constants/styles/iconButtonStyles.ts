@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import { scaleSize } from "../../utils";
 
-export const globalIconButtonStyles = StyleSheet.create({
+export const IconButtonStyles = StyleSheet.create({
   outline: {
     justifyContent: "center",
     alignItems: "center",

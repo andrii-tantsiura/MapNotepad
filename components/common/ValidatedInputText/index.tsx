@@ -107,7 +107,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         const containerStyle = [
           styles.inputContainer,
           style,
-          (Boolean(error) && getColorStyle("background", "error")) ||
+          (Boolean(error) && getColorStyle("border", "error")) ||
             (isFocused && styles.focusedInputContainer),
         ];
 

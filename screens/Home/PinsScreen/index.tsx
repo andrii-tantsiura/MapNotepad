@@ -9,7 +9,7 @@ import { PLUS_ICON } from "../../../assets/icons";
 import { IconButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
-import { globalIconButtonStyles } from "../../../constants/styles";
+import { IconButtonStyles } from "../../../constants/styles";
 import {
   pinItemModelToPinModel,
   pinModelToPinItemModel,
@@ -166,7 +166,7 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
 
       <IconButton
         style={[
-          globalIconButtonStyles.floating,
+          IconButtonStyles.floating,
           getColorStyle("background", "primary"),
         ]}
         imageSource={PLUS_ICON}

@@ -1,8 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
 
-import { authSlice, pinsSlice, searchSlice, userLocationSlice } from "./slices";
-import { settingsSlice } from "./slices/settingsSlice";
+import {
+  authSlice,
+  pinsSlice,
+  searchSlice,
+  settingsSlice,
+  userLocationSlice,
+} from "./slices";
 
 const store = configureStore({
   reducer: {

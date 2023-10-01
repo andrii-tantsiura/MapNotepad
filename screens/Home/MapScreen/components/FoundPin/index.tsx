@@ -18,14 +18,14 @@ type FoundPinProps = {
 };
 
 export const FoundPin: FC<FoundPinProps> = React.memo(({ pin, onPress }) => {
-  const { appColors } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
 
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(pin)}>
       <Image
         style={[
           ImageStyles.i1,
-          { tintColor: pin.isFavorite ? appColors.primary : appColors.variant },
+          getColorStyle("tint", pin.isFavorite ? "primary" : "variant"),
         ]}
         source={PIN_ICON}
       />

@@ -12,7 +12,7 @@ import {
 import { CustomMarker, IconButton } from "../../../components/common";
 import { PinDetailsModal } from "../../../components/sections";
 import { DEFAULT_REGION } from "../../../constants";
-import { globalIconButtonStyles } from "../../../constants/styles";
+import { IconButtonStyles } from "../../../constants/styles";
 import {
   customMarkerModelToPinModel,
   pinItemModelToPinModel,
@@ -25,8 +25,10 @@ import {
 } from "../../../helpers";
 import { useAppTheme, usePins, useUserLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
-import { stopSearchAction } from "../../../store/redux/actions";
-import { setUserLocationAction } from "../../../store/redux/actions/userLocation.actions";
+import {
+  setUserLocationAction,
+  stopSearchAction,
+} from "../../../store/redux/actions";
 import { selectSearch } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { ICustomMarkerModel, IPinItemModel } from "../../../types/components";
@@ -141,7 +143,7 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
 
       <IconButton
         style={[
-          globalIconButtonStyles.floating,
+          IconButtonStyles.floating,
           getColorStyle("background", "background"),
         ]}
         imageStyle={getColorStyle("tint", "primary")}

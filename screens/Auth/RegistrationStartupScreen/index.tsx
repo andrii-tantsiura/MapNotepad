@@ -9,11 +9,7 @@ import {
 } from "../../../components/common";
 import { Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import {
-  globalIconButtonStyles,
-  textStyle_i1,
-  textStyle_i4,
-} from "../../../constants/styles";
+import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import { useAppTheme, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
@@ -79,10 +75,7 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
         <Separator>or</Separator>
 
         <IconButton
-          style={[
-            globalIconButtonStyles.outline,
-            getColorStyle("border", "primary"),
-          ]}
+          style={[IconButtonStyles.outline, getColorStyle("border", "primary")]}
           imageSource={GOOGLE_ICON}
         />
       </View>

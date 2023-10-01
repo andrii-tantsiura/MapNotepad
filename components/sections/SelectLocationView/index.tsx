@@ -8,7 +8,7 @@ import MapView, {
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import { globalIconButtonStyles } from "../../../constants/styles";
+import { IconButtonStyles } from "../../../constants/styles";
 import { animateToLocation } from "../../../helpers";
 import { useAppTheme, useUserLocation } from "../../../hooks";
 import { IconButton } from "../../common/IconButton";
@@ -79,7 +79,7 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
 
       <IconButton
         style={[
-          globalIconButtonStyles.floating,
+          IconButtonStyles.floating,
           getColorStyle("background", "background"),
         ]}
         imageStyle={getColorStyle("tint", "primary")}

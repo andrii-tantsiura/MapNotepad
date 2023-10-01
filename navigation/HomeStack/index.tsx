@@ -13,7 +13,7 @@ import { HomeStackParamList } from "./types";
 const Stack = createStackNavigator<HomeStackParamList>();
 
 const HomeStack: React.FC = () => {
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
 
   return (
     <Stack.Navigator
@@ -21,9 +21,7 @@ const HomeStack: React.FC = () => {
       screenOptions={{
         headerShadowVisible: false,
         headerTitleAlign: "center",
-        headerStyle: {
-          backgroundColor: appColors.background,
-        },
+        headerStyle: getColorStyle("background", "background"),
         headerTitle: HeaderTitle,
         headerBackImage: () => (
           <HeaderBackImage tintColor={appColors.primary} />

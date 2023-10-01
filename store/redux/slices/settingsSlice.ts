@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LightThemeResource, ThemeResourceMapper } from "../../../constants";
 import { IThemeResource } from "../../../constants/themes/types";
 import { AppThemes } from "../../../enums";
-import { setAppThemeAction } from "../actions/settings.action";
+import { setAppThemeAction } from "../actions";
 import { RootStore } from "../store";
 
 interface IInitialState {

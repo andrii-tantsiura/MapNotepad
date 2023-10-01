@@ -9,10 +9,7 @@ import {
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import {
-  globalIconButtonStyles,
-  textStyle_i4,
-} from "../../../constants/styles";
+import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import { FirebaseErrorMessages } from "../../../enums";
 import {
   PASSWORD_RULES,
@@ -31,7 +28,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
 }: AuthScreenProps) => {
-  const { appColors, getColorStyle } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
   const [isLoading, setIsLoading] = useState(false);
   const { setCredentials } = useAuth();
 
@@ -104,10 +101,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         <Separator>or</Separator>
 
         <IconButton
-          style={[
-            globalIconButtonStyles.outline,
-            getColorStyle("border", "primary"),
-          ]}
+          style={[IconButtonStyles.outline, getColorStyle("border", "primary")]}
           imageSource={GOOGLE_ICON}
         />
       </View>

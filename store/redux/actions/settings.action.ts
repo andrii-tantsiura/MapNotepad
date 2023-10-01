@@ -4,6 +4,6 @@ import { AppThemes } from "../../../enums";
 import { withPayload } from "./types";
 
 export const setAppThemeAction = createAction(
-  "setTheme",
+  "setAppTheme",
   withPayload<AppThemes>()
 );

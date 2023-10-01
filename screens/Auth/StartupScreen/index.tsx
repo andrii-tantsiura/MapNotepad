@@ -14,7 +14,7 @@ import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
 
 export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
-  const { appColors, getColorStyle } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
 
   const loginHandler = () => {
     navigation.navigate("Login");

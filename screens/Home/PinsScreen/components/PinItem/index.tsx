@@ -22,13 +22,13 @@ interface IPinItemProps {
 
 export const PinItem: FC<IPinItemProps> = React.memo(
   ({ pin, onPress, onPressFavoriteStatus }) => {
-    const { appColors } = useAppTheme();
+    const { appColors, getColorStyle } = useAppTheme();
 
     const changeFavoriteStatusHandler = () => onPressFavoriteStatus(pin);
 
     return (
       <Pressable
-        style={[styles.container, { backgroundColor: appColors.background }]}
+        style={[styles.container, getColorStyle("background", "background")]}
         onPress={() => onPress(pin)}
       >
         <View style={styles.content}>
@@ -36,13 +36,12 @@ export const PinItem: FC<IPinItemProps> = React.memo(
             <IconButton
               style={[
                 styles.likeButton,
-                { backgroundColor: appColors.variant },
+                getColorStyle("background", "variant"),
               ]}
-              imageStyle={{
-                tintColor: pin.isFavorite
-                  ? appColors.primary
-                  : appColors.systemGray,
-              }}
+              imageStyle={getColorStyle(
+                "tint",
+                pin.isFavorite ? "primary" : "systemGray"
+              )}
               imageSource={LIKE_BLUE_ICON}
               onPress={changeFavoriteStatusHandler}
             />

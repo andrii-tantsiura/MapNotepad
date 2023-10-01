@@ -5,7 +5,7 @@ import { Separator } from "../../../components/sections";
 import { AppThemes } from "../../../enums";
 import { useAppTheme } from "../../../hooks";
 import { HomeScreenProps } from "../../../navigation/HomeStack/types";
-import { setAppThemeAction } from "../../../store/redux/actions/settings.action";
+import { setAppThemeAction } from "../../../store/redux/actions";
 import { useAppDispatch } from "../../../store/redux/store";
 
 const THEME_OPTIONS: IOptions<AppThemes> = [

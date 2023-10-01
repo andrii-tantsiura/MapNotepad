@@ -9,10 +9,7 @@ import {
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
 import { CustomButtonStyles } from "../../../constants";
-import {
-  globalIconButtonStyles,
-  textStyle_i4,
-} from "../../../constants/styles";
+import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import {
   EMAIL_RULES,
   PASSWORD_RULES,
@@ -98,10 +95,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
         <Separator>or</Separator>
 
         <IconButton
-          style={[
-            globalIconButtonStyles.outline,
-            getColorStyle("border", "primary"),
-          ]}
+          style={[IconButtonStyles.outline, getColorStyle("border", "primary")]}
           imageSource={GOOGLE_ICON}
         />
       </View>

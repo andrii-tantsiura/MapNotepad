@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 
 import { IAppColors } from "../constants/themes/types";
 import { AppThemes } from "../enums";
-import { selectSettings } from "../store/redux/slices/settingsSlice";
+import { selectSettings } from "../store/redux/slices";
 
 type ColoredProp = "background" | "border" | "tint";
 
