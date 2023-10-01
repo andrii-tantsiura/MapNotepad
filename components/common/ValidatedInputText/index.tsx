@@ -50,7 +50,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   secureTextEntry,
   ...restProps
 }) => {
-  const { appColors, getColorStyle } = useAppTheme();
+  const { appColors } = useAppTheme();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isTextHidden, setIsTextHidden] = useState(secureTextEntry);
 
@@ -102,7 +102,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         const containerStyle = [
           styles.inputContainer,
           style,
-          (Boolean(error) && getColorStyle("border", "error")) ||
+          (Boolean(error) && { borderColor: appColors.error }) ||
             (isFocused && styles.focusedInputContainer),
         ];
 

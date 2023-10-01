@@ -9,13 +9,10 @@ import {
   textStyle_i4,
   textStyle_i5,
 } from "../../../constants";
-import { useAppTheme } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
 
 export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
-  const { getColorStyle } = useAppTheme();
-
   const loginHandler = () => {
     navigation.navigate("Login");
   };
@@ -38,10 +35,8 @@ export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={[
-            CustomButtonStyles.base,
-            getColorStyle("background", "primary"),
-          ]}
+          style={CustomButtonStyles.base}
+          backgroundColor="primary"
           textStyle={textStyle_i4}
           onPress={loginHandler}
         >
@@ -49,11 +44,9 @@ export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
         </CustomButton>
 
         <CustomButton
-          style={[
-            CustomButtonStyles.base,
-            getColorStyle("background", "background"),
-            getColorStyle("border", "primary"),
-          ]}
+          style={CustomButtonStyles.base}
+          backgroundColor="background"
+          borderColor="primary"
           textStyle={textStyle_i5}
           onPress={createAccountHandler}
         >

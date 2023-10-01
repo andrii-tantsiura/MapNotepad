@@ -8,7 +8,6 @@ import {
   InformativeTextInput,
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants";
 import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import { FirebaseErrorMessages } from "../../../enums";
 import {
@@ -16,7 +15,7 @@ import {
   extractErrorMessage,
   getConfirmPasswordRules,
 } from "../../../helpers";
-import { useAppTheme, useAuth, useHookForm } from "../../../hooks";
+import { useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
@@ -28,7 +27,6 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
 }: AuthScreenProps) => {
-  const { getColorStyle } = useAppTheme();
   const [isLoading, setIsLoading] = useState(false);
   const { setCredentials } = useAuth();
 
@@ -88,10 +86,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={[
-            CustomButtonStyles.base,
-            getColorStyle("background", "primary"),
-          ]}
+          backgroundColor="primary"
           textStyle={textStyle_i4}
           onPress={handleSubmit(createAccountHandler)}
         >

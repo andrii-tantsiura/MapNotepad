@@ -18,7 +18,7 @@ const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 const TabsStack: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { appColors, getColorStyle } = useAppTheme();
+  const { appColors } = useAppTheme();
 
   const { signOut } = useAuth();
   const { fetchPins } = usePins();

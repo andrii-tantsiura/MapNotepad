@@ -7,6 +7,5 @@ export const CustomButtonStyles = StyleSheet.create({
     height: scaleSize(40),
     borderWidth: 1,
     borderRadius: 3,
-    borderColor: "transparent",
   },
 });

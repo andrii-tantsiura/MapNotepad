@@ -31,7 +31,7 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
   pins,
   onPinPressed,
 }) => {
-  const { getColorStyle } = useAppTheme();
+  const { appColors } = useAppTheme();
   const [displayedPins, setDisplayedPins] = useState<IPinItemModel[]>([]);
   const [pinsListStyle, setPinsListStyle] = useState<ViewStyle[]>();
 
@@ -60,7 +60,7 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
     <FlatList
       style={[
         styles.container,
-        getColorStyle("background", "background"),
+        { backgroundColor: appColors.background },
         pinsListStyle,
       ]}
       keyboardShouldPersistTaps="always"

@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Image,
   ImageProps,
   ImageStyle,
   Pressable,
@@ -10,7 +11,6 @@ import {
 import { ImageSizes } from "../../../constants";
 import { IAppColors } from "../../../constants/themes/types";
 import { useAppTheme } from "../../../hooks/useAppTheme";
-import { Icon } from "../Icon";
 import styles from "./styles";
 
 interface IIconButtonProps {
@@ -36,14 +36,16 @@ export const IconButton: React.FC<IIconButtonProps> = ({
 
   return (
     <Pressable
-      style={({ pressed }) => [pressed && styles.pressed]}
+      style={({ pressed }) => [
+        style,
+        backgroundColor && { backgroundColor: appColors[backgroundColor] },
+        borderColor && { borderColor: appColors[borderColor] },
+        pressed && styles.pressed,
+      ]}
       onPress={onPress}
     >
-      <Icon
-        backgroundColor={backgroundColor}
-        borderColor={borderColor}
-        style={style}
-        imageStyle={[
+      <Image
+        style={[
           ImageSizes.medium,
           imageStyle,
           tintColor && { tintColor: appColors[tintColor] },

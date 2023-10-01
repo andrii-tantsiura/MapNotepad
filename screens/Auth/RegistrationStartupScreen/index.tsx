@@ -8,10 +8,9 @@ import {
   InformativeTextInput,
 } from "../../../components/common";
 import { Separator } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants";
 import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
-import { useAppTheme, useHookForm } from "../../../hooks";
+import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import { ICreateUserForm } from "../../../types/forms";
 import styles from "./styles";
@@ -19,7 +18,6 @@ import styles from "./styles";
 export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,
 }) => {
-  const { getColorStyle } = useAppTheme();
 
   const goToNextRegistrationStepHandler = ({
     name,
@@ -62,10 +60,7 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={[
-            CustomButtonStyles.base,
-            getColorStyle("background", "primary"),
-          ]}
+          backgroundColor="primary"
           textStyle={textStyle_i4}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
         >

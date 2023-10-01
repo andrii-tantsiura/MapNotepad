@@ -8,14 +8,13 @@ import {
   InformativeTextInput,
 } from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants";
 import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import {
   EMAIL_RULES,
   PASSWORD_RULES,
   extractErrorMessage,
 } from "../../../helpers";
-import { useAppTheme, useAuth, useHookForm } from "../../../hooks";
+import { useAuth, useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import AlertService from "../../../services/AlertService";
 import AuthService from "../../../services/AuthService";
@@ -24,7 +23,6 @@ import { ILoginForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
-  const { getColorStyle } = useAppTheme();
 
   const { setCredentials } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -82,10 +80,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={[
-            CustomButtonStyles.base,
-            getColorStyle("background", "primary"),
-          ]}
+          backgroundColor="primary"
           textStyle={textStyle_i4}
           onPress={handleSubmit(submitHandler)}
         >
