@@ -8,7 +8,7 @@ import {
   LEFT_BLUE_ICON,
   SETTINGS_ICON,
 } from "../../../assets/icons";
-import { AppPalette, ImageStyles, textStyle_i13 } from "../../../constants";
+import { AppPalette, ImageSizes, textStyle_i13 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
 import { useAppTheme } from "../../../hooks";
 import {
@@ -18,7 +18,7 @@ import {
 } from "../../../store/redux/actions";
 import { selectSearch } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
-import { IconButton } from "../../common";
+import { Box, IconButton } from "../../common";
 import { Separator } from "../Separator";
 import styles from "./styles";
 
@@ -33,9 +33,7 @@ export const SearchBar: FC<ISearchBarProps> = ({
   onLeftButtonPress,
   onRightButtonPress,
 }) => {
-  const { appColors, getColorStyle } = useAppTheme();
-
-  const iconsTintColor = getColorStyle("tint", "primary");
+  const { appColors } = useAppTheme();
 
   const dispatch = useAppDispatch();
   const { isActive, searchQuery } = useSelector(selectSearch);
@@ -70,24 +68,23 @@ export const SearchBar: FC<ISearchBarProps> = ({
       <View style={[styles.container, style]}>
         {isActive ? (
           <IconButton
-            imageStyle={[ImageStyles.i1, iconsTintColor]}
+            tintColor="primary"
+            imageStyle={ImageSizes.medium}
             imageSource={LEFT_BLUE_ICON}
             onPress={stopSearchHandler}
           />
         ) : (
           <IconButton
-            imageStyle={iconsTintColor}
+            tintColor="primary"
             imageSource={SETTINGS_ICON}
             onPress={onLeftButtonPress}
           />
         )}
 
-        <View
-          style={[
-            styles.inputContainer,
-            getColorStyle("background", "variant"),
-            getColorStyle("border", "variant"),
-          ]}
+        <Box
+          borderColor="variant"
+          backgroundColor="variant"
+          style={styles.inputContainer}
         >
           <TextInput
             ref={textInputRef}
@@ -106,16 +103,17 @@ export const SearchBar: FC<ISearchBarProps> = ({
 
           {isActive && (
             <IconButton
-              imageStyle={[ImageStyles.i2, iconsTintColor]}
+              imageStyle={ImageSizes.large}
+              tintColor="primary"
               imageSource={CLEAR_ICON}
               onPress={clearTextHandler}
             />
           )}
-        </View>
+        </Box>
 
         {!isActive && (
           <IconButton
-            imageStyle={iconsTintColor}
+            tintColor="primary"
             imageSource={EXIT_ICON}
             onPress={onRightButtonPress}
           />

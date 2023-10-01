@@ -19,7 +19,7 @@ import styles from "./styles";
 export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,
 }) => {
-  const { appColors, getColorStyle } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
 
   const goToNextRegistrationStepHandler = ({
     name,
@@ -75,7 +75,8 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
         <Separator>or</Separator>
 
         <IconButton
-          style={[IconButtonStyles.outline, getColorStyle("border", "primary")]}
+          style={IconButtonStyles.outline}
+          borderColor="primary"
           imageSource={GOOGLE_ICON}
         />
       </View>

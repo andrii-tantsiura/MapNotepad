@@ -5,7 +5,7 @@ import { LIKE_BLUE_ICON, RIGHT_GRAY_ICON } from "../../../../../assets/icons";
 import { IconButton, Typography } from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
 import {
-  ImageStyles,
+  ImageSizes,
   textStyle_i11,
   textStyle_i9,
 } from "../../../../../constants";
@@ -22,7 +22,7 @@ interface IPinItemProps {
 
 export const PinItem: FC<IPinItemProps> = React.memo(
   ({ pin, onPress, onPressFavoriteStatus }) => {
-    const { appColors, getColorStyle } = useAppTheme();
+    const { getColorStyle } = useAppTheme();
 
     const changeFavoriteStatusHandler = () => onPressFavoriteStatus(pin);
 
@@ -34,14 +34,9 @@ export const PinItem: FC<IPinItemProps> = React.memo(
         <View style={styles.content}>
           <View style={styles.infoContainer}>
             <IconButton
-              style={[
-                styles.likeButton,
-                getColorStyle("background", "variant"),
-              ]}
-              imageStyle={getColorStyle(
-                "tint",
-                pin.isFavorite ? "primary" : "systemGray"
-              )}
+              style={styles.likeButton}
+              backgroundColor="variant"
+              tintColor={pin.isFavorite ? "primary" : "systemGray"}
               imageSource={LIKE_BLUE_ICON}
               onPress={changeFavoriteStatusHandler}
             />
@@ -55,7 +50,7 @@ export const PinItem: FC<IPinItemProps> = React.memo(
             </View>
           </View>
 
-          <Image style={ImageStyles.i1} source={RIGHT_GRAY_ICON} />
+          <Image style={ImageSizes.medium} source={RIGHT_GRAY_ICON} />
         </View>
 
         <Separator />

@@ -60,7 +60,7 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
     <FlatList
       style={[
         styles.container,
-        getColorStyle('background', 'background'),
+        getColorStyle("background", "background"),
         pinsListStyle,
       ]}
       keyboardShouldPersistTaps="always"

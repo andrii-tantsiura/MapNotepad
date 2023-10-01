@@ -40,7 +40,7 @@ export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
         <CustomButton
           style={[
             CustomButtonStyles.base,
-            getColorStyle("background", "background"),
+            getColorStyle("background", "primary"),
           ]}
           textStyle={textStyle_i4}
           onPress={loginHandler}

@@ -15,7 +15,7 @@ import {
   pinModelToPinItemModel,
 } from "../../../converters";
 import { hideActionMenu } from "../../../helpers";
-import { useAppTheme, usePins } from "../../../hooks";
+import { usePins } from "../../../hooks";
 import { HomeScreenNavigationProp } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { stopSearchAction } from "../../../store/redux/actions";
@@ -32,7 +32,6 @@ import styles from "./styles";
 
 export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
-  const { appColors, getColorStyle } = useAppTheme();
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
@@ -165,10 +164,8 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
       />
 
       <IconButton
-        style={[
-          IconButtonStyles.floating,
-          getColorStyle("background", "primary"),
-        ]}
+        style={IconButtonStyles.floating}
+        backgroundColor="primary"
         imageSource={PLUS_ICON}
         onPress={addPinHandler}
       />

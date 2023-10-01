@@ -95,7 +95,8 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
         <Separator>or</Separator>
 
         <IconButton
-          style={[IconButtonStyles.outline, getColorStyle("border", "primary")]}
+          style={IconButtonStyles.outline}
+          borderColor="primary"
           imageSource={GOOGLE_ICON}
         />
       </View>

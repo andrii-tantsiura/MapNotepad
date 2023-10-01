@@ -16,7 +16,7 @@ import {
 } from "react-native";
 
 import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
-import { AppPalette, ImageStyles, textStyle_i9 } from "../../../constants";
+import { AppPalette, ImageSizes, textStyle_i9 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
 import { useAppTheme } from "../../../hooks/useAppTheme";
 import { IconButton } from "../IconButton";
@@ -80,11 +80,6 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         field: { value, onChange, onBlur },
         fieldState: { error },
       }) => {
-        const iconButtonStyle = [
-          ImageStyles.i2,
-          getColorStyle("tint", "primary"),
-        ];
-
         const textInputProps: TextInputProps = {
           ...restProps,
           style: textStyles,
@@ -117,7 +112,8 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
 
             {secureTextEntry && value && (
               <IconButton
-                imageStyle={iconButtonStyle}
+                tintColor="primary"
+                imageStyle={ImageSizes.large}
                 imageSource={passwordIcon}
                 onPress={toggleIsTextHidden}
               />
@@ -125,7 +121,8 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
 
             {value && (
               <IconButton
-                imageStyle={iconButtonStyle}
+                tintColor="primary"
+                imageStyle={ImageSizes.large}
                 imageSource={CLEAR_ICON}
                 onPress={clearTextHandler}
               />

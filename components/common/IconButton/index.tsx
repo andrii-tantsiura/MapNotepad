@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Image,
   ImageProps,
   ImageStyle,
   Pressable,
@@ -8,11 +7,17 @@ import {
   ViewStyle,
 } from "react-native";
 
-import { ImageStyles } from "../../../constants";
+import { ImageSizes } from "../../../constants";
+import { IAppColors } from "../../../constants/themes/types";
+import { useAppTheme } from "../../../hooks/useAppTheme";
+import { Icon } from "../Icon";
 import styles from "./styles";
 
 interface IIconButtonProps {
-  imageSource?: ImageProps["source"];
+  imageSource: ImageProps["source"];
+  tintColor?: keyof IAppColors;
+  backgroundColor?: keyof IAppColors;
+  borderColor?: keyof IAppColors;
   imageStyle?: StyleProp<ImageStyle>;
   style?: StyleProp<ViewStyle>;
   onPress?: () => void;
@@ -21,15 +26,30 @@ interface IIconButtonProps {
 export const IconButton: React.FC<IIconButtonProps> = ({
   imageSource,
   imageStyle,
+  tintColor,
+  backgroundColor,
+  borderColor,
   style,
   onPress,
-}) => (
-  <Pressable
-    style={({ pressed }) => [style, pressed && styles.pressed]}
-    onPress={onPress}
-  >
-    {imageSource && (
-      <Image style={[ImageStyles.i1, imageStyle]} source={imageSource} />
-    )}
-  </Pressable>
-);
+}) => {
+  const { appColors } = useAppTheme();
+
+  return (
+    <Pressable
+      style={({ pressed }) => [pressed && styles.pressed]}
+      onPress={onPress}
+    >
+      <Icon
+        backgroundColor={backgroundColor}
+        borderColor={borderColor}
+        style={style}
+        imageStyle={[
+          ImageSizes.medium,
+          imageStyle,
+          tintColor && { tintColor: appColors[tintColor] },
+        ]}
+        source={imageSource}
+      />
+    </Pressable>
+  );
+};

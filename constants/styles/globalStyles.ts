@@ -35,12 +35,12 @@ export const ContainerStyles = StyleSheet.create({
   },
 });
 
-export const ImageStyles = StyleSheet.create({
-  i1: {
+export const ImageSizes = StyleSheet.create({
+  medium: {
     height: scaleSize(24),
     width: scaleSize(24),
   },
-  i2: {
+  large: {
     height: scaleSize(20),
     width: scaleSize(20),
   },

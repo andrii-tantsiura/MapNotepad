@@ -9,7 +9,7 @@ import {
   textStyle_i9,
 } from "../../../constants";
 import { useAppTheme } from "../../../hooks";
-import { CustomButton, Typography } from "../../common";
+import { Box, CustomButton, Typography } from "../../common";
 import styles from "./styles";
 
 interface IConfirmModalProps {
@@ -42,12 +42,10 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
       transparent
     >
       <View style={styles.dialogContainer}>
-        <View
-          style={[
-            styles.contentContainer,
-            getColorStyle("background", "variant"),
-            getColorStyle("border", "variant"),
-          ]}
+        <Box
+          backgroundColor="variant"
+          borderColor="variant"
+          style={styles.contentContainer}
         >
           <Typography style={textStyle_i6}>{title}</Typography>
 
@@ -82,7 +80,7 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
               {confirmText}
             </CustomButton>
           </View>
-        </View>
+        </Box>
       </View>
     </Modal>
   );

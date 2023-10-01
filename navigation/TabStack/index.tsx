@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-import { Image } from "react-native";
 
 import { MAP_ICON, PIN_ICON } from "../../assets/icons";
+import { Icon } from "../../components/common";
 import { ConfirmModal } from "../../components/modals";
 import { SearchBar } from "../../components/sections";
-import { ImageStyles, textStyle_i3 } from "../../constants";
+import { ImageSizes, textStyle_i3 } from "../../constants";
 import { typographyStyleToTextStyle } from "../../helpers";
 import { useAppTheme, useAuth, usePins } from "../../hooks";
 import { MapScreen, PinsScreen } from "../../screens/Home";
@@ -23,8 +23,6 @@ const TabsStack: React.FC = () => {
   const { signOut } = useAuth();
   const { fetchPins } = usePins();
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
-
-  const tabBarIconStyle = [ImageStyles.i1, getColorStyle("tint", "primary")];
 
   useEffect(() => {
     fetchPins();
@@ -68,7 +66,11 @@ const TabsStack: React.FC = () => {
           component={MapScreen}
           options={{
             tabBarIcon: () => (
-              <Image style={tabBarIconStyle} source={MAP_ICON} />
+              <Icon
+                style={ImageSizes.medium}
+                tintColor="primary"
+                source={MAP_ICON}
+              />
             ),
           }}
         />
@@ -78,7 +80,11 @@ const TabsStack: React.FC = () => {
           component={PinsScreen}
           options={{
             tabBarIcon: () => (
-              <Image style={tabBarIconStyle} source={PIN_ICON} />
+              <Icon
+                style={ImageSizes.medium}
+                tintColor="primary"
+                source={PIN_ICON}
+              />
             ),
           }}
         />

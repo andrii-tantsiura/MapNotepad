@@ -1,8 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { AppPalette } from "../../../../../constants";
 import { scaleSize } from "../../../../../utils";
-8;
 
 const styles = StyleSheet.create({
   hiddenActionMenu: {
@@ -14,12 +12,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     paddingHorizontal: scaleSize(16),
-  },
-  hiddenDeleteButton: {
-    backgroundColor: AppPalette.lightError,
-  },
-  hiddenEditButton: {
-    backgroundColor: AppPalette.lightPrimary,
   },
 });
 

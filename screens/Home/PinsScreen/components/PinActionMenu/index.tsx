@@ -19,13 +19,15 @@ export const PinActionMenu: FC<IPinActionMenuProps> = ({
 }) => (
   <View style={styles.hiddenActionMenu}>
     <IconButton
-      style={[styles.hiddenButtonContainer, styles.hiddenDeleteButton]}
+      style={styles.hiddenButtonContainer}
+      backgroundColor="error"
       imageSource={DELETE_ICON}
       onPress={onDelete}
     />
 
     <IconButton
-      style={[styles.hiddenButtonContainer, styles.hiddenEditButton]}
+      style={styles.hiddenButtonContainer}
+      backgroundColor="primary"
       imageSource={EDIT_ICON}
       onPress={onEdit}
     />

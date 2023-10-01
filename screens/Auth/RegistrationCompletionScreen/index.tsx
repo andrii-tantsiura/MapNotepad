@@ -101,7 +101,8 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         <Separator>or</Separator>
 
         <IconButton
-          style={[IconButtonStyles.outline, getColorStyle("border", "primary")]}
+          style={IconButtonStyles.outline}
+          borderColor="primary"
           imageSource={GOOGLE_ICON}
         />
       </View>
