@@ -11,7 +11,7 @@ import { ITypographyProps, Typography } from "../Typography";
 import styles from "./styles";
 
 interface ICustomButtonProps {
-  children?: ViewProps["children"];
+  children: ViewProps["children"];
   style?: StyleProp<ViewStyle>;
   textStyle?: ITypographyProps["style"];
   onPress?: () => void;
@@ -31,7 +31,7 @@ export const CustomButton: React.FC<ICustomButtonProps> = ({
 
   return (
     <Pressable style={getStyle} onPress={onPress}>
-      {children && <Typography style={textStyle}>{children}</Typography>}
+      <Typography style={textStyle}>{children}</Typography>
     </Pressable>
   );
 };

@@ -13,15 +13,15 @@ import styles from "./styles";
 
 interface IIconButtonProps {
   imageSource?: ImageProps["source"];
-  style?: StyleProp<ViewStyle>;
   imageStyle?: StyleProp<ImageStyle>;
+  style?: StyleProp<ViewStyle>;
   onPress?: () => void;
 }
 
 export const IconButton: React.FC<IIconButtonProps> = ({
   imageSource,
-  style,
   imageStyle,
+  style,
   onPress,
 }) => (
   <Pressable

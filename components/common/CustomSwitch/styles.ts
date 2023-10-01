@@ -8,7 +8,6 @@ const styles = StyleSheet.create({
     width: 36,
     height: 22,
     borderRadius: 30,
-    backgroundColor: AppPalette.systemLightGray,
     justifyContent: "center",
   },
   circle: {

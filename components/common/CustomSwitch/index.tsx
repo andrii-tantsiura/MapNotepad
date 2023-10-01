@@ -20,7 +20,6 @@ interface ICustomSwitchProps {
 }
 
 const maxInterpolatedValue = 22;
-
 const circleHorizontalMargin = 1;
 const inactiveCirclePosition = circleHorizontalMargin;
 const activeCirclePosition =
