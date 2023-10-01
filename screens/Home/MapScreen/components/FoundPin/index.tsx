@@ -3,11 +3,7 @@ import { TouchableOpacity, View } from "react-native";
 
 import { PIN_ICON } from "../../../../../assets/icons";
 import { Icon, Typography } from "../../../../../components/common";
-import {
-  ImageSizes,
-  textStyle_i11,
-  textStyle_i13,
-} from "../../../../../constants";
+import { textStyle_i11, textStyle_i13 } from "../../../../../constants";
 import { IPinItemModel } from "../../../../../types/components";
 import styles from "./styles";
 
@@ -20,7 +16,6 @@ export const FoundPin: FC<FoundPinProps> = React.memo(({ pin, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(pin)}>
       <Icon
-        style={ImageSizes.medium}
         tintColor={pin.isFavorite ? "primary" : "systemGray"}
         source={PIN_ICON}
       />
