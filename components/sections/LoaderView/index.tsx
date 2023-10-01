@@ -13,9 +13,10 @@ export const LoaderView: React.FC<ILoaderView> = ({
   message = "Loading...",
   spinnerColor,
 }) => {
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
+
   return (
-    <View style={[styles.container, { backgroundColor: appColors.background }]}>
+    <View style={[styles.container, getColorStyle("background", "background")]}>
       <Text style={styles.message}>{message}</Text>
 
       <ActivityIndicator

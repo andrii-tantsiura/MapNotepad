@@ -12,7 +12,7 @@ export const useHeaderRightButton = <T extends keyof HomeStackParamList>(
   imageSource: ImageProps["source"],
   onPress: () => void
 ) => {
-  const { appColors } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -21,7 +21,7 @@ export const useHeaderRightButton = <T extends keyof HomeStackParamList>(
           style={{
             margin: scaleSize(12),
           }}
-          imageStyle={{ tintColor: appColors.primary }}
+          imageStyle={getColorStyle("tint", "primary")}
           imageSource={imageSource}
           onPress={onPress}
         />

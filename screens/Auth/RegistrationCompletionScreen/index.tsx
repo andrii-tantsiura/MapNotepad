@@ -31,7 +31,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
   navigation,
   route,
 }: AuthScreenProps) => {
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
   const [isLoading, setIsLoading] = useState(false);
   const { setCredentials } = useAuth();
 
@@ -93,7 +93,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         <CustomButton
           style={[
             CustomButtonStyles.base,
-            { backgroundColor: appColors.primary },
+            getColorStyle("background", "primary"),
           ]}
           textStyle={textStyle_i4}
           onPress={handleSubmit(createAccountHandler)}
@@ -106,7 +106,7 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
         <IconButton
           style={[
             globalIconButtonStyles.outline,
-            { borderColor: appColors.primary },
+            getColorStyle("border", "primary"),
           ]}
           imageSource={GOOGLE_ICON}
         />

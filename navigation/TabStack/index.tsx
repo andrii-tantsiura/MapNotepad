@@ -18,11 +18,13 @@ const Tabs = createBottomTabNavigator<TabStackParamList>();
 
 const TabsStack: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
 
   const { signOut } = useAuth();
   const { fetchPins } = usePins();
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
+
+  const tabBarIconStyle = [ImageStyles.i1, getColorStyle("tint", "primary")];
 
   useEffect(() => {
     fetchPins();
@@ -66,10 +68,7 @@ const TabsStack: React.FC = () => {
           component={MapScreen}
           options={{
             tabBarIcon: () => (
-              <Image
-                style={[ImageStyles.i1, { tintColor: appColors.primary }]}
-                source={MAP_ICON}
-              />
+              <Image style={tabBarIconStyle} source={MAP_ICON} />
             ),
           }}
         />
@@ -79,10 +78,7 @@ const TabsStack: React.FC = () => {
           component={PinsScreen}
           options={{
             tabBarIcon: () => (
-              <Image
-                style={[ImageStyles.i1, { tintColor: appColors.primary }]}
-                source={PIN_ICON}
-              />
+              <Image style={tabBarIconStyle} source={PIN_ICON} />
             ),
           }}
         />

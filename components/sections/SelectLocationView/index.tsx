@@ -29,7 +29,7 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   shouldRequestLocationInitially = true,
   onPickLocation,
 }) => {
-  const { appColors, mapStyles } = useAppTheme();
+  const { mapStyles, getColorStyle } = useAppTheme();
   const mapViewRef = useRef<MapView | null>(null);
   const { userLocation, requestUserLocation } = useUserLocation(
     shouldRequestLocationInitially
@@ -80,9 +80,9 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
       <IconButton
         style={[
           globalIconButtonStyles.floating,
-          { backgroundColor: appColors.background },
+          getColorStyle("background", "background"),
         ]}
-        imageStyle={{ tintColor: appColors.primary }}
+        imageStyle={getColorStyle("tint", "primary")}
         imageSource={LOCATION_ICON}
         onPress={requestUserLocation}
       />

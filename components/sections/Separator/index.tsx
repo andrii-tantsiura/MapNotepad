@@ -11,17 +11,17 @@ interface ISeparatorProps {
 }
 
 export const Separator: React.FC<ISeparatorProps> = ({ children }) => {
-  const { appColors } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
 
   return (
     <View style={styles.container}>
-      <View style={[styles.line, { backgroundColor: appColors.variant }]} />
+      <View style={[styles.line, getColorStyle("background", "variant")]} />
 
       {children && (
         <Typography style={[textStyle_i8, styles.text]}>{children}</Typography>
       )}
 
-      <View style={[styles.line, { backgroundColor: appColors.variant }]} />
+      <View style={[styles.line, getColorStyle("background", "variant")]} />
     </View>
   );
 };

@@ -14,7 +14,7 @@ import { AuthScreenProps } from "../../../navigation/AuthStack/types";
 import styles from "./styles";
 
 export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
 
   const loginHandler = () => {
     navigation.navigate("Login");
@@ -40,7 +40,7 @@ export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
         <CustomButton
           style={[
             CustomButtonStyles.base,
-            { backgroundColor: appColors.primary },
+            getColorStyle("background", "background"),
           ]}
           textStyle={textStyle_i4}
           onPress={loginHandler}
@@ -51,10 +51,8 @@ export const StartupScreen: React.FC<AuthScreenProps> = ({ navigation }) => {
         <CustomButton
           style={[
             CustomButtonStyles.base,
-            {
-              backgroundColor: appColors.background,
-              borderColor: appColors.primary,
-            },
+            getColorStyle("background", "background"),
+            getColorStyle("border", "primary"),
           ]}
           textStyle={textStyle_i5}
           onPress={createAccountHandler}

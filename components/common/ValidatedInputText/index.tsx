@@ -50,7 +50,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   secureTextEntry,
   ...restProps
 }) => {
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isTextHidden, setIsTextHidden] = useState(secureTextEntry);
 
@@ -82,7 +82,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
       }) => {
         const iconButtonStyle = [
           ImageStyles.i2,
-          { tintColor: appColors.primary },
+          getColorStyle("tint", "primary"),
         ];
 
         const textInputProps: TextInputProps = {
@@ -107,7 +107,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         const containerStyle = [
           styles.inputContainer,
           style,
-          (Boolean(error) && { backgroundColor: appColors.error }) ||
+          (Boolean(error) && getColorStyle("background", "error")) ||
             (isFocused && styles.focusedInputContainer),
         ];
 

@@ -35,7 +35,7 @@ import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
-  const { appColors, mapStyles } = useAppTheme();
+  const { appColors, mapStyles, getColorStyle } = useAppTheme();
   const mapViewRef = useRef<MapView | null>(null);
 
   const dispatch = useAppDispatch();
@@ -142,9 +142,9 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
       <IconButton
         style={[
           globalIconButtonStyles.floating,
-          { backgroundColor: appColors.background },
+          getColorStyle("background", "background"),
         ]}
-        imageStyle={{ tintColor: appColors.primary }}
+        imageStyle={getColorStyle("tint", "primary")}
         imageSource={LOCATION_ICON}
         onPress={requestUserLocation}
       />

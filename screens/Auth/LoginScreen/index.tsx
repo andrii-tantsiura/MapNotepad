@@ -27,7 +27,7 @@ import { ILoginForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
-  const { appColors } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
 
   const { setCredentials } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +87,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
         <CustomButton
           style={[
             CustomButtonStyles.base,
-            { backgroundColor: appColors.primary },
+            getColorStyle("background", "primary"),
           ]}
           textStyle={textStyle_i4}
           onPress={handleSubmit(submitHandler)}
@@ -100,7 +100,7 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
         <IconButton
           style={[
             globalIconButtonStyles.outline,
-            { borderColor: appColors.primary },
+            getColorStyle("border", "primary"),
           ]}
           imageSource={GOOGLE_ICON}
         />

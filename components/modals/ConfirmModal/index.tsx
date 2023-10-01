@@ -31,7 +31,7 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
 
   return (
     <Modal
@@ -45,10 +45,8 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
         <View
           style={[
             styles.contentContainer,
-            {
-              backgroundColor: appColors.variant,
-              borderColor: appColors.variant,
-            },
+            getColorStyle("background", "variant"),
+            getColorStyle("border", "variant"),
           ]}
         >
           <Typography style={textStyle_i6}>{title}</Typography>
@@ -61,8 +59,8 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
                 CustomButtonStyles.base,
                 {
                   width: "50%",
-                  borderColor: appColors.primary,
                 },
+                getColorStyle("border", "primary"),
               ]}
               textStyle={textStyle_i5}
               onPress={onCancel}
@@ -75,8 +73,8 @@ export const ConfirmModal: FC<IConfirmModalProps> = ({
                 CustomButtonStyles.base,
                 {
                   width: "50%",
-                  backgroundColor: appColors.primary,
                 },
+                getColorStyle("background", "primary"),
               ]}
               textStyle={textStyle_i4}
               onPress={onConfirm}

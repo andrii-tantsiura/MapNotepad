@@ -15,7 +15,7 @@ type PinDetailsProps = {
 };
 
 export const PinDetailsModal: FC<PinDetailsProps> = ({ pin, onClose }) => {
-  const { appColors } = useAppTheme();
+  const { getColorStyle } = useAppTheme();
 
   return (
     <Modal
@@ -29,7 +29,7 @@ export const PinDetailsModal: FC<PinDetailsProps> = ({ pin, onClose }) => {
         <Pressable style={styles.foreground} onPress={onClose} />
 
         <View
-          style={[styles.content, { backgroundColor: appColors.background }]}
+          style={[styles.content, getColorStyle("background", "background")]}
         >
           <View style={styles.header}>
             <Typography style={textStyle_i6}>{pin.label}</Typography>

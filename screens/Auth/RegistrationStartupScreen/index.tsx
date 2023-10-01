@@ -23,7 +23,7 @@ import styles from "./styles";
 export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,
 }) => {
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
 
   const goToNextRegistrationStepHandler = ({
     name,
@@ -68,7 +68,7 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
         <CustomButton
           style={[
             CustomButtonStyles.base,
-            { backgroundColor: appColors.primary },
+            getColorStyle("background", "primary"),
           ]}
           textStyle={textStyle_i4}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
@@ -81,7 +81,7 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
         <IconButton
           style={[
             globalIconButtonStyles.outline,
-            { borderColor: appColors.primary },
+            getColorStyle("border", "primary"),
           ]}
           imageSource={GOOGLE_ICON}
         />

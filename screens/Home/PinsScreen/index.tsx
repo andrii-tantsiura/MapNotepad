@@ -32,7 +32,7 @@ import styles from "./styles";
 
 export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
   const homeNavigation = useNavigation<HomeScreenNavigationProp>();
 
   const {
@@ -167,7 +167,7 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
       <IconButton
         style={[
           globalIconButtonStyles.floating,
-          { backgroundColor: appColors.primary },
+          getColorStyle("background", "primary"),
         ]}
         imageSource={PLUS_ICON}
         onPress={addPinHandler}

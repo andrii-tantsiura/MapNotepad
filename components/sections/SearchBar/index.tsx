@@ -33,9 +33,9 @@ export const SearchBar: FC<ISearchBarProps> = ({
   onLeftButtonPress,
   onRightButtonPress,
 }) => {
-  const { appColors } = useAppTheme();
+  const { appColors, getColorStyle } = useAppTheme();
 
-  const iconsTintColor = { tintColor: appColors.primary };
+  const iconsTintColor = getColorStyle("tint", "primary");
 
   const dispatch = useAppDispatch();
   const { isActive, searchQuery } = useSelector(selectSearch);
@@ -85,10 +85,8 @@ export const SearchBar: FC<ISearchBarProps> = ({
         <View
           style={[
             styles.inputContainer,
-            {
-              backgroundColor: appColors.variant,
-              borderColor: appColors.variant,
-            },
+            getColorStyle("background", "variant"),
+            getColorStyle("border", "variant"),
           ]}
         >
           <TextInput
