@@ -55,5 +55,4 @@ const AuthStack: React.FC = () => (
     />
   </Stack.Navigator>
 );
-
 export default AuthStack;

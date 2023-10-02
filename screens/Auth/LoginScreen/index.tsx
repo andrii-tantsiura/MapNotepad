@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import { CustomButton, InformativeTextInput } from "../../../components/common";
+import {
+  CustomButton,
+  IconButton,
+  InformativeTextInput,
+} from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants";
+import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import {
   EMAIL_RULES,
   PASSWORD_RULES,
@@ -19,6 +23,7 @@ import { ILoginForm } from "../../../types/forms";
 import styles from "./styles";
 
 export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
+
   const { setCredentials } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -75,7 +80,8 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.rectSolid_i1}
+          backgroundColor="primary"
+          textStyle={textStyle_i4}
           onPress={handleSubmit(submitHandler)}
         >
           Login
@@ -83,8 +89,9 @@ export const LoginScreen: React.FC<AuthScreenProps> = ({ route }) => {
 
         <Separator>or</Separator>
 
-        <CustomButton
-          style={CustomButtonStyles.rectOutline_i2}
+        <IconButton
+          style={IconButtonStyles.outline}
+          borderColor="primary"
           imageSource={GOOGLE_ICON}
         />
       </View>

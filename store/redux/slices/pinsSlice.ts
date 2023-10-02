@@ -7,7 +7,7 @@ import {
   setPinsAction,
   toggleFavoritePinStatusAction,
   updatePinAction,
-} from "../actions/pins.actions";
+} from "../actions";
 import { RootStore } from "../store";
 
 type InitialState = {

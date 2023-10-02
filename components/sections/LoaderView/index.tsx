@@ -1,6 +1,8 @@
-import { ActivityIndicator, Text, View } from "react-native";
+import { ActivityIndicator, Text } from "react-native";
 
-import { IAppColors, AppColors } from "../../../constants";
+import { IAppColors } from "../../../constants/themes/types";
+import { useAppTheme } from "../../../hooks";
+import { Box } from "../../common";
 import styles from "./styles";
 
 interface ILoaderView {
@@ -10,11 +12,18 @@ interface ILoaderView {
 
 export const LoaderView: React.FC<ILoaderView> = ({
   message = "Loading...",
-  spinnerColor = AppColors.darkPrimary,
-}) => (
-  <View style={styles.container}>
-    <Text style={styles.message}>{message}</Text>
+  spinnerColor,
+}) => {
+  const { appColors } = useAppTheme();
 
-    <ActivityIndicator color={spinnerColor} size="large" />
-  </View>
-);
+  return (
+    <Box backgroundColor="background" style={styles.container}>
+      <Text style={styles.message}>{message}</Text>
+
+      <ActivityIndicator
+        color={spinnerColor ?? appColors.primary}
+        size="large"
+      />
+    </Box>
+  );
+};

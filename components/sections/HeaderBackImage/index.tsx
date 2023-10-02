@@ -1,9 +1,9 @@
 import { FC } from "react";
-import { Image } from "react-native";
 
 import { LEFT_BLUE_ICON } from "../../../assets/icons";
-import { ImageStyles } from "../../../constants";
+import { ImageSizes } from "../../../constants";
+import { Icon } from "../../common";
 
 export const HeaderBackImage: FC = () => (
-  <Image style={ImageStyles.i1} source={LEFT_BLUE_ICON} />
+  <Icon style={ImageSizes.medium} tintColor="primary" source={LEFT_BLUE_ICON} />
 );

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { ICredentialsModel } from "../../../types/models";
-import { loginAction, logoutAction } from "../actions/auth.actions";
+import { loginAction, logoutAction } from "../actions";
 import { RootStore } from "../store";
 
 interface IInitialState {

@@ -1,10 +1,12 @@
 import { StyleProp, TextStyle } from "react-native";
 
 import { ITypographyStyle } from "../components/common/Typography/types";
-import { AppColors, FontHeights, FontSizes, FontWeights } from "../constants";
+import { FontHeights, FontSizes, FontWeights } from "../constants";
+import { IAppColors } from "../constants/themes/types";
 
 export const typographyStyleToTextStyle = (
-  style: StyleProp<ITypographyStyle>
+  style: StyleProp<ITypographyStyle>,
+  appColors: IAppColors
 ): TextStyle => {
   let customStyle: TextStyle = {};
 
@@ -24,7 +26,7 @@ export const typographyStyleToTextStyle = (
       lineHeight: lineHeight && FontHeights[lineHeight],
       fontFamily: fontWeight && FontWeights[fontWeight],
       fontSize: fontSize && FontSizes[fontSize],
-      color: color && AppColors[color],
+      color: color && appColors[color],
     };
 
     customStyle = Object.assign(restStyleAttributes, specificStyle);

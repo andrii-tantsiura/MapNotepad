@@ -8,10 +8,10 @@ import MapView, {
 } from "react-native-maps";
 
 import { LOCATION_ICON, MARKER_ICON } from "../../../assets/icons";
-import { CustomButtonStyles, DEFAULT_REGION } from "../../../constants";
+import { IconButtonStyles } from "../../../constants/styles";
 import { animateToLocation } from "../../../helpers";
-import { useUserLocation } from "../../../hooks";
-import { CustomButton } from "../../common";
+import { useAppTheme, useUserLocation } from "../../../hooks";
+import { IconButton } from "../../common/IconButton";
 import styles from "./styles";
 
 interface ISelectLocationViewProps {
@@ -29,6 +29,7 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   shouldRequestLocationInitially = true,
   onPickLocation,
 }) => {
+  const { mapStyles } = useAppTheme();
   const mapViewRef = useRef<MapView | null>(null);
   const { userLocation, requestUserLocation } = useUserLocation(
     shouldRequestLocationInitially
@@ -55,10 +56,11 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
   return (
     <>
       <MapView
+        style={styles.map}
+        customMapStyle={mapStyles}
         initialRegion={initialRegion}
         showsUserLocation
         showsMyLocationButton={false}
-        style={styles.map}
         ref={mapViewRef}
         onPress={mapPressedHandler}
       >
@@ -75,8 +77,10 @@ export const SelectLocationView: React.FC<ISelectLocationViewProps> = ({
         )}
       </MapView>
 
-      <CustomButton
-        style={CustomButtonStyles.roundFloating_i1}
+      <IconButton
+        style={IconButtonStyles.floating}
+        backgroundColor="background"
+        tintColor="primary"
         imageSource={LOCATION_ICON}
         onPress={requestUserLocation}
       />

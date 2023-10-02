@@ -2,7 +2,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { useLayoutEffect } from "react";
 import { ImageProps } from "react-native";
 
-import { CustomButton } from "../components/common";
+import { IconButton } from "../components/common/IconButton";
 import { HomeStackParamList } from "../navigation/HomeStack/types";
 import { scaleSize } from "../utils";
 
@@ -14,12 +14,13 @@ export const useHeaderRightButton = <T extends keyof HomeStackParamList>(
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <CustomButton
-          imageSource={imageSource}
-          onPress={onPress}
-          containerStyle={{
+        <IconButton
+          style={{
             margin: scaleSize(12),
           }}
+          tintColor="primary"
+          imageSource={imageSource}
+          onPress={onPress}
         />
       ),
     });

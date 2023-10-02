@@ -4,7 +4,7 @@ import { Modal, Pressable, View } from "react-native";
 import { textStyle_i12, textStyle_i14, textStyle_i6 } from "../../../constants";
 import { formatCoordinate } from "../../../helpers";
 import { IPinModel } from "../../../types/models";
-import { Typography } from "../../common";
+import { Box, Typography } from "../../common";
 import { Separator } from "../Separator";
 import styles from "./styles";
 
@@ -24,7 +24,7 @@ export const PinDetailsModal: FC<PinDetailsProps> = ({ pin, onClose }) => (
     <View style={styles.container}>
       <Pressable style={styles.foreground} onPress={onClose} />
 
-      <View style={styles.content}>
+      <Box backgroundColor="background" style={styles.content}>
         <View style={styles.header}>
           <Typography style={textStyle_i6}>{pin.label}</Typography>
 
@@ -39,7 +39,7 @@ export const PinDetailsModal: FC<PinDetailsProps> = ({ pin, onClose }) => (
             <Typography style={textStyle_i14}>{pin.description}</Typography>
           </>
         )}
-      </View>
+      </Box>
     </View>
   </Modal>
 );

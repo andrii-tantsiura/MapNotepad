@@ -16,9 +16,10 @@ import {
 } from "react-native";
 
 import { CLEAR_ICON, EYE_ICON, EYE_OFF_ICON } from "../../../assets/icons";
-import { AppColors, ImageStyles, textStyle_i9 } from "../../../constants";
+import { AppPalette, ImageSizes, textStyle_i9 } from "../../../constants";
 import { typographyStyleToTextStyle } from "../../../helpers";
-import { CustomButton } from "../CustomButton";
+import { useAppTheme } from "../../../hooks/useAppTheme";
+import { IconButton } from "../IconButton";
 import { ITypographyStyle } from "../Typography/types";
 import styles from "./styles";
 
@@ -44,11 +45,12 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   style,
   textInputStyle,
   textStyle = textStyle_i9,
-  placeholderTextColor = AppColors.systemGray,
+  placeholderTextColor = AppPalette.systemGray,
   onFocus,
   secureTextEntry,
   ...restProps
 }) => {
+  const { appColors } = useAppTheme();
   const [isFocused, setIsFocused] = useState<boolean>(false);
   const [isTextHidden, setIsTextHidden] = useState(secureTextEntry);
 
@@ -57,7 +59,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
   const textStyles = [
     styles.input,
     textInputStyle,
-    typographyStyleToTextStyle(textStyle),
+    typographyStyleToTextStyle(textStyle, appColors),
   ];
 
   const toggleIsTextHidden = () => {
@@ -81,8 +83,8 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         const textInputProps: TextInputProps = {
           ...restProps,
           style: textStyles,
-          cursorColor: AppColors.lightPrimary,
-          selectionColor: AppColors.lightPrimary,
+          cursorColor: appColors.primary,
+          selectionColor: appColors.primary,
           placeholderTextColor: placeholderTextColor,
           secureTextEntry: isTextHidden,
           value: value,
@@ -100,7 +102,7 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
         const containerStyle = [
           styles.inputContainer,
           style,
-          (Boolean(error) && styles.errorInputContainer) ||
+          (Boolean(error) && { borderColor: appColors.error }) ||
             (isFocused && styles.focusedInputContainer),
         ];
 
@@ -109,18 +111,18 @@ export const ValidatedInputText: React.FC<IValidatedInputTextProps> = ({
             <TextInput {...textInputProps} />
 
             {secureTextEntry && value && (
-              <CustomButton
-                containerStyle={styles.toggleHiddenButton}
-                iconStyle={ImageStyles.i2}
+              <IconButton
+                tintColor="primary"
+                imageStyle={ImageSizes.large}
                 imageSource={passwordIcon}
                 onPress={toggleIsTextHidden}
               />
             )}
 
             {value && (
-              <CustomButton
-                containerStyle={styles.clearButton}
-                iconStyle={ImageStyles.i2}
+              <IconButton
+                tintColor="primary"
+                imageStyle={ImageSizes.large}
                 imageSource={CLEAR_ICON}
                 onPress={clearTextHandler}
               />

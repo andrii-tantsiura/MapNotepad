@@ -1,22 +1,20 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors, ContainerStyles, ShadowStyles } from "../../../constants";
+import { AppPalette, ContainerStyles, ShadowStyles } from "../../../constants";
 import { scaleSize } from "../../../utils";
 
 const styles = StyleSheet.create({
   dialogContainer: {
     ...ContainerStyles.i1,
-    backgroundColor: AppColors.systemDarkGray80,
+    backgroundColor: AppPalette.systemDarkGray80,
   },
   contentContainer: {
     margin: scaleSize(24),
     paddingVertical: scaleSize(16),
     paddingHorizontal: scaleSize(20),
     rowGap: scaleSize(8),
-    backgroundColor: AppColors.systemWhite,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: AppColors.systemLightGray,
     ...ShadowStyles.shadow_i1,
   },
   buttonsContainer: {
@@ -25,7 +23,7 @@ const styles = StyleSheet.create({
     columnGap: scaleSize(20),
     marginTop: scaleSize(8),
   },
-  buttonContainer: {
+  button: {
     width: "50%",
   },
 });

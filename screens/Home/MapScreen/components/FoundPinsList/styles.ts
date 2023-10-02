@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 
-import { AppColors } from "../../../../../constants";
 import { scaleSize } from "../../../../../utils";
 
 const styles = StyleSheet.create({
@@ -8,7 +7,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     zIndex: 1,
     width: "100%",
-    backgroundColor: AppColors.systemWhite,
   },
   pinItem: {
     flexDirection: "row",

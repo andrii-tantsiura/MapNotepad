@@ -9,6 +9,7 @@ import {
   textStyle_i13,
 } from "../../../../../constants";
 import { pinModelToPinItemModel } from "../../../../../converters";
+import { useAppTheme } from "../../../../../hooks";
 import { IPinItemModel } from "../../../../../types/components";
 import { IPinModel } from "../../../../../types/models";
 import { FoundPin } from "../FoundPin";
@@ -30,6 +31,7 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
   pins,
   onPinPressed,
 }) => {
+  const { appColors } = useAppTheme();
   const [displayedPins, setDisplayedPins] = useState<IPinItemModel[]>([]);
   const [pinsListStyle, setPinsListStyle] = useState<ViewStyle[]>();
 
@@ -56,7 +58,11 @@ export const FoundPinsList: FC<FoundPinsListProps> = ({
 
   return (
     <FlatList
-      style={[styles.container, pinsListStyle]}
+      style={[
+        styles.container,
+        { backgroundColor: appColors.background },
+        pinsListStyle,
+      ]}
       keyboardShouldPersistTaps="always"
       data={displayedPins}
       ItemSeparatorComponent={() => <Separator />}

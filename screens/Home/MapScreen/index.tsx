@@ -9,13 +9,10 @@ import {
   MARKER_GRAY_ICON,
   MARKER_ICON,
 } from "../../../assets/icons";
-import { CustomButton, CustomMarker } from "../../../components/common";
+import { CustomMarker, IconButton } from "../../../components/common";
 import { PinDetailsModal } from "../../../components/sections";
-import {
-  AppColors,
-  CustomButtonStyles,
-  DEFAULT_REGION,
-} from "../../../constants";
+import { DEFAULT_REGION } from "../../../constants";
+import { IconButtonStyles } from "../../../constants/styles";
 import {
   customMarkerModelToPinModel,
   pinItemModelToPinModel,
@@ -26,10 +23,12 @@ import {
   hideMarkerCalloutById,
   showMarkerCalloutById,
 } from "../../../helpers";
-import { usePins, useUserLocation } from "../../../hooks";
+import { useAppTheme, usePins, useUserLocation } from "../../../hooks";
 import { TabProps } from "../../../navigation/TabStack/types";
-import { stopSearchAction } from "../../../store/redux/actions";
-import { setUserLocationAction } from "../../../store/redux/actions/userLocation.actions";
+import {
+  setUserLocationAction,
+  stopSearchAction,
+} from "../../../store/redux/actions";
 import { selectSearch } from "../../../store/redux/slices";
 import { useAppDispatch } from "../../../store/redux/store";
 import { ICustomMarkerModel, IPinItemModel } from "../../../types/components";
@@ -38,6 +37,7 @@ import { FoundPinsList } from "./components/FoundPinsList";
 import styles from "./styles";
 
 export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
+  const { appColors, mapStyles } = useAppTheme();
   const mapViewRef = useRef<MapView | null>(null);
 
   const dispatch = useAppDispatch();
@@ -119,11 +119,12 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
 
       <ClusteredMap
         style={styles.map}
+        customMapStyle={mapStyles}
         initialRegion={
           userLocation ? { ...DEFAULT_REGION, ...userLocation } : DEFAULT_REGION
         }
-        clusterColor={AppColors.lightPrimary}
-        clusterTextColor={AppColors.systemWhite}
+        clusterColor={appColors.primary}
+        clusterTextColor={appColors.variant}
         showsUserLocation
         showsMyLocationButton={false}
         moveOnMarkerPress={false}
@@ -140,8 +141,10 @@ export const MapScreen: FC<TabProps> = ({ navigation, route }) => {
         ))}
       </ClusteredMap>
 
-      <CustomButton
-        style={CustomButtonStyles.roundFloating_i1}
+      <IconButton
+        style={IconButtonStyles.floating}
+        backgroundColor="background"
+        tintColor="primary"
         imageSource={LOCATION_ICON}
         onPress={requestUserLocation}
       />

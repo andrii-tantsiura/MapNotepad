@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { StackNavigationProp } from "@react-navigation/stack";
 import React, { FC, useCallback, useEffect, useState } from "react";
 import { ListRenderItemInfo, View } from "react-native";
 import { RefreshControl } from "react-native-gesture-handler";
@@ -7,17 +6,17 @@ import { RowMap, SwipeListView } from "react-native-swipe-list-view";
 import { useSelector } from "react-redux";
 
 import { PLUS_ICON } from "../../../assets/icons";
-import { CustomButton } from "../../../components/common";
+import { IconButton } from "../../../components/common";
 import { ConfirmModal } from "../../../components/modals";
 import { EmptyView } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants";
+import { IconButtonStyles } from "../../../constants/styles";
 import {
   pinItemModelToPinModel,
   pinModelToPinItemModel,
 } from "../../../converters";
 import { hideActionMenu } from "../../../helpers";
 import { usePins } from "../../../hooks";
-import { HomeStackParamList } from "../../../navigation/HomeStack/types";
+import { HomeScreenNavigationProp } from "../../../navigation/HomeStack/types";
 import { TabProps } from "../../../navigation/TabStack/types";
 import { stopSearchAction } from "../../../store/redux/actions";
 import { selectSearch } from "../../../store/redux/slices";
@@ -30,11 +29,6 @@ import {
 } from "./components/PinActionMenu";
 import { PinItem } from "./components/PinItem";
 import styles from "./styles";
-
-type HomeScreenNavigationProp = StackNavigationProp<
-  HomeStackParamList,
-  "AddPin"
->;
 
 export const PinsScreen: FC<TabProps> = ({ navigation }) => {
   const dispatch = useAppDispatch();
@@ -169,8 +163,9 @@ export const PinsScreen: FC<TabProps> = ({ navigation }) => {
         rightOpenValue={-PIN_ACTION_MENU_WIDTH}
       />
 
-      <CustomButton
-        style={CustomButtonStyles.roundFloating_i2}
+      <IconButton
+        style={IconButtonStyles.floating}
+        backgroundColor="primary"
         imageSource={PLUS_ICON}
         onPress={addPinHandler}
       />

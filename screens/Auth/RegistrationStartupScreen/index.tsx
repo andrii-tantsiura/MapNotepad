@@ -2,9 +2,13 @@ import React from "react";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import { CustomButton, InformativeTextInput } from "../../../components/common";
+import {
+  CustomButton,
+  IconButton,
+  InformativeTextInput,
+} from "../../../components/common";
 import { Separator } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants";
+import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import { EMAIL_RULES, USERNAME_RULES } from "../../../helpers";
 import { useHookForm } from "../../../hooks";
 import { AuthScreenProps } from "../../../navigation/AuthStack/types";
@@ -14,6 +18,7 @@ import styles from "./styles";
 export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
   navigation,
 }) => {
+
   const goToNextRegistrationStepHandler = ({
     name,
     email,
@@ -24,7 +29,12 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
     });
   };
 
-  const { formController, handleSubmit } = useHookForm<ICreateUserForm>();
+  const { formController, handleSubmit } = useHookForm<ICreateUserForm>({
+    defaultValues: {
+      name: "name",
+      email: "test123@mail.com",
+    },
+  });
 
   return (
     <View style={styles.container}>
@@ -50,7 +60,8 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.rectSolid_i1}
+          backgroundColor="primary"
+          textStyle={textStyle_i4}
           onPress={handleSubmit(goToNextRegistrationStepHandler)}
         >
           Next
@@ -58,8 +69,9 @@ export const RegistrationStartupScreen: React.FC<AuthScreenProps> = ({
 
         <Separator>or</Separator>
 
-        <CustomButton
-          style={CustomButtonStyles.rectOutline_i2}
+        <IconButton
+          style={IconButtonStyles.outline}
+          borderColor="primary"
           imageSource={GOOGLE_ICON}
         />
       </View>

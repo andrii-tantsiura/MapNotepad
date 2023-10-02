@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { LatLng } from "react-native-maps";
 
 import { DEFAULT_REGION } from "../../../constants";
-import { setUserLocationAction } from "../actions/userLocation.actions";
+import { setUserLocationAction } from "../actions";
 import { RootStore } from "../store";
 
 interface IInitialState {

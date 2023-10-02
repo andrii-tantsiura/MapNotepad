@@ -41,7 +41,7 @@ const textStyle_i1: ITypographyStyle = {
   fontWeight: "bold",
   fontSize: "i18",
   lineHeight: "i27",
-  color: "lightPrimary",
+  color: "primary",
 };
 
 // 600
@@ -49,14 +49,14 @@ const textStyle_i2: ITypographyStyle = {
   fontWeight: "semiBold",
   fontSize: "i10",
   lineHeight: "i15",
-  color: "lightError",
+  color: "error",
 };
 
 const textStyle_i3: ITypographyStyle = {
   fontWeight: "semiBold",
   fontSize: "i12",
   lineHeight: "i18",
-  color: "lightPrimary",
+  color: "primary",
 };
 
 const textStyle_i4: ITypographyStyle = {
@@ -70,14 +70,14 @@ const textStyle_i5: ITypographyStyle = {
   fontWeight: "semiBold",
   fontSize: "i14",
   lineHeight: "i21",
-  color: "lightPrimary",
+  color: "primary",
 };
 
 const textStyle_i6: ITypographyStyle = {
   fontWeight: "semiBold",
   fontSize: "i16",
   lineHeight: "i24",
-  color: "systemBlack",
+  color: "primaryText",
 };
 
 // 500
@@ -92,21 +92,21 @@ const textStyle_i8: ITypographyStyle = {
   fontWeight: "medium",
   fontSize: "i12",
   lineHeight: "i18",
-  color: "systemLightGray",
+  color: "systemGray",
 };
 
 const textStyle_i13: ITypographyStyle = {
   fontWeight: "medium",
   fontSize: "i12",
   lineHeight: "i18",
-  color: "systemBlack",
+  color: "primaryText",
 };
 
 const textStyle_i9: ITypographyStyle = {
   fontWeight: "medium",
   fontSize: "i14",
   lineHeight: "i21",
-  color: "systemBlack",
+  color: "primaryText",
 };
 
 // 400
@@ -121,7 +121,7 @@ const textStyle_i11: ITypographyStyle = {
   fontWeight: "regular",
   fontSize: "i12",
   lineHeight: "i18",
-  color: "systemDarkGray",
+  color: "secondaryText",
 };
 
 const textStyle_i12: ITypographyStyle = {
@@ -135,7 +135,7 @@ const textStyle_i14: ITypographyStyle = {
   fontWeight: "regular",
   fontSize: "i14",
   lineHeight: "i21",
-  color: "systemBlack",
+  color: "primaryText",
 };
 
 export {

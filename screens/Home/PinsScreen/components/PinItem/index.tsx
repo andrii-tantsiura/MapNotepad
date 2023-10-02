@@ -1,19 +1,16 @@
 import React, { FC } from "react";
 import { Image, Pressable, View } from "react-native";
 
-import {
-  LIKE_BLUE_ICON,
-  LIKE_GRAY_ICON,
-  RIGHT_GRAY_ICON,
-} from "../../../../../assets/icons";
-import { CustomButton, Typography } from "../../../../../components/common";
+import { LIKE_BLUE_ICON, RIGHT_GRAY_ICON } from "../../../../../assets/icons";
+import { IconButton, Typography } from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
 import {
-  ImageStyles,
+  ImageSizes,
   textStyle_i11,
   textStyle_i9,
 } from "../../../../../constants";
 import { formatCoordinate } from "../../../../../helpers";
+import { useAppTheme } from "../../../../../hooks";
 import { IPinItemModel } from "../../../../../types/components";
 import styles from "./styles";
 
@@ -25,17 +22,22 @@ interface IPinItemProps {
 
 export const PinItem: FC<IPinItemProps> = React.memo(
   ({ pin, onPress, onPressFavoriteStatus }) => {
-    const favoriteStatusIcon = pin.isFavorite ? LIKE_BLUE_ICON : LIKE_GRAY_ICON;
+    const { appColors } = useAppTheme();
 
     const changeFavoriteStatusHandler = () => onPressFavoriteStatus(pin);
 
     return (
-      <Pressable style={styles.container} onPress={() => onPress(pin)}>
+      <Pressable
+        style={[styles.container, { backgroundColor: appColors.background }]}
+        onPress={() => onPress(pin)}
+      >
         <View style={styles.content}>
           <View style={styles.infoContainer}>
-            <CustomButton
-              containerStyle={styles.likeButton}
-              imageSource={favoriteStatusIcon}
+            <IconButton
+              style={styles.likeButton}
+              backgroundColor="variant"
+              tintColor={pin.isFavorite ? "primary" : "systemGray"}
+              imageSource={LIKE_BLUE_ICON}
               onPress={changeFavoriteStatusHandler}
             />
 
@@ -48,7 +50,7 @@ export const PinItem: FC<IPinItemProps> = React.memo(
             </View>
           </View>
 
-          <Image style={ImageStyles.i1} source={RIGHT_GRAY_ICON} />
+          <Image style={ImageSizes.medium} source={RIGHT_GRAY_ICON} />
         </View>
 
         <Separator />

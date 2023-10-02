@@ -2,9 +2,13 @@ import React, { useState } from "react";
 import { View } from "react-native";
 
 import { GOOGLE_ICON } from "../../../assets/icons";
-import { CustomButton, InformativeTextInput } from "../../../components/common";
+import {
+  CustomButton,
+  IconButton,
+  InformativeTextInput,
+} from "../../../components/common";
 import { LoaderView, Separator } from "../../../components/sections";
-import { CustomButtonStyles } from "../../../constants";
+import { IconButtonStyles, textStyle_i4 } from "../../../constants/styles";
 import { FirebaseErrorMessages } from "../../../enums";
 import {
   PASSWORD_RULES,
@@ -82,7 +86,8 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
       <View style={styles.buttonsContainer}>
         <CustomButton
-          style={CustomButtonStyles.rectSolid_i1}
+          backgroundColor="primary"
+          textStyle={textStyle_i4}
           onPress={handleSubmit(createAccountHandler)}
         >
           Create account
@@ -90,8 +95,9 @@ export const RegistrationCompletionScreen: React.FC<AuthScreenProps> = ({
 
         <Separator>or</Separator>
 
-        <CustomButton
-          style={CustomButtonStyles.rectOutline_i2}
+        <IconButton
+          style={IconButtonStyles.outline}
+          borderColor="primary"
           imageSource={GOOGLE_ICON}
         />
       </View>
