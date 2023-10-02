@@ -11,7 +11,7 @@ interface ISeparatorProps {
 }
 
 export const Separator: React.FC<ISeparatorProps> = ({ children }) => (
-  <View style={styles.container}>
+  <View style={[styles.container, Boolean(children) && { columnGap: 4 }]}>
     <Box backgroundColor="variant" style={styles.line} />
 
     {children && (
