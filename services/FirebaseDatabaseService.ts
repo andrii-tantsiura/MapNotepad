@@ -7,14 +7,7 @@ import { IFirebaseRestService } from "../interfaces";
 import { IFirebaseNodes } from "../types/api/firebase";
 
 export class FirebaseDatabaseService implements IFirebaseRestService {
-  private _userId: string = "";
-
-  constructor(userId: string) {
-    this._userId = userId;
-  }
-
-  private getReference = (path: string) =>
-    ref(FirebaseDatabase, `/${this._userId}/${path}`);
+  private getReference = (path: string) => ref(FirebaseDatabase, path);
 
   public get = <TResponse>(url: string) =>
     ExecuteAsync<Array<TResponse>>(async () => {
