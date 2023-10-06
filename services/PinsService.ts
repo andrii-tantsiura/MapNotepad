@@ -13,13 +13,16 @@ export class PinsService implements IPinsService {
 
   constructor(credentials: ICredentialsModel | null) {
     this._restService = new FirebaseDatabaseService();
-    this._pathToPins = `pins/${
-      credentials ? credentials.userId : ErrorMessages.UNDEFINED_USER_ID
-    }`;
+
+    const userId = credentials
+      ? credentials.userId
+      : ErrorMessages.UNDEFINED_USER_ID;
+
+    this._pathToPins = `pins/${userId}`;
   }
 
   public getPins = async (): AsyncResult<Array<IPinModel>> =>
-    this._restService.get<IPinModel>(this._pathToPins);
+    this._restService.getArray<IPinModel>(this._pathToPins);
 
   filterPinsBySearchQuery = (
     pins: Array<IPinModel>,

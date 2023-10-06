@@ -8,7 +8,7 @@ import { ConfirmModal } from "../../components/modals";
 import { SearchBar } from "../../components/sections";
 import { textStyle_i3 } from "../../constants";
 import { typographyStyleToTextStyle } from "../../helpers";
-import { useAppTheme, useAuth, usePins } from "../../hooks";
+import { useAppTheme, useAuth, usePins, useSettings } from "../../hooks";
 import { MapScreen, PinsScreen } from "../../screens/Home";
 import { HomeScreenNavigationProp } from "../HomeStack/types";
 import styles from "./styles";
@@ -22,10 +22,12 @@ const TabsStack: React.FC = () => {
 
   const { signOut } = useAuth();
   const { fetchPins } = usePins();
+  const { fetchSettings } = useSettings();
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
 
   useEffect(() => {
     fetchPins();
+    fetchSettings();
   }, []);
 
   return (

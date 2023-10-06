@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { useSelector } from "react-redux";
 
 import { FirebaseAuth } from "../FirebaseConfig";
@@ -17,14 +18,16 @@ export const useAuth = (): UseAuthReturn => {
   const dispatch = useAppDispatch();
   const { isAuthenticated, credentials } = useSelector(selectAuth);
 
-  const setCredentials = (credentials: ICredentialsModel) =>
-    dispatch(loginAction(credentials));
+  const setCredentials = useCallback(
+    (credentials: ICredentialsModel) => dispatch(loginAction(credentials)),
+    []
+  );
 
-  const signOut = async (): Promise<void> => {
+  const signOut = useCallback(async (): Promise<void> => {
     await FirebaseAuth.signOut();
 
     dispatch(logoutAction());
-  };
+  }, []);
 
   return {
     credentials,

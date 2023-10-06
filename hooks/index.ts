@@ -4,5 +4,6 @@ export * from "./useFirebaseLogin";
 export * from "./useHeaderRightButton";
 export * from "./useHookForm";
 export * from "./usePins";
+export * from "./useSettings";
 export * from "./useSplashScreen";
 export * from "./useUserLocation";
