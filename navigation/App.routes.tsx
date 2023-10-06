@@ -27,7 +27,7 @@ const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
       fetchSettings().then(onReady);
       fetchPins();
     }
-  }, [credentials, fetchPins, fetchSettings, onReady]);
+  }, [credentials]);
 
   return (
     <>
