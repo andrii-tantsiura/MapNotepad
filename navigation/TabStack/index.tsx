@@ -1,6 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { MAP_ICON, PIN_ICON } from "../../assets/icons";
 import { Icon } from "../../components/common";
@@ -8,7 +8,7 @@ import { ConfirmModal } from "../../components/modals";
 import { SearchBar } from "../../components/sections";
 import { textStyle_i3 } from "../../constants";
 import { typographyStyleToTextStyle } from "../../helpers";
-import { useAppTheme, useAuth, usePins, useSettings } from "../../hooks";
+import { useAppTheme, useAuth } from "../../hooks";
 import { MapScreen, PinsScreen } from "../../screens/Home";
 import { HomeScreenNavigationProp } from "../HomeStack/types";
 import styles from "./styles";
@@ -19,16 +19,8 @@ const Tabs = createBottomTabNavigator<TabStackParamList>();
 const TabsStack: React.FC = () => {
   const navigation = useNavigation<HomeScreenNavigationProp>();
   const { appColors } = useAppTheme();
-
   const { signOut } = useAuth();
-  const { fetchPins } = usePins();
-  const { fetchSettings } = useSettings();
   const [isLogoutDialogOpened, setIsLogoutDialogOpened] = useState(false);
-
-  useEffect(() => {
-    fetchPins();
-    fetchSettings();
-  }, []);
 
   return (
     <>

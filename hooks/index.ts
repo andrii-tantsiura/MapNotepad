@@ -1,6 +1,6 @@
 export * from "./useAppTheme";
 export * from "./useAuth";
-export * from "./useFirebaseLogin";
+export * from "./useFirebaseAutoLogin";
 export * from "./useHeaderRightButton";
 export * from "./useHookForm";
 export * from "./usePins";

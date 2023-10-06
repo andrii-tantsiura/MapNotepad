@@ -1,14 +1,14 @@
-import {
-  DefaultTheme,
-  NavigationContainer,
-  Theme,
-} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
 import FlashMessage from "react-native-flash-message";
 
-import { useEffect, useState } from "react";
-import { LoaderView } from "../components/sections";
-import { useAppTheme, useFirebaseLogin } from "../hooks";
+import {
+  useAppTheme,
+  useFirebaseAutoLogin,
+  usePins,
+  useSettings,
+} from "../hooks";
 import AuthStack from "./AuthStack";
 import HomeStack from "./HomeStack";
 
@@ -17,31 +17,23 @@ type AppRoutesProps = {
 };
 
 const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
-  const { isLoginInProcess, isAuthenticated } = useFirebaseLogin();
-
-  const { appColors, statusBarStyle } = useAppTheme();
-
-  const [theme, setTheme] = useState<Theme>();
+  const { isAuthenticated, credentials } = useFirebaseAutoLogin();
+  const { theme, statusBarStyle } = useAppTheme();
+  const { fetchSettings } = useSettings();
+  const { fetchPins } = usePins();
 
   useEffect(() => {
-    setTheme({
-      ...DefaultTheme,
-      colors: {
-        ...DefaultTheme.colors,
-        card: appColors.background,
-        text: appColors.systemGray,
-        background: appColors.background,
-      },
-    });
-  }, [appColors]);
+    if (credentials) {
+      fetchSettings().then(onReady);
+      fetchPins();
+    }
+  }, [credentials, fetchPins, fetchSettings, onReady]);
 
-  return isLoginInProcess ? (
-    <LoaderView />
-  ) : (
+  return (
     <>
       <StatusBar style={statusBarStyle} />
       <FlashMessage />
-      <NavigationContainer theme={theme} onReady={onReady}>
+      <NavigationContainer theme={theme}>
         {isAuthenticated ? <HomeStack /> : <AuthStack />}
       </NavigationContainer>
     </>
