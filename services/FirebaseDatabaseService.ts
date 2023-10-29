@@ -5,18 +5,19 @@ import { firebaseNodesToArray } from "../helpers";
 import { ExecuteAsync } from "../helpers/AOResult";
 import { IFirebaseRestService } from "../interfaces";
 import { IFirebaseNodes } from "../types/api/firebase";
+import { AsyncResult } from "../helpers/AOResult/types";
 
 export class FirebaseDatabaseService implements IFirebaseRestService {
-  private _userId: string = "";
+  private getReference = (path: string) => ref(FirebaseDatabase, path);
 
-  constructor(userId: string) {
-    this._userId = userId;
-  }
+  public getObject = <TResponse>(url: string): AsyncResult<TResponse> =>
+    ExecuteAsync<TResponse>(async () => {
+      const response = await get(this.getReference(url));
 
-  private getReference = (path: string) =>
-    ref(FirebaseDatabase, `/${this._userId}/${path}`);
+      return response.val() as TResponse;
+    });
 
-  public get = <TResponse>(url: string) =>
+  public getArray = <TResponse>(url: string): AsyncResult<Array<TResponse>> =>
     ExecuteAsync<Array<TResponse>>(async () => {
       const response = await get(this.getReference(url));
 
@@ -25,7 +26,7 @@ export class FirebaseDatabaseService implements IFirebaseRestService {
       return firebaseNodesToArray(firebaseNodes);
     });
 
-  public delete = (url: string) =>
+  public delete = (url: string): AsyncResult<void> =>
     ExecuteAsync(async () => remove(this.getReference(url)));
 
   public post = <TPayload, TResponse>(url: string, payload: TPayload) =>
@@ -35,6 +36,6 @@ export class FirebaseDatabaseService implements IFirebaseRestService {
       return key as TResponse;
     });
 
-  public put = (url: string, payload: any) =>
+  public put = (url: string, payload: any): AsyncResult<void> =>
     ExecuteAsync<void>(() => update(this.getReference(url), payload));
 }

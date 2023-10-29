@@ -1,13 +1,7 @@
 import { LatLng } from "react-native-maps";
 
 export interface IPinPayload {
-  label: string;
-  description: string;
-  location: LatLng;
-  isFavorite: boolean;
-}
-
-export interface IPin {
+  userId: string;
   label: string;
   description: string;
   location: LatLng;

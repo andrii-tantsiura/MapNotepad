@@ -1,4 +1,5 @@
 import { pinModelToPinPayload } from "../converters";
+import { ErrorMessages } from "../enums";
 import { AsyncResult } from "../helpers/AOResult/types";
 import { IFirebaseRestService, IPinsService } from "../interfaces";
 import { IPinPayload } from "../types/api/firebase";
@@ -8,15 +9,20 @@ import { FirebaseDatabaseService } from "./FirebaseDatabaseService";
 
 export class PinsService implements IPinsService {
   private _restService: IFirebaseRestService;
+  private _pathToPins: string;
 
   constructor(credentials: ICredentialsModel | null) {
-    this._restService = new FirebaseDatabaseService(
-      credentials?.userId ?? "Undefined User Id"
-    );
+    this._restService = new FirebaseDatabaseService();
+
+    const userId = credentials
+      ? credentials.userId
+      : ErrorMessages.UNDEFINED_USER_ID;
+
+    this._pathToPins = `pins/${userId}`;
   }
 
   public getPins = async (): AsyncResult<Array<IPinModel>> =>
-    this._restService.get<IPinModel>("pins/");
+    this._restService.getArray<IPinModel>(this._pathToPins);
 
   filterPinsBySearchQuery = (
     pins: Array<IPinModel>,
@@ -41,18 +47,24 @@ export class PinsService implements IPinsService {
   };
 
   public deletePin = async (pinId: string): AsyncResult<void> =>
-    this._restService.delete(`pins/${pinId}`);
+    this._restService.delete(`${this._pathToPins}/${pinId}`);
 
   public createPin = async (pin: IPinModel): AsyncResult<string> => {
     const payload = pinModelToPinPayload(pin);
 
-    return this._restService.post<IPinPayload, string>("pins/", payload);
+    return this._restService.post<IPinPayload, string>(
+      this._pathToPins,
+      payload
+    );
   };
 
   public updatePin = async (pin: IPinModel): AsyncResult<void> => {
     const payload = pinModelToPinPayload(pin);
 
-    return await this._restService.put<IPinPayload>(`pins/${pin.id}`, payload);
+    return await this._restService.put<IPinPayload>(
+      `${this._pathToPins}/${pin.id}`,
+      payload
+    );
   };
 
   toggleFavoritePinStatus = async (pin: IPinModel): AsyncResult<void> => {

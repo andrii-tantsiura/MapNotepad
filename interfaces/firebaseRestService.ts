@@ -1,7 +1,8 @@
 import { AsyncResult } from "../helpers/AOResult/types";
 
 export interface IFirebaseRestService {
-  get: <TResponse>(url: string) => AsyncResult<Array<TResponse>>;
+  getArray: <TResponse>(url: string) => AsyncResult<Array<TResponse>>;
+  getObject: <TResponse>(url: string) => AsyncResult<TResponse>;
   delete: (url: string) => AsyncResult<void>;
   post: <TPayload, TResponse>(
     url: string,

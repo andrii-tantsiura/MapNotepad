@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 
 import { FirebaseAuth } from "../FirebaseConfig";
+import { ICredentialsModel } from "../types/models";
 import { useAuth } from "./useAuth";
 
 type UseLoginReturn = {
+  credentials: ICredentialsModel | null;
   isAuthenticated: boolean;
   isLoginInProcess: boolean;
 };
 
-export const useFirebaseLogin = (): UseLoginReturn => {
-  const { isAuthenticated, setCredentials } = useAuth();
+export const useFirebaseAutoLogin = (): UseLoginReturn => {
+  const { isAuthenticated, setCredentials, credentials } = useAuth();
   const [isLoginInProcess, setIsLoginInProcess] = useState(true);
 
   useEffect(() => {
@@ -27,6 +29,7 @@ export const useFirebaseLogin = (): UseLoginReturn => {
   }, []);
 
   return {
+    credentials,
     isLoginInProcess,
     isAuthenticated,
   };

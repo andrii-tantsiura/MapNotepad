@@ -1,4 +1,6 @@
+import { DefaultTheme, Theme } from "@react-navigation/native";
 import { StatusBarStyle } from "expo-status-bar";
+import { useEffect, useState } from "react";
 import { MapStyleElement } from "react-native-maps";
 import { useSelector } from "react-redux";
 
@@ -7,6 +9,7 @@ import { AppThemes } from "../enums";
 import { selectSettings } from "../store/redux/slices";
 
 type UseAppThemeReturn = {
+  theme: Theme | undefined;
   currentTheme: AppThemes;
   appColors: IAppColors;
   statusBarStyle: StatusBarStyle;
@@ -19,7 +22,22 @@ export const useAppTheme = (): UseAppThemeReturn => {
     themeResource: { colors, statusBarStyle, mapStyles },
   } = useSelector(selectSettings);
 
+  const [theme, setTheme] = useState<Theme>();
+
+  useEffect(() => {
+    setTheme({
+      ...DefaultTheme,
+      colors: {
+        ...DefaultTheme.colors,
+        card: colors.background,
+        text: colors.systemGray,
+        background: colors.background,
+      },
+    });
+  }, [colors]);
+
   return {
+    theme,
     currentTheme,
     appColors: colors,
     statusBarStyle,
