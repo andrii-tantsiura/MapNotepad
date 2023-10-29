@@ -23,10 +23,8 @@ const AppRoutes: React.FC<AppRoutesProps> = ({ onReady }) => {
   const { fetchPins } = usePins();
 
   useEffect(() => {
-    if (credentials) {
-      fetchSettings().then(onReady);
-      fetchPins();
-    }
+    fetchSettings().then(onReady);
+    fetchPins();
   }, [credentials]);
 
   return (
