@@ -1,8 +1,18 @@
-import React, { FC } from "react";
+import React, { FC, useCallback } from "react";
 import { Image, Pressable, View } from "react-native";
 
-import { LIKE_BLUE_ICON, RIGHT_GRAY_ICON } from "../../../../../assets/icons";
-import { IconButton, Typography } from "../../../../../components/common";
+import {
+  DELETE_ICON,
+  DOWN_ICON,
+  EDIT_ICON,
+  LIKE_BLUE_ICON,
+} from "../../../../../assets/icons";
+import {
+  ContextMenu,
+  ContextMenuOption,
+  IconButton,
+  Typography,
+} from "../../../../../components/common";
 import { Separator } from "../../../../../components/sections";
 import {
   ImageSizes,
@@ -18,13 +28,31 @@ interface IPinItemProps {
   pin: IPinItemModel;
   onPress: (pin: IPinItemModel) => void;
   onPressFavoriteStatus: (pin: IPinItemModel) => void;
+  onDelete: (pin: IPinItemModel) => void;
+  onEdit: (pin: IPinItemModel) => void;
 }
 
 export const PinItem: FC<IPinItemProps> = React.memo(
-  ({ pin, onPress, onPressFavoriteStatus }) => {
+  ({ pin, onPress, onPressFavoriteStatus, onDelete, onEdit }) => {
     const { appColors } = useAppTheme();
 
-    const changeFavoriteStatusHandler = () => onPressFavoriteStatus(pin);
+    const changeFavoriteStatusHandler = useCallback(
+      () => onPressFavoriteStatus(pin),
+      [pin]
+    );
+
+    const contextMenuOptions: ContextMenuOption[] = [
+      {
+        text: "Edit",
+        imageSource: EDIT_ICON,
+        onPress: () => onEdit(pin),
+      },
+      {
+        text: "Delete",
+        imageSource: DELETE_ICON,
+        onPress: () => onDelete(pin),
+      },
+    ];
 
     return (
       <Pressable
@@ -50,7 +78,17 @@ export const PinItem: FC<IPinItemProps> = React.memo(
             </View>
           </View>
 
-          <Image style={ImageSizes.medium} source={RIGHT_GRAY_ICON} />
+          <ContextMenu
+            offsetX={-55}
+            offsetY={-5}
+            triggerComponent={
+              <Image
+                style={[ImageSizes.medium, styles.contextMenuTrigger]}
+                source={DOWN_ICON}
+              />
+            }
+            items={contextMenuOptions}
+          />
         </View>
 
         <Separator />

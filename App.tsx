@@ -1,4 +1,5 @@
 import { useFonts } from "expo-font";
+import { NativeBaseProvider } from "native-base";
 import React from "react";
 import "react-native-gesture-handler";
 import { Provider } from "react-redux";
@@ -22,7 +23,9 @@ export default function App() {
   return (
     <SplashScreenContainer>
       <Provider store={store}>
-        <AppRoutes onReady={onContentReady} />
+        <NativeBaseProvider>
+          <AppRoutes onReady={onContentReady} />
+        </NativeBaseProvider>
       </Provider>
     </SplashScreenContainer>
   );

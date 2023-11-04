@@ -17,17 +17,23 @@ const HomeStack: React.FC = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName="Tabs"
+      initialRouteName="Home"
       screenOptions={{
         headerShadowVisible: false,
         headerTitleAlign: "center",
-        headerStyle: { backgroundColor: appColors.background },
+        headerStyle: {
+          backgroundColor: appColors.background,
+        },
+        headerLeftContainerStyle: {
+          paddingLeft: 8,
+        },
+        headerLeftLabelVisible: false,
         headerTitle: HeaderTitle,
         headerBackImage: HeaderBackImage,
       }}
     >
       <Stack.Screen
-        name="Tabs"
+        name="Home"
         component={TabsStack}
         options={{
           headerShown: false,

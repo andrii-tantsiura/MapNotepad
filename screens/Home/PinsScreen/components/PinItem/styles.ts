@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
     width: scaleSize(40),
     borderRadius: 6,
   },
+  contextMenuTrigger: {
+    marginHorizontal: 10,
+    paddingBottom: 10,
+  },
 });
 
 export default styles;

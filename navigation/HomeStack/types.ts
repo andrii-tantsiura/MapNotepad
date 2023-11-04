@@ -3,7 +3,7 @@ import { StackNavigationProp, StackScreenProps } from "@react-navigation/stack";
 import { IPinModel } from "../../types/models";
 
 export type HomeStackParamList = {
-  Tabs: undefined;
+  Home: undefined;
   AddPin: undefined;
   EditPin: { pin: IPinModel };
   Settings: undefined;
